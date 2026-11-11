@@ -1,0 +1,594 @@
+/* =================================================================
+   BUNDLE BUILDER PAGE — конструктор «Собери свой бандл»
+   Подключается ТОЛЬКО на page-bundle-builder.php
+   Скоуп: .bundle-builder-page
+   На странице активны ТРИ класса на корневом <main>:
+     "bundles-page bundle-single-page bundle-builder-page"
+   Стили наследуем:
+     .bcard, .mini-tee, .tnail, .benefits   ← из style-bundles.css
+     .bi-num, .size-btn, .sw, .bi-select,
+     .m-stickybar, .btn--lg/full/ic,
+     .crumbs, .sect-head, .carbtn           ← из style-bundle-single.css
+   Здесь — только НОВЫЕ компоненты builder'а.
+   ================================================================= */
+
+/* ============================================================
+   1. BUILDER HERO
+   ============================================================ */
+.builder-hero{
+  display:grid;grid-template-columns:1fr 540px;gap:32px;align-items:center;
+  background:var(--gray);
+  background-image:radial-gradient(ellipse at 80% 50%,rgba(255,106,0,0.06) 0%,transparent 65%);
+  border-radius:12px;padding:48px 44px;
+  margin:8px 0 16px;min-height:340px;
+  overflow:hidden;position:relative;
+}
+.builder-hero__body{position:relative;z-index:2}
+.builder-hero__label{
+  display:inline-flex;align-items:center;
+  font-family:var(--font-body);font-size:9px;font-weight:700;
+  letter-spacing:0.2em;text-transform:uppercase;color:var(--accent);
+  margin-bottom:16px;
+}
+.builder-hero__title{
+  font-family:var(--font-display);font-size:clamp(36px,5vw,56px);font-weight:700;
+  letter-spacing:0.03em;text-transform:uppercase;color:var(--white);
+  line-height:0.95;margin:0 0 14px;
+}
+.builder-hero__sub{
+  font-family:var(--font-text);font-size:14px;line-height:1.55;
+  color:rgba(245,244,240,0.7);max-width:440px;margin-bottom:24px;
+}
+.vprops{display:flex;gap:28px;flex-wrap:wrap;list-style:none;padding:0;margin:0}
+.vprop{display:flex;align-items:flex-start;gap:12px}
+.vprop__ic{width:24px;height:24px;color:var(--accent);flex-shrink:0;margin-top:2px}
+.vprop__t{
+  font-family:var(--font-body);font-size:11px;font-weight:700;
+  letter-spacing:0.06em;color:var(--white);text-transform:uppercase;line-height:1.3;
+}
+.vprop__s{font-family:var(--font-text);font-size:11.5px;color:var(--gray-light);margin-top:2px}
+
+.builder-hero__shirts{position:relative;height:300px}
+.hshirt{position:absolute;display:flex;align-items:center;justify-content:center}
+.hshirt .tee-svg{width:100%;height:auto;display:block;filter:drop-shadow(0 10px 20px rgba(0,0,0,0.55))}
+/* контраст. Чёрная футболка #0a0a0a сливалась с фоном #1a1a1a hero. */
+.hshirt[data-shirt="black"] .tee-svg{
+  color:#1c1c1c;
+  filter:drop-shadow(0 0 3px rgba(255,255,255,0.2)) drop-shadow(0 10px 20px rgba(0,0,0,0.55));
+}
+.hshirt[data-shirt="white"] .tee-svg{
+  color:#f0eee8;
+  filter:drop-shadow(0 10px 20px rgba(0,0,0,0.55));
+}
+.hshirt .tee-print{position:absolute;top:21%;left:50%;transform:translateX(-50%);width:42%;height:auto}
+.hshirt[data-shirt="black"] .tee-print{color:#f0ede5}
+.hshirt[data-shirt="white"] .tee-print{color:#111}
+.hshirt--1{width:170px;top:18px;left:0;transform:rotate(-12deg);z-index:1}
+.hshirt--2{width:180px;top:0;left:120px;transform:rotate(6deg);z-index:2}
+.hshirt--3{width:170px;top:30px;left:255px;transform:rotate(-4deg);z-index:3}
+.hshirt--4{width:170px;top:130px;left:60px;transform:rotate(8deg);z-index:4}
+.hshirt--5{width:170px;top:140px;left:330px;transform:rotate(-9deg);z-index:5}
+
+/* ============================================================
+   2. MAIN BUILDER LAYOUT
+   ============================================================ */
+.builder-grid{
+  display:grid;grid-template-columns:1fr 380px;gap:24px;
+  align-items:flex-start;margin-top:8px;
+}
+.builder-left{display:flex;flex-direction:column;gap:32px;min-width:0}
+.builder-right{position:sticky;top:80px;align-self:flex-start}
+
+/* sect-head у нас уже есть в style-bundle-single.css — добавляем только новые модификаторы */
+.bundle-builder-page .sect-head__l{display:flex;align-items:baseline;gap:10px}
+.bundle-builder-page .sect-head__count{
+  font-family:var(--font-body);font-size:12px;font-weight:700;
+  letter-spacing:0.14em;color:var(--gray-light);text-transform:uppercase;
+}
+.bundle-builder-page .sect-head__hint--accent{color:var(--accent)}
+
+/* явные [hidden] переопределения. Без них display:flex/grid из
+   стилей ниже бьёт [hidden]{display:none} по specificity и условные блоки
+   (когда savings === 0 или to_next === 0) остаются видимыми. */
+.bundle-builder-page .sect-head__hint[hidden],
+.bundle-builder-page .progress__cap[hidden],
+.bundle-builder-page .totals__row[hidden],
+.bundle-builder-page .totals__save[hidden]{display:none}
+
+/* ============================================================
+   3. SLOTS — «Ваш набор»
+   ============================================================ */
+.slots-section{display:flex;flex-direction:column;gap:6px}
+.slots-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:10px}
+
+.builder-slot{
+  position:relative;
+  background:var(--gray);border-radius:10px;
+  padding:14px 12px 12px;
+  display:flex;flex-direction:column;gap:8px;
+  min-height:300px;
+}
+/* .bi-num уже определён в style-bundle-single.css — переиспользуем */
+.bundle-builder-page .builder-slot .bi-num{
+  width:26px;height:26px;
+  align-self:flex-start;flex-shrink:0;
+}
+.bundle-builder-page .bi-num--empty{
+  background:var(--gray-mid);color:var(--gray-light);
+}
+
+.slot-x{
+  position:absolute;top:10px;right:10px;
+  width:24px;height:24px;border-radius:50%;
+  border:1px solid var(--border);background:transparent;
+  display:flex;align-items:center;justify-content:center;
+  color:var(--gray-light);cursor:pointer;
+  transition:all 0.15s;
+}
+.slot-x:hover{border-color:var(--red);color:var(--red);background:rgba(255,43,43,0.06)}
+.slot-x svg{width:10px;height:10px}
+
+.slot-shirt{
+  position:relative;
+  width:100%;height:110px;
+  display:flex;align-items:center;justify-content:center;
+  margin-top:-4px;
+}
+.slot-shirt .tee-svg{
+  width:auto;height:100%;display:block;
+  filter:drop-shadow(0 6px 12px rgba(0,0,0,0.45));
+}
+.slot-shirt[data-shirt="black"]    .tee-svg{color:#0a0a0a}
+.slot-shirt[data-shirt="white"]    .tee-svg{color:#e8e6df}
+.slot-shirt[data-shirt="graphite"] .tee-svg{color:#3c3c3c}
+.slot-shirt[data-shirt="beige"]    .tee-svg{color:#d6c8a8}
+.slot-shirt .tee-print{
+  position:absolute;top:22%;left:50%;transform:translateX(-50%);
+  height:34%;width:auto;
+}
+.slot-shirt[data-shirt="black"]    .tee-print,
+.slot-shirt[data-shirt="graphite"] .tee-print{color:#f0ede5}
+.slot-shirt[data-shirt="white"]    .tee-print,
+.slot-shirt[data-shirt="beige"]    .tee-print{color:#111}
+
+.slot-pickbtn{
+  width:100%;
+  font-family:var(--font-body);font-size:9px;font-weight:700;
+  letter-spacing:0.14em;text-transform:uppercase;
+  color:var(--accent);background:transparent;
+  border:1px solid var(--accent);
+  padding:7px 10px;border-radius:0;line-height:1;cursor:pointer;
+  transition:background 0.15s;
+}
+.slot-pickbtn:hover{background:rgba(255,106,0,0.08)}
+
+/* Внутри слота .size-btn нужно сделать чуть компактнее чем в single page —
+   ужимаем шрифт и padding для тесных карточек. */
+.bundle-builder-page .builder-slot .bi-types{display:flex;gap:4px}
+.bundle-builder-page .builder-slot .size-btn{
+  font-size:8.5px;letter-spacing:0.06em;text-transform:capitalize;
+  padding:7px 6px;
+}
+.bundle-builder-page .builder-slot .bi-colors{display:flex;gap:8px}
+.bundle-builder-page .builder-slot .sw i{width:18px;height:18px}
+.bundle-builder-page .builder-slot .bi-select{
+  padding:8px 12px;font-size:9.5px;letter-spacing:0.08em;height:32px;
+}
+.bundle-builder-page .builder-slot .bi-label{
+  font-size:8px;letter-spacing:0.18em;margin-top:2px;
+}
+
+/* Empty slot */
+.builder-slot--empty{
+  border:1.5px dashed rgba(255,255,255,0.18);
+  background:rgba(255,255,255,0.012);
+  cursor:pointer;
+  transition:border-color 0.15s;
+}
+.builder-slot--empty:hover{border-color:var(--accent)}
+.builder-slot--empty:hover .slot-empty__plus,
+.builder-slot--empty:hover .slot-empty__t{color:var(--accent)}
+.slot-empty{
+  flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;
+  gap:12px;color:var(--gray-light);padding:18px 0;
+}
+.slot-empty__plus{width:32px;height:32px;color:var(--gray-light);transition:color 0.15s}
+.slot-empty__t{
+  font-family:var(--font-body);font-size:10px;font-weight:700;
+  letter-spacing:0.18em;color:var(--gray-light);text-transform:uppercase;
+  text-align:center;transition:color 0.15s;
+}
+
+.slots-note{
+  display:flex;align-items:center;gap:10px;
+  margin-top:10px;padding:6px 2px;
+  font-family:var(--font-text);font-size:12px;color:var(--gray-light);
+}
+.slots-note__ic{width:14px;height:14px;color:var(--gray-light);flex-shrink:0}
+
+/* ============================================================
+   4. CATALOG — «Каталог принтов»
+   ============================================================ */
+.catalog-section{display:flex;flex-direction:column;gap:10px}
+
+.search-input{
+  display:flex;align-items:center;gap:8px;
+  border:1px solid var(--border);padding:0 12px;height:36px;
+  min-width:220px;max-width:280px;
+  transition:border-color 0.15s;
+}
+.search-input:focus-within{border-color:var(--accent)}
+.search-input__ic{width:14px;height:14px;color:var(--gray-light);flex-shrink:0}
+.search-input input{
+  flex:1;font-family:var(--font-text);font-size:13px;color:var(--white);
+  background:transparent;border:none;outline:none;height:100%;
+}
+.search-input input::placeholder{color:var(--gray-light)}
+
+.catalog-pills{
+  display:flex;flex-wrap:wrap;gap:6px;
+  padding:0 0 8px;border-bottom:1px solid var(--border);margin-bottom:8px;
+}
+/* .chub-pill уже есть в style-bundles.css; здесь — модификатор --drop */
+.bundle-builder-page .chub-pill--drop svg{width:9px;height:9px;color:currentColor}
+
+.theme{display:flex;flex-direction:column;gap:8px;margin-top:14px}
+.theme__head{
+  display:flex;align-items:baseline;justify-content:space-between;padding-bottom:2px;
+}
+.theme__h{
+  font-family:var(--font-display);font-size:16px;font-weight:700;
+  letter-spacing:0.04em;text-transform:uppercase;color:var(--white);
+  margin:0;line-height:1;
+}
+.theme__all{
+  font-family:var(--font-body);font-size:9px;font-weight:700;
+  letter-spacing:0.18em;color:var(--gray-light);text-transform:uppercase;
+  cursor:pointer;transition:color 0.15s;
+}
+.theme__all:hover{color:var(--accent)}
+
+.prn-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:8px}
+
+/* PRINT CARD */
+.print-card{
+  position:relative;
+  background:var(--gray);border-radius:10px;
+  padding:8px;
+  display:flex;flex-direction:column;align-items:stretch;gap:6px;
+  border:2px solid transparent;
+  cursor:pointer;
+  transition:transform 0.15s,border-color 0.15s,background 0.15s;
+}
+.print-card:hover{border-color:rgba(255,106,0,0.4);transform:scale(1.02)}
+.print-card.is-selected{
+  border-color:var(--accent);
+  background:linear-gradient(0deg,rgba(255,106,0,0.05),rgba(255,106,0,0.05)),var(--gray);
+}
+.print-card__check{
+  position:absolute;top:-7px;right:-7px;z-index:5;
+  width:22px;height:22px;border-radius:50%;
+  background:var(--accent);color:#000;
+  display:flex;align-items:center;justify-content:center;
+  box-shadow:0 4px 10px rgba(255,106,0,0.4);
+}
+.print-card__check svg{width:11px;height:11px}
+
+.pc-stage{
+  position:relative;
+  aspect-ratio:1/1;
+  background:radial-gradient(circle at 50% 40%,#232323 0%,#131313 80%);
+  border-radius:6px;overflow:hidden;
+  display:flex;align-items:center;justify-content:center;
+}
+.pc-stage .tee-svg{
+  width:auto;height:78%;display:block;
+  filter:drop-shadow(0 4px 10px rgba(0,0,0,0.45));
+}
+.print-card[data-shirt="black"] .pc-stage .tee-svg{color:#0a0a0a}
+.print-card[data-shirt="white"] .pc-stage .tee-svg{color:#e8e6df}
+.pc-stage .tee-print{
+  position:absolute;top:30%;left:50%;transform:translateX(-50%);
+  height:26%;width:auto;
+}
+.print-card[data-shirt="black"] .pc-stage .tee-print{color:#f0ede5}
+.print-card[data-shirt="white"] .pc-stage .tee-print{color:#111}
+.pc-cap{
+  font-family:var(--font-body);font-size:7.5px;font-weight:700;
+  letter-spacing:0.18em;color:var(--gray-light);text-transform:uppercase;
+  text-align:center;padding:2px 0 0;transition:color 0.15s;
+}
+.print-card.is-selected .pc-cap{color:var(--accent)}
+
+.catalog-more{margin-top:16px}
+
+/* ============================================================
+   5. SUMMARY (right sticky panel)
+   ============================================================ */
+.summary{
+  background:var(--gray);border-radius:10px;
+  padding:22px 22px 20px;
+  display:flex;flex-direction:column;gap:18px;
+}
+.summary__head{display:flex;align-items:baseline;justify-content:space-between}
+.summary__title{
+  font-family:var(--font-display);font-size:22px;font-weight:700;
+  letter-spacing:0.05em;text-transform:uppercase;color:var(--white);
+  line-height:1;margin:0;
+}
+.summary__sub{
+  font-family:var(--font-body);font-size:10px;font-weight:700;
+  letter-spacing:0.16em;color:var(--gray-light);text-transform:uppercase;
+}
+
+/* progress 1→5 */
+.progress{display:flex;flex-direction:column;gap:8px}
+.progress__steps{
+  display:grid;
+  grid-template-columns:1fr 14px 1fr 14px 1fr 14px 1fr 14px 1fr;
+  align-items:center;margin:6px 0;
+}
+.pstep{display:flex;flex-direction:column;align-items:center;gap:6px;min-width:0}
+.pstep__dot{
+  width:28px;height:28px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  font-family:var(--font-display);font-size:13px;font-weight:700;line-height:1;
+  transition:transform 0.2s;
+}
+.pstep__pct{
+  font-family:var(--font-body);font-size:9px;font-weight:700;
+  letter-spacing:0.06em;color:var(--gray-light);text-transform:uppercase;text-align:center;
+}
+.pstep__pill{
+  font-family:var(--font-body);font-size:10px;font-weight:700;
+  letter-spacing:0.04em;color:var(--black);background:var(--accent);
+  padding:3px 7px;border-radius:3px;line-height:1;white-space:nowrap;
+}
+.pstep--past .pstep__dot{
+  background:transparent;color:var(--accent);
+  border:1px solid var(--accent);
+}
+.pstep--past .pstep__pct{color:var(--accent)}
+.pstep--current .pstep__dot{
+  background:var(--accent);color:var(--black);transform:scale(1.15);
+}
+.pstep--locked .pstep__dot{background:var(--gray-mid);color:var(--gray-light)}
+.pstep--locked .pstep__pct{color:var(--gray-light)}
+
+.pline{height:2px;background:var(--gray-mid);width:100%;align-self:start;margin-top:13px}
+.pline--on{background:var(--accent)}
+
+.progress__cap{
+  font-family:var(--font-text);font-size:12.5px;color:var(--accent);
+  line-height:1.4;margin-top:4px;
+}
+.progress__cap[hidden]{display:none}
+.progress__sub{font-family:var(--font-text);font-size:11px;color:var(--gray-light);line-height:1.4}
+
+/* items list */
+.items{display:flex;flex-direction:column;gap:8px;list-style:none;padding:0;margin:0}
+.item{
+  display:grid;grid-template-columns:24px 56px 1fr 24px;
+  gap:10px;align-items:center;
+  background:var(--gray-mid);border:1px solid var(--border);
+  padding:10px 12px;border-radius:6px;
+}
+.item__num{
+  width:22px;height:22px;border-radius:50%;
+  background:var(--gray-mid);color:var(--accent);
+  display:inline-flex;align-items:center;justify-content:center;
+  font-family:var(--font-display);font-size:12px;font-weight:700;
+}
+.item__shirt{
+  position:relative;width:48px;height:62px;
+  display:flex;align-items:center;justify-content:center;
+  background:radial-gradient(circle at 50% 40%,#1f1f1f 0%,#111 80%);
+  border-radius:4px;overflow:hidden;
+}
+.item__shirt .tee-svg{height:80%;width:auto;filter:drop-shadow(0 3px 6px rgba(0,0,0,0.5))}
+.item__shirt[data-shirt="black"]    .tee-svg{color:#0a0a0a}
+.item__shirt[data-shirt="white"]    .tee-svg{color:#e8e6df}
+.item__shirt[data-shirt="graphite"] .tee-svg{color:#3c3c3c}
+.item__shirt[data-shirt="beige"]    .tee-svg{color:#d6c8a8}
+.item__shirt .tee-print{
+  position:absolute;top:28%;left:50%;transform:translateX(-50%);
+  height:32%;width:auto;
+}
+.item__shirt[data-shirt="black"]    .tee-print,
+.item__shirt[data-shirt="graphite"] .tee-print{color:#f0ede5}
+.item__shirt[data-shirt="white"]    .tee-print,
+.item__shirt[data-shirt="beige"]    .tee-print{color:#111}
+
+.item__body{display:flex;flex-direction:column;gap:2px;min-width:0}
+.item__name{
+  font-family:var(--font-display);font-size:14px;font-weight:700;
+  letter-spacing:0.04em;color:var(--white);text-transform:uppercase;
+  line-height:1.1;margin:0;
+}
+.item__specs{
+  display:flex;flex-direction:column;gap:1px;
+  font-family:var(--font-text);font-size:11px;color:var(--gray-light);line-height:1.3;
+}
+.item__x{
+  width:24px;height:24px;border-radius:50%;
+  border:1px solid var(--border);background:transparent;
+  display:flex;align-items:center;justify-content:center;
+  color:var(--gray-light);justify-self:flex-end;cursor:pointer;
+  transition:all 0.15s;
+}
+.item__x:hover{border-color:var(--red);color:var(--red)}
+.item__x svg{width:10px;height:10px}
+
+.item--empty{
+  grid-template-columns:24px 1fr 24px;
+  background:transparent;border:1.5px dashed rgba(255,255,255,0.12);
+}
+.item--empty .item__num{color:var(--gray-light);background:var(--gray-mid)}
+.item__plus{
+  display:flex;align-items:center;justify-content:center;
+  width:22px;height:22px;color:var(--gray-light);
+}
+.item__plus svg{width:14px;height:14px}
+.item__empty-t{
+  font-family:var(--font-body);font-size:9.5px;font-weight:700;
+  letter-spacing:0.16em;color:var(--gray-light);text-transform:uppercase;
+  justify-self:start;
+}
+
+/* totals */
+.totals{
+  background:#131313;border:1px solid var(--border);
+  padding:14px 16px;border-radius:4px;
+  display:flex;flex-direction:column;gap:7px;
+}
+.totals__row{
+  display:flex;align-items:baseline;justify-content:space-between;gap:10px;
+  font-family:var(--font-text);font-size:13px;color:var(--white);
+}
+.totals__row span:first-child{color:var(--gray-light)}
+.totals__row--discount .dn{color:var(--red);font-weight:600}
+.totals__sep{height:1px;background:var(--border);margin:4px 0}
+.totals__row--total span:first-child{
+  color:var(--white);
+  font-family:var(--font-body);font-size:11px;letter-spacing:0.14em;
+  text-transform:uppercase;font-weight:700;
+}
+.total-val{
+  font-family:var(--font-display);font-size:28px;font-weight:700;
+  color:var(--white);line-height:1;
+}
+.totals__save{
+  display:flex;align-items:center;gap:6px;
+  font-family:var(--font-text);font-size:12px;color:var(--accent);margin-top:2px;
+}
+.totals__save-ic{width:12px;height:12px;color:var(--accent);flex-shrink:0}
+
+.share-link{
+  display:flex;align-items:center;justify-content:center;gap:8px;
+  font-family:var(--font-text);font-size:13px;color:var(--gray-light);
+  padding:4px 0 0;cursor:pointer;
+  transition:color 0.15s;
+}
+.share-link:hover{color:var(--accent)}
+.share-link__ic{width:14px;height:14px}
+
+/* ============================================================
+   6. CAROUSEL «Готовые сочетания» — reuse .bcard
+   ============================================================ */
+.similar-rail{
+  position:relative;overflow:hidden;
+  margin:8px -48px 0;padding:0 48px 24px;
+}
+.similar-track{
+  display:grid;grid-template-columns:repeat(4,1fr) 80px;gap:10px;
+}
+.bcard--peek{
+  opacity:0.85;
+  -webkit-mask-image:linear-gradient(to right,#000 30%,transparent);
+  mask-image:linear-gradient(to right,#000 30%,transparent);
+  pointer-events:none;
+}
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+@media (max-width:1200px){
+  .builder-grid{grid-template-columns:1fr 340px;gap:16px}
+  .slots-grid{grid-template-columns:repeat(3,1fr)}
+  .slots-grid .builder-slot:nth-child(n+4){grid-column:span 1}
+  .prn-grid{grid-template-columns:repeat(4,1fr)}
+  .similar-track{grid-template-columns:repeat(3,1fr) 80px}
+  .builder-hero{grid-template-columns:1fr 420px;padding:36px 32px}
+  .builder-hero__shirts{height:240px}
+  .builder-hero__shirts .hshirt--1{width:140px}
+  .builder-hero__shirts .hshirt--2{width:150px;left:90px}
+  .builder-hero__shirts .hshirt--3{width:140px;left:200px}
+  .builder-hero__shirts .hshirt--4{width:140px;top:100px;left:40px}
+  .builder-hero__shirts .hshirt--5{width:140px;top:110px;left:270px}
+}
+
+@media (max-width:900px){
+  /* Hero vertical */
+  .builder-hero{
+    grid-template-columns:1fr;gap:14px;padding:24px 18px 18px;
+    border-radius:10px;min-height:auto;margin:14px 0;
+  }
+  .builder-hero__body{display:flex;flex-direction:column;gap:6px}
+  .builder-hero__title{font-size:34px}
+  .builder-hero__sub{font-size:12.5px;margin-bottom:8px;max-width:none}
+  .builder-hero__shirts{height:130px;width:100%}
+  .builder-hero__shirts .hshirt--1{width:90px;top:0;left:5%;transform:rotate(-10deg)}
+  .builder-hero__shirts .hshirt--2{width:100px;top:8px;left:28%;transform:rotate(6deg)}
+  .builder-hero__shirts .hshirt--3{width:90px;top:0;left:54%;transform:rotate(-4deg)}
+  .builder-hero__shirts .hshirt--4,
+  .builder-hero__shirts .hshirt--5{display:none}
+  .vprops{flex-direction:column;gap:8px;margin-top:6px}
+  .vprop{gap:10px}
+  .vprop__ic{width:18px;height:18px}
+  .vprop__t{font-size:10px}
+
+  /* Layout collapses to one column. Right column moves below. */
+  .builder-grid{grid-template-columns:1fr;gap:18px}
+  .builder-right{position:static;top:auto}
+
+  /* Slots — horizontal swipe */
+  .slots-grid{
+    display:flex;gap:10px;overflow-x:auto;overflow-y:hidden;
+    margin:0 -16px;padding:0 16px 4px;
+    scroll-snap-type:x mandatory;
+    scrollbar-width:none;-webkit-overflow-scrolling:touch;
+  }
+  .slots-grid::-webkit-scrollbar{display:none}
+  .builder-slot{flex:0 0 230px;scroll-snap-align:start;min-height:280px}
+
+  /* Catalog — 2 columns mobile */
+  .prn-grid{grid-template-columns:repeat(2,1fr);gap:8px}
+  .catalog-pills{
+    flex-wrap:nowrap;overflow-x:auto;
+    margin:0 -16px;padding:0 16px 10px;
+    scrollbar-width:none;-webkit-overflow-scrolling:touch;
+  }
+  .catalog-pills::-webkit-scrollbar{display:none}
+  .bundle-builder-page .catalog-pills .chub-pill{
+    flex-shrink:0;padding:7px 12px;font-size:9px;
+  }
+  .search-input{max-width:none;min-width:auto;width:100%;margin-bottom:10px}
+
+  /* Theme headers */
+  .theme__head{padding-bottom:6px}
+
+  /* Carousel — horizontal swipe */
+  .similar-rail{margin:0 -16px;padding:0 16px 16px}
+  .similar-track{
+    display:flex;gap:8px;overflow-x:auto;
+    scrollbar-width:none;-webkit-overflow-scrolling:touch;
+    scroll-snap-type:x proximity;
+  }
+  .similar-track::-webkit-scrollbar{display:none}
+  .similar-track .bcard{flex:0 0 240px;scroll-snap-align:start}
+  .bcard--peek{display:none}
+
+  /* Progress — compact on mobile */
+  .progress__steps{margin:4px -2px}
+  .pstep__dot{width:24px;height:24px;font-size:11px}
+  .pstep__pct{font-size:8px}
+  .pstep__pill{font-size:9px;padding:2px 5px}
+  .pline{margin-top:11px}
+  .progress__cap{font-size:12px}
+
+  /* Items in summary — compact */
+  .summary{padding:18px}
+  .item{grid-template-columns:22px 44px 1fr 22px;padding:8px 10px}
+  .item__shirt{width:36px;height:48px}
+  .item__name{font-size:12px}
+  .item__specs{font-size:10.5px}
+
+  /* Mobile sticky bar — наследуем .m-stickybar из style-bundle-single.css.
+     В single она показывается через @media (max-width:900px). Здесь — то же. */
+  /* Padding снизу под bar */
+  .bundle-builder-page{padding-bottom:80px}
+}
+
+@media (max-width:480px){
+  .similar-track .bcard{flex:0 0 200px}
+}

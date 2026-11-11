@@ -1,0 +1,27 @@
+/*
+Theme Name: Podval Print
+Author: Podval Print
+Description: Тема магазина печати на одежде «Подвальный Принт»
+Version: 0.1.0
+Requires at least: 6.0
+Tested up to: 6.7
+WC requires at least: 8.0
+WC tested up to: 9.0
+License: GNU General Public License v2 or later
+Text Domain: podval-print
+Tags: woocommerce, Магазин, Тёмная, streetwear
+*/
+ 
+/*
+ * Тело CSS перенесено в /assets/css/style-*.css
+ *
+ * style-core.css     - всегда (header, footer, hero, общие)
+ * style-catalog.css  - архивы товаров (shop, category, tag)
+ * style-product.css  - страница товара
+ * style-checkout.css - cart, checkout, my-account
+ * style-artwork.css  - page-artwork-upload.php
+ * style-misc.css     - service, about, pay, custom-design
+ *
+ * style.css сохранён только для WordPress (требует этот файл с заголовком темы)
+ * и может использоваться wp-admin/customize.php для отображения метаданных.
+ */

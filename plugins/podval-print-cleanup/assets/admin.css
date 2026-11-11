@@ -1,0 +1,134 @@
+.pfc-wrap { max-width: 1100px; }
+
+.pfc-grid {
+    display: grid;
+    grid-template-columns: repeat( auto-fit, minmax(230px, 1fr) );
+    gap: 14px;
+    margin: 14px 0 24px;
+}
+
+.pfc-card {
+    background: #fff;
+    border: 1px solid #c3c4c7;
+    border-radius: 4px;
+    padding: 14px 16px;
+    box-shadow: 0 1px 1px rgba(0,0,0,.04);
+}
+
+.pfc-card h3 {
+    margin: 0 0 10px;
+    font-size: 12px;
+    color: #50575e;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    font-weight: 600;
+}
+
+.pfc-card p {
+    margin: 4px 0;
+}
+
+.pfc-good { color: #00a32a; font-weight: 600; }
+.pfc-bad  { color: #d63638; font-weight: 600; }
+
+.pfc-status-chip {
+    display: inline-block;
+    margin-right: 14px;
+    margin-bottom: 8px;
+    padding: 2px 0;
+}
+
+.pfc-status-chip.is-risky {
+    color: #b45309;
+}
+
+.pfc-status-chip.is-risky input:checked + span,
+.pfc-status-chip.is-risky:has(input:checked) {
+    background: #fef3c7;
+    padding: 2px 8px;
+    border-radius: 3px;
+}
+
+.pfc-actions {
+    margin-top: 16px;
+}
+
+.pfc-action-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin: 10px 0;
+    padding: 10px 12px;
+    background: #fff;
+    border: 1px solid #c3c4c7;
+    border-radius: 4px;
+}
+
+.pfc-action-row .button {
+    flex-shrink: 0;
+}
+
+.pfc-action-row .description {
+    font-style: normal;
+    color: #50575e;
+}
+
+#pfc-preview-result,
+#pfc-run-result,
+#pfc-ghosts-result {
+    margin-left: 0;
+}
+
+#pfc-preview-result:empty,
+#pfc-run-result:empty,
+#pfc-ghosts-result:empty {
+    display: none;
+}
+
+.pfc-log {
+    margin-top: 10px;
+}
+
+.pfc-log th,
+.pfc-log td {
+    padding: 8px 10px;
+    font-size: 13px;
+}
+
+.pfc-log th {
+    background: #f6f7f7;
+}
+
+.pfc-clear-log-btn {
+    font-size: 12px;
+    color: #b32d2e;
+    text-decoration: none;
+}
+
+.pfc-clear-log-btn:hover {
+    color: #d63638;
+    text-decoration: underline;
+}
+
+.pfc-ghost-list {
+    margin: 8px 0 12px;
+    max-height: 240px;
+    overflow: auto;
+    background: #f6f7f7;
+    padding: 10px 14px;
+    font-size: 12px;
+    font-family: Consolas, Monaco, monospace;
+    border: 1px solid #dcdcde;
+    border-radius: 3px;
+}
+
+.pfc-ghost-list li {
+    margin: 2px 0;
+    list-style: none;
+    word-break: break-all;
+}
+
+.notice.inline {
+    margin: 10px 0;
+    padding: 10px 14px;
+}

@@ -1,0 +1,2885 @@
+/* ═══════════════════════════════════════════
+   КОНСТРУКТОР ШАБЛОНА
+   page-tpl-builder.php — товары с _podval_tpl_group
+   ═══════════════════════════════════════════ */
+
+/* ── Шрифт макетов ──────────────────────────────────────────────────────
+   Horizon — только латиница и цифры. Кириллицы в гарнитуре нет вообще,
+   поэтому unicode-range выписан по фактическому cmap: русские надписи
+   молча уходят на Oswald обычным фолбэком, без единой ветки в JS.
+   Правило действует только внутри макета (.tplp-*) — интерфейс
+   конструктора остаётся на Oswald.
+
+   font-weight: 100 900 — не диапазон начертаний, а запрет синтетического
+   жирного: начертание в файле одно (Bold), и без этой записи браузер
+   дорисовывал бы его сам на элементах с font-weight:400. */
+@font-face {
+	font-family: 'Horizon';
+	font-style: normal;
+	font-weight: 100 900;
+	font-display: swap;
+	src: url('../fonts/horizon-latin-700.woff2') format('woff2');
+	unicode-range: U+20-7E,U+A0-17E,U+2C6-2C7,U+2C9,U+2D8-2DD,U+37E,U+2013-2014,U+2018-201A,U+201C-201E,U+2020-2022,U+2026,U+2039-203A,U+2044,U+20A3-20A4,U+20A7,U+20AC,U+2116,U+2122,U+2202,U+2206,U+220F,U+2211-2212,U+2215,U+2219-221A,U+221E,U+222B,U+2248,U+2264-2265,U+FB01-FB02;
+}
+
+/* кириллица макета — собственная, собрана из глиф самого Horizon.
+
+   В Horizon кириллицы нет. С 3.7.30 её брали из Unbounded Black, но у него
+   «загибы»: ножка Б, В, Ь, Я расширяется книзу, ноги Ж изогнуты — рядом с
+   прямой латиницей Horizon это читалось как другой шрифт.
+
+   Файл horizon-cyrillic-700.woff2 (собран скриптом build-horizon-cyrillic.py, хранится вне темы):
+   - совпадающие с латиницей буквы — глифы Horizon как есть (А В Е Ё К М Н
+     О Р С Т Х, З = «3», І Ї);
+   - остальные собраны из деталей Horizon: Я, И = зеркальные R, N; Б, Ь, Ъ, Ы —
+     B без верхней чаши; Ж — K и его зеркало; Г — из E; П, Ц, Ч — из H;
+     Ш, Щ, Э, Є, Ю, Й, Ґ — из штанг, перекладин, C, O и бреве Horizon;
+   - Д Л У Ф и редкие буквы — из Unbounded, приведённые к капители Horizon;
+   - строчные — те же заглавные формы: Horizon капительный, латиница
+     в нём ведёт себя так же.
+   Метрики Horizon, поэтому size-adjust больше не нужен.
+   Тот же @font-face работает и для canvas (растр заказа). */
+@font-face {
+	font-family: 'Horizon';
+	font-style: normal;
+	font-weight: 100 900;
+	font-display: swap;
+	src: url('../fonts/horizon-cyrillic-700.woff2') format('woff2');
+	unicode-range: U+0400-045F,U+0490-0491;
+}
+
+/* Контурное начертание — отдельное семейство, а не вес. В файлах обеих
+   гарнитур family-name одинаковый ('Horizon'), различается только
+   subfamily; регистрировать их под одним именем значило бы получить
+   непредсказуемый выбор лица. */
+@font-face {
+	font-family: 'Horizon Outlined';
+	font-style: normal;
+	font-weight: 100 900;
+	font-display: swap;
+	src: url('../fonts/horizon-outlined-latin-700.woff2') format('woff2');
+	unicode-range: U+20-7E,U+A0-17E,U+2C6-2C7,U+2C9,U+2D8-2DD,U+37E,U+2013-2014,U+2018-201A,U+201C-201E,U+2020-2022,U+2026,U+2039-203A,U+2044,U+20A3-20A4,U+20A7,U+20AC,U+2116,U+2122,U+2202,U+2206,U+220F,U+2211-2212,U+2215,U+2219-221A,U+221E,U+222B,U+2248,U+2264-2265,U+FB01-FB02;
+}
+
+.tplb-page {
+	/* Шрифт печатного макета. Те же две строки продублированы в
+	   tpl-builder.js (TPL_FONT / TPL_FONT_OUTLINE) — растр для заказа
+	   рисуется на canvas и до CSS не достаёт. Менять вместе. */
+	--tplp-display: 'Horizon', 'Oswald', sans-serif;
+	--tplp-display-outline: 'Horizon Outlined', 'Oswald', sans-serif;
+
+	--tplb-accent: #ff6a00;
+	--tplb-bg: #0d0d0d;
+	--tplb-card: #171717;
+	--tplb-line: #2a2a2a;
+	--tplb-text: #f2f2f2;
+	--tplb-dim: #8d8d8d;
+	/* Зелёный «пройдено» — тот же, что в таймлайне наборов. */
+	--tplb-ok: #6cc46c;
+	--tplb-ok-bg: rgba(46, 160, 67, .12);
+	/* ⚠️ Рукописный шрифт для подписей типа «Vintage 1994».
+	   Кириллического курсива в теме нет — подставь свой web-font
+	   и обнови эту переменную. */
+	--tplb-script: Georgia, 'Times New Roman', serif;
+
+	background: var(--tplb-bg);
+	color: var(--tplb-text);
+	padding: 24px 0 120px;
+}
+
+.tplb-wrap {
+	max-width: 1320px;
+	margin: 0 auto;
+	padding: 0 16px;
+}
+
+/* ── Шапка ─────────────────────────────── */
+
+.tplb-head { margin-bottom: 28px; }
+
+.tplb-title {
+	font-family: 'Oswald', sans-serif;
+	font-weight: 700;
+	font-size: clamp(26px, 4vw, 44px);
+	line-height: 1.05;
+	text-transform: uppercase;
+	margin: 0 0 10px;
+}
+
+.tplb-head__meta {
+	display: flex;
+	align-items: baseline;
+	gap: 12px;
+	flex-wrap: wrap;
+	margin-bottom: 10px;
+}
+
+.tplb-price {
+	font-family: 'Oswald', sans-serif;
+	font-size: 26px;
+	font-weight: 700;
+	color: var(--tplb-accent);
+}
+
+.tplb-price-hint,
+.tplb-lead { color: var(--tplb-dim); font-size: 14px; }
+
+.tplb-lead { max-width: 640px; margin: 0; line-height: 1.5; }
+
+.tplb-noscript {
+	padding: 16px;
+	border: 1px solid var(--tplb-accent);
+	border-radius: 8px;
+	margin-bottom: 20px;
+}
+
+/* ── Сетка ─────────────────────────────── */
+
+/* `align-items: start` здесь ломал липкую колонку.
+
+   Ячейка грида схлопывалась до высоты содержимого, и у sticky-элемента не
+   оставалось хода: его контейнер ровно такой же высоты, двигаться внутри
+   нечего — колонка просто уезжала вверх вместе со страницей и пряталась
+   под шапку сайта. Растягиваем ячейку на всю высоту ряда; отступ сверху
+   держит сам sticky. */
+.tplb-layout {
+	display: grid;
+	grid-template-columns: minmax(0, 1fr) 400px;
+	gap: 32px;
+	align-items: stretch;
+}
+
+/* ── Состояние загрузки колонки шагов ───────────────────────
+   Разметка приезжает с шагом «Футболка» раскрытым, но его тело пустое:
+   цвета, типы и размеры рисует tpl-builder.js. Он же, увидев предвыбор
+   с карточки, закрывает первый шаг и открывает «Основу» — а у неё
+   содержимое отрендерено сервером и высокое. Итог на первом экране:
+   аккордеон перестраивался целиком уже после отрисовки. CLS 0.49,
+   и это стало ХУЖЕ после ускорения TTFB — раньше HTML и JS приезжали
+   почти одновременно, теперь между ними видимая пауза.
+
+   Прячем шаги до готовности и держим место. `visibility: hidden`, а не
+   `display: none`: скрытые элементы продолжают участвовать в раскладке,
+   поэтому JS может честно мерить высоты, а невидимые перестроения в CLS
+   не попадают. `min-height: 100vh` гарантирует, что всё, что ниже
+   колонки, лежит за пределами экрана — там сдвиги метрику не задевают.
+
+   Класс is-ready ставит init() в tpl-builder.js; в разметке есть
+   страховочный таймер на случай, если скрипт вообще не выполнится. */
+.tplb-steps { position: relative; }
+.tplb-steps:not(.is-ready) { min-height: 100vh; }
+.tplb-steps:not(.is-ready) > .tplb-step { visibility: hidden; }
+
+.tplb-steps__boot { display: none; }
+.tplb-steps:not(.is-ready) > .tplb-steps__boot {
+	display: block;
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+}
+.tplb-steps__boot span {
+	display: block;
+	height: 56px;
+	margin-bottom: 10px;
+	border-radius: 4px;
+	background: linear-gradient(90deg, rgba(255,255,255,0.04) 0%, rgba(255,255,255,0.08) 50%, rgba(255,255,255,0.04) 100%);
+	background-size: 200% 100%;
+	animation: tplb-boot 1.2s ease-in-out infinite;
+}
+.tplb-steps__boot span:nth-child(2) { animation-delay: .1s; }
+.tplb-steps__boot span:nth-child(3) { animation-delay: .2s; }
+.tplb-steps__boot span:nth-child(4) { height: 180px; animation-delay: .3s; }
+
+@keyframes tplb-boot {
+	0%   { background-position: 200% 0; }
+	100% { background-position: -200% 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.tplb-steps__boot span { animation: none; }
+}
+
+/* Липкая колонка превью.
+
+   Одного `position: sticky` мало: колонка бывает выше экрана — превью,
+   оговорка, сводка и блок с ценой. Прилипнув верхом, низ с кнопкой
+   «В корзину» уезжал за нижний край, и добраться до него было нельзя:
+   страница уже докручена, а колонка не двигается.
+
+   Ограничиваем высоту вьюпортом и разрешаем собственную прокрутку —
+   тогда до кнопки всегда можно долистать внутри колонки.
+   `scrollbar-width: thin` вместо скрытия: полоса подсказывает, что
+   содержимое продолжается. */
+.tplb-side__inner {
+	position: sticky;
+	top: 96px;
+	max-height: calc(100vh - 116px);
+	overflow-y: auto;
+	scrollbar-width: thin;
+}
+
+/* Превью прибито к верху колонки, итог — к низу. Прокручивается только
+   середина: оговорка и сводка.
+
+   Без этого получалось хуже, чем было: колесо над колонкой крутило её
+   собственную прокрутку, макет уезжал вверх и прятался под шапку сайта.
+   Ради него сюда и приходят — он должен быть виден всегда.
+
+   `overscroll-behavior: contain` убран намеренно: он запирал прокрутку
+   внутри колонки, и докрутить страницу колесом над превью было нельзя. */
+.tplb-side__inner .tplb-previewfit {
+	position: sticky;
+	top: 0;
+	z-index: 1;
+	background: var(--tplb-bg);
+}
+
+/* Итог с кнопкой прижат к низу колонки и не уезжает при её прокрутке.
+   Одной прокрутки было мало: колонка открывается сверху, кнопка лежит
+   под сгибом, и о том, что до неё нужно долистать внутри блока, никто
+   не догадывается. Липкий низ решает это без лишних движений. */
+.tplb-side__inner .tplb-total {
+	position: sticky;
+	bottom: 0;
+	z-index: 1;
+	margin-top: auto;
+	background: var(--tplb-bg);
+}
+
+/* ── Шаги ──────────────────────────────── */
+
+.tplb-step {
+	background: var(--tplb-card);
+	border: 1px solid var(--tplb-line);
+	border-radius: 12px;
+	padding: 20px;
+	margin-bottom: 16px;
+}
+
+/* Шапка шага — кнопка аккордеона. */
+.tplb-step__head {
+	display: flex;
+	align-items: center;
+	gap: 12px;
+	width: 100%;
+	background: none;
+	border: none;
+	padding: 0;
+	margin: 0;
+	color: inherit;
+	font: inherit;
+	text-align: left;
+	cursor: pointer;
+}
+
+.tplb-step__body {
+	margin-top: 16px;
+	display: block;
+}
+
+.tplb-step:not(.is-open) .tplb-step__body { display: none; }
+
+.tplb-step__chevron {
+	margin-left: auto;
+	flex: 0 0 auto;
+	width: 10px;
+	height: 10px;
+	border-right: 2px solid var(--tplb-dim);
+	border-bottom: 2px solid var(--tplb-dim);
+	transform: rotate(45deg);
+	transition: transform .2s;
+}
+
+.tplb-step.is-open .tplb-step__chevron { transform: rotate(-135deg); }
+
+/* Выбранное значение — видно в свёрнутом виде. */
+.tplb-step__pick {
+	margin-left: auto;
+	font-size: 13px;
+	color: var(--tplb-accent);
+	text-align: right;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	max-width: 45%;
+}
+
+.tplb-step__pick:empty { display: none; }
+.tplb-step__pick + .tplb-step__chevron { margin-left: 10px; }
+.tplb-step__counter + .tplb-step__chevron { margin-left: 10px; }
+
+/* Шапка объединённого шага несёт сразу три сводки: название раскладки,
+   миниатюры и счётчик фото. У каждой из них свой margin-left:auto, и
+   флексбокс раздавал свободное место МЕЖДУ ними — сводка расползалась
+   по всей ширине шапки. Распорку берёт на себя заголовок, остальные
+   встают плотной группой справа. */
+.tplb-step--media .tplb-step__title { margin-right: auto; }
+
+/* margin-left:0, а не фиксированное число: расстояние между сводками
+   уже задаёт gap:12px у самой шапки, и добавка к нему только раздувала
+   группу. */
+.tplb-step--media .tplb-step__pick,
+.tplb-step--media .tplb-step__thumbs,
+.tplb-step--media .tplb-step__counter { margin-left: 0; }
+
+/* Селектор с соседним элементом, а не просто .tplb-step--media .tplb-step__counter:
+   ниже по файлу лежит `.tplb-step__thumbs + .tplb-step__counter { margin-left: 10px }`
+   ровно той же специфичности (0,2,0), и при равной специфичности выигрывает
+   тот, кто объявлен позже. Поднимаем до 0,3,0, чтобы правило не зависело
+   от порядка объявлений. */
+.tplb-step--media .tplb-step__thumbs + .tplb-step__counter { margin-left: 0; }
+
+/* На узком экране всё трое не помещаются. Жертвуем названием раскладки:
+   миниатюры и счётчик говорят о состоянии шага больше. */
+@media (max-width: 600px) {
+	.tplb-step--media .tplb-step__pick { display: none; }
+}
+/* Переход к следующему шагу. Выбор внутри шага его не схлопывает —
+   нужен явный жест, иначе просмотр вариантов превращается в раскрытие
+   аккордеона на каждый клик. */
+.tplb-step__nav {
+	margin-top: 18px;
+	padding-top: 16px;
+	border-top: 1px solid var(--tplb-line);
+}
+
+.tplb-step__next {
+	display: inline-flex;
+	align-items: center;
+	gap: 8px;
+	padding: 10px 18px;
+	border: 1px solid var(--tplb-accent);
+	border-radius: 8px;
+	background: transparent;
+	color: var(--tplb-accent);
+	font-family: 'Oswald', sans-serif;
+	font-weight: 700;
+	font-size: 14px;
+	text-transform: uppercase;
+	letter-spacing: .03em;
+	cursor: pointer;
+	transition: background .16s, color .16s;
+}
+
+.tplb-step__next::after {
+	content: '';
+	width: 7px;
+	height: 7px;
+	border-right: 2px solid currentColor;
+	border-bottom: 2px solid currentColor;
+	transform: rotate(-45deg);
+}
+
+.tplb-step__next:hover { background: var(--tplb-accent); color: #000; }
+.tplb-step__next[hidden] { display: none; }
+.tplb-step__nav[hidden] { display: none; }
+
+/* ── Прогресс по шагам ──────────────────
+   is-todo  — до шага не дошли (серый кружок)
+   базовое  — текущий или требующий внимания (оранжевый)
+   is-done  — пройден и валиден (галочка + подсветка строки)
+   Зелёный берём из языка таймлайна наборов (style-bundle-single.css). */
+
+.tplb-step.is-todo .tplb-step__num {
+	background: rgba(255, 255, 255, .09);
+	color: var(--tplb-dim);
+}
+
+/* Открытый шаг — текущий: всегда акцентный, даже если ещё не пройден.
+   Специфичность (0,4,0) сознательно выше .is-todo (0,3,0). */
+.tplb-step.is-open:not(.is-done) .tplb-step__num {
+	background: var(--tplb-accent);
+	color: #000;
+}
+
+/* Подсветка всей карточки шага. Градиент поверх --tplb-card, а не сплошной
+   цвет: токен карточки остаётся единственным источником базового фона. */
+.tplb-step.is-done {
+	background:
+		linear-gradient(var(--tplb-ok-bg), var(--tplb-ok-bg)),
+		var(--tplb-card);
+	border-color: rgba(108, 196, 108, .28);
+}
+
+/* Галочка вместо цифры. Трюк «два бордера + rotate(-45deg)» на 28px давал
+   рваный внутренний угол и разную толщину плеч из-за субпиксельного поворота.
+   SVG со stroke-linejoin:round рисуется по одному пути — стык чистый на любом DPR. */
+.tplb-step.is-done .tplb-step__num {
+	background-color: var(--tplb-ok);
+	background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%230a0a0a' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 12.5 10 17.5 19 7'/%3E%3C/svg%3E");
+	background-repeat: no-repeat;
+	background-position: 50% 50%;
+	background-size: 16px 16px;
+	color: transparent;
+	font-size: 0;
+}
+
+.tplb-step.is-done .tplb-step__pick,
+.tplb-step.is-done .tplb-step__counter { color: var(--tplb-ok); }
+
+.tplb-step.is-done .tplb-step__chevron {
+	border-right-color: rgba(108, 196, 108, .55);
+	border-bottom-color: rgba(108, 196, 108, .55);
+}
+
+.tplb-step__num {
+	flex: 0 0 auto;
+	width: 28px;
+	height: 28px;
+	border-radius: 50%;
+	background: var(--tplb-accent);
+	color: #000;
+	font-family: 'Oswald', sans-serif;
+	font-weight: 700;
+	font-size: 15px;
+	display: grid;
+	place-items: center;
+}
+
+.tplb-step__title {
+	font-family: 'Oswald', sans-serif;
+	font-weight: 700;
+	font-size: 19px;
+	text-transform: uppercase;
+	margin: 0;
+	letter-spacing: .02em;
+}
+
+.tplb-step__counter {
+	margin-left: auto;
+	font-size: 13px;
+	color: var(--tplb-dim);
+	font-variant-numeric: tabular-nums;
+	flex: 0 0 auto;
+}
+
+/* ── Выбор основы ──────────────────────── */
+
+.tplb-bases {
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+	gap: 12px;
+}
+
+.tplb-base {
+	display: flex;
+	flex-direction: column;
+	text-align: left;
+	background: #0f0f0f;
+	border: 2px solid var(--tplb-line);
+	border-radius: 10px;
+	padding: 0;
+	overflow: hidden;
+	cursor: pointer;
+	transition: border-color .16s, transform .16s;
+	color: inherit;
+	font: inherit;
+}
+
+.tplb-base:hover { border-color: #555; }
+.tplb-base.is-active { border-color: var(--tplb-accent); }
+
+.tplb-base__img {
+	display: block;
+	aspect-ratio: 3 / 4;
+	background: #1c1c1c;
+	overflow: hidden;
+}
+
+.tplb-base__img img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+.tplb-base__ph {
+	width: 100%;
+	height: 100%;
+	display: grid;
+	place-items: center;
+	font-family: 'Oswald', sans-serif;
+	font-size: 56px;
+	font-weight: 700;
+	color: #333;
+}
+
+.tplb-base__body { padding: 10px 12px 12px; display: block; }
+.tplb-base__title { display: block; font-weight: 600; font-size: 14px; margin-bottom: 4px; }
+.tplb-base__sub { display: block; font-size: 12px; color: var(--tplb-dim); line-height: 1.35; margin-bottom: 6px; }
+
+.tplb-base__photos {
+	display: inline-block;
+	font-size: 11px;
+	text-transform: uppercase;
+	letter-spacing: .04em;
+	color: var(--tplb-accent);
+}
+
+/* ── Раскладки ─────────────────────────── */
+
+.tplb-layouts {
+	display: grid;
+	grid-template-columns: repeat(4, 1fr);
+	gap: 8px;
+	/* Отбивка от кнопки загрузки: после объединения шагов плитки больше
+	   не последний блок в теле шага. */
+	margin-bottom: 16px;
+}
+
+/* Обязательно явно. Атрибут [hidden] из UA-стилей проигрывает
+   объявленному здесь display:grid, и renderLayouts() прятал бы
+   контейнер вхолостую — у letters и single над кнопкой загрузки
+   висела бы пустая сетка. Тот же случай, что с [hidden] и display:flex
+   в других местах темы. */
+.tplb-layouts[hidden] { display: none; }
+
+/* ВНИМАНИЕ: имя .tplb-layout занято главной сеткой страницы (см. выше).
+   Плитка раскладки называется .tplb-laytile — при совпадении имён она
+   наследовала grid-template-columns:…400px и вылезала за контейнер. */
+.tplb-laytile {
+	background: #0f0f0f;
+	border: 2px solid var(--tplb-line);
+	border-radius: 8px;
+	padding: 7px;
+	cursor: pointer;
+	color: inherit;
+	font: inherit;
+	display: block;
+	width: 100%;
+	transition: border-color .16s;
+}
+
+.tplb-laytile:hover { border-color: #555; }
+.tplb-laytile.is-active { border-color: var(--tplb-accent); }
+
+.tplb-laytile__mini {
+	display: block;
+	position: relative;
+	width: 100%;
+	aspect-ratio: 1 / 1.05;
+	background: #1c1c1c;
+	border-radius: 3px;
+	margin-bottom: 5px;
+}
+
+.tplb-laytile__mini i { position: absolute; background: #4a4a4a; border-radius: 1px; }
+.tplb-laytile.is-active .tplb-laytile__mini i { background: var(--tplb-accent); }
+.tplb-laytile__label { display: block; font-size: 11px; text-align: center; color: var(--tplb-dim); }
+.tplb-laytile.is-active .tplb-laytile__label { color: var(--tplb-text); }
+
+/* Своя компоновка: сетка условная, поэтому мини рисуем пунктиром —
+   иначе плитка читается как ещё одна фиксированная раскладка. */
+.tplb-laytile.is-free .tplb-laytile__mini i {
+	background: transparent;
+	border: 1px dashed rgba(255, 255, 255, .38);
+}
+
+.tplb-laytile.is-free.is-active .tplb-laytile__mini i {
+	background: transparent;
+	border-color: var(--tplb-accent);
+}
+
+.tplb-laytile__note {
+	display: block;
+	font-size: 10px;
+	text-align: center;
+	color: var(--tplb-accent);
+	margin-top: 2px;
+}
+
+/* ── Поля ──────────────────────────────── */
+
+.tplb-field { margin-bottom: 16px; }
+
+.tplb-field label {
+	display: block;
+	font-size: 13px;
+	font-weight: 600;
+	margin-bottom: 6px;
+}
+
+.tplb-req {
+	font-style: normal;
+	font-size: 11px;
+	color: var(--tplb-accent);
+	text-transform: uppercase;
+	letter-spacing: .04em;
+	margin-left: 4px;
+}
+
+.tplb-field input,
+.tplb-comment textarea {
+	width: 100%;
+	background: #0d0d0d;
+	border: 1px solid var(--tplb-line);
+	border-radius: 8px;
+	padding: 11px 13px;
+	color: var(--tplb-text);
+	font-family: inherit;
+	font-size: 15px;
+}
+
+.tplb-field input:focus,
+.tplb-comment textarea:focus {
+	outline: none;
+	border-color: var(--tplb-accent);
+}
+
+.tplb-field__meta {
+	display: flex;
+	justify-content: space-between;
+	gap: 10px;
+	margin-top: 5px;
+	font-size: 11px;
+	color: var(--tplb-dim);
+}
+
+.tplb-field__count { flex: 0 0 auto; font-variant-numeric: tabular-nums; }
+
+.tplb-presets { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; }
+
+/* Поле только из списка — пресеты становятся основным управлением. */
+.tplb-field.is-locked .tplb-presets { margin-top: 6px; gap: 8px; }
+
+.tplb-field.is-locked .tplb-preset {
+	font-family: 'Oswald', sans-serif;
+	font-weight: 700;
+	font-size: 14px;
+	text-transform: uppercase;
+	letter-spacing: .02em;
+	padding: 9px 16px;
+	border-radius: 7px;
+	color: var(--tplb-text);
+}
+
+.tplb-field.is-locked .tplb-preset.is-active {
+	border-color: var(--tplb-accent);
+	background: rgba(255, 106, 0, .14);
+	color: var(--tplb-accent);
+}
+
+.tplb-preset {
+	background: #0d0d0d;
+	border: 1px solid var(--tplb-line);
+	border-radius: 20px;
+	padding: 4px 11px;
+	font-size: 12px;
+	color: var(--tplb-dim);
+	cursor: pointer;
+	font-family: inherit;
+	transition: border-color .16s, color .16s;
+}
+
+.tplb-preset:hover { border-color: var(--tplb-accent); color: var(--tplb-text); }
+
+/* ── Ряды опций / чипы ─────────────────── */
+
+.tplb-optrow {
+	display: flex;
+	align-items: center;
+	gap: 12px;
+	flex-wrap: wrap;
+	padding: 10px 0;
+	border-top: 1px solid var(--tplb-line);
+}
+
+.tplb-optrow:first-child { border-top: none; }
+.tplb-optrow__label { font-size: 13px; color: var(--tplb-dim); min-width: 120px; }
+.tplb-optrow__opts { display: flex; flex-wrap: wrap; gap: 6px; }
+
+/* Переключатель, меняющий всю компоновку, а не одну деталь. Среди
+   однотипных строк опций такой выбор читался как мелкая настройка вроде
+   «2 или 3 строки», хотя перестраивает низ макета и половину полей. */
+.tplb-optrow.is-major {
+	border: 1px solid rgba(255, 106, 0, .35);
+	border-radius: 8px;
+	background: rgba(255, 106, 0, .06);
+	padding: 12px 14px;
+	margin: 10px 0;
+}
+
+.tplb-optrow.is-major + .tplb-optrow { border-top: none; }
+.tplb-optrow.is-major .tplb-optrow__label {
+	color: var(--tplb-text);
+	font-weight: 600;
+}
+
+/* Пояснение занимает всю ширину строки: у обёртки flex-wrap, поэтому
+   базис 100% переносит его под опции при любой ширине экрана. */
+.tplb-optrow__hint {
+	flex: 1 0 100%;
+	font-size: 11px;
+	line-height: 1.4;
+	color: var(--tplb-dim);
+}
+
+.tplb-chip {
+	background: #0d0d0d;
+	border: 1px solid var(--tplb-line);
+	border-radius: 6px;
+	padding: 7px 13px;
+	font-size: 13px;
+	color: var(--tplb-text);
+	cursor: pointer;
+	font-family: inherit;
+	transition: border-color .16s, background .16s;
+}
+
+.tplb-chip:hover { border-color: #555; }
+.tplb-chip.is-active { border-color: var(--tplb-accent); background: rgba(255, 106, 0, .12); }
+
+.tplb-swatch {
+	display: inline-flex;
+	align-items: center;
+	gap: 7px;
+	background: #0d0d0d;
+	border: 1px solid var(--tplb-line);
+	border-radius: 6px;
+	padding: 6px 12px 6px 7px;
+	cursor: pointer;
+	color: inherit;
+	font: inherit;
+	font-size: 13px;
+	transition: border-color .16s;
+}
+
+.tplb-swatch i {
+	width: 18px;
+	height: 18px;
+	border-radius: 50%;
+	border: 1px solid #444;
+	display: block;
+}
+
+.tplb-swatch.is-active { border-color: var(--tplb-accent); }
+
+/* ── Загрузка ──────────────────────────── */
+
+/* блок ужат в одну строку. Раньше это был отдельный шаг, и
+   крупный пунктирный прямоугольник во всю ширину был там единственным
+   содержимым. Теперь он делит шаг с плитками раскладки и сеткой слотов,
+   и в прежнем виде отодвигал слоты за пределы экрана — а именно слоты
+   ради этого объединения наверх и поднимали.
+
+   Рамка остаётся: это по-прежнему зона drag-and-drop, и без неё
+   непонятно, куда тащить файл. */
+.tplb-drop {
+	display: flex;
+	align-items: center;
+	gap: 12px;
+	border: 2px dashed var(--tplb-line);
+	border-radius: 10px;
+	padding: 10px 12px;
+	transition: border-color .16s, background .16s;
+}
+
+.tplb-drop.is-over { border-color: var(--tplb-accent); background: rgba(255, 106, 0, .06); }
+
+.tplb-drop__btn {
+	display: inline-flex;
+	align-items: center;
+	gap: 7px;
+	flex: 0 0 auto;
+	background: var(--tplb-accent);
+	color: #000;
+	border: none;
+	border-radius: 8px;
+	padding: 9px 15px;
+	font-family: 'Oswald', sans-serif;
+	font-weight: 700;
+	font-size: 13px;
+	text-transform: uppercase;
+	cursor: pointer;
+}
+
+.tplb-drop__hint {
+	font-size: 12px;
+	line-height: 1.35;
+	color: var(--tplb-dim);
+	min-width: 0;
+}
+
+/* Узкий экран: в строку кнопка и подсказка не встают — подсказка
+   уходит под кнопку, но блок всё равно вдвое ниже прежнего. */
+@media (max-width: 420px) {
+	.tplb-drop { flex-direction: column; align-items: stretch; gap: 8px; text-align: center; }
+}
+
+/* ── Индикатор загрузки ────────────────── */
+
+.tplb-spin {
+	width: 20px;
+	height: 20px;
+	border: 2px solid var(--tplb-line);
+	border-top-color: var(--tplb-accent);
+	border-radius: 50%;
+	animation: tplb-spin .7s linear infinite;
+}
+
+@keyframes tplb-spin { to { transform: rotate(360deg); } }
+
+/* Ссылка на таблицу размеров: стоит в одном ряду с чипами размеров,
+   поэтому оформлена как ссылка, а не как ещё одна кнопка выбора. */
+.tplb-sizechart {
+	align-self: center;
+	margin-left: 6px;
+	padding: 0;
+	border: none;
+	background: none;
+	color: var(--tplb-dim);
+	font: inherit;
+	font-size: 12px;
+	text-decoration: underline;
+	text-underline-offset: 3px;
+	cursor: pointer;
+	transition: color .16s;
+}
+
+.tplb-sizechart:hover { color: var(--tplb-accent); }
+
+/* ── Слоты ─────────────────────────────── */
+
+.tplb-slots { margin-top: 18px; }
+.tplb-slots__head { font-size: 13px; font-weight: 600; margin-bottom: 8px; }
+
+.tplb-slots__grid {
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(84px, 1fr));
+	gap: 8px;
+}
+
+.tplb-slot {
+	position: relative;
+	aspect-ratio: 1;
+	border-radius: 8px;
+	overflow: hidden;
+	background: #0d0d0d;
+	border: 2px dashed var(--tplb-line);
+	cursor: pointer;
+	padding: 0;
+	color: inherit;
+	font: inherit;
+}
+
+.tplb-slot.is-filled { border-style: solid; border-color: #3a3a3a; }
+.tplb-slot img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+/* Слот — единственный список фото, поэтому в нём же живут удаление,
+   предупреждение о разрешении и индикатор загрузки. */
+.tplb-slot.is-pending {
+	display: grid;
+	place-items: center;
+	border-style: solid;
+	border-color: #3a3a3a;
+	cursor: default;
+}
+
+.tplb-slot__del {
+	position: absolute;
+	top: 4px;
+	right: 4px;
+	width: 22px;
+	height: 22px;
+	border: none;
+	border-radius: 50%;
+	background: rgba(0, 0, 0, .72);
+	color: #fff;
+	font-size: 15px;
+	line-height: 1;
+	padding: 0;
+	cursor: pointer;
+	opacity: 0;
+	transition: opacity .16s, background .16s;
+}
+
+.tplb-slot:hover .tplb-slot__del,
+.tplb-slot:focus-within .tplb-slot__del { opacity: 1; }
+.tplb-slot__del:hover { background: #c0392b; }
+
+/* На тач-устройствах :hover не наступает — крестик показываем всегда. */
+@media (hover: none) {
+	.tplb-slot__del { opacity: 1; }
+}
+
+.tplb-slot__warn {
+	position: absolute;
+	top: 4px;
+	left: 4px;
+	width: 18px;
+	height: 18px;
+	border-radius: 50%;
+	background: var(--tplb-accent);
+	color: #000;
+	font-size: 12px;
+	font-weight: 700;
+	display: grid;
+	place-items: center;
+}
+
+/* Выбранный слот ждёт пару для обмена. */
+.tplb-slot.is-picked {
+	border-color: var(--tplb-accent);
+	border-style: solid;
+	box-shadow: 0 0 0 2px rgba(255, 106, 0, .28);
+}
+
+.tplb-slot.is-dragging { opacity: .45; cursor: grabbing; }
+
+.tplb-slot.is-drop {
+	border-color: var(--tplb-accent);
+	border-style: dashed;
+	background: rgba(255, 106, 0, .12);
+}
+
+/* Пока тащим — картинки не должны перехватывать elementFromPoint. */
+.tplb-slots__grid.is-swapping .tplb-slot * { pointer-events: none; }
+.tplb-slots__grid.is-swapping { cursor: grabbing; }
+
+.tplb-slot.is-filled { cursor: grab; }
+
+.tplb-slot__label {
+	position: absolute;
+	inset: auto 0 0 0;
+	background: rgba(0, 0, 0, .72);
+	font-size: 11px;
+	padding: 3px;
+	text-align: center;
+}
+
+.tplb-slot.is-empty .tplb-slot__label {
+	inset: 0;
+	background: none;
+	display: grid;
+	place-items: center;
+	color: var(--tplb-dim);
+	font-family: 'Oswald', sans-serif;
+	font-size: 15px;
+}
+
+/* ── Надбавки ──────────────────────────── */
+
+.tplb-addons { margin-top: 16px; }
+.tplb-addons__head { font-size: 13px; font-weight: 600; margin-bottom: 8px; }
+
+.tplb-addon {
+	display: flex;
+	align-items: center;
+	gap: 11px;
+	padding: 11px 13px;
+	border: 1px solid var(--tplb-line);
+	border-radius: 8px;
+	margin-bottom: 7px;
+	cursor: pointer;
+	transition: border-color .16s;
+}
+
+.tplb-addon.is-on { border-color: var(--tplb-accent); }
+.tplb-addon input { accent-color: var(--tplb-accent); width: 17px; height: 17px; flex: 0 0 auto; }
+.tplb-addon__body { flex: 1 1 auto; }
+.tplb-addon__title { display: block; font-size: 14px; }
+.tplb-addon__hint { display: block; font-size: 11px; color: var(--tplb-dim); margin-top: 2px; }
+.tplb-addon__price { flex: 0 0 auto; font-weight: 600; font-size: 14px; color: var(--tplb-accent); }
+
+.tplb-styles--tone { margin-top: 14px; }
+.tplb-styles--tone .tplb-optrow { border-top: none; padding-top: 0; }
+
+/* min-width:120px у ярлыка нужен в шаге «Надписи», где строк опций
+   несколько и они выстраиваются в колонку. Здесь строка одна, и
+   выравнивать не с чем: короткий «Тон фото» просто отрывался от кнопок
+   на ~90px пустоты. */
+.tplb-styles--tone .tplb-optrow__label { min-width: 0; }
+
+/* Комментарий менеджеру — отдельная карточка под шагами.
+   Раньше это было поле внутри шага «Футболка», и его не замечали.
+   Габариты карточки повторяют .tplb-step (фон, рамка, радиус, отступ),
+   но аккордеоном она не управляется: всегда раскрыта. Акцентная левая
+   кромка отделяет её от свёрнутых шагов — иначе в колонке из одинаковых
+   прямоугольников единственный открытый блок теряется. */
+.tplb-comment {
+	display: block;
+	background: var(--tplb-card);
+	border: 1px solid var(--tplb-line);
+	border-left: 3px solid var(--tplb-accent);
+	border-radius: 12px;
+	padding: 20px;
+	margin-bottom: 16px;
+}
+
+.tplb-comment__title {
+	display: flex;
+	align-items: baseline;
+	flex-wrap: wrap;
+	gap: 8px;
+	margin: 0;
+	font-size: 16px;
+	font-weight: 700;
+	text-transform: uppercase;
+	letter-spacing: .02em;
+}
+
+.tplb-comment__title span {
+	font-size: 12px;
+	font-weight: 400;
+	text-transform: none;
+	letter-spacing: 0;
+	color: var(--tplb-dim);
+}
+
+.tplb-comment__hint {
+	margin: 6px 0 10px;
+	font-size: 13px;
+	line-height: 1.45;
+	color: var(--tplb-dim);
+}
+
+/* ═══════════════════════════════════════════
+   ПРЕВЬЮ
+   ═══════════════════════════════════════════ */
+
+/* На десктопе масштабатор — обычная обёртка без эффекта: --tplb-scale = 1,
+   padding-top не задаётся, высоту диктует само превью. */
+.tplb-previewfit { position: relative; }
+
+/* Колонка превью не должна прокручиваться внутри себя. Полоса прокрутки
+   между макетом и кнопкой «В корзину» читается как обрезанный контент,
+   а сводка при этом наполовину уезжает под липкий низ — при том, что
+   не влезает она обычно на сотню пикселей.
+
+   Если колонка выше экрана, fitSideColumn() ставит --tplb-peek, и макет
+   ужимается ровно настолько, чтобы сводка, оговорка и кнопка поместились.
+   Приём тот же, что на мобильных: вёрстка идёт в полную ширину колонки,
+   уменьшает transform. Сжимать сам контейнер нельзя — кегли внутри макета
+   заданы в vw и откалиброваны под полную ширину.
+
+   Внутренняя прокрутка остаётся как страховка для совсем низких окон,
+   где даже ужатый макет не даёт всему поместиться. */
+/* Обёртка держит ПОЛНУЮ ширину колонки, ужимает только transform.
+
+   Прежняя пара правил — обёртка в `peek * 100%`, превью обратно в
+   `100% / peek` — давала ту же картинку, но ширина самого превью
+   зависела от масштаба. За ней тянулась высота, а высоту читает
+   fitSideColumn(), чтобы этот же масштаб и посчитать. Через
+   ResizeObserver круг замыкался: округление ширины до layout-единиц
+   меняло offsetHeight на единицу, следом менялся peek, следом ширина —
+   и на большом экране, где peek держится у самой границы 1, это шло
+   кадр за кадром и читалось как мелкая дрожь текста.
+
+   Ширина теперь от peek не зависит вовсе, обратной связи нет.
+   transform-origin взят из базового правила .tplb-preview (top center) —
+   ужатый макет остаётся по центру колонки, как и раньше. */
+.tplb-previewfit.is-scaled { overflow: hidden; }
+
+.tplb-previewfit.is-scaled .tplb-preview {
+	transform: scale(var(--tplb-peek, 1));
+}
+
+.tplb-preview {
+	border-radius: 12px;
+	overflow: hidden;
+	border: 1px solid var(--tplb-line);
+	transform-origin: top center;
+}
+
+/* Кнопка разворота нужна только там, где превью ужато. */
+.tplb-zoom { display: none; }
+
+/* grid-template-columns: minmax(0, 1fr) — не косметика. С place-items:center
+   трек считался по max-content, и длинная строка без переносов (имя в ONLY YOU)
+   раздувала область печати шире самой футболки. Колонка с нижней границей 0
+   запирает ширину, а вертикальное центрирование остаётся за align-items. */
+.tplb-preview__tee {
+	aspect-ratio: 3 / 4;
+	display: grid;
+	grid-template-columns: minmax(0, 1fr);
+	align-items: center;
+	justify-items: stretch;
+	padding: 12% 10%;
+	background: #111;
+	transition: background .2s;
+}
+
+.tplb-preview[data-color="white"] .tplb-preview__tee { background: #ededed; }
+
+.tplb-preview__art {
+	width: 100%;
+	min-width: 0;
+	color: #fff;
+	--tplp-ink: #fff;
+}
+
+.tplb-preview[data-color="white"] .tplb-preview__art {
+	color: #0b0b0b;
+	--tplp-ink: #0b0b0b;
+}
+
+.tplb-preview__empty {
+	text-align: center;
+	font-size: 13px;
+	color: var(--tplb-dim);
+	padding: 30px 10px;
+}
+
+/* Ч/Б-режим — только превью. На печати обесцвечивает дизайнер. */
+.tplb-preview[data-tone="mono"] .tplb-preview__art img,
+.tplb-preview[data-tone="mono"] .tplp-letter.has-img { filter: grayscale(1) contrast(1.05); }
+
+/* ── Engine: letters ───────────────────── */
+
+.tplp-letters {
+	display: flex;
+	justify-content: center;
+	gap: 1px;
+	font-family: var(--tplp-display);
+	font-weight: 700;
+	font-size: var(--tplp-fit, clamp(44px, 13vw, 96px));
+	line-height: .9;
+	text-transform: uppercase;
+	white-space: nowrap;
+}
+
+.tplp-letter {
+	display: inline-block;
+	color: currentColor;
+	opacity: .28;
+}
+
+.tplp-letter.has-img {
+	opacity: 1;
+	background-size: cover;
+	background-position: center;
+	-webkit-background-clip: text;
+	background-clip: text;
+	color: transparent;
+	-webkit-text-fill-color: transparent;
+}
+
+/* ── Engine: poster ────────────────────── */
+
+.tplp-poster { display: flex; flex-direction: column; gap: 6px; }
+
+.tplp-titles {
+	display: flex;
+	flex-direction: column;
+	width: 100%;
+	/* Строки заголовка — SVG с textLength: ширина всегда равна области печати,
+	   высота фиксирована пропорцией viewBox и не зависит от длины надписи.
+	   Замер в DOM для этого не годился — зависел от момента загрузки Oswald. */
+	gap: 0;
+	margin-bottom: 4px;
+}
+
+.tplp-titlesvg {
+	display: block;
+	width: 100%;
+	height: auto;
+	/* Пропорция задана ЯВНО. Полагаться на интринсик-ratio из viewBox нельзя:
+	   у SVG-элемента внутри flex-колонки height:auto схлопывается в ноль,
+	   и весь заголовок пропадал. Дублируется атрибутами width/height в разметке. */
+	aspect-ratio: 1000 / 118;
+	flex: 0 0 auto;
+	overflow: visible;
+}
+
+.tplp-tline {
+	font-family: var(--tplp-display);
+	font-weight: 700;
+}
+
+/* Кириллический заголовок. До 3.7.30 шёл Oswald'ом; теперь кириллица
+   в семействе Horizon (своя кириллица, см. @font-face выше), класс оставлен
+   только как признак: контурный повтор у такой строки — обводкой. */
+.tplp-tline.is-cyr { font-family: var(--tplp-display); }
+
+.tplp-tline.is-solid { fill: currentColor; }
+
+/* Контурный повтор латиницей — настоящее контурное начертание.
+   Обводка тут не нужна: контур уже нарисован в глифе, и его надо
+   ЗАЛИВАТЬ. Правило стоит НИЖЕ .is-cyr намеренно — вместе они не
+   встречаются, но при равной специфичности порядок решает. */
+.tplp-tline.is-outlineface {
+	font-family: var(--tplp-display-outline);
+	fill: currentColor;
+	/* контур жирнее. Обводка поверх контурного глифа наращивает
+	   кольцо с обеих сторон. Толщина и прозрачность повторены в растре
+	   (R.titleFaceStroke, TITLE_OUTLINE_ALPHA) — менять вместе. */
+	stroke: var(--tplp-ink, #fff);
+	stroke-width: 3;
+	stroke-linejoin: round;
+	opacity: .9;
+}
+
+.tplp-tline.is-outline {
+	fill: none;
+	/* currentColor тут НЕЛЬЗЯ — он уже прозрачный у обводки, строки
+	   рисовались бы невидимыми. Берём явный цвет из --tplp-ink. */
+	stroke: var(--tplp-ink, #fff);
+	stroke-width: 7; /* было 4, см. R.titleStroke в JS */
+	opacity: .9;
+}
+
+.tplp-grid {
+	position: relative;
+	width: 100%;
+	aspect-ratio: 1 / 1.05;
+	margin-top: 4px;
+}
+
+/* border-box обязателен: пунктирная рамка пустой ячейки иначе прибавляет
+   2px к доле и ровная сетка перестаёт сходиться по контуру. */
+.tplp-cell { position: absolute; overflow: hidden; background: #2a2a2a; box-sizing: border-box; }
+.tplp-cell img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+.tplp-cell.is-empty {
+	display: grid;
+	place-items: center;
+	border: 1px dashed rgba(255, 255, 255, .28);
+	background: rgba(255, 255, 255, .04);
+	font-size: 13px;
+	color: rgba(255, 255, 255, .45);
+}
+
+.tplb-preview[data-color="white"] .tplp-cell.is-empty {
+	border-color: rgba(0, 0, 0, .25);
+	background: rgba(0, 0, 0, .04);
+	color: rgba(0, 0, 0, .4);
+}
+
+.tplp-date {
+	font-family: var(--tplp-display);
+	/* без явного 700 кириллица уходила на Oswald 400 — тонкий
+	   шрифт, отличный от остальных шаблонов. Horizon (латиница) однонасыщенный,
+	   поэтому на английском разницы не было видно. */
+	font-weight: 700;
+	font-size: clamp(10px, 2.6vw, 14px);
+	text-transform: uppercase;
+	margin-top: 4px;
+	text-align: center;
+}
+
+.tplp-footer {
+	display: flex;
+	align-items: center;
+	gap: 8px;
+	font-family: var(--tplp-display);
+	font-weight: 700; /* прежней версии, см. .tplp-date */
+	font-size: clamp(9px, 2.2vw, 12px);
+	text-transform: uppercase;
+	letter-spacing: .04em;
+}
+
+.tplp-footer.is-center { flex-direction: column; gap: 2px; text-align: center; }
+.tplp-footer.is-split .tplp-footer__right { margin-left: auto; text-align: right; }
+
+/* ── Engine: single ────────────────────── */
+
+.tplp-single { text-align: center; }
+
+/* Имя набирается ровно: наклон читался как дефект вёрстки, а не как приём. */
+.tplp-single__name {
+	font-family: var(--tplp-display);
+	font-weight: 700;
+	font-size: clamp(18px, 6vw, 34px);
+	text-transform: uppercase;
+	letter-spacing: .01em;
+	margin-bottom: 6px;
+}
+
+.tplp-single__photo {
+	aspect-ratio: 4 / 5;
+	background: #2a2a2a;
+	overflow: hidden;
+	display: grid;
+	place-items: center;
+	width: 100%;
+	margin-inline: auto;
+	transition: width .18s ease;
+}
+
+/* Стиль photo_size: «Небольшое по центру» — кадр не на всю ширину принта. */
+.tplp-single.is-size-medium .tplp-single__photo { width: 58%; }
+
+.tplp-single__photo.is-polaroid {
+	background: #fff;
+	padding: 6% 6% 16%;
+	box-shadow: 0 2px 12px rgba(0, 0, 0, .35);
+}
+
+.tplp-single__photo img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+/* Цвет чернил — переменная, как у подписей на полароидах. Прежний
+   жёсткий #c0392b остаётся запасным на случай, если стиль не задан. */
+.tplp-single__bottom {
+	font-family: var(--tplb-script);
+	font-style: italic;
+	font-size: clamp(14px, 4.5vw, 26px);
+	color: var(--tplb-ink, #c0392b);
+	margin-top: 8px;
+}
+
+/* Стиль bottom_tilt: наклон — опция, а не константа. */
+.tplp-single__bottom.is-tilt { transform: rotate(-3deg); }
+
+/* Дисклеймер о кадрировании. Живёт в шаге «Раскладка и фото» у всех
+   шаблонов: схематичное превью — самый частый источник ожиданий
+   «будет ровно так». */
+/* из оранжевого блока в мелкую строку. Смысл справочный —
+   человек читает её один раз, а вес имела как предупреждение. */
+.tplb-crop-note {
+	margin: 12px 0 0;
+	padding: 0;
+	border: none;
+	border-left: 2px solid var(--tplb-line);
+	padding-left: 10px;
+	background: none;
+	font-size: 11.5px;
+	line-height: 1.45;
+	color: var(--tplb-dim);
+}
+
+/* ── Engine: onlyyou ───────────────────── */
+
+.tplp-oy { display: flex; flex-direction: column; }
+
+/* Блочный низ внутри постера: обёртка .tplp-oy несёт только строку имени и
+   двухколоночный низ, кадра над ней нет. Верхний отступ от сетки коллажа
+   берётся тот же, что у .tplp-grid, — иначе низ прилипал к последней
+   ячейке, потому что margin-top у .tplp-oy__namerow рассчитан на соседство
+   с кадром, а не с коллажем. */
+.tplp-oy.is-footonly { margin-top: 4px; }
+
+/* Центрирование здесь — только для плейсхолдера «фото». Само изображение
+   центрируется правилом ниже и от flex/grid не зависит. */
+.tplp-oy__photo {
+	position: relative;
+	background: #2a2a2a;
+	box-sizing: border-box;
+	overflow: hidden;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	margin-top: 2px;
+}
+
+/* Кадр абсолютный, а не элемент потока: центрирование должно быть
+   гарантированным во всех раскладках — и в полосе «глаз», и в 2/3,
+   и в полном кадре. place-items:center не растягивает элемент, и cover
+   считался бы от неверного бокса. object-position задан явно, чтобы из
+   любого фото бралась именно середина, а не верх.
+   Лонгхенды top/right/bottom/left продублированы намеренно: inset
+   не понимает Safari до 14.1, а там кадр уезжал в левый верхний угол. */
+.tplp-oy__photo img {
+	position: absolute;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	inset: 0;
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	object-position: 50% 50%;
+	display: block;
+}
+
+.tplp-oy__photo.is-empty {
+	border: 1px dashed rgba(255, 255, 255, .28);
+	background: rgba(255, 255, 255, .04);
+}
+
+.tplb-preview[data-color="white"] .tplp-oy__photo.is-empty {
+	border-color: rgba(0, 0, 0, .25);
+	background: rgba(0, 0, 0, .04);
+}
+
+/* Строка «декор + имя». Количество символов декора и кегль имени считает
+   fitNameRow() после вёрстки — здесь только геометрия. */
+.tplp-oy__namerow {
+	display: flex;
+	max-width: 100%;
+	align-items: baseline;
+	column-gap: 6px;
+	margin-top: 3px; /* 4 → 3, R.nameTop */
+	font-family: var(--tplp-display);
+	font-weight: 700;
+	line-height: 1;
+	overflow: hidden;
+}
+
+/* Кегль и трекинг задаёт fitNameRow(): первый считается от высоты
+   капители имени, второй берётся из DECOR_TRACKING — тем же числом
+   пользуется растр для заказа. Значения здесь — только запасные,
+   на случай если подгон не отработал. */
+.tplp-oy__arrows {
+	flex: 0 0 auto;
+	white-space: nowrap;
+	font-size: clamp(11px, 3.4vw, 20px);
+}
+
+/* flex-grow: 0 принципиален. С grow:1 имя занимало всю строку, декору
+   не оставалось места, и fitNameRow() честно считал ноль символов.
+   min-width:0 нужен, чтобы бокс с nowrap всё-таки мог сжаться;
+   margin-left:auto прижимает имя вправо, когда декор отключён. */
+.tplp-oy__name {
+	flex: 0 1 auto;
+	min-width: 0;
+	margin-left: auto;
+	overflow: hidden;
+	font-size: clamp(12px, 4vw, 24px); /* было clamp(14px, 5vw, 30px), R.nameSize */
+	text-transform: uppercase;
+	letter-spacing: .01em;
+	white-space: nowrap;
+}
+
+/* Низ макета: две колонки уже половины, между ними воздух по центру —
+   на референсе низ читается как разворот, а не как таблица в два столбца.
+   flex-basis в процентах + space-between держит подпись справа даже когда
+   левый блок пуст (пустой .tplp-oy__side рендерится всегда). */
+/* Ширины колонок и зазор в сумме дают ровно 100%. Раньше выходило 96%,
+   и остаток уезжал в зазор через space-between: между блоками зияло ~10%
+   ширины принта, а правой колонке места не хватало.
+
+   52% — минимум, при котором «MY FAVOURITE PERSON» встаёт в две строки
+   на макете 320px (замер t/phrase-width.js: 46% → 3 строки, 50% → 2 в
+   упор, 52% → 2 с запасом). Недостающее взято из зазора, а не из левой
+   колонки: там плеер и штрихкод, они и так на пределе. */
+.tplp-oy__foot {
+	display: flex;
+	align-items: flex-start;
+	justify-content: space-between;
+	gap: 5%;
+	margin-top: 5px; /* 8 → 5, R.footTop */
+}
+
+/* min-width:0 критичен. С колонками на grid 1fr минимум считался по
+   min-content, и длинное слово в подписи сжимало соседнюю колонку почти
+   в ноль — штрихкод и QR превращались в марку размером с ноготь. */
+.tplp-oy__side {
+	flex: 0 1 43%;
+	min-width: 0;
+}
+
+.tplp-oy__track {
+	font-family: var(--tplp-display);
+	font-weight: 700;
+	font-size: calc(clamp(8px, 2.6vw, 13px) * var(--tplp-k, 1)); /* прежней версии, R.trackSize */
+	text-transform: uppercase;
+	text-align: center;
+	line-height: 1.2;
+	min-height: 1.2em;
+	overflow-wrap: anywhere;
+}
+
+.tplp-oy__bar {
+	position: relative;
+	height: 3px;
+	background: currentColor;
+	opacity: .85;
+	margin: 5px 0; /* 8 → 5, R.barGap */
+	border-radius: 3px;
+}
+
+/* Бегунок на ~30% — как на референсе; декоративный, значение не меняется. */
+.tplp-oy__bar i {
+	position: absolute;
+	left: 30%;
+	top: 50%;
+	width: 9px;
+	height: 9px;
+	margin: -4.5px 0 0 -4.5px;
+	border-radius: 50%;
+	background: currentColor;
+}
+
+.tplp-oy__icons { display: block; width: 78%; margin: 0 auto; height: auto; } /* 100% → 78%, PLAYER_ICONS_K */
+
+/* Штрихкод и QR */
+.tplp-oy__code { text-align: center; }
+
+/* preserveAspectRatio="none" в разметке: штрихкод по природе тянется по
+   ширине, пропорции штрихов значения не имеют. Высота — доля от ширины
+   колонки, чтобы он оставался широким, а не превращался в квадрат. */
+.tplp-oy__barcode {
+	display: block;
+	width: 100%;
+	height: auto;
+	aspect-ratio: 10 / 2.2; /* было 10 / 3, BARCODE_K */
+}
+
+.tplp-oy__codecap {
+	font-family: var(--tplp-display);
+	font-weight: 700;
+	font-size: calc(clamp(9px, 2.8vw, 15px) * var(--tplp-k, 1));
+	text-transform: uppercase;
+	letter-spacing: .04em;
+	margin-top: 3px; /* 4 → 3, R.nameTop */
+	min-height: 1.1em;
+	/* всегда одной строкой — кегль ужимает fitOneLine() в JS. */
+	white-space: nowrap;
+	overflow: hidden;
+}
+
+/* QR квадратный по определению — задаём только ширину, высоту держит viewBox. */
+.tplp-oy__code.is-qr { display: flex; justify-content: center; }
+
+.tplp-oy__qr {
+	width: 72%;
+	max-width: 110px;
+	min-width: 46px;
+	height: auto;
+	display: block;
+}
+
+/* «Глаза» QR прорезаются цветом футболки, а не чёрным наглухо. */
+.tplb-preview[data-color="black"] .tplp-oy { --tplb-qr-bg: #111; }
+.tplb-preview[data-color="white"] .tplp-oy { --tplb-qr-bg: #fff; }
+
+/* Блок узкий, поэтому текст обязан переноситься — в том числе внутри
+   слова: клиент вполне может ввести длинную строку без пробелов. */
+.tplp-oy__note {
+	font-family: var(--tplp-display);
+	font-weight: 700;
+	font-size: calc(clamp(9px, 2.8vw, 15px) * var(--tplp-k, 1));
+	text-transform: uppercase;
+	line-height: 1.25;
+	letter-spacing: .02em;
+	white-space: normal;
+	overflow-wrap: anywhere;
+	word-break: break-word;
+	display: -webkit-box;
+	-webkit-line-clamp: 4;
+	-webkit-box-orient: vertical;
+	overflow: hidden;
+}
+
+/* Подпись справа: до двух строк, дальше обрезаем — макет не должен
+   расти вниз от длинной фразы. */
+/* Нижняя граница кегля для подгона текста после вёрстки. Формула ровно та
+   же, что у подписи под штрихкодом: фраза справа не имеет права стать мельче
+   неё. Раньше пол был 9px, и на 40+ символах строка ужималась почти вдвое
+   против соседней подписи — читать было нечего.
+
+   Зонд, а не кастомное свойство: clamp() в нерегистрированной переменной
+   не резолвится (в computed value уезжает сам токен), а @property не
+   понимает Safari до 16.4 — та же история, что с width/height у SVG. */
+.tplp-oy__minprobe {
+	position: absolute;
+	visibility: hidden;
+	width: 0;
+	height: 0;
+	overflow: hidden;
+	font-size: calc(clamp(9px, 2.8vw, 15px) * var(--tplp-k, 1));
+}
+
+/* Подпись справа: четыре строки вместо двух. С поднятым полом кегля 44
+   символа (максимум поля) на десктопе занимают ровно четыре строки —
+   при трёх line-clamp резал бы хвост фразы, а обрезка тут хуже лишней
+   строки. На мобиле пол ниже, и те же 44 символа укладываются в три.
+   Сама обрезка остаётся страховкой на случай нестандартного шрифта. */
+.tplp-oy__phrase {
+	flex: 0 1 52%;
+	min-width: 0;
+	font-family: var(--tplp-display);
+	font-weight: 700;
+	font-size: calc(clamp(10px, 3vw, 17px) * var(--tplp-k, 1)); /* прежней версии, R.phraseSize */
+	line-height: 1.15;
+	text-align: right;
+	display: -webkit-box;
+	-webkit-line-clamp: 4;
+	-webkit-box-orient: vertical;
+	overflow: hidden;
+	overflow-wrap: anywhere;
+}
+
+/* Имя слева, декор справа. Порядок узлов в разметке не меняется —
+   fitNameRow() ищет их по селекторам, а не по позиции, — переворачивает
+   строку флексбокс. `margin-left: auto` у имени в этом режиме прижимал бы
+   его к декору, поэтому снимается. */
+.tplp-oy__namerow.is-nameleft { flex-direction: row-reverse; }
+.tplp-oy__namerow.is-nameleft .tplp-oy__name { margin-left: 0; margin-right: auto; }
+
+/* ── Engine: polaroid ──────────────────── */
+
+.tplp-polaroid { display: grid; grid-template-columns: 1fr 1fr; gap: 5%; }
+
+.tplp-pol {
+	background: #fff;
+	padding: 6% 6% 4%;
+	box-shadow: 0 2px 10px rgba(0, 0, 0, .3);
+}
+
+.tplp-pol__img {
+	aspect-ratio: 1;
+	background: #ddd;
+	overflow: hidden;
+	display: grid;
+	place-items: center;
+}
+
+.tplp-pol__img img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+/* Цвет чернил задаётся переменной: её ставит конструктор по выбору
+   клиента, растр для заказа читает то же значение. */
+.tplp-pol__cap {
+	color: var(--tplb-ink, #111);
+	font-family: var(--tplb-script);
+	font-style: italic;
+	font-size: clamp(8px, 2.2vw, 12px);
+	text-align: center;
+	padding: 6px 2px 2px;
+	line-height: 1.25;
+	min-height: 2.4em;
+}
+
+.tplp-ph { font-size: 12px; color: #999; }
+
+/* ── Сводка и итог ─────────────────────── */
+
+/* Оговорка внутри блока «Итого», перед кнопкой. Раньше висела серым
+   текстом под превью и читалась как подпись к картинке — её пропускали.
+   Здесь у неё подложка и акцентная иконка: не предупреждение об ошибке,
+   но и не проходной текст. */
+.tplb-side__note {
+	display: flex;
+	align-items: flex-start;
+	gap: 8px;
+	margin: 0 0 12px;
+	padding: 10px 12px;
+	border-radius: 8px;
+	background: rgba(255, 106, 0, .08);
+	border: 1px solid rgba(255, 106, 0, .25);
+	font-size: 12px;
+	line-height: 1.45;
+	color: var(--tplb-text);
+}
+
+.tplb-side__note svg {
+	flex: 0 0 auto;
+	margin-top: 1px;
+	color: var(--tplb-accent);
+}
+
+.tplb-summary {
+	background: var(--tplb-card);
+	border: 1px solid var(--tplb-line);
+	border-radius: 10px;
+	padding: 12px 14px;
+	margin-bottom: 12px;
+}
+
+.tplb-summary__row {
+	display: flex;
+	justify-content: space-between;
+	gap: 12px;
+	font-size: 13px;
+	padding: 4px 0;
+}
+
+.tplb-summary__row span { color: var(--tplb-dim); }
+
+.tplb-total {
+	background: var(--tplb-card);
+	border: 1px solid var(--tplb-line);
+	border-radius: 10px;
+	padding: 14px;
+}
+
+.tplb-total__row {
+	display: flex;
+	justify-content: space-between;
+	align-items: baseline;
+	margin-bottom: 12px;
+}
+
+.tplb-total__row strong {
+	font-family: 'Oswald', sans-serif;
+	font-size: 24px;
+	color: var(--tplb-accent);
+}
+
+.tplb-submit,
+.tplb-sticky__btn {
+	width: 100%;
+	background: var(--tplb-accent);
+	color: #000;
+	border: none;
+	border-radius: 8px;
+	padding: 14px;
+	font-family: 'Oswald', sans-serif;
+	font-weight: 700;
+	font-size: 16px;
+	text-transform: uppercase;
+	letter-spacing: .03em;
+	cursor: pointer;
+	transition: opacity .16s;
+}
+
+.tplb-submit:disabled,
+.tplb-sticky__btn:disabled { opacity: .4; cursor: not-allowed; }
+
+.tplb-error {
+	margin-top: 10px;
+	padding: 9px 11px;
+	background: rgba(200, 40, 40, .12);
+	border: 1px solid rgba(200, 40, 40, .4);
+	border-radius: 6px;
+	font-size: 13px;
+	color: #ff9a9a;
+}
+
+/* ── SEO-блок ──────────────────────────── */
+
+.tplb-seo { margin-top: 48px; max-width: 800px; }
+
+.tplb-seo__title {
+	font-family: 'Oswald', sans-serif;
+	font-weight: 700;
+	font-size: 22px;
+	text-transform: uppercase;
+	margin: 0 0 12px;
+}
+
+.tplb-seo__body { color: #c4c4c4; line-height: 1.65; font-size: 15px; }
+
+/* ── Sticky (мобилка) ──────────────────── */
+
+.tplb-sticky { display: none; }
+
+/* ═══════════════════════════════════════════
+   АДАПТИВ — блок в конце файла намеренно:
+   базовые правила выше имеют равную специфичность
+   и перебивали бы мобильные при обратном порядке.
+   ═══════════════════════════════════════════ */
+
+@media (max-width: 1024px) {
+	.tplb-layout { grid-template-columns: 1fr; gap: 20px; }
+
+	/* Липкая полоса под шапкой сайта.
+
+	   `top: 64px` — высота липкой шапки сайта. Ноль ставить нельзя:
+	   шапка стоит выше по z-index (900 против 5) и срезала бы верх
+	   макета. Верхний отступ убран, нижний ужат — эти пиксели уходят форме.
+
+	   Фон непрозрачный, тень и рамка снизу обязательны: под полосой
+	   проезжают шаги, и без границы макет сливался с формой — глаз не
+	   понимал, где кончается превью и начинается контент. */
+	.tplb-side {
+		order: -1;
+		position: sticky;
+		top: 64px;
+		z-index: 5;
+		background: var(--tplb-bg);
+		padding: 0 0 8px;
+		box-shadow: 0 6px 14px -6px rgba(0, 0, 0, .9);
+		border-bottom: 1px solid var(--tplb-line);
+	}
+
+	/* Контур вокруг самого макета — вторая граница, уже внутренняя:
+	   тёмный принт на тёмном фоне полосы без неё читается как продолжение
+	   страницы. */
+	.tplb-previewfit .tplb-preview {
+		border: 1px solid var(--tplb-line);
+		border-radius: 10px;
+	}
+
+	/* На мобильных прокрутка внутри колонки не нужна: она не липкая,
+	   а ограничение по высоте обрезало бы развёрнутое превью. */
+	.tplb-side__inner {
+		position: static;
+		max-height: none;
+		overflow: visible;
+	}
+	.tplb-total { display: none; }
+	.tplb-summary { display: none; }
+
+	/* Пропорция футболки восстановлена. Раньше на мобильных стояло 4/3:
+	   превью растягивалось во всю ширину экрана и печать выглядела шире,
+	   чем будет на изделии. Теперь всегда 3/4, а помещается за счёт
+	   масштаба, а не за счёт вранья о пропорциях. */
+	.tplb-preview__tee { aspect-ratio: 3 / 4; padding: 10% 9%; }
+
+	/* Превью показывается миниатюрой слева, а освободившееся место справа
+	   занимают сводка и кнопка разворота. Главное на экране — форма;
+	   живой отклик при этом сохраняется, видно, как композиция меняется
+	   по мере ввода. Для разглядывания есть разворот на весь экран.
+
+	   Ключевой приём: вёрстка макета идёт в полную ширину колонки, и лишь
+	   потом всё уменьшается transform-ом. Сжимать сам контейнер нельзя —
+	   кегли внутри макета заданы в vw и откалиброваны под полную ширину,
+	   при узком контейнере текст поехал бы относительно кадра.
+
+	   --tplb-peek обязан совпадать с долей первой колонки грида: ширина
+	   миниатюры = W×peek, а внутреннее превью верстается в W через
+	   calc(100% / peek). Разъедутся — сломается либо масштаб, либо кегли. */
+	.tplb-side__inner {
+		--tplb-peek: .45;
+		display: grid;
+		grid-template-columns: calc(var(--tplb-peek) * 100%) 1fr;
+		grid-template-rows: auto auto 1fr;
+		column-gap: 12px;
+		align-items: start;
+	}
+
+	/* padding-top — только стартовое приближение на первый кадр, пока JS
+	   не измерил макет. Точную высоту ставит syncPeekHeight(): содержимое
+	   бывает выше пропорции 3/4, и фиксированная высота резала низ. */
+	.tplb-previewfit {
+		grid-column: 1;
+		grid-row: 1 / -1;
+		height: 0;
+		padding-top: 133.333%;
+		overflow: hidden;
+	}
+
+	/* Десктопный масштабатор здесь не при делах: ширину колонки задаёт
+	   грид, а класс снимает сам fitSideColumn(). Сброс — страховка на
+	   случай смены ориентации до ближайшего пересчёта. */
+	.tplb-previewfit.is-scaled { width: auto; margin-inline: 0; }
+
+	.tplb-previewfit .tplb-preview {
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: calc(100% / var(--tplb-peek));
+		transform: scale(var(--tplb-peek));
+		transform-origin: top left;
+	}
+
+	.tplb-summary {
+		display: block;
+		grid-column: 2;
+		grid-row: 1;
+		margin: 0 0 8px;
+	}
+
+	.tplb-zoom {
+		display: block;
+		grid-column: 2;
+		grid-row: 2;
+		width: 100%;
+		padding: 9px 12px;
+		background: transparent;
+		border: 1px solid var(--tplb-line);
+		border-radius: 8px;
+		color: var(--tplb-dim);
+		font-family: inherit;
+		font-size: 13px;
+		cursor: pointer;
+	}
+
+	.tplb-zoom__close { display: none; }
+
+	/* В свёрнутом виде оговорка только отъедает высоту — показываем её
+	   в развороте, где человек как раз изучает макет. */
+	.tplb-side__note { display: none; }
+
+	/* ── Разворот на весь экран ───────────────────────────────── */
+	/* z-index выше шапки сайта (900) и нижней навигации (500), но ниже
+	   мобильного меню (1100) и куки-баннера. С прежними 60 оверлей уезжал
+	   под липкую шапку — она накрывала кнопку «Свернуть», и выйти из
+	   разворота было нечем. */
+	.tplb-side.is-zoom {
+		position: fixed;
+		inset: 0;
+		z-index: 1050;
+		background: var(--tplb-bg);
+		padding: 14px 16px calc(14px + env(safe-area-inset-bottom));
+		padding-top: calc(14px + env(safe-area-inset-top));
+		overflow-y: auto;
+		-webkit-overflow-scrolling: touch;
+		overscroll-behavior: contain;
+	}
+
+	/* Одна колонка, масштаб снят: макет верстается и показывается 1:1. */
+	.tplb-side.is-zoom .tplb-side__inner {
+		display: flex;
+		flex-direction: column;
+		--tplb-peek: 1;
+	}
+
+	.tplb-side.is-zoom .tplb-previewfit { padding-top: 0; height: auto; }
+	.tplb-side.is-zoom .tplb-previewfit .tplb-preview { position: static; }
+	.tplb-side.is-zoom .tplb-side__note { display: flex; margin-top: 10px; }
+	.tplb-side.is-zoom .tplb-summary { margin-top: 10px; }
+
+	/* Кнопка идёт первой в потоке: «Свернуть» должна быть под пальцем
+	   сразу, без прокрутки к низу макета. */
+	.tplb-side.is-zoom .tplb-zoom {
+		order: -1;
+		position: sticky;
+		top: 0;
+		z-index: 2;
+		margin: 0 0 12px;
+		background: var(--tplb-bg);
+		border-color: var(--tplb-accent);
+		color: var(--tplb-accent);
+	}
+
+	.tplb-side.is-zoom .tplb-zoom__open { display: none; }
+	.tplb-side.is-zoom .tplb-zoom__close { display: inline; }
+
+	body.tplb-noscroll { overflow: hidden; }
+
+	.tplb-sticky {
+		display: flex;
+		align-items: center;
+		gap: 12px;
+		position: fixed;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		z-index: 40;
+		background: rgba(13, 13, 13, .97);
+		border-top: 1px solid var(--tplb-line);
+		padding: 10px 16px calc(10px + env(safe-area-inset-bottom));
+	}
+
+	.tplb-sticky__price { display: flex; flex-direction: column; line-height: 1.2; }
+	.tplb-sticky__price span { font-size: 11px; color: var(--tplb-dim); }
+	.tplb-sticky__price strong { font-family: 'Oswald', sans-serif; font-size: 19px; color: var(--tplb-accent); }
+	.tplb-sticky__btn { width: auto; flex: 1 1 auto; padding: 12px 18px; font-size: 14px; }
+
+	.tplb-page { padding-bottom: 90px; }
+}
+
+@media (max-width: 600px) {
+	.tplb-step { padding: 16px 14px; }
+	.tplb-bases { grid-template-columns: repeat(2, 1fr); gap: 9px; }
+	.tplb-base__sub { display: none; }
+	.tplb-optrow { flex-direction: column; align-items: flex-start; gap: 7px; }
+	.tplb-optrow__label { min-width: 0; }
+	.tplb-slots__grid { grid-template-columns: repeat(4, 1fr); }
+	.tplb-layouts { grid-template-columns: repeat(3, 1fr); }
+	.tplb-step__pick { max-width: 38%; font-size: 12px; }
+}
+
+/* Миниатюры в шапке шага «Раскладка и фото» — видно состав, а не только счётчик. */
+.tplb-step__thumbs {
+	display: flex;
+	gap: 3px;
+	margin-left: auto;
+	flex: 0 1 auto;
+	overflow: hidden;
+}
+
+.tplb-step__thumbs:empty { display: none; }
+
+.tplb-step__thumbs i {
+	flex: 0 0 auto;
+	width: 26px;
+	height: 26px;
+	border-radius: 4px;
+	background-size: cover;
+	background-position: center;
+	background-color: #0d0d0d;
+}
+
+.tplb-step__thumbs i.is-empty {
+	border: 1px dashed var(--tplb-line);
+	background-image: none;
+}
+
+.tplb-step__thumbs + .tplb-step__counter { margin-left: 10px; }
+
+@media (max-width: 600px) {
+	.tplb-step__thumbs i { width: 20px; height: 20px; }
+	.tplb-step__thumbs i:nth-child(n+5) { display: none; }
+}
+
+/* ═══════════════════════════════════════════
+   ОБЛАСТЬ ПЕЧАТИ
+
+   Рамка и ярлык убраны: ярлык (top:-8px, line-height 14px) заходил на 6px
+   внутрь области и ложился на первую строку заголовка — заголовок упирается
+   в верхнюю границу по замыслу, места под ярлык там нет в принципе.
+   Блок остаётся как контейнер макета: position/width нужны движкам превью.
+   ═══════════════════════════════════════════ */
+
+.tplb-preview__area {
+	position: relative;
+	width: 100%;
+	min-width: 0;
+}
+
+/* ── «Пришлю фото позже» ────────────────── */
+
+/* из карточки в обычную строку с чекбоксом. Рамка и подложка
+   делали из необязательной опции блок того же веса, что кнопка загрузки,
+   и в объединённом шаге это сбивало приоритет. Подсветка включённого
+   состояния остаётся — она несёт смысл: слоты можно оставить пустыми. */
+.tplb-later {
+	display: flex;
+	align-items: flex-start;
+	gap: 10px;
+	margin-top: 12px;
+	padding: 2px 0;
+	cursor: pointer;
+	transition: color .16s;
+}
+
+.tplb-later.is-on .tplb-later__title { color: var(--tplb-accent); }
+
+.tplb-later input {
+	accent-color: var(--tplb-accent);
+	width: 17px;
+	height: 17px;
+	flex: 0 0 auto;
+	margin-top: 1px;
+}
+
+.tplb-later__title { display: block; font-size: 14px; font-weight: 600; }
+
+.tplb-later__hint {
+	display: block;
+	font-size: 12px;
+	color: var(--tplb-dim);
+	line-height: 1.45;
+	margin-top: 3px;
+}
+
+/* Слоты остаются доступными — можно прислать часть фото сейчас. */
+.tplb-step.is-later .tplb-slots__head::after {
+	content: ' — можно заполнить частично';
+	color: var(--tplb-dim);
+	font-weight: 400;
+}
+
+/* ── Пустой слот кликабелен: открывает выбор файла ── */
+
+.tplb-slots__head {
+	display: flex;
+	align-items: baseline;
+	gap: 8px;
+	flex-wrap: wrap;
+}
+
+.tplb-slots__hint {
+	font-weight: 400;
+	font-size: 12px;
+	color: var(--tplb-dim);
+}
+
+.tplb-slot.is-empty {
+	transition: border-color .16s, background .16s;
+}
+
+/* Плитка «Ещё фото» в свободной компоновке. Акцентная, а не серая:
+   это единственный явный способ добрать кадры, и он должен читаться
+   как действие, а не как очередной пустой слот. */
+.tplb-slot.is-add {
+	border-color: rgba(255, 106, 0, .5);
+	background: rgba(255, 106, 0, .06);
+	transition: border-color .16s, background .16s;
+}
+
+.tplb-slot.is-add:hover {
+	border-color: var(--tplb-accent);
+	background: rgba(255, 106, 0, .14);
+}
+
+.tplb-slot.is-add .tplb-slot__plus {
+	color: var(--tplb-accent);
+	padding-bottom: 16px;
+}
+
+.tplb-slot.is-add .tplb-slot__label {
+	inset: auto 0 0 0;
+	background: none;
+	align-items: end;
+	padding-bottom: 5px;
+	font-size: 11px;
+	color: var(--tplb-accent);
+}
+
+.tplb-slots__count {
+	margin-top: 8px;
+	font-size: 12px;
+	color: var(--tplb-dim);
+}
+
+/* Расшифровка бейджа «!» под сеткой. Бейдж повторён один в один (те же 18px
+   и тот же акцент), чтобы связь «значок → текст» читалась без объяснений.
+   На мобиле подсказка в шапке блока скрыта медиазапросом — эта строка
+   остаётся видимой всегда, она единственный носитель смысла значка. */
+.tplb-softnote {
+	display: flex;
+	align-items: flex-start;
+	gap: 8px;
+	margin: 10px 0 0;
+	font-size: 12px;
+	line-height: 1.45;
+	color: var(--tplb-dim);
+}
+
+.tplb-softnote__mark {
+	flex: 0 0 auto;
+	width: 18px;
+	height: 18px;
+	margin-top: 1px;
+	border-radius: 50%;
+	background: var(--tplb-accent);
+	color: #000;
+	font-size: 12px;
+	font-weight: 700;
+	line-height: 18px;
+	text-align: center;
+}
+
+.tplb-slot.is-empty:hover {
+	border-color: var(--tplb-accent);
+	background: rgba(255, 106, 0, .06);
+}
+
+.tplb-slot__plus {
+	position: absolute;
+	inset: 0;
+	display: grid;
+	place-items: center;
+	font-size: 26px;
+	line-height: 1;
+	color: var(--tplb-line);
+	transition: color .16s;
+	/* Номер слота лежит поверх, поэтому плюс смещаем вверх. */
+	padding-bottom: 16px;
+}
+
+.tplb-slot.is-empty:hover .tplb-slot__plus { color: var(--tplb-accent); }
+
+/* Номер пустого слота прижимаем вниз, чтобы не спорил с плюсом. */
+.tplb-slot.is-empty .tplb-slot__label {
+	inset: auto 0 0 0;
+	align-items: end;
+	padding-bottom: 5px;
+	font-size: 11px;
+}
+
+@media (max-width: 600px) {
+	.tplb-slots__hint { display: none; }
+	.tplb-slot__plus { font-size: 20px; padding-bottom: 12px; }
+}
+
+/* Одиночный полароид: карточка не растягивается на всю ширину печати —
+   доля совпадает со слотом раскладки `single`, чтобы превью и растр
+   для заказа показывали одно и то же. */
+.tplp-polaroid.is-single { grid-template-columns: 56%; justify-content: center; }
+
+/* ═══ «Слово из фото»: слово в шаге фото, сплошные буквы ═══ */
+
+/* Поля слова стоят над загрузкой — отделяем их от кнопки линией. */
+.tplb-fields--media {
+	margin-bottom: 16px;
+	padding-bottom: 6px;
+	border-bottom: 1px solid var(--tplb-line);
+}
+.tplb-fields--media[hidden] { display: none; }
+.tplb-fields--media .tplb-field { margin-bottom: 10px; }
+
+/* Пресеты слова — основное управление, как у поля «только из списка». */
+.tplb-field.is-word .tplb-presets { margin-top: 6px; gap: 8px; }
+
+.tplb-field.is-word .tplb-preset {
+	font-family: 'Oswald', sans-serif;
+	font-weight: 700;
+	font-size: 14px;
+	text-transform: uppercase;
+	letter-spacing: .02em;
+	padding: 9px 16px;
+	border-radius: 7px;
+	color: var(--tplb-text);
+}
+
+.tplb-field.is-word .tplb-preset.is-active {
+	border-color: var(--tplb-accent);
+	background: rgba(255, 106, 0, .14);
+	color: var(--tplb-accent);
+}
+
+/* Своё слово: подпись, поле и счётчик в одну строку. */
+.tplb-word-own {
+	display: flex;
+	align-items: center;
+	gap: 10px;
+	margin-top: 10px;
+}
+
+.tplb-word-own__label {
+	flex: 0 0 auto;
+	font-size: 12px;
+	color: var(--tplb-dim);
+}
+
+.tplb-field.is-word .tplb-word-own input {
+	flex: 1 1 auto;
+	width: auto;
+	min-width: 0;
+	max-width: 220px;
+	font-family: 'Oswald', sans-serif;
+	font-weight: 700;
+	font-size: 16px;
+	letter-spacing: .08em;
+	text-transform: uppercase;
+	padding: 8px 12px;
+}
+
+.tplb-field.is-word .tplb-field__hint.is-warn { color: var(--tplb-accent); }
+
+/* Пустой слот буквы: сама буква крупно — сразу видно, какое фото куда. */
+.tplb-slot.is-letter.is-empty .tplb-slot__label {
+	font-size: 30px;
+	font-weight: 700;
+	color: #5a5a5a;
+	padding: 0;
+}
+.tplb-slot.is-letter.is-empty .tplb-slot__plus {
+	place-items: start end;
+	font-size: 16px;
+	padding: 4px 8px 0 0;
+}
+.tplb-slot.is-letter.is-empty:hover .tplb-slot__label { color: var(--tplb-accent); }
+
+/* Сплошные буквы. До подгона (is-masked ставит applySolidLetters)
+   остаются обычным текстом — без маски блок был бы пустым. */
+.tplp-letters.is-solid.is-masked { align-items: flex-end; }
+
+.tplp-letters.is-solid.is-masked .tplp-letter {
+	display: block;
+	flex: 0 0 auto;
+	overflow: hidden;
+	color: inherit;
+	-webkit-text-fill-color: transparent;
+	background-color: currentColor;
+	-webkit-mask-image: var(--tplp-mask);
+	mask-image: var(--tplp-mask);
+	-webkit-mask-size: 100% 100%;
+	mask-size: 100% 100%;
+	-webkit-mask-repeat: no-repeat;
+	mask-repeat: no-repeat;
+}
+
+.tplp-letters.is-solid.is-masked .tplp-letter.has-img {
+	background-color: transparent;
+	background-size: cover;
+	background-position: center;
+	-webkit-background-clip: border-box;
+	background-clip: border-box;
+}
+
+@media (max-width: 600px) {
+	.tplb-slot.is-letter.is-empty .tplb-slot__label { font-size: 24px; }
+	.tplb-word-own__label { display: none; }
+	.tplb-field.is-word .tplb-word-own input { max-width: none; }
+}
+
+/* ═══ «PAPA и 4 фото» (движок papa) ═══
+
+   Montserrat — шрифт рабочего шаблона студии, только для этой основы.
+   Подключён здесь, а не в style-core: файлы качаются лишь когда
+   конструктор их запросит (loadPapaFonts в JS), на остальном сайте
+   их нет. Стек продублирован в tpl-builder.js (PAPA_FONT). */
+@font-face{font-family:'Montserrat';font-style:normal;font-weight:400;font-display:swap;src:url('../fonts/montserrat-cyrillic-400.woff2') format('woff2');unicode-range:U+0301,U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116}
+@font-face{font-family:'Montserrat';font-style:normal;font-weight:400;font-display:swap;src:url('../fonts/montserrat-latin-400.woff2') format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+2074,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:'Montserrat';font-style:normal;font-weight:700;font-display:swap;src:url('../fonts/montserrat-cyrillic-700.woff2') format('woff2');unicode-range:U+0301,U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116}
+@font-face{font-family:'Montserrat';font-style:normal;font-weight:700;font-display:swap;src:url('../fonts/montserrat-latin-700.woff2') format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+2074,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+
+/* Область печати 25 × 40 см: пропорция 1 : 1.6 ставится инлайном из
+   JS (PAPA.aspect), здесь только размер на футболке. 72% ширины
+   области макета — столбик помещается в футболку превью по высоте.
+
+   Кадры — те же .tplp-cell, что у постеров (пустые состояния, Ч/Б,
+   белая футболка уже описаны выше). Буквы и подпись — SVG поверх
+   кадров в системе координат растра (viewBox 1000 × 1600). */
+.tplp-papa {
+	position: relative;
+	width: 72%;
+	margin-inline: auto;
+}
+
+.tplp-papa__type {
+	position: absolute;
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 100%;
+	overflow: visible;
+	pointer-events: none;
+}
+
+.tplp-papa__letter,
+.tplp-papa__cap {
+	font-family: 'Montserrat', 'Inter', 'Arial', sans-serif;
+	font-weight: 400;
+	fill: var(--tplp-ink, #fff);
+}
+
+.tplp-papa__cap.is-bold { font-weight: 700; }
+
+/* ═══ подсказка, почему «В корзину» неактивна ═══ */
+
+.tplb-why {
+	margin-top: 10px;
+	font-size: 13px;
+	line-height: 1.4;
+	color: var(--tplb-dim);
+	text-align: center;
+}
+.tplb-why[hidden] { display: none; }
+
+/* На мобиле блок «Итого» скрыт — подсказка полоской над липкой панелью.
+   Базовое правило прячет её на десктопе: там своя под кнопкой. */
+.tplb-sticky__why { display: none; }
+
+@media (max-width: 1024px) {
+	.tplb-sticky__why {
+		display: block;
+		position: absolute;
+		left: 0;
+		right: 0;
+		bottom: 100%;
+		padding: 7px 16px;
+		font-size: 12px;
+		line-height: 1.35;
+		color: var(--tplb-text, #eee);
+		background: rgba(13, 13, 13, .97);
+		border-top: 1px solid var(--tplb-line);
+		text-align: center;
+	}
+	.tplb-sticky__why[hidden] { display: none; }
+}
+
+/* ═══ мобильная вёрстка конструктора ═══ */
+
+@media (max-width: 1024px) {
+	/* `1fr` = minmax(auto, 1fr): колонка не могла стать уже минимальной
+	   ширины содержимого (карусель основ, строки сводки без переносов),
+	   и на телефоне превью со сводкой уезжали за правый край на ~30px.
+	   minmax(0, …) отдаёт ширину экрана, а не содержимого. */
+	.tplb-layout { grid-template-columns: minmax(0, 1fr); }
+
+	.tplb-side__inner {
+		grid-template-columns: calc(var(--tplb-peek) * 100%) minmax(0, 1fr);
+	}
+
+	/* Длинные значения сводки («3 из 4, остальные позже», «Сетка · 4 фото»)
+	   переносятся внутри своей колонки, а не раздвигают её. */
+	.tplb-summary__row { min-width: 0; }
+	.tplb-summary__row b { min-width: 0; text-align: right; overflow-wrap: anywhere; }
+
+	/* Разворот: колонка — flex с align-items:start (наследие грида), и
+	   ширина превью считалась по содержимому. У «PAPA и фото» всё
+	   содержимое в процентах и absolute — ширина выходила 0, развёрнутый
+	   макет был пустым. Растягиваем явно. */
+	.tplb-side.is-zoom .tplb-side__inner { align-items: stretch; }
+	.tplb-side.is-zoom .tplb-previewfit { width: 100%; }
+}
+
+/* ═══ подсказка над «В корзину» и якорь к «Пришлю фото позже» ═══
+
+   Подсказка стоит над кнопкой и подсвечена: галка «позже» больше не
+   ставится сама, и человек с неполным набором фото должен сразу видеть,
+   почему кнопка неактивна и что нажать. */
+
+.tplb-why {
+	margin: 0 0 10px;
+	padding: 9px 12px;
+	font-size: 13px;
+	line-height: 1.4;
+	color: var(--tplb-text, #eee);
+	text-align: center;
+	background: color-mix(in srgb, var(--tplb-accent) 12%, transparent);
+	border: 1px solid color-mix(in srgb, var(--tplb-accent) 55%, transparent);
+	border-radius: 10px;
+}
+
+.tplb-why__link {
+	display: inline;
+	padding: 0;
+	margin: 0;
+	border: 0;
+	background: none;
+	font: inherit;
+	font-weight: 600;
+	color: var(--tplb-accent);
+	text-decoration: underline;
+	text-underline-offset: 2px;
+	cursor: pointer;
+}
+.tplb-why__link:hover,
+.tplb-why__link:focus-visible { text-decoration-thickness: 2px; }
+
+@media (max-width: 1024px) {
+	.tplb-sticky__why {
+		background: #1c1a12;
+		border-top: 1px solid var(--tplb-accent);
+		color: var(--tplb-text, #eee);
+	}
+}
+
+@keyframes tplb-later-flash {
+	0%, 100% { background: transparent; box-shadow: 0 0 0 0 transparent; }
+	20%, 60% {
+		background: color-mix(in srgb, var(--tplb-accent) 16%, transparent);
+		box-shadow: 0 0 0 2px var(--tplb-accent);
+	}
+}
+
+.tplb-later { border-radius: 8px; }
+.tplb-later.is-flash { animation: tplb-later-flash 2s ease; }
+.tplb-later input:focus-visible { outline: 2px solid var(--tplb-accent); outline-offset: 2px; }
+
+/* ═══ спиннер «В корзину» ═══
+   Сборка печатного файла 300 ppi и отправка занимают 2–5 с; без
+   отклика кнопку жали повторно и думали, что сайт завис. */
+
+.tplb-submit.is-busy,
+.tplb-sticky__btn.is-busy {
+	opacity: 1;
+	cursor: progress;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	gap: 10px;
+}
+
+/* только в кнопках — раньше правило было глобальным и красило
+   спиннер слота в чёрный на тёмном фоне (его не было видно). */
+.tplb-submit .tplb-spin,
+.tplb-sticky__btn .tplb-spin {
+	width: 16px;
+	height: 16px;
+	flex: 0 0 auto;
+	border: 2.5px solid rgba(0, 0, 0, .25);
+	border-top-color: #000;
+	border-radius: 50%;
+	animation: tplb-spin .7s linear infinite;
+	will-change: transform;
+}
+
+@keyframes tplb-spin { to { transform: rotate(360deg); } }
+
+@media (prefers-reduced-motion: reduce) {
+	.tplb-spin { animation-duration: 2s; }
+}
+
+/* ═══ загрузка фото в макете ═══
+   Пока фото грузится, в ячейке макета спиннер, а не битая картинка. */
+.tplp-loading {
+	position: absolute;
+	inset: 0;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	gap: 6px;
+	color: var(--tplp-ink, #fff);
+	pointer-events: none;
+}
+.tplp-oy__photo, .tplp-single__photo, .tplp-pol__img { position: relative; }
+.tplp-loading__spin {
+	width: 22px;
+	height: 22px;
+	border-radius: 50%;
+	border: 2px solid color-mix(in srgb, currentColor 22%, transparent);
+	border-top-color: var(--tplb-accent, #ff6a00);
+	animation: tplb-spin .7s linear infinite;
+}
+.tplp-loading__txt { font-size: 10px; letter-spacing: .04em; opacity: .6; }
+.tplp-cell.is-loading,
+.tplp-oy__photo.is-loading { background: color-mix(in srgb, var(--tplp-ink, #fff) 6%, transparent); }
+.tplp-letter.is-loading { animation: tplp-pulse 1s ease-in-out infinite alternate; }
+@keyframes tplp-pulse { from { opacity: .2; } to { opacity: .6; } }
+
+/* Миниатюра в шапке шага */
+.tplb-step__thumbs i.is-loading {
+	position: relative;
+	background-image: none;
+	border: 1px solid var(--tplb-line);
+}
+.tplb-step__thumbs i.is-loading::after {
+	content: '';
+	position: absolute;
+	inset: 6px;
+	border-radius: 50%;
+	border: 2px solid var(--tplb-line);
+	border-top-color: var(--tplb-accent);
+	animation: tplb-spin .7s linear infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.tplp-loading__spin, .tplb-step__thumbs i.is-loading::after { animation-duration: 2s; }
+	.tplp-letter.is-loading { animation: none; }
+}
+
+/* ═══ кадрирование фото ═══════════════════════════════════════
+   Обёртка фото в макете: режет края кадра и открывает редактор по клику.
+   Статичная (не absolute): у полароида рамка — это padding родителя,
+   и абсолютная обёртка залезла бы на белые поля. */
+.tplp-crop {
+	position: relative;
+	display: block;
+	width: 100%;
+	height: 100%;
+	overflow: hidden;
+	cursor: pointer;
+}
+.tplp-crop img { will-change: transform; }
+
+.tplp-crop {
+	container-type: inline-size;
+}
+
+/* кнопка «Кадр» видна всегда, а не только при наведении —
+   иначе возможность кадрировать мало кто замечал. В узкой ячейке —
+   только значок (container query), в широкой — значок и подпись. */
+.tplp-crop__badge {
+	position: absolute;
+	right: 5px;
+	bottom: 5px;
+	display: inline-flex;
+	align-items: center;
+	gap: 4px;
+	height: 22px;
+	padding: 0 5px;
+	border-radius: 11px;
+	background: rgba(0, 0, 0, .66);
+	color: #fff;
+	font: 600 10px/1 system-ui, -apple-system, sans-serif;
+	letter-spacing: .02em;
+	pointer-events: none;
+	transition: background .16s, transform .16s;
+}
+.tplp-crop__badge i {
+	width: 12px;
+	height: 12px;
+	flex: 0 0 auto;
+	background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M6 2v14a2 2 0 0 0 2 2h14M2 6h14a2 2 0 0 1 2 2v14' fill='none' stroke='%23fff' stroke-width='2.4' stroke-linecap='round'/%3E%3C/svg%3E") center / contain no-repeat;
+}
+.tplp-crop__badge b { display: none; font-weight: 600; text-transform: none; }
+@container (min-width: 120px) {
+	.tplp-crop__badge { padding: 0 8px 0 6px; }
+	.tplp-crop__badge b { display: inline; }
+}
+.tplp-crop:hover .tplp-crop__badge { background: var(--tplb-accent, #ff6a00); color: #000; }
+.tplp-crop:hover .tplp-crop__badge i { filter: invert(1); }
+
+/* Пока редактор ни разу не открывали — значки мягко пульсируют. */
+.tplc-new .tplp-crop__badge { animation: tplc-pulse 1.6s ease-in-out infinite; }
+@keyframes tplc-pulse {
+	0%, 100% { box-shadow: 0 0 0 0 rgba(255, 106, 0, .0); }
+	50% { box-shadow: 0 0 0 4px rgba(255, 106, 0, .55); }
+}
+
+/* Уменьшили до «вписать»: поля ячейки — цвет футболки, как на печати,
+   а не серая заглушка пустого слота. */
+.tplp-cell.is-contain,
+.tplp-oy__photo.is-contain,
+.tplp-single__photo.is-contain:not(.is-polaroid),
+.tplp-crop.is-contain { background: transparent; }
+
+/* Подсказка под макетом */
+.tplb-crophint {
+	display: flex;
+	align-items: center;
+	gap: 8px;
+	width: 100%;
+	margin: 10px 0 0;
+	padding: 9px 12px;
+	border: 1px dashed color-mix(in srgb, var(--tplb-accent, #ff6a00) 60%, transparent);
+	border-radius: 10px;
+	background: color-mix(in srgb, var(--tplb-accent, #ff6a00) 10%, transparent);
+	color: var(--tplb-text, #f2f2f2);
+	font: inherit;
+	font-size: 12.5px;
+	line-height: 1.35;
+	text-align: left;
+	cursor: pointer;
+}
+.tplb-crophint[hidden] { display: none; }
+.tplb-crophint:hover { background: color-mix(in srgb, var(--tplb-accent, #ff6a00) 18%, transparent); }
+.tplb-crophint__ico {
+	width: 18px;
+	height: 18px;
+	flex: 0 0 auto;
+	background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M6 2v14a2 2 0 0 0 2 2h14M2 6h14a2 2 0 0 1 2 2v14' fill='none' stroke='%23ff6a00' stroke-width='2.2' stroke-linecap='round'/%3E%3C/svg%3E") center / contain no-repeat;
+}
+
+/* Кнопка на слоте в списке — слева от крестика. */
+.tplb-slot__crop {
+	position: absolute;
+	top: 4px;
+	right: 30px;
+	width: 22px;
+	height: 22px;
+	border: none;
+	border-radius: 50%;
+	background: rgba(0, 0, 0, .72);
+	color: #fff;
+	padding: 4px;
+	cursor: pointer;
+	opacity: 1; /* всегда видна */
+	transition: opacity .16s, background .16s;
+}
+.tplb-slot__crop svg { width: 100%; height: 100%; display: block; }
+.tplb-slot:hover .tplb-slot__crop,
+.tplb-slot:focus-within .tplb-slot__crop,
+.tplb-slot__crop.is-set { opacity: 1; }
+.tplb-slot__crop:hover { background: var(--tplb-accent); color: #000; }
+.tplb-slot__crop.is-set { background: var(--tplb-accent); color: #000; }
+@media (hover: none) {
+	.tplb-slot__crop { opacity: 1; }
+}
+
+/* ── Редактор ── */
+html.tplc-lock,
+html.tplc-lock body { overflow: hidden; overscroll-behavior: none; }
+
+.tplc {
+	position: fixed;
+	top: 0; right: 0; bottom: 0; left: 0;
+	z-index: 100000;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	background: rgba(0, 0, 0, .66);
+	color: #fff;
+	font-family: inherit;
+	overscroll-behavior: contain;
+	-webkit-tap-highlight-color: transparent;
+}
+
+.tplc__panel {
+	display: flex;
+	flex-direction: column;
+	width: min(760px, 94vw);
+	height: min(86vh, 820px);
+	background: #111;
+	border: 1px solid #2a2a2a;
+	border-radius: 14px;
+	overflow: hidden;
+	box-shadow: 0 20px 60px rgba(0, 0, 0, .5);
+}
+
+.tplc__bar {
+	display: flex;
+	align-items: center;
+	gap: 6px;
+	padding: 8px 8px 8px 10px;
+	border-bottom: 1px solid #222;
+}
+.tplc__title {
+	flex: 1;
+	text-align: center;
+	font-size: 14px;
+	font-weight: 600;
+	letter-spacing: .02em;
+}
+.tplc__nav,
+.tplc__close {
+	width: 40px;
+	height: 40px;
+	border: none;
+	border-radius: 10px;
+	background: transparent;
+	color: #fff;
+	font-size: 26px;
+	line-height: 1;
+	cursor: pointer;
+}
+.tplc__nav:hover,
+.tplc__close:hover { background: #1f1f1f; }
+.tplc__nav[hidden] { display: inline-block; visibility: hidden; }
+
+.tplc__stage {
+	position: relative;
+	flex: 1;
+	min-height: 0;
+	overflow: hidden;
+	background: #0a0a0a;
+	touch-action: none;
+	-webkit-user-select: none;
+	user-select: none;
+	cursor: grab;
+	outline: none;
+}
+.tplc__stage.is-grab { cursor: grabbing; }
+
+.tplc__img {
+	position: absolute;
+	left: 0;
+	top: 0;
+	transform-origin: 0 0;
+	will-change: transform;
+	opacity: 0;
+	transition: opacity .15s;
+	pointer-events: none;
+}
+.tplc.is-ready .tplc__img { opacity: 1; }
+.tplc[data-tone="mono"] .tplc__img { filter: grayscale(1) contrast(1.05); }
+
+/* Рамка слота: всё снаружи затемнено тенью, внутри — сетка третей,
+   она видна только пока фото двигают. */
+.tplc__frame {
+	position: absolute;
+	box-shadow: 0 0 0 9999px rgba(0, 0, 0, .5);
+	outline: 2px solid rgba(255, 255, 255, .9);
+	pointer-events: none;
+}
+.tplc__frame i {
+	position: absolute;
+	background: rgba(255, 255, 255, .35);
+	opacity: 0;
+	transition: opacity .15s;
+}
+.tplc__frame i:nth-child(1) { left: 33.333%; top: 0; bottom: 0; width: 1px; }
+.tplc__frame i:nth-child(2) { left: 66.666%; top: 0; bottom: 0; width: 1px; }
+.tplc__frame i:nth-child(3) { top: 33.333%; left: 0; right: 0; height: 1px; }
+.tplc__frame i:nth-child(4) { top: 66.666%; left: 0; right: 0; height: 1px; }
+.tplc__stage.is-grab .tplc__frame i { opacity: 1; }
+
+/* Ручки на углах фото: масштаб без поворота. Видимая точка 16px,
+   зона касания 44px (::before). */
+.tplc__h {
+	position: absolute;
+	left: 0;
+	top: 0;
+	width: 16px;
+	height: 16px;
+	margin: -8px 0 0 -8px;
+	border-radius: 4px;
+	background: #fff;
+	border: 2px solid var(--tplb-accent, #ff6a00);
+	box-shadow: 0 1px 4px rgba(0, 0, 0, .5);
+	touch-action: none;
+	z-index: 2;
+	will-change: transform;
+}
+.tplc__h::before {
+	content: '';
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	width: 44px;
+	height: 44px;
+	margin: -22px 0 0 -22px;
+}
+.tplc__h[hidden] { display: none; }
+.tplc__h[data-h="tl"], .tplc__h[data-h="br"] { cursor: nwse-resize; }
+.tplc__h[data-h="tr"], .tplc__h[data-h="bl"] { cursor: nesw-resize; }
+.tplc:not(.is-ready) .tplc__h { display: none; }
+
+.tplc__spin {
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	width: 28px;
+	height: 28px;
+	margin: -14px 0 0 -14px;
+	border-radius: 50%;
+	border: 2px solid #333;
+	border-top-color: var(--tplb-accent, #ff6a00);
+	animation: tplb-spin .7s linear infinite;
+}
+.tplc.is-ready .tplc__spin { display: none; }
+
+.tplc__hint {
+	position: absolute;
+	left: 50%;
+	bottom: 16px;
+	transform: translateX(-50%);
+	padding: 8px 14px;
+	border-radius: 10px;
+	background: rgba(0, 0, 0, .76);
+	font-size: 13px;
+	line-height: 1.4;
+	text-align: center;
+	white-space: nowrap;
+	pointer-events: none;
+}
+.tplc__hint[hidden] { display: none; }
+
+.tplc__tools {
+	display: grid;
+	gap: 10px;
+	padding: 12px 16px calc(12px + env(safe-area-inset-bottom, 0px));
+	border-top: 1px solid #222;
+}
+.tplc__zoom {
+	display: flex;
+	align-items: center;
+	gap: 10px;
+}
+.tplc__zbtn {
+	flex: 0 0 auto;
+	width: 36px;
+	height: 36px;
+	border: 1px solid #333;
+	border-radius: 10px;
+	background: #181818;
+	color: #fff;
+	font-size: 20px;
+	line-height: 1;
+	cursor: pointer;
+}
+.tplc__zbtn:hover { border-color: #555; }
+.tplc__range {
+	flex: 1;
+	min-width: 0;
+	accent-color: var(--tplb-accent, #ff6a00);
+	height: 28px;
+}
+.tplc__q {
+	font-size: 12px;
+	text-align: center;
+	color: #9a9a9a;
+	min-height: 1.3em;
+}
+.tplc__q.is-good { color: #7bd88f; }
+.tplc__q.is-mid { color: #f0c36b; }
+.tplc__q.is-low { color: #ff8a7a; }
+
+.tplc__actions {
+	display: flex;
+	gap: 10px;
+}
+.tplc__btn {
+	flex: 1;
+	height: 46px;
+	border-radius: 10px;
+	font: inherit;
+	font-size: 15px;
+	font-weight: 600;
+	cursor: pointer;
+}
+.tplc__btn--ghost {
+	background: transparent;
+	color: #ddd;
+	border: 1px solid #333;
+}
+.tplc__btn--ghost:hover { border-color: #555; }
+.tplc__btn--main {
+	background: var(--tplb-accent, #ff6a00);
+	color: #000;
+	border: none;
+	font-weight: 700;
+}
+.tplc__btn--main:hover { filter: brightness(1.08); }
+
+.tplc button:focus-visible { outline: 2px solid var(--tplb-accent, #ff6a00); outline-offset: -2px; }
+/* Сцена получает фокус ради стрелок и Esc; рамка фокуса там лишняя —
+   рамка слота и так видна. */
+.tplc__stage:focus,
+.tplc__stage:focus-visible { outline: none; }
+
+/* Телефон — во весь экран, без «окна». */
+@media (max-width: 700px) {
+	.tplc { background: #111; align-items: stretch; }
+	.tplc__panel {
+		width: 100%;
+		height: 100%;
+		height: 100dvh;
+		border: none;
+		border-radius: 0;
+		box-shadow: none;
+		padding-top: env(safe-area-inset-top, 0px);
+	}
+	.tplc__hint { white-space: normal; width: max-content; max-width: 86%; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.tplc__spin { animation-duration: 2s; }
+}

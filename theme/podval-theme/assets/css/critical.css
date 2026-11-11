@@ -1,0 +1,487 @@
+/* Critical CSS — inlined in <head> for instant first paint */
+/* Covers: @font-face, :root vars, reset, topbar, header, hero */
+
+/* Cyrillic — critical (используется в большинстве UI текста) */
+@font-face {
+  font-family: 'Oswald';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url('./assets/fonts/oswald-cyrillic-700.woff2') format('woff2');
+  unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+}
+@font-face {
+  font-family: 'Unbounded';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url('./assets/fonts/unbounded-cyrillic-600.woff2') format('woff2');
+  unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+}
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('./assets/fonts/inter-cyrillic-400.woff2') format('woff2');
+  unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+}
+/* Latin — critical (заголовок hero латиницей, без этого FOUT даёт CLS 0.36 на мобиле)
+   оставлен ТОЛЬКО Oswald-latin-700 (hero h1). Unbounded-latin-600 и Inter-latin-400
+   убраны — они не нужны выше fold, а присутствие в critical CSS делало их critical-path
+   network requests (+425ms к LCP). Возвращены к async загрузке через style-core.css. */
+@font-face {
+  font-family: 'Oswald';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url('./assets/fonts/oswald-latin-700.woff2') format('woff2');
+  unicode-range: U+0-FF, U+131, U+152-153, U+2BB-2BC, U+2C6, U+2DA, U+2DC, U+304, U+308, U+329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* Fallback-шрифты с подогнанными метриками (size-adjust) — гарантируют что fallback
+   до загрузки реального шрифта занимает то же место, что и финальный → нулевой CLS на swap.
+   Объявлены в style-core.css, но повторяем в critical.css чтобы они применялись с первого paint. */
+@font-face { font-family: 'Oswald-fallback';    src: local('Arial Narrow'), local('Helvetica Narrow'), local('sans-serif'); ascent-override: 92%; descent-override: 22%; line-gap-override: 0%; size-adjust: 102%; }
+@font-face { font-family: 'Unbounded-fallback'; src: local('Arial'), local('Helvetica'), local('sans-serif');               ascent-override: 96%; descent-override: 25%; line-gap-override: 0%; size-adjust: 105%; }
+@font-face { font-family: 'Inter-fallback';     src: local('Arial'), local('Helvetica'), local('sans-serif');               ascent-override: 90%; descent-override: 22%; line-gap-override: 0%; size-adjust: 107%; }
+
+:root {
+  --black: #0a0a0a;
+  --white: #f5f4f0;
+  --accent: #ff6a00;
+  --gray: #1a1a1a;
+  --gray-mid: #2a2a2a;
+  --gray-light: #888888;
+  --red: #ff2b2b;
+  --border: rgba(255,255,255,0.08);
+  --font-display: 'Oswald', 'Oswald-fallback', sans-serif;
+  --font-body: 'Unbounded', 'Unbounded-fallback', sans-serif;
+  --font-text: 'Inter', 'Inter-fallback', sans-serif;
+  --transition: 0.2s ease;
+  --container: 1440px;
+  --gap: 2px;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; width: 100%; }
+body {
+  background: var(--black);
+  color: var(--white);
+  font-family: var(--font-text);
+  font-size: 14px;
+  line-height: 1.6;
+  overflow-x: hidden;
+  width: 100%;
+  min-width: 320px;
+  -webkit-user-select: none; user-select: none;
+}
+a { color: inherit; text-decoration: none; }
+img { display: block; max-width: 100%; height: auto; }
+button { cursor: pointer; border: none; background: none; font: inherit; }
+ul, ol { list-style: none; }
+h1,h2,h3,h4,h5,h6 { font-weight: normal; }
+
+.site-topbar {
+  background: var(--accent);
+  color: var(--black);
+  height: 36px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+.site-topbar__track {
+  display: flex;
+  flex-shrink: 0;
+  min-width: 200%;
+  animation: ticker-scroll 18s linear infinite;
+}
+.site-topbar__inner {
+  display: flex;
+  align-items: center;
+  white-space: nowrap;
+  flex: 0 0 50%;
+  font-family: var(--font-body);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  justify-content: space-around;
+  padding: 0 24px;
+}
+@keyframes ticker-scroll {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+.site-header {
+  position: sticky; top: 0; z-index: 900;
+  background: rgba(10,10,10,0.97);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--border);
+  width: 100%;
+}
+.site-header__inner,
+.header-inner {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  height: 60px;
+  max-width: 1440px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 0 32px;
+}
+.site-logo { display: flex; align-items: center; margin-right: 40px; }
+.site-logo__text {
+  font-family: var(--font-display);
+  font-size: 22px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--white);
+  white-space: nowrap;
+}
+/* Лого: явные max-height фиксируют высоту до загрузки полного CSS,
+   width: auto + сохранённый aspect-ratio дают стабильную ширину */
+.site-logo img, .site-logo .custom-logo {
+  height: 36px; width: auto;
+  max-height: 36px;
+  display: block;
+}
+.primary-nav { display: flex; align-items: center; justify-content: center; }
+.nav-list { display: flex; align-items: center; gap: 0; list-style: none; }
+.nav-link {
+  display: flex; align-items: center; gap: 6px;
+  padding: 20px 16px;
+  font-family: var(--font-body); font-size: 11px;
+  letter-spacing: 0.14em; text-transform: uppercase;
+  color: var(--gray-light);
+}
+/* ── Dropdowns скрыты по умолчанию — критично для CLS!
+   Без этих правил .mega-dropdown и .nav-dropdown рендерятся как block,
+   занимают огромное место в потоке (mega-dropdown ~32px+ высотой каждый),
+   потом style-core применяет display:none → весь header/контент прыгает.
+   На странице с КОЛЛЕКЦИИ дропдауном это даёт CLS 0.683+ на nav-list. */
+.mega-dropdown { display: none; }
+/* .nav-dropdown НЕ прячем через display:none — иначе hover в style-core.css
+   (opacity/pointer-events) не может его вернуть. Выводим из потока через
+   position:absolute — CLS так же равен нулю. */
+.nav-dropdown { position: absolute; top: 100%; left: 0; opacity: 0; visibility: hidden; pointer-events: none; }
+.nav-item { position: relative; }
+.header-actions { display: flex; align-items: center; justify-content: flex-end; }
+.header-action, .header-action-btn {
+  display: flex; align-items: center; justify-content: center;
+  width: 40px; height: 40px;
+  color: var(--gray-light);
+  position: relative;
+  background: none; border: none;
+}
+.header-action svg, .header-action-btn svg { width: 20px; height: 20px; stroke: currentColor; fill: none; stroke-width: 1.5; }
+.header-action__count, .header-action-count {
+  position: absolute; top: 4px; right: 2px;
+  background: var(--accent); color: var(--black);
+  font-size: 8px; font-weight: 700;
+  min-width: 16px; height: 16px; border-radius: 8px;
+  display: flex; align-items: center; justify-content: center;
+}
+.menu-toggle { display: none; flex-direction: column; gap: 6px; padding: 10px; cursor: pointer; background: none; border: none; }
+.menu-toggle span { display: block; width: 22px; height: 1.5px; background: var(--white); }
+.mnav { display: none; }
+.container { max-width: var(--container); margin: 0 auto; padding: 0 48px; }
+.screen-reader-text { clip: rect(1px,1px,1px,1px); clip-path: inset(50%); height: 1px; width: 1px; overflow: hidden; position: absolute; }
+
+@media (max-width: 900px) {
+  .menu-toggle { display: flex; }
+  .primary-nav { display: none; }
+  .header-inner, .site-header__inner {
+    grid-template-columns: auto 1fr auto;
+    height: 52px; padding: 0 16px;
+  }
+}
+
+/* ── Hero (cd-landing) — LCP critical ── */
+.cd-landing { --cd-dark: var(--black); --cd-gray: #111; overflow-x: clip; }
+.cd-nav { background: var(--cd-gray); border-bottom: 1px solid var(--border); position: sticky; top: 56px; z-index: 50; }
+.cd-nav__inner { max-width: var(--container); margin: 0 auto; padding: 12px 24px; display: flex; gap: 8px; overflow-x: auto; scrollbar-width: none; }
+.cd-nav__inner::-webkit-scrollbar { display: none; }
+.cd-nav__btn { flex-shrink: 0; font-family: var(--font-body); font-size: 11px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; padding: 10px 20px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 6px; color: var(--white); text-decoration: none; transition: all .2s; white-space: nowrap; }
+.cd-hero { position: relative; background: linear-gradient(135deg, rgba(255,106,0,0.1) 0%, var(--cd-dark) 50%); min-height: 240px; margin-bottom: -1px; overflow: clip; }
+.cd-hero__bg { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center; z-index: 0; }
+.cd-hero--has-bg { background: var(--cd-dark); }
+.cd-hero__overlay { position: absolute; inset: 0; background: linear-gradient(90deg, rgba(10,10,10,0.92) 0%, rgba(10,10,10,0.6) 60%, rgba(10,10,10,0.3) 100%); }
+.cd-hero:not(.cd-hero--has-bg) .cd-hero__overlay { display: none; }
+.cd-hero__inner { position: relative; z-index: 2; max-width: var(--container); margin: 0 auto; padding: 56px 24px; }
+.cd-hero__content { max-width: 560px; }
+.cd-hero__badge { display: inline-block; padding: 5px 14px; background: rgba(255,106,0,0.18); color: var(--accent); font-family: var(--font-body); font-size: 10px; font-weight: 700; letter-spacing: .15em; text-transform: uppercase; border-radius: 20px; margin-bottom: 16px; }
+.cd-hero__title { font-family: var(--font-display); font-size: clamp(28px, 5vw, 52px); font-weight: 700; letter-spacing: .04em; text-transform: uppercase; color: var(--white); line-height: 1.1; margin: 0 0 14px; }
+.cd-hero__desc { font-family: var(--font-text); font-size: 14px; line-height: 1.7; color: var(--gray-light); margin: 0 0 24px; }
+.cd-hero__cta { display: inline-flex; align-items: center; gap: 8px; font-family: var(--font-display); font-size: 12px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; padding: 14px 28px; background: var(--accent); color: var(--black); border-radius: 6px; text-decoration: none; }
+.cd-hero__accent { position: absolute; top: -40%; right: -10%; width: 500px; height: 500px; background: radial-gradient(circle, rgba(255,106,0,0.08) 0%, transparent 65%); pointer-events: none; z-index: 1; }
+
+@media (max-width: 600px) {
+  .cd-hero__inner { padding: 36px 16px; }
+}
+
+/* ── Main hero (homepage) — LCP critical (added прежней версии) ── */
+.site-wrapper { width: 100%; display: flex; flex-direction: column; }
+/* ВНИМАНИЕ: значения ниже обязаны совпадать с style-core.css (строки 138–148,
+   360–370). Этот файл инлайнится в <head> и применяется мгновенно, а
+   style-core.css приезжает отдельным запросом — любое расхождение геометрии
+   даёт видимый скачок в момент его применения. Так и было до critical говорил height:52vh (428 px на мобиле) и content position:relative
+   (текст прижат к ВЕРХУ слайда), core — aspect-ratio 4/5 (515 px) и
+   position:absolute;bottom:0 (текст внизу). Hero подрастал на 87 px, блок
+   текста прыгал вниз на ~158 px, и весь контент ниже ехал следом: CLS 0.36
+   одним сдвигом. Правишь hero в core — правь и здесь. */
+.hero {
+  width: 100%; position: relative;
+  /* height, а не aspect-ratio: на десктопе 16/9 давало hero почти во весь
+     экран (1237 px при вьюпорте 1345). Именно `height` из этого файла
+     всегда и задавало высоту — aspect-ratio в style-core.css был мёртвым
+     кодом, пока height здесь его перекрывал. На мобиле height снимается
+     в @768, и там пропорция 4/5 работает. */
+  height: 52vh; min-height: 380px; max-height: 92vh;
+  overflow: hidden; display: flex; align-items: flex-end;
+  background: var(--gray-mid);
+}
+.hero__slide { position: absolute; inset: 0; opacity: 0; transition: opacity .9s ease; pointer-events: none; }
+.hero__slide.is-active { opacity: 1; pointer-events: all; }
+.hero__bg { position: absolute; inset: 0; width: 100%; height: 100%; background-size: cover; background-position: var(--hero-bg-pos, center); object-fit: cover; object-position: var(--hero-bg-pos, center); }
+img.hero__bg { display: block; }
+/* Фон подключается только активному слайду. Инлайн background-image в разметке
+   заставлял браузер тянуть картинки всех слайдов сразу, даже при opacity:0 —
+   95 КБ второго слайда конкурировали с LCP-картинкой первого.
+   Селектор именно `div.hero__bg`: у первого слайда это <img>, и он унаследовал
+   бы тот же --slide-bg фоном поверх себя — полноразмерный файл скачался бы
+   вторым запросом ровно в момент борьбы за LCP. */
+.hero__slide.is-active div.hero__bg { background-image: var(--slide-bg); }
+.hero__overlay { position: absolute; inset: 0; pointer-events: none; background: linear-gradient(to right, rgba(10,10,10,0.75) 0%, rgba(10,10,10,0.4) 28%, rgba(10,10,10,0.05) 55%, transparent 70%), linear-gradient(to top, rgba(10,10,10,0.92) 0%, rgba(10,10,10,0.25) 55%, transparent 100%); }
+.hero__slide .hero__content { position: absolute; bottom: 0; left: 0; z-index: 10; padding: 0 64px 80px; max-width: 920px; width: 100%; min-height: 280px; }
+.hero__label { font-family: var(--font-body); font-size: 11px; font-weight: 500; letter-spacing: .22em; text-transform: uppercase; color: var(--accent); display: flex; align-items: center; gap: 14px; margin-bottom: 22px; }
+.hero__label::before { content: ''; display: block; width: 32px; height: 1px; background: var(--accent); }
+.hero__title { font-family: var(--font-display); font-size: clamp(44px, 7.2vw, 104px); font-weight: 700; line-height: .92; letter-spacing: -.015em; text-transform: uppercase; margin-bottom: 24px; }
+.hero__title em { font-style: normal; color: var(--accent); }
+.hero__desc { font-family: var(--font-text); font-size: 17px; font-weight: 400; line-height: 1.55; color: rgba(245,244,240,0.88); margin-bottom: 36px; max-width: 520px; }
+.hero__actions { display: flex; gap: 16px; align-items: center; flex-wrap: wrap; }
+.btn { display: inline-flex; align-items: center; gap: 10px; font-family: var(--font-body); font-size: 10px; font-weight: 700; letter-spacing: .2em; text-transform: uppercase; padding: 15px 32px; line-height: 1; }
+.btn--primary { background: var(--accent); color: var(--black); clip-path: polygon(0 0, calc(100% - 10px) 0, 100% 10px, 100% 100%, 10px 100%, 0 calc(100% - 10px)); }
+.btn--outline { background: transparent; color: var(--white); border: 1px solid rgba(255,255,255,0.22); }
+
+@media (max-width: 900px) {
+  .hero__slide .hero__content { padding: 0 24px 56px; min-height: 220px; }
+}
+
+/* ── Sticky-меню якорей на главной ────────────────────────────────────
+   Полоса стоит сразу под hero и до догрузки core рендерилась как обычный
+   поток высотой 22px вместо 45px — весь контент ниже подпрыгивал на 23px
+   ровно в тот момент, когда style-core.css применялся. Достаточно задать
+   высоту пункта и отступы; остальное (цвета, backdrop-filter, is-revealed)
+   на раскладку не влияет и остаётся в core. */
+.home-anchors { display: none; }
+.home-anchors__inner { display: flex; align-items: stretch; gap: 0; overflow-x: auto; overflow-y: hidden; scrollbar-width: none; }
+.home-anchors__item { flex-shrink: 0; display: inline-flex; align-items: center; justify-content: center; padding: 0 16px; height: 44px; font-family: var(--font-body); font-size: 10px; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; white-space: nowrap; border-bottom: 2px solid transparent; }
+@media (max-width: 1024px) {
+  .home-anchors { display: block; position: sticky; top: 52px; z-index: 800; width: 100%; opacity: 0; pointer-events: none; border-bottom: 1px solid var(--border); }
+  .home-anchors.is-revealed { opacity: 1; pointer-events: auto; }
+  .home-anchors__inner { padding: 0 12px; }
+}
+
+/* ── Первый экран после hero: секция «Свой дизайн» ──────────────────
+   Этот блок стоит сразу под hero и попадает в первый экран, а critical.css
+   его не описывал: до догрузки style-core.css секция считалась обычной
+   .section (padding 40px), а .cd-grid вообще не была гридом — карточки
+   разъезжались в одну колонку во всю ширину, и при aspect-ratio 3/4 их
+   высота уходила в тысячи пикселей. Когда core приезжал, всё это
+   схлопывалось разом.
+
+   72px — десктопное значение; мобильные 48px (≤600px) объявлены в самом
+   низу этого файла и в конце style-core.css. */
+.cd-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--gap, 2px); }
+.cd-grid__card { position: relative; }
+.cd-grid__card--plug { display: flex; }
+@media (max-width: 900px) {
+  .cd-grid { grid-template-columns: repeat(6, 1fr); }
+  .cd-grid__card--hero { grid-column: span 3; }
+  .cd-grid__card:not(.cd-grid__card--hero):not(.cd-grid__card--plug) { grid-column: span 2; }
+  .cd-grid__card--plug { display: none; }
+}
+
+/* ── Section containers + product rows — CLS critical (added прежней версии) ──
+   Без этих стилей карусели на главной рендерятся как тонкая полоска
+   текста (60px), потом подгружается main CSS → aspect-ratio 3:4
+   фиксирует карточки → весь контент ниже прыгает вниз. CLS 0.315.
+*/
+.section { padding: 40px 0; }
+.section--alt { background: var(--gray); }
+
+/* ── lazy-section — должно быть в critical, иначе CLS!
+   До того как style-core.css прилетит асинхронно, секции рендерятся в полную
+   высоту. Когда style-core.css применяется — секции вне viewport получают
+   contain-intrinsic-size: 600/900px, и весь контент после них прыгает. */
+.lazy-section { content-visibility: auto; contain-intrinsic-size: auto 600px; }
+.lazy-section--tall { contain-intrinsic-size: auto 900px; }
+.lazy-section--short { contain-intrinsic-size: auto 300px; }
+
+/* ── catalog-grid — критично для CLS!
+   Без этих правил .catalog-grid рендерится как block (один товар на строку),
+   потом style-core применяет grid с 4 колонками → все секции ниже сдвигаются. */
+.catalog-grid,
+.catalog-grid ul,
+.products-grid,
+.woocommerce ul.products,
+ul.products {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 2px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  width: 100%;
+}
+@media (max-width: 1200px) {
+  .catalog-grid, .products-grid, ul.products { grid-template-columns: repeat(3, 1fr); }
+}
+@media (max-width: 900px) {
+  .catalog-grid, .products-grid, .woocommerce ul.products, ul.products {
+    grid-template-columns: repeat(2, 1fr); gap: 2px;
+  }
+  /* на мобайле карточки 3:4 как в карусели — единый формат превью.
+     Раньше тут было 1:1 для каталога (квадратные превью), но это резало
+     композицию принта и расходилось с карусельным форматом (.home-row__card 3:4).
+     Базовое .product-card-thumb { aspect-ratio: 3/4 } работает без переопределения. */
+}
+
+.section-head { display: flex; align-items: baseline; justify-content: space-between; gap: 24px; margin-bottom: 40px; padding-bottom: 20px; border-bottom: 1px solid var(--border); }
+.section-head__title { font-family: var(--font-display); font-size: clamp(28px, 4.5vw, 60px); font-weight: 700; text-transform: uppercase; line-height: 1; }
+.section-head__link { font-family: var(--font-body); font-size: 9px; letter-spacing: .2em; text-transform: uppercase; color: var(--accent); }
+
+.home-row { position: relative; }
+.home-row__wrap { position: relative; }
+.home-row__scroll { overflow-x: auto; overflow-y: hidden; -webkit-overflow-scrolling: touch; padding-bottom: 8px; scroll-behavior: smooth; scrollbar-width: thin; }
+.home-row__track { display: flex; gap: 2px; padding: 0 max(48px, calc((100vw - var(--container)) / 2 + 48px)); width: fit-content; }
+.home-row__card { flex: 0 0 220px; display: flex; }
+.home-row__card .product-card { width: 100%; display: flex; flex-direction: column; }
+
+.product-card { display: flex; flex-direction: column; background: var(--gray); position: relative; }
+.product-card-thumb { display: block; position: relative; overflow: hidden; aspect-ratio: 3 / 4; background: #111; }
+.product-card-thumb img { width: 100%; height: 100%; object-fit: cover; object-position: center top; display: block; }
+.product-card-info { padding: 10px 12px 14px; display: flex; flex-direction: column; gap: 3px; flex: 1; }
+.product-brand-label { font-family: var(--font-body); font-size: 8px; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--accent); line-height: 1.6; }
+.product-card-name { font-family: var(--font-body); font-size: 12px; line-height: 1.4; color: var(--white); display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; min-height: 2.8em; }
+.product-card-price { font-family: var(--font-body); font-size: 15px; color: var(--white); margin-top: auto; padding-top: 8px; }
+.product-badges { position: absolute; top: 10px; left: 10px; display: flex; flex-direction: column; gap: 4px; z-index: 3; pointer-events: none; }
+.badge-tag { display: inline-block; padding: 3px 8px; font-family: var(--font-body); font-size: 8px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; line-height: 1.6; }
+
+.collections-grid { width: 100%; display: grid; grid-template-columns: 1fr 1fr; gap: var(--gap); }
+.tag-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 2px; }
+img.tag-card__bg {
+  width: 100%; height: 100%;
+  object-fit: cover; object-position: center;
+  display: block;
+  transition: transform .5s ease;
+}
+.tag-card:hover img.tag-card__bg { transform: scale(1.08); }
+
+@media (max-width: 900px) {
+  .home-row__card { flex: 0 0 180px; }
+  .home-row__track { padding: 0 20px; }
+  .collections-grid { grid-template-columns: 1fr; }
+  .tag-grid { grid-template-columns: repeat(3, 1fr); }
+}
+@media (max-width: 480px) {
+  .home-row__card { flex: 0 0 150px; }
+  .tag-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+/* ── Font fallback metric overrides (size-adjust) ──
+   Когда основные woff2 ещё грузятся, текст рендерится system-шрифтом.
+   Без size-adjust метрики (x-height, advance width) у system и Oswald/
+   Unbounded разные → при font swap текст занимает другую ширину/высоту →
+   layout shift. Особенно на hero__title с clamp(48px, 8vw, 120px).
+*/
+@font-face {
+  font-family: 'Oswald-fallback';
+  src: local('Arial Narrow'), local('Helvetica Narrow'), local('sans-serif');
+  ascent-override: 92%;
+  descent-override: 22%;
+  line-gap-override: 0%;
+  size-adjust: 102%;
+}
+@font-face {
+  font-family: 'Unbounded-fallback';
+  src: local('Arial'), local('Helvetica'), local('sans-serif');
+  ascent-override: 96%;
+  descent-override: 25%;
+  line-gap-override: 0%;
+  size-adjust: 105%;
+}
+@font-face {
+  font-family: 'Inter-fallback';
+  src: local('Arial'), local('Helvetica'), local('sans-serif');
+  ascent-override: 90%;
+  descent-override: 22%;
+  line-gap-override: 0%;
+  size-adjust: 107%;
+}
+:root {
+  --font-display: 'Oswald', 'Oswald-fallback', sans-serif;
+  --font-body: 'Unbounded', 'Unbounded-fallback', sans-serif;
+  --font-text: 'Inter', 'Inter-fallback', sans-serif;
+}
+
+/* ── FOUC safety net ──
+ * Защита от моргания огромных иконок до загрузки полного CSS.
+ * Если main CSS ещё не пришёл, любая svg/img без явных размеров
+ * будет максимум 32px вместо дефолтного 300×150. После загрузки
+ * полного CSS наши более конкретные правила (.header-action-btn svg
+ * 18×18 etc.) перебивают это благодаря specificity. */
+svg:not([width]) { max-width: 24px; max-height: 24px; }
+img:not([width]):not([src*=".svg"]) { max-width: 100%; }
+.site-header svg:not([width]),
+.mnav__action-btn svg:not([width]),
+.header-action-btn svg:not([width]) { width: 20px; height: 20px; }
+
+/* ── Мобильные переопределения — намеренно в самом конце файла ──
+   Тот же капкан, что уже ловили в style-core.css: при равной
+   специфичности выигрывает правило, которое ниже. Этот блок стоял
+   выше базового `.section { padding: 40px 0 }`, и мобильные 28px
+   молча проигрывали — секция схлопывалась на 24px ровно в момент
+   применения style-core.css. Новые мобильные правила дописывать
+   СЮДА, а не рядом с базовыми. */
+@media (max-width: 768px) {
+  /* Без этих двух строк hero-описание считало ширину по десктопным
+     отступам контейнера (48 px против 20 px), переносилось на лишнюю
+     строку — и схлопывалось обратно, когда приезжал style-core.css.
+     Блок текста прижат к низу, поэтому уезжал вверх весь целиком. */
+  .container { padding: 0 20px; }
+  .section { padding: 28px 0; }
+
+  .hero { height: auto; aspect-ratio: 4/5; max-height: 84vh; min-height: 480px; }
+  .hero__bg { background-position: var(--hero-bg-pos-m, var(--hero-bg-pos, 62% center)); object-position: var(--hero-bg-pos-m, var(--hero-bg-pos, 62% center)); }
+  .hero__overlay { background: linear-gradient(to top, rgba(10, 10, 10, 0.97) 0%, rgba(10, 10, 10, 0.86) 38%, rgba(10, 10, 10, 0.55) 68%, rgba(10, 10, 10, 0.2) 100%); } /* синхронно с core */
+  .hero__title { font-size: clamp(38px, 11vw, 68px); margin-bottom: 18px; }
+  .hero__desc { font-size: 14px; max-width: none; margin-bottom: 24px; }
+  .hero__label { font-size: 10px; margin-bottom: 16px; letter-spacing: .2em; }
+}
+
+/* .cd-section — в самом низу файла осознанно.
+   Секция под hero несёт ОБА класса, .section и .cd-section, специфичность
+   у них равная, значит решает порядок. Мобильное `.section{padding:28px}`
+   объявлено выше, поэтому .cd-section обязана идти после него — иначе
+   побеждает 28px, а style-core.css потом даёт 72px, и блок под hero
+   подрастает на 44px уже после отрисовки. */
+.cd-section { padding: 72px 0; position: relative; overflow: hidden; }
+/* в style-core.css все @media вынесены в конец файла, поэтому
+   мобильные правила, которые раньше молча проигрывали базовым, теперь
+   работают. Дублируем здесь те из них, что затрагивают первый экран,
+   иначе после догрузки core будет сдвиг (CLS): 72→48px у .cd-section,
+   паддинг/цена в карточках. Держать в синхроне с core. */
+@media (max-width: 600px) {
+  .cd-section { padding: 48px 0; }
+}
+@media (max-width: 480px) {
+  .product-card-info { padding: 8px 8px 10px; }
+  .product-card-price { font-size: 13px; }
+}
+/* синхронно со style-core.css — шапка на 1025–1200px */
+@media (min-width:1025px) and (max-width:1200px){.site-header__inner,.header-inner{padding:0 16px;grid-template-columns:auto minmax(0,1fr) auto}.site-logo{margin-right:16px}.primary-nav{min-width:0}.nav-link{padding:20px 10px;font-size:10px;letter-spacing:0.1em}.header-phone{padding:0 8px}.header-phone span{display:none}.header-action-btn--text{display:none}}

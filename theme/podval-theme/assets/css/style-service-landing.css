@@ -1,0 +1,399 @@
+/* =====================================================================
+   Лендинги услуг — page-service-landing.php
+   Подключается блокирующе: hero и калькулятор (первый экран) свёрстаны
+   только на .sl-* классах этого файла. Из style-core.css (async) берётся
+   то, что ниже первого экрана: форма .podval-svc-form, .catalog-grid,
+   карточки .podval-svc__service-card, футер.
+
+   Порядок: база → компоненты по секциям → [hidden] → @media (только в конце).
+   ===================================================================== */
+
+/* ── Шрифт H1 первого экрана ────────────────────────────────────────────
+   Тот же файл Oswald 700, что в critical.css (и в preload), но font-display:
+   optional. Oswald узкий, запасной шрифт телефона шире: при swap крупный H1
+   переносился на другое число строк и сдвигал весь hero (CLS 0.059 на 390 px
+   при шрифтах, приехавших через 1 с). optional: успел — Oswald, не успел —
+   H1 остаётся в запасном шрифте без подмены, со следующей страницы — из кэша.
+   Пути относительно этого файла: assets/css → assets/fonts. */
+@font-face{font-family:'Oswald-SL';font-style:normal;font-weight:700;font-display:optional;src:url('../fonts/oswald-cyrillic-700.woff2') format('woff2');unicode-range:U+0301,U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116}
+@font-face{font-family:'Oswald-SL';font-style:normal;font-weight:700;font-display:optional;src:url('../fonts/oswald-latin-700.woff2') format('woff2');unicode-range:U+0-FF,U+131,U+152-153,U+2BB-2BC,U+2C6,U+2DA,U+2DC,U+304,U+308,U+329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+
+/* ── База ───────────────────────────────────────────────────────────── */
+.sl{background:var(--black);color:var(--white);font-family:var(--font-text);overflow-x:clip}
+:root{--sl-gutter:48px}
+.sl-wrap{max-width:1280px;margin:0 auto;padding:0 var(--sl-gutter);box-sizing:border-box}
+.sl-wrap--narrow{max-width:880px}
+.sl-wrap--form{max-width:760px}
+.sl-sec,.sl-hero{scroll-margin-top:60px}
+.sl-sec{padding:72px 0;border-top:1px solid var(--border)}
+.sl-head{margin:0 0 32px}
+.sl-head--row{display:flex;align-items:flex-end;justify-content:space-between;gap:16px;flex-wrap:wrap}
+.sl-h2{font-family:var(--font-display);font-size:40px;line-height:1.1;font-weight:700;text-transform:uppercase;letter-spacing:.02em;margin:0;color:var(--white)}
+.sl-h3{font-family:var(--font-display);font-size:22px;line-height:1.2;font-weight:700;text-transform:uppercase;letter-spacing:.03em;margin:40px 0 8px;color:var(--white)}
+.sl-h3:first-of-type{margin-top:0}
+.sl-lead{font-size:16px;line-height:1.6;color:var(--gray-light);margin:10px 0 0;max-width:720px}
+.sl-link{font-family:var(--font-body);font-size:13px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--accent);text-decoration:none;white-space:nowrap}
+.sl-link:hover{text-decoration:underline}
+.sl-grid{display:grid;gap:20px}
+
+/* Кнопки */
+.sl-btn{display:inline-flex;align-items:center;justify-content:center;min-height:52px;padding:0 28px;border-radius:6px;font-family:var(--font-body);font-size:13px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;text-decoration:none;border:1px solid transparent;cursor:pointer;transition:background var(--transition),border-color var(--transition),color var(--transition);box-sizing:border-box;text-align:center;line-height:1.2}
+.sl-btn--primary{background:var(--accent);color:var(--black)}
+.sl-btn--primary:hover{background:#ff8a33}
+.sl-btn--ghost{background:transparent;color:var(--white);border-color:rgba(255,255,255,.28)}
+.sl-btn--ghost:hover{border-color:var(--accent);color:var(--accent)}
+.sl-btn--block{width:100%}
+.sl-btn:disabled{opacity:.6;cursor:default}
+
+/* Крошки */
+.sl-crumbs{display:flex;flex-wrap:wrap;align-items:center;gap:8px;padding:20px 0 0;font-size:13px;line-height:1.4;color:var(--gray-light);min-height:38px;box-sizing:border-box}
+.sl-crumbs a{color:var(--gray-light);text-decoration:none}
+.sl-crumbs a:hover{color:var(--white)}
+.sl-crumbs__sep{opacity:.5}
+.sl-crumbs [aria-current]{color:var(--white)}
+
+/* ── 01 Hero ────────────────────────────────────────────────────────── */
+.sl-hero{padding:32px 0 64px}
+.sl-hero__grid{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,1fr);gap:56px;align-items:center}
+.sl-hero--noimg .sl-hero__grid{grid-template-columns:minmax(0,1fr)}
+.sl-hero--noimg .sl-hero__text{max-width:860px}
+.sl-hero__badge{display:inline-block;padding:6px 12px;border:1px solid rgba(255,106,0,.45);border-radius:999px;font-family:var(--font-body);font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);margin:0 0 20px}
+.sl-hero__title{font-family:'Oswald-SL','Oswald-fallback',sans-serif;font-size:64px;line-height:1.02;font-weight:700;text-transform:uppercase;letter-spacing:.01em;margin:0 0 20px;color:var(--white)}
+.sl-hero__sub{font-size:18px;line-height:1.6;color:#c9c8c3;margin:0 0 28px;max-width:560px}
+.sl-hero__facts{list-style:none;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin:0 0 32px;padding:0}
+.sl-hero__fact{padding:14px 16px;background:var(--gray);border:1px solid var(--border);border-radius:8px}
+.sl-hero__fact strong{display:block;font-family:var(--font-display);font-size:24px;line-height:1.15;font-weight:700;color:var(--white);white-space:nowrap}
+.sl-hero__fact:first-child strong{color:var(--accent)}
+.sl-hero__fact>span{display:block;margin-top:4px;font-size:12px;line-height:1.35;color:var(--gray-light)}
+.sl-hero__cta{display:flex;flex-wrap:wrap;gap:12px}
+.sl-hero__media{position:relative;aspect-ratio:4/3;border-radius:12px;overflow:hidden;background:var(--gray-mid)}
+/* Как и у карточек базы: в режимах с кадром картинка абсолютом, иначе высоту
+   задаёт файл и 4:3 не соблюдается. */
+.sl-hero--frame .sl-hero__media picture,.sl-hero--frame .sl-hero__media img,
+.sl-hero--bleed .sl-hero__media picture,.sl-hero--bleed .sl-hero__media img{position:absolute;top:0;left:0;width:100%;height:100%}
+.sl-hero__media picture,.sl-hero__media img{display:block;width:100%;height:100%}
+.sl-hero__media img{object-fit:cover}
+/* «Целиком»: ничего не режем, высоту задаёт сам файл (width/height у <img> на
+   месте, поэтому места под картинку резервируется столько же — CLS не растёт). */
+.sl-hero--full .sl-hero__media{aspect-ratio:auto}
+.sl-hero--full .sl-hero__media picture,.sl-hero--full .sl-hero__media img{position:static;height:auto;object-fit:contain}
+/* «Во всю ширину справа»: сетка hero раздвигается на всю ширину секции, правый
+   отступ убирается, а левый считается так, чтобы текст остался на общей сетке
+   страницы. Проценты берутся от ширины секции — в отличие от 100vw, они не
+   включают вертикальный скроллбар и не дают горизонтальной прокрутки. */
+.sl-hero--bleed .sl-hero__grid{max-width:none;padding-right:0;padding-left:max(var(--sl-gutter), calc((100% - 1280px) / 2 + var(--sl-gutter)));align-items:stretch}
+.sl-hero--bleed .sl-hero__media{border-radius:12px 0 0 12px;aspect-ratio:auto;min-height:100%}
+.sl-hero--bleed .sl-hero__text{align-self:center}
+
+/* ── 02 Калькулятор ─────────────────────────────────────────────────── */
+.sl-calc{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(0,1fr);gap:24px;align-items:start}
+.sl-calc__controls{display:flex;flex-direction:column;gap:22px;padding:28px;background:var(--gray);border:1px solid var(--border);border-radius:12px}
+.sl-calc__modes{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:4px;padding:4px;background:var(--black);border-radius:8px}
+.sl-calc__modes--3{grid-template-columns:repeat(3,minmax(0,1fr))}
+.sl-calc__mode{min-height:44px;border:0;border-radius:6px;background:transparent;color:var(--gray-light);font-family:var(--font-body);font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;cursor:pointer}
+.sl-calc__mode.is-active{background:var(--gray-mid);color:var(--white)}
+.sl-calc__panel{display:flex;flex-direction:column;gap:22px}
+.sl-calc__cap{margin:0;font-size:13px;line-height:1.5;color:var(--gray-light)}
+.sl-field{display:flex;flex-direction:column;gap:10px;min-width:0}
+.sl-field__label{font-family:var(--font-body);font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--gray-light)}
+.sl-field__label em{font-style:normal;text-transform:none;letter-spacing:0;color:#aaa}
+.sl-seg{display:flex;gap:6px}
+.sl-seg--wrap{flex-wrap:wrap}
+.sl-seg__opt{position:relative;display:block;flex:1 1 0;min-width:0;cursor:pointer}
+.sl-seg--wrap .sl-seg__opt{flex:1 1 calc(50% - 6px)}
+.sl-seg__opt input{position:absolute;opacity:0;width:1px;height:1px;margin:0;pointer-events:none}
+.sl-seg__opt>span{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;min-height:56px;padding:8px 10px;border:1px solid rgba(255,255,255,.14);border-radius:6px;font-size:14px;line-height:1.25;color:var(--white);text-align:center;box-sizing:border-box;transition:border-color var(--transition),background var(--transition)}
+.sl-seg__opt:hover>span{border-color:rgba(255,255,255,.35)}
+.sl-seg__opt input:checked+span{border-color:var(--accent);background:rgba(255,106,0,.1)}
+.sl-seg__opt input:focus-visible+span{outline:2px solid var(--accent);outline-offset:2px}
+.sl-check{display:flex;align-items:center;gap:12px;min-height:44px;cursor:pointer;font-size:15px;color:var(--white)}
+.sl-check input{width:20px;height:20px;margin:0;accent-color:var(--accent);flex:none}
+.sl-check em{font-style:normal;color:var(--gray-light);margin-left:4px}
+/* Подпись цены под вариантом (podval_sl_opt_price / optPrice в JS) */
+.sl-seg__price{display:block;font-size:12px;line-height:1.2;color:var(--accent);white-space:nowrap}
+.sl-seg__price--zero,.sl-seg__price--na{color:var(--gray-light)}
+/* Счётчики принтов на плёнке */
+.sl-counts{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.sl-count{display:flex;flex-direction:column;gap:6px;min-width:0}
+.sl-count__label{display:flex;align-items:baseline;gap:6px;font-size:14px;color:var(--white)}
+.sl-count__label em{font-style:normal;font-size:12px;color:var(--gray-light)}
+.sl-qty--sm{grid-template-columns:40px minmax(0,1fr) 40px}
+.sl-qty--sm .sl-qty__btn{min-height:44px;font-size:18px}
+.sl-qty--sm input{min-height:44px;font-size:18px}
+.sl-calc__meta{font-family:var(--font-display);font-size:20px;color:var(--gray-light);margin:0 0 6px}
+.sl-calc__metres{color:var(--white)}
+.sl-qty{display:grid;grid-template-columns:48px minmax(0,140px) 48px;gap:6px}
+.sl-qty__btn{min-height:48px;border:1px solid rgba(255,255,255,.14);border-radius:6px;background:transparent;color:var(--white);font-size:22px;cursor:pointer}
+.sl-qty__btn:hover{border-color:var(--accent)}
+.sl-qty input{min-height:48px;width:100%;box-sizing:border-box;border:1px solid rgba(255,255,255,.14);border-radius:6px;background:var(--black);color:var(--white);font-family:var(--font-display);font-size:22px;text-align:center;-moz-appearance:textfield;appearance:textfield}
+.sl-qty input::-webkit-outer-spin-button,.sl-qty input::-webkit-inner-spin-button{-webkit-appearance:none;margin:0}
+.sl-qty input:focus{outline:none;border-color:var(--accent)}
+.sl-qty__chips{display:flex;flex-wrap:wrap;gap:6px}
+.sl-chip{min-width:48px;min-height:36px;padding:0 12px;border:1px solid var(--border);border-radius:999px;background:transparent;color:var(--gray-light);font-size:13px;cursor:pointer}
+.sl-chip:hover{color:var(--white);border-color:rgba(255,255,255,.3)}
+.sl-chip.is-active{color:var(--black);background:var(--white);border-color:var(--white)}
+.sl-calc__out{position:sticky;top:84px;padding:28px;background:var(--gray-mid);border:1px solid rgba(255,106,0,.28);border-radius:12px;display:flex;flex-direction:column;gap:16px}
+.sl-calc__label{font-family:var(--font-body);font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--gray-light)}
+/* Высота результата резервируется: подсказка появляется и исчезает без сдвига кнопки. */
+.sl-calc__result{min-height:150px}
+.sl-calc__unit{font-family:var(--font-display);font-size:48px;line-height:1.05;font-weight:700;color:var(--white);white-space:nowrap}
+.sl-calc__unit small{font-size:20px;color:var(--gray-light);margin-left:4px}
+.sl-calc__prefix{color:var(--accent)}
+.sl-calc__line{margin-top:8px;font-size:15px;line-height:1.5;color:#c9c8c3}
+.sl-calc__total{color:var(--white);font-weight:600}
+.sl-calc__na{font-family:var(--font-display);font-size:30px;line-height:1.15;font-weight:700;text-transform:uppercase;color:var(--white);min-height:78px}
+.sl-calc__hint{margin:12px 0 0;min-height:42px;font-size:14px;line-height:1.5;color:var(--accent)}
+.sl-nowrap,.sl-calc__hint [data-price-byn]{white-space:nowrap}
+.sl-calc__note{margin:0;font-size:12px;line-height:1.5;color:var(--gray-light)}
+
+/* ── 03 Цены ────────────────────────────────────────────────────────── */
+.sl-table-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch;margin:16px 0 0;border:1px solid var(--border);border-radius:10px}
+.sl-table{width:100%;border-collapse:collapse;font-size:15px;line-height:1.4;min-width:520px}
+.sl-table th,.sl-table td{padding:14px 16px;text-align:left;border-bottom:1px solid var(--border);white-space:nowrap}
+/* Колонки тиров одинаковой ширины: иначе первая тянет на себя всё свободное место. */
+.sl-table--tiers{table-layout:fixed}
+.sl-table--tiers th:first-child{width:22%}
+.sl-table thead th{font-family:var(--font-body);font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--gray-light);background:var(--gray)}
+.sl-table tbody th{font-weight:600;color:var(--white)}
+.sl-table tbody th small{display:block;font-weight:400;font-size:12px;color:var(--gray-light)}
+.sl-table tbody tr:last-child th,.sl-table tbody tr:last-child td{border-bottom:0}
+.sl-table__main{color:var(--accent);font-weight:700}
+.sl-table__na{color:var(--gray-light);font-style:italic}
+/* Пояснения к тирам — под таблицей (в tfoot они растягивали колонку). */
+.sl-table-legend{list-style:none;display:flex;flex-wrap:wrap;gap:6px 24px;margin:10px 0 0;padding:0;font-size:13px;line-height:1.5;color:var(--gray-light)}
+.sl-table-legend li{position:relative;padding-left:14px}
+.sl-table-legend li::before{content:"";position:absolute;left:0;top:9px;width:6px;height:1px;background:var(--accent)}
+.sl-table-note{margin:10px 0 0;font-size:13px;color:var(--gray-light)}
+.sl-note{margin:28px 0 0;padding:18px 20px;border-left:3px solid var(--accent);background:var(--gray);font-size:15px;line-height:1.6;color:#c9c8c3}
+.sl-note p{margin:0 0 8px}
+.sl-note p:last-child{margin:0}
+
+/* ── 04 База ────────────────────────────────────────────────────────── */
+.sl-grid--base{grid-template-columns:repeat(4,minmax(0,1fr))}
+.sl-base{display:flex;flex-direction:column;background:var(--gray);border:1px solid var(--border);border-radius:10px;overflow:hidden}
+a.sl-base{text-decoration:none;color:inherit;transition:border-color var(--transition),transform var(--transition)}
+a.sl-base:hover{border-color:var(--accent)}
+a.sl-base:hover .sl-base__img{transform:scale(1.03)}
+.sl-base__img{transition:transform .3s ease}
+.sl-base__cta{margin-top:auto;padding-top:4px;font-family:var(--font-body);font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--accent)}
+/* Кадр задаёт aspect-ratio, а картинка кладётся поверх абсолютом. Со статичным
+   <img> высоту диктовали бы пропорции файла (height:100% в блоке с auto-высотой
+   не резолвится), и aspect-ratio молча игнорировался: карточки в ряду выходили
+   разной высоты, а кадрирования не было вовсе. */
+.sl-base__media{position:relative;aspect-ratio:4/5;background:var(--gray-mid);display:flex;align-items:center;justify-content:center;overflow:hidden}
+.sl-base__media picture,.sl-base__media img{position:absolute;top:0;left:0;display:block;width:100%;height:100%}
+.sl-base__media img{object-fit:cover}
+.sl-base__ph{font-family:var(--font-display);font-size:72px;color:rgba(255,106,0,.18)}
+.sl-base__body{flex:1 1 auto;padding:16px 18px 20px;display:flex;flex-direction:column;gap:8px}
+.sl-base__title{font-family:var(--font-display);font-size:20px;font-weight:700;text-transform:uppercase;letter-spacing:.02em;margin:0;color:var(--white)}
+.sl-base__price{font-family:var(--font-display);font-size:20px;color:var(--accent)}
+.sl-base__price small{font-family:var(--font-text);font-size:12px;color:var(--gray-light)}
+.sl-base__spec,.sl-base__note{margin:0;font-size:13px;line-height:1.5;color:var(--gray-light)}
+.sl-swatches{list-style:none;display:flex;gap:6px;margin:2px 0;padding:0}
+.sl-swatches li{width:18px;height:18px;border-radius:50%;border:1px solid rgba(255,255,255,.3)}
+
+/* ── 05 Технологии ──────────────────────────────────────────────────── */
+.sl-grid--tech{grid-template-columns:repeat(3,minmax(0,1fr))}
+.sl-tech{padding:24px;background:var(--gray);border:1px solid var(--border);border-radius:10px;display:flex;flex-direction:column;gap:14px}
+.sl-tech__name{font-family:var(--font-display);font-size:24px;font-weight:700;text-transform:uppercase;margin:0;color:var(--white)}
+.sl-tech__best{margin:0;font-size:14px;line-height:1.5;color:#c9c8c3}
+.sl-tech__list{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:8px;font-size:14px;line-height:1.45}
+.sl-tech__list li{position:relative;padding-left:22px;color:#c9c8c3}
+.sl-tech__list li::before{position:absolute;left:0;top:0;font-weight:700}
+.sl-tech__list .is-pro::before{content:"+";color:#5ad17a}
+.sl-tech__list .is-con::before{content:"−";color:var(--gray-light)}
+.sl-tech__meta{margin:auto 0 0;padding:14px 0 0;border-top:1px solid var(--border);display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+.sl-tech__meta dt{font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--gray-light)}
+.sl-tech__meta dd{margin:4px 0 0;font-size:14px;font-weight:600;color:var(--white)}
+
+/* ── 06 Шаги и требования ───────────────────────────────────────────── */
+.sl-steps{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:20px;counter-reset:none}
+.sl-step{padding:22px;border:1px solid var(--border);border-radius:10px;background:var(--gray)}
+.sl-step__num{display:block;font-family:var(--font-display);font-size:34px;font-weight:700;color:var(--accent);line-height:1;margin:0 0 14px}
+.sl-step__title{font-family:var(--font-display);font-size:19px;font-weight:700;text-transform:uppercase;margin:0 0 8px;color:var(--white)}
+.sl-step__text{margin:0;font-size:14px;line-height:1.55;color:var(--gray-light)}
+.sl-reqs{margin:40px 0 0;padding:28px;border:1px dashed rgba(255,255,255,.18);border-radius:10px}
+.sl-reqs .sl-h3{margin:0 0 14px}
+.sl-reqs__list{margin:0;padding:0 0 0 18px;columns:2;column-gap:40px;font-size:15px;line-height:1.6;color:#c9c8c3}
+.sl-reqs__list li{break-inside:avoid;margin:0 0 6px}
+.sl-reqs__free{margin:16px 0 0;font-size:14px;color:var(--accent)}
+
+/* ── 07 Галерея ─────────────────────────────────────────────────────── */
+.sl-gallery{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
+.sl-gallery__item{margin:0}
+.sl-gallery__btn{display:block;width:100%;padding:0;border:0;border-radius:8px;overflow:hidden;background:var(--gray-mid);cursor:zoom-in;aspect-ratio:1/1}
+.sl-gallery__btn picture,.sl-gallery__btn img{display:block;width:100%;height:100%}
+.sl-gallery__btn img{object-fit:cover;transition:transform .3s ease}
+.sl-gallery__btn:hover img{transform:scale(1.03)}
+.sl-gallery__cap{margin:8px 0 0;font-size:13px;color:var(--gray-light)}
+.sl-lightbox{width:min(92vw,1100px);max-height:92vh;padding:0;border:0;border-radius:10px;background:var(--black);color:var(--white);overflow:hidden}
+.sl-lightbox::backdrop{background:rgba(0,0,0,.85)}
+.sl-lightbox__frame{display:flex;align-items:center;justify-content:center;background:#000;max-height:calc(92vh - 48px)}
+.sl-lightbox__img{display:block;max-width:100%;max-height:calc(92vh - 48px);width:auto;height:auto;object-fit:contain}
+.sl-lightbox__cap{margin:0;padding:14px 18px;font-size:14px;color:var(--gray-light)}
+.sl-lightbox__close,.sl-lightbox__nav{position:absolute;display:flex;align-items:center;justify-content:center;width:48px;height:48px;border:0;border-radius:50%;background:rgba(0,0,0,.6);color:var(--white);font-size:30px;line-height:1;cursor:pointer}
+.sl-lightbox__close{top:10px;right:10px}
+.sl-lightbox__nav{top:50%;margin-top:-24px}
+.sl-lightbox__nav--prev{left:10px}
+.sl-lightbox__nav--next{right:10px}
+
+/* ── 08 Готовые принты ──────────────────────────────────────────────── */
+.sl-products{margin:0}
+
+/* ── 09 Отзывы ──────────────────────────────────────────────────────── */
+.sl-grid--reviews{grid-template-columns:repeat(3,minmax(0,1fr))}
+.sl-review{margin:0;padding:24px;background:var(--gray);border:1px solid var(--border);border-radius:10px;display:flex;flex-direction:column;gap:16px}
+.sl-review__text{margin:0;font-size:15px;line-height:1.6;color:#dcdbd6}
+.sl-review__foot{margin-top:auto;display:flex;flex-wrap:wrap;align-items:baseline;gap:6px 12px;font-size:13px;color:var(--gray-light)}
+.sl-review__name{font-style:normal;font-weight:600;color:var(--white)}
+.sl-review__foot a{color:var(--gray-light)}
+
+/* ── 10 FAQ ─────────────────────────────────────────────────────────── */
+.sl-faq{border-top:1px solid var(--border)}
+.sl-faq__item{border-bottom:1px solid var(--border)}
+.sl-faq__q{display:flex;align-items:center;justify-content:space-between;gap:16px;min-height:60px;padding:14px 0;cursor:pointer;list-style:none;font-size:17px;font-weight:600;line-height:1.4;color:var(--white)}
+.sl-faq__q::-webkit-details-marker{display:none}
+.sl-faq__q::after{content:"+";flex:none;font-size:26px;font-weight:400;color:var(--accent);transition:transform var(--transition)}
+.sl-faq__item[open] .sl-faq__q::after{transform:rotate(45deg)}
+.sl-faq__a{padding:0 0 20px;font-size:15px;line-height:1.65;color:#c9c8c3}
+.sl-faq__a p{margin:0 0 10px}
+.sl-faq__a p:last-child{margin:0}
+.sl-faq__a a{color:var(--accent)}
+
+/* ── 11 SEO-текст ───────────────────────────────────────────────────── */
+.sl-prose{font-size:16px;line-height:1.75;color:#c9c8c3}
+.sl-prose h2{font-family:var(--font-display);font-size:28px;line-height:1.2;font-weight:700;text-transform:uppercase;color:var(--white);margin:44px 0 14px}
+.sl-prose h2:first-child{margin-top:0}
+.sl-prose h3{font-family:var(--font-display);font-size:20px;font-weight:700;text-transform:uppercase;color:var(--white);margin:28px 0 10px}
+.sl-prose p{margin:0 0 16px}
+.sl-prose ul,.sl-prose ol{margin:0 0 16px;padding-left:22px}
+.sl-prose li{margin:0 0 6px}
+.sl-prose a{color:var(--accent)}
+
+/* ── 12 Форма ─────────────────────────────────────────────────────────
+   Геометрия формы продублирована из style-core.css: сама форма живёт на
+   классах .podval-svc-form/.podval-co__*, а core грузится асинхронно. Пока
+   секция стояла внизу страницы, это было не видно; после перестановки блоков
+   форму можно поднять под hero — и на первом экране поля прыгали на 0,04 CLS,
+   когда приезжал core. Значения обязаны совпадать с core (позже он всё равно
+   перебьёт их своими): меняете там — правьте и здесь. Только размеры и
+   раскладка, без цветов и состояний. */
+.sl-form .podval-svc-form__row{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.sl-form .podval-svc-form__field{display:flex;flex-direction:column;gap:6px}
+.sl-form .podval-svc-form__field label{font-family:var(--font-body);font-size:11px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase}
+.sl-form .podval-svc-form__field input[type="text"],.sl-form .podval-svc-form__field input[type="tel"],.sl-form .podval-svc-form__field input[type="email"],.sl-form .podval-svc-form__field textarea{border:1px solid var(--border);border-radius:6px;padding:14px 16px;font-family:var(--font-text);font-size:14px}
+.sl-form .podval-svc-form__delivery-options{display:flex;flex-direction:column;gap:8px}
+.sl-form .podval-svc-form__radio{display:flex;align-items:center;gap:8px;font-family:var(--font-text);font-size:14px}
+.sl-form .podval-svc-form__note{font-family:var(--font-text);font-size:12px;text-align:center}
+.sl-form .podval-co__upload-zone{border:2px dashed var(--border);border-radius:8px;padding:28px 24px;text-align:center;position:relative}
+.sl-form .podval-co__upload-icon{width:32px;height:32px;margin-bottom:10px;display:inline-block}
+.sl-form .podval-co__upload-text{display:block;font-family:var(--font-text);font-size:14px;margin-bottom:4px}
+.sl-form .podval-co__upload-formats{display:block;font-family:var(--font-text);font-size:11px}
+.sl-form .podval-co__upload-list{display:flex;flex-direction:column;gap:8px;margin-top:0;text-align:left}
+.sl-form .podval-co__upload-list:not(:empty){margin-top:16px}
+
+.sl-sec--form{background:var(--gray)}
+.sl-form{display:flex;flex-direction:column;gap:20px}
+.sl-form{padding:32px;background:var(--black);border:1px solid var(--border);border-radius:12px}
+.sl-form input,.sl-form textarea{width:100%;box-sizing:border-box}
+.sl-form .podval-svc-form__row{min-width:0}
+.sl-hp{position:absolute;left:-10000px;top:auto;width:1px;height:1px;overflow:hidden}
+.sl-form__error{padding:14px 16px;border:1px solid rgba(255,43,43,.5);border-radius:6px;background:rgba(255,43,43,.08);font-size:14px;line-height:1.5;color:#ffb3b3}
+.sl-form__error a{color:var(--accent);font-weight:600}
+
+/* ── 13 Похожие ─────────────────────────────────────────────────────── */
+.sl-related{grid-template-columns:repeat(3,minmax(0,1fr))}
+/* .sl-card__* — в style-core.css: карточка общая с хабом и главной */
+
+/* ── 14 Локальный блок ──────────────────────────────────────────────── */
+.sl-local{display:grid;grid-template-columns:minmax(0,1fr);gap:32px;padding:36px;background:var(--gray);border:1px solid var(--border);border-radius:12px}
+.sl-local--img{grid-template-columns:minmax(0,1fr) minmax(0,1fr);align-items:center}
+.sl-local__addr{margin:16px 0 8px;font-size:20px;font-weight:600;color:var(--white)}
+.sl-local__hours{list-style:none;margin:0 0 14px;padding:0;font-size:15px;line-height:1.7;color:#c9c8c3}
+.sl-local__text{margin:0 0 20px;font-size:14px;line-height:1.6;color:var(--gray-light)}
+.sl-local__links{display:flex;flex-wrap:wrap;gap:10px}
+.sl-local__links .sl-btn{min-height:44px;padding:0 18px;font-size:12px}
+.sl-local__media{border-radius:10px;overflow:hidden;aspect-ratio:4/3;background:var(--gray-mid)}
+.sl-local__media a,.sl-local__media picture,.sl-local__media img{display:block;width:100%;height:100%}
+.sl-local__media img{object-fit:cover}
+
+/* ── Sticky-бар (мобиль) ────────────────────────────────────────────── */
+.sl-sticky{display:none;position:fixed;left:0;right:0;bottom:0;z-index:950;align-items:center;justify-content:space-between;gap:12px;padding:10px 16px calc(10px + env(safe-area-inset-bottom,0px));background:rgba(10,10,10,.97);border-top:1px solid var(--border);box-sizing:border-box}
+.sl-sticky__price{font-family:var(--font-display);font-size:20px;font-weight:700;color:var(--white);white-space:nowrap}
+.sl-sticky__btn{display:inline-flex;align-items:center;justify-content:center;min-height:44px;padding:0 22px;border-radius:6px;background:var(--accent);color:var(--black);font-family:var(--font-body);font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;text-decoration:none}
+
+/* ── [hidden] для классов со своим display ──────────────────────────── */
+.sl-calc__product[hidden],.sl-calc__panel[hidden],.sl-calc__price[hidden],.sl-calc__na[hidden],.sl-calc__meta[hidden],.sl-field--qty[hidden],.sl-form__error[hidden],.sl-lightbox__cap[hidden]{display:none}
+
+/* =====================================================================
+   @media — только ниже этой черты
+   ===================================================================== */
+@media (max-width:1200px){
+  :root{--sl-gutter:32px}
+  .sl-hero__title{font-size:52px}
+  .sl-hero__grid{gap:40px}
+  .sl-grid--base{grid-template-columns:repeat(2,minmax(0,1fr))}
+  /* В две колонки карточка вдвое шире, и кадр 4:5 растягивает её почти на экран. */
+  .sl-base__media{aspect-ratio:1/1}
+  .sl-steps{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+@media (max-width:900px){
+  .sl-sec,.sl-hero{scroll-margin-top:52px}
+  .sl-sec{padding:52px 0}
+  .sl-h2{font-size:30px}
+  .sl-hero{padding:20px 0 44px}
+  .sl-hero__grid{grid-template-columns:minmax(0,1fr);gap:24px}
+  .sl-hero__media{order:-1}
+  /* На узком экране колонка одна: фото уходит в обе стороны до краёв. */
+  /* padding-right вернуть: на десктопе он снят, а тут фото уводится margin'ом. */
+  .sl-hero--bleed .sl-hero__grid{padding-left:var(--sl-gutter);padding-right:var(--sl-gutter)}
+  .sl-hero--bleed .sl-hero__media{margin-left:calc(-1 * var(--sl-gutter));margin-right:calc(-1 * var(--sl-gutter));border-radius:0;min-height:0;aspect-ratio:4/3}
+  .sl-hero__title{font-size:40px}
+  .sl-hero__sub{font-size:16px;margin-bottom:22px}
+  .sl-hero__facts{gap:8px;margin-bottom:24px}
+  .sl-hero__fact{padding:10px}
+  .sl-hero__fact strong{font-size:18px}
+  .sl-hero__fact>span{font-size:11px}
+  .sl-calc{grid-template-columns:minmax(0,1fr)}
+  .sl-calc__out{position:static}
+  .sl-grid--tech{grid-template-columns:minmax(0,1fr)}
+  .sl-gallery{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .sl-grid--reviews{grid-template-columns:minmax(0,1fr)}
+  .sl-related{grid-template-columns:minmax(0,1fr)}
+  .sl-local--img{grid-template-columns:minmax(0,1fr)}
+  .sl-reqs__list{columns:1}
+  .sl-sticky.is-visible{display:flex}
+  .sl-page .site-footer{padding-bottom:72px}
+}
+@media (max-width:600px){
+  :root{--sl-gutter:16px}
+  .sl-hero__title{font-size:32px}
+  .sl-hero__fact strong{font-size:16px;white-space:normal}
+  .sl-hero__cta .sl-btn{flex:1 1 100%}
+  /* Парный мобильный дубль к .sl-form .podval-svc-form__row выше: без него
+     наш селектор (0,2,0) перебивал бы мобильное правило core (0,1,0), и на
+     телефоне поля «Имя»/«Телефон» остались бы в две колонки. Брейкпоинт тот
+     же, что в style-core.css. */
+  .sl-form .podval-svc-form__row{grid-template-columns:1fr}
+  .sl-calc__controls,.sl-calc__out,.sl-form{padding:20px 16px}
+  .sl-calc__unit{font-size:40px}
+  .sl-seg__opt>span{padding:8px 4px;font-size:13px}
+  .sl-seg__price{font-size:11px}
+  .sl-counts{grid-template-columns:minmax(0,1fr)}
+  /* Две карточки в ряд: одна на весь экран заставляла листать до бесконечности. */
+  .sl-grid--base{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+  .sl-base__body{padding:12px 12px 16px;gap:6px}
+  .sl-base__title{font-size:16px}
+  .sl-base__price{font-size:17px}
+  .sl-base__spec,.sl-base__note{font-size:12px}
+  .sl-base__cta{font-size:11px}
+  .sl-steps{grid-template-columns:minmax(0,1fr)}
+  .sl-tech__meta{grid-template-columns:repeat(3,minmax(0,1fr))}
+  .sl-reqs{padding:20px 16px}
+  .sl-local{padding:24px 16px}
+  .sl-lightbox__nav{width:40px;height:40px;margin-top:-20px}
+}
+@media (max-width:380px){
+  .sl-hero__facts{grid-template-columns:minmax(0,1fr)}
+  .sl-hero__fact strong{white-space:normal}
+}

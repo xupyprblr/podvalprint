@@ -1,0 +1,41 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.2'
+          coverage: none
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: PHP lint
+        run: |
+          find theme plugins -name '*.php' -print0 | xargs -0 -n1 -P4 php -l > /dev/null
+
+      - name: JS syntax
+        run: |
+          find theme plugins -name '*.js' -print0 | xargs -0 -n1 node --check
+
+      - name: Minified JS is up to date
+        run: |
+          scripts/build.sh --no-zip
+          git diff --exit-code -- 'theme/podval-theme/assets/js/*.min.js'
+
+      - name: Trace audit
+        run: scripts/audit.sh
+
+      - name: Telegram plugin tests
+        run: php plugins/podval-telegram-orders/tests/app-tests.php
+        continue-on-error: true

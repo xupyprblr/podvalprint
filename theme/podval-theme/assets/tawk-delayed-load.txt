@@ -1,0 +1,42 @@
+===========================================================
+ОТЛОЖЕННАЯ ЗАГРУЗКА TAWK.TO (или другого чат-виджета)
+===========================================================
+
+Tawk.to загружает ~550 KB JS и блокирует основной поток на 300-500ms.
+Решение: загружать через 4 секунды ИЛИ при первом scroll/touch/click.
+
+ЗАМЕНИТЕ текущий код подключения Tawk.to на этот:
+
+<script>
+// Delayed Tawk.to — загружается через 4 сек или при первом взаимодействии
+(function(){
+  var loaded = false;
+  function loadTawk() {
+    if (loaded) return;
+    loaded = true;
+    var s = document.createElement('script');
+    s.async = true;
+    s.src = 'https://embed.tawk.to/ВАША_PROPERTY_ID/ВАША_WIDGET_ID';
+    s.charset = 'UTF-8';
+    s.setAttribute('crossorigin','*');
+    document.head.appendChild(s);
+  }
+  // Через 4 секунды
+  setTimeout(loadTawk, 4000);
+  // Или при первом взаимодействии (scroll, click, touch)
+  ['scroll','click','touchstart','mousemove'].forEach(function(evt) {
+    document.addEventListener(evt, loadTawk, {once:true, passive:true});
+  });
+})();
+</script>
+
+Где найти PROPERTY_ID и WIDGET_ID:
+1. Откройте Tawk.to Dashboard → Administration → Chat Widget
+2. Скопируйте код — в URL будет строка вида:
+   https://embed.tawk.to/6123abc.../1abc...
+   Первая часть = PROPERTY_ID, вторая = WIDGET_ID
+
+АЛЬТЕРНАТИВА: если виджет подключён через WP плагин,
+отключите плагин и используйте код выше в 
+Customizer → Additional HTML (footer) или в footer.php
+===========================================================

@@ -1,0 +1,11 @@
+.DS_Store
+Thumbs.db
+__MACOSX/
+*.zip
+*.log
+dist/
+node_modules/
+.idea/
+.vscode/
+wp-config.php
+.env

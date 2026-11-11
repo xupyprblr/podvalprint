@@ -1,0 +1,522 @@
+.sp-add-btn.is-loading,.quick-add-btn.is-loading,.sp-go-cart-btn.is-loading,.aw-btn.is-loading,.podval-co__submit-btn.is-loading{position:relative;color:transparent !important;pointer-events:none}
+.sp-add-btn.is-loading::after,.quick-add-btn.is-loading::after,.sp-go-cart-btn.is-loading::after,.aw-btn.is-loading::after,.podval-co__submit-btn.is-loading::after{content:"";position:absolute;top:50%;left:50%;width:20px;height:20px;margin:-10px 0 0 -10px;border:2px solid rgba(0,0,0,0.2);border-top-color:var(--black);border-radius:50%;animation:podval-spin 0.6s linear infinite}
+ARTWORK UPLOAD PAGE (page-artwork-upload.php) v1/**/.8/**/.0 ═══════════════════════════════════════════ */ .aw-page{max-width:960px !important;margin:0 auto;padding:24px 20px 120px;box-sizing:border-box}
+.aw-breadcrumbs{display:flex;align-items:center;gap:8px;font-size:13px;color:rgba(255,255,255,0.5);margin-bottom:32px;flex-wrap:wrap}
+.aw-breadcrumbs a{color:rgba(255,255,255,0.5);text-decoration:none}
+.aw-breadcrumbs a:hover{color:#ff6600}
+.aw-breadcrumbs__sep{opacity:0.3}
+.aw-layout{display:grid;grid-template-columns:1fr 340px;gap:40px;align-items:start}
+.aw-main{min-width:0}
+.aw-title{font-size:28px;font-weight:700;text-transform:uppercase;letter-spacing:0.02em;margin:0 0 8px}
+.aw-subtitle{font-size:14px;color:rgba(255,255,255,0.6);margin:0 0 32px;line-height:1.5}
+.aw-upload-section{--zone-accent:#ff6a00;--zone-accent-rgb:255,106,0;margin-bottom:28px;background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.06);border-left:3px solid var(--zone-accent);border-radius:0 12px 12px 0;padding:20px 24px 24px}
+/* Zone colour-coding so stacked sections are easy to tell apart */
+.aw-upload-section[data-slot="back"]{--zone-accent:#3b9eff;--zone-accent-rgb:59,158,255}
+.aw-upload-section[data-slot="sleeve"]{--zone-accent:#a06aff;--zone-accent-rgb:160,106,255}
+.aw-upload-section__header{display:flex;align-items:center;gap:10px;margin-bottom:16px}
+.aw-upload-section__icon{display:flex;align-items:center;justify-content:center;width:36px;height:36px;background:rgba(var(--zone-accent-rgb),0.12);border-radius:8px;color:var(--zone-accent);flex-shrink:0}
+.aw-upload-section__title{font-size:16px;font-weight:600;text-transform:uppercase;letter-spacing:0.03em;margin:0}
+.aw-upload-section__badge{font-size:11px;font-weight:600;background:rgba(var(--zone-accent-rgb),0.15);color:var(--zone-accent);padding:3px 10px;border-radius:20px;text-transform:uppercase;letter-spacing:0.05em}
+.aw-upload-zone{border:2px dashed rgba(var(--zone-accent-rgb),0.2);border-radius:12px;padding:32px 24px;text-align:center;cursor:pointer;transition:border-color 0.2s,background 0.2s,box-shadow 0.2s;position:relative}
+.aw-upload-zone:hover{border-color:rgba(var(--zone-accent-rgb),0.5);background:rgba(var(--zone-accent-rgb),0.04);box-shadow:0 0 20px rgba(var(--zone-accent-rgb),0.05)}
+.aw-upload-zone.is-dragover{border-color:var(--zone-accent);background:rgba(var(--zone-accent-rgb),0.08);box-shadow:0 0 30px rgba(var(--zone-accent-rgb),0.1)}
+.aw-upload-zone.has-file{border-style:solid;border-color:rgba(76,175,80,0.3);background:rgba(76,175,80,0.03);padding:16px 20px;cursor:default;box-shadow:none}
+.aw-upload-zone__icon{width:36px;height:36px;color:rgba(var(--zone-accent-rgb),0.5);margin-bottom:12px}
+.aw-upload-zone__text{display:block;font-size:15px;font-weight:500;margin-bottom:6px;color:rgba(255,255,255,0.8)}
+.aw-upload-zone__formats{display:block;font-size:12px;color:rgba(255,255,255,0.35)}
+.aw-file__row{display:flex;align-items:center;gap:14px;text-align:left}
+.aw-file__thumb{width:56px;height:56px;object-fit:cover;border-radius:8px;flex-shrink:0;background:rgba(255,255,255,0.05)}
+.aw-file__thumb-placeholder{width:56px;height:56px;display:flex;align-items:center;justify-content:center;background:rgba(255,255,255,0.06);border-radius:8px;font-size:11px;font-weight:700;color:rgba(255,255,255,0.5);flex-shrink:0;letter-spacing:0.05em}
+.aw-file__details{flex:1;min-width:0}
+.aw-file__name{display:block;font-size:14px;font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.aw-file__size{display:block;font-size:12px;color:rgba(255,255,255,0.4);margin-top:2px}
+.aw-file__status{font-size:13px;font-weight:600;color:var(--zone-accent);flex-shrink:0}
+.aw-file__status.is-done{color:#4caf50}
+.aw-file__status.is-error{color:#ef5350}
+.aw-file-remove{background:none;border:none;padding:6px;cursor:pointer;color:rgba(255,255,255,0.3);flex-shrink:0;transition:color 0.15s}
+.aw-file-remove:hover{color:#ef5350}
+.aw-file-remove svg{width:18px;height:18px}
+.aw-position{display:none}
+.aw-extra{margin-top:28px;margin-bottom:0;background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.06);border-radius:12px;overflow:hidden}
+.aw-extra__toggle{display:flex;align-items:center;gap:10px;padding:16px 24px;cursor:pointer;user-select:none;transition:background 0.15s}
+.aw-extra__toggle:hover{background:rgba(255,255,255,0.02)}
+.aw-extra__checkbox{display:flex;align-items:center;justify-content:center;width:20px;height:20px;border:2px solid rgba(255,255,255,0.2);border-radius:4px;flex-shrink:0;transition:background 0.15s,border-color 0.15s}
+.aw-extra__checkbox.is-checked{background:#ff6600;border-color:#ff6600}
+.aw-extra__check-icon{opacity:0;color:#fff;transition:opacity 0.15s}
+.aw-extra__checkbox.is-checked .aw-extra__check-icon{opacity:1}
+.aw-extra__toggle-text{font-size:13px;font-weight:600;text-transform:uppercase;letter-spacing:0.04em;color:rgba(255,255,255,0.6)}
+.aw-extra__chevron{color:rgba(255,255,255,0.3);flex-shrink:0;margin-left:auto;transition:transform 0.25s}
+.aw-extra.is-open .aw-extra__chevron{transform:rotate(180deg)}
+.aw-extra__body{max-height:0;overflow:hidden;transition:max-height 0.3s ease,padding 0.3s ease;padding:0 24px}
+.aw-extra.is-open .aw-extra__body{max-height:600px;padding:0 24px 24px}
+.aw-extra__zone{border:2px dashed rgba(255,102,0,0.2);border-radius:12px;padding:24px 16px;text-align:center;cursor:pointer;transition:border-color 0.2s,background 0.2s}
+.aw-extra__zone:hover{border-color:rgba(255,102,0,0.5);background:rgba(255,102,0,0.04)}
+.aw-extra__zone.is-dragover{border-color:#ff6600;background:rgba(255,102,0,0.08)}
+.aw-extra__zone.has-files .aw-extra__placeholder{display:none}
+.aw-extra__placeholder{display:flex;flex-direction:column;align-items:center;gap:6px}
+.aw-extra__list{text-align:left}
+.aw-extra__item{display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid rgba(255,255,255,0.04)}
+.aw-extra__item:last-child{border-bottom:none}
+.aw-extra__item-name{flex:1;font-size:13px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0}
+.aw-extra__item-size{font-size:12px;color:rgba(255,255,255,0.4);flex-shrink:0}
+.aw-extra__item-status{font-size:12px;font-weight:600;color:#ff6600;flex-shrink:0}
+.aw-extra__item-status.is-done{color:#4caf50}
+.aw-extra__item-status.is-error{color:#ef5350}
+.aw-extra__item-remove{background:none;border:none;padding:4px;cursor:pointer;color:rgba(255,255,255,0.3);flex-shrink:0}
+.aw-extra__item-remove:hover{color:#ef5350}
+.aw-extra__item-remove svg{width:14px;height:14px}
+.aw-extra__add-more{display:inline-flex;align-items:center;gap:6px;margin-top:10px;background:none;border:1px dashed rgba(255,255,255,0.12);border-radius:6px;padding:6px 14px;cursor:pointer;color:rgba(255,255,255,0.5);font-size:13px;font-family:inherit;transition:color 0.15s,border-color 0.15s}
+.aw-extra__add-more:hover{color:#ff6600;border-color:rgba(255,102,0,0.3)}
+.aw-comment{margin-top:28px;margin-bottom:32px;background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.06);border-radius:12px;padding:20px 24px 24px}
+.aw-comment__label{display:flex;align-items:center;gap:8px;font-size:13px;font-weight:600;text-transform:uppercase;letter-spacing:0.04em;color:rgba(255,255,255,0.6);margin-bottom:12px}
+.aw-comment__icon{color:#ff6600;opacity:0.7;flex-shrink:0}
+.aw-comment__optional{font-weight:400;opacity:0.5;text-transform:none;letter-spacing:0}
+.aw-comment__input{width:100%;padding:12px 14px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.12);border-radius:8px;color:#fff;font-size:14px;font-family:inherit;resize:vertical;min-height:80px}
+.aw-comment__input:focus{outline:none;border-color:#ff6600}
+.aw-comment__input::placeholder{color:rgba(255,255,255,0.3)}
+.aw-actions{display:flex;gap:12px;margin-bottom:20px;align-items:stretch}
+.aw-btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;padding:16px 28px;border-radius:8px;font-size:15px;font-weight:700;text-transform:uppercase;letter-spacing:0.03em;text-decoration:none;cursor:pointer;transition:background 0.2s,opacity 0.2s,border-color 0.2s;border:none;font-family:inherit}
+.aw-btn--primary{background:#ff6600;color:#fff;flex:1}
+.aw-btn--primary:hover{background:#e65c00}
+.aw-btn--primary.is-loading{opacity:0.6;pointer-events:none}
+.aw-btn--outline{background:transparent;color:rgba(255,255,255,0.7);border:1px solid rgba(255,255,255,0.15)}
+.aw-btn--outline:hover{border-color:rgba(255,255,255,0.3);color:#fff}
+.aw-btn--icon{background:transparent;color:rgba(255,255,255,0.5);border:1px solid rgba(255,255,255,0.12);padding:14px 16px;flex:0 0 auto}
+.aw-btn--icon:hover{border-color:rgba(255,102,0,0.4);color:#ff6600;background:rgba(255,102,0,0.05)}
+.aw-btn--icon svg{flex-shrink:0}
+.aw-btn--icon.is-loading{opacity:0.6;pointer-events:none}
+.aw-skip{text-align:center;margin-top:4px}
+.aw-skip__link{background:none;border:none;color:#ff6600;font-size:14px;font-weight:500;cursor:pointer;text-decoration:underline;text-underline-offset:3px;font-family:inherit;padding:4px 8px}
+.aw-skip__link:hover{color:#ff8533}
+.aw-skip__hint{font-size:12px;color:rgba(255,255,255,0.35);margin-top:6px}
+.aw-sidebar{position:sticky;top:100px}
+.aw-summary{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-top:3px solid #ff6600;border-radius:0 0 12px 12px;padding:24px}
+.aw-summary__title{font-size:14px;font-weight:700;text-transform:uppercase;letter-spacing:0.05em;margin:0 0 16px;color:#ff6600}
+.aw-summary__product{display:flex;gap:14px}
+.aw-summary__img{width:72px;height:72px;object-fit:cover;border-radius:8px;flex-shrink:0;background:rgba(255,255,255,0.06)}
+.aw-summary__info{flex:1;min-width:0}
+.aw-summary__name{display:block;font-size:15px;font-weight:600;margin-bottom:4px}
+.aw-summary__attrs{display:block;font-size:13px;color:rgba(255,255,255,0.5);margin-bottom:6px}
+.aw-summary__price{display:block;font-size:16px;font-weight:700;color:#ff6600}
+.aw-summary__files{margin-top:16px;padding-top:16px;border-top:1px solid rgba(255,255,255,0.08)}
+.aw-summary__files-title{font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:0.05em;color:rgba(255,255,255,0.4);margin:0 0 8px}
+.aw-summary__file{font-size:13px;margin-bottom:4px}
+.aw-summary__file-slot{color:rgba(255,255,255,0.5)}
+.aw-summary__file-name{color:rgba(255,255,255,0.8)}
+.aw-toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(20px);background:#ef5350;color:#fff;padding:12px 24px;border-radius:8px;font-size:14px;font-weight:500;z-index:10000;opacity:0;transition:opacity 0.3s,transform 0.3s;pointer-events:none;max-width:90vw;text-align:center}
+.aw-toast.is-visible{opacity:1;transform:translateX(-50%) translateY(0)}
+.aw-howto{margin-top:56px;padding-top:48px;border-top:1px solid rgba(255,255,255,0.08)}
+.aw-howto__title{font-size:22px;font-weight:700;text-transform:uppercase;letter-spacing:0.03em;margin:0 0 36px;text-align:center;font-family:var(--font-heading)}
+.aw-skip-top{margin:-16px 0 28px}
+.aw-skip-top__link{display:inline-flex;align-items:center;gap:6px;background:none;border:1px dashed rgba(255,102,0,0.35);color:rgba(255,255,255,0.7);font-size:13px;font-weight:500;cursor:pointer;font-family:inherit;padding:8px 14px;border-radius:6px;transition:border-color 0.15s,color 0.15s,background 0.15s}
+.aw-skip-top__link:hover{border-color:#ff6600;color:#ff6600;background:rgba(255,102,0,0.05)}
+.aw-skip-top__link svg{flex-shrink:0;opacity:0.7}
+.aw-textline{margin-top:14px;border-top:1px dashed rgba(255,255,255,0.07);padding-top:14px}
+.aw-textline__toggle{display:flex;align-items:center;gap:10px;cursor:pointer;user-select:none;padding:4px 0;transition:color 0.15s}
+.aw-textline__toggle:hover .aw-textline__label{color:#fff}
+.aw-textline__toggle:hover .aw-textline__check{border-color:rgba(var(--zone-accent-rgb),0.5)}
+.aw-textline__check{display:flex;align-items:center;justify-content:center;width:18px;height:18px;border:2px solid rgba(255,255,255,0.22);border-radius:4px;flex-shrink:0;transition:background 0.15s,border-color 0.15s}
+.aw-textline.is-open .aw-textline__check{background:var(--zone-accent);border-color:var(--zone-accent)}
+.aw-textline__check-icon{opacity:0;color:#fff;transition:opacity 0.15s}
+.aw-textline.is-open .aw-textline__check-icon{opacity:1}
+.aw-textline__icon{color:var(--zone-accent);opacity:0.6;flex-shrink:0}
+.aw-textline__label{font-size:13px;font-weight:600;text-transform:uppercase;letter-spacing:0.04em;color:rgba(255,255,255,0.65);transition:color 0.15s}
+.aw-textline__label-hint{font-size:12px;font-weight:400;color:rgba(255,255,255,0.35);text-transform:none;letter-spacing:0}
+.aw-textline__body{max-height:0;overflow:hidden;transition:max-height 0.25s ease,margin-top 0.25s ease,opacity 0.2s ease;opacity:0}
+.aw-textline.is-open .aw-textline__body{max-height:120px;margin-top:10px;opacity:1}
+.aw-textline__input{width:100%;padding:10px 14px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.12);border-radius:8px;color:#fff;font-size:14px;font-family:inherit;box-sizing:border-box;transition:border-color 0.15s,background 0.15s}
+.aw-textline__input:focus{outline:none;border-color:var(--zone-accent);background:rgba(255,255,255,0.08)}
+.aw-textline__input::placeholder{color:rgba(255,255,255,0.3)}
+.aw-textline__hint{display:block;font-size:11px;color:rgba(255,255,255,0.35);margin-top:6px;line-height:1.4}
+/* =============================================
+   MOBILE MEDIA QUERIES (перенесено из style-core.css)
+   =============================================
+   После сплита CSS базовое правило .aw-layout {1fr 340px} в этом
+   файле перебивало мобильное media из style-core.css. На мобиле
+   сайдбар становился фиксированным 340px → форма уезжала за viewport.
+   Переносим media в этот же файл.
+   ============================================= */
+
+@media (max-width: 900px) {
+  /* Artwork upload — 1 колонка, сводка заказа сверху */
+  .aw-layout { grid-template-columns: 1fr; }
+  .aw-sidebar { position: static; order: -1; }
+  .aw-summary { padding: 16px; }
+  .aw-summary__product { gap: 10px; }
+  .aw-summary__img { width: 56px; height: 56px; }
+}
+
+@media (max-width: 600px) {
+  /* Узкая мобила — компактные секции загрузки */
+  .aw-page { padding: 14px 12px 60px; }
+  .aw-title { font-size: 20px; margin-bottom: 6px; }
+  .aw-subtitle { font-size: 13px; margin-bottom: 18px; line-height: 1.45; }
+  .aw-skip-top { margin: -8px 0 22px; }
+  .aw-skip-top__link { font-size: 12px; padding: 7px 12px; width: 100%; justify-content: center; box-sizing: border-box; }
+
+  .aw-upload-section { margin-bottom: 16px; padding: 12px 14px 14px; border-radius: 0 10px 10px 0; }
+  .aw-upload-section__header { gap: 8px; margin-bottom: 10px; }
+  .aw-upload-section__icon { width: 28px; height: 28px; border-radius: 6px; }
+  .aw-upload-section__icon svg { width: 16px; height: 16px; }
+  .aw-upload-section__title { font-size: 13px; }
+  .aw-upload-section__badge { font-size: 10px; padding: 2px 8px; }
+
+  .aw-upload-zone { padding: 14px 14px; border-radius: 10px; }
+  .aw-upload-zone__placeholder {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    grid-template-rows: auto auto;
+    gap: 2px 14px;
+    align-items: center;
+    text-align: left;
+  }
+  .aw-upload-zone__icon { grid-row: 1 / 3; grid-column: 1; width: 26px; height: 26px; margin-bottom: 0; color: rgba(var(--zone-accent-rgb),0.65); align-self: center; }
+  .aw-upload-zone__text { grid-column: 2; grid-row: 1; font-size: 13px; margin: 0; line-height: 1.25; }
+  .aw-upload-zone__formats { grid-column: 2; grid-row: 2; font-size: 10px; line-height: 1.35; }
+  .aw-upload-zone.has-file { padding: 12px 14px; }
+
+  .aw-file__thumb,
+  .aw-file__thumb-placeholder { width: 44px; height: 44px; }
+  .aw-file__name { font-size: 13px; }
+  .aw-file__size { font-size: 11px; }
+
+  .aw-textline { margin-top: 10px; padding-top: 10px; }
+  .aw-textline__label { font-size: 12px; }
+  .aw-textline__label-hint { display: none; }
+  .aw-textline__input { font-size: 13px; padding: 9px 12px; }
+
+  .aw-actions { flex-direction: row; flex-wrap: wrap; gap: 8px; margin-bottom: 14px; }
+  .aw-actions .aw-btn--primary { flex: 1 1 100%; }
+  .aw-actions .aw-btn--outline { flex: 1 1 100%; }
+  .aw-actions .aw-btn--icon { flex: 1 1 calc(50% - 4px); }
+
+  .aw-extra__toggle { padding: 12px 14px; }
+  .aw-extra__toggle-text { font-size: 12px; }
+  .aw-extra__body { padding: 0 14px; }
+  .aw-extra.is-open .aw-extra__body { padding: 0 14px 14px; }
+
+  .aw-btn { padding: 13px 18px; font-size: 14px; }
+  .aw-comment { margin-top: 18px; padding: 14px 14px 16px; }
+  .aw-comment__label { font-size: 12px; margin-bottom: 8px; }
+  .aw-comment__input { font-size: 13px; padding: 10px 12px; min-height: 64px; }
+  .aw-howto { margin-top: 36px; padding-top: 28px; }
+  .aw-howto__title { font-size: 18px; margin-bottom: 24px; }
+}
+
+/* ═══════════════════════════════════════════════════════════
+   PLACEMENT EDITOR
+   "Выбрать примерное расположение" button + modal editor.
+   ═══════════════════════════════════════════════════════════ */
+
+/* ── Trigger button under each upload zone ── */
+.aw-placement { margin-top: 12px; }
+.aw-placement__btn {
+  display: flex; align-items: center; gap: 10px; width: 100%;
+  padding: 12px 16px;
+  background: rgba(var(--zone-accent-rgb),0.06);
+  border: 1px dashed rgba(var(--zone-accent-rgb),0.45);
+  border-radius: 10px;
+  color: var(--zone-accent);
+  font-family: var(--font-display); font-size: 13px; font-weight: 600;
+  letter-spacing: .02em; text-transform: uppercase;
+  cursor: pointer; transition: background .15s, border-color .15s;
+}
+.aw-placement__btn:hover { background: rgba(var(--zone-accent-rgb),0.12); border-color: var(--zone-accent); }
+.aw-placement__btn-icon { display: inline-flex; flex: 0 0 auto; }
+.aw-placement__btn-text { text-align: left; }
+
+/* ── Saved state ── */
+.aw-placement__saved {
+  display: flex; align-items: center; gap: 14px;
+  padding: 10px 12px;
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(var(--zone-accent-rgb),0.35);
+  border-radius: 10px;
+}
+.aw-placement__thumb {
+  width: 56px; height: 60px; object-fit: contain; flex: 0 0 auto;
+  background: #fff; border-radius: 6px; padding: 2px;
+}
+.aw-placement__saved-meta { display: flex; flex-direction: column; gap: 4px; min-width: 0; }
+.aw-placement__saved-label {
+  font-family: var(--font-display); font-size: 13px; font-weight: 600;
+  color: var(--white); display: inline-flex; align-items: center; gap: 6px;
+}
+.aw-placement__saved-label::before {
+  content: ""; width: 14px; height: 14px; flex: 0 0 auto;
+  background: var(--zone-accent);
+  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='3'%3E%3Cpolyline points='20 6 9 17 4 12'/%3E%3C/svg%3E") center/contain no-repeat;
+          mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='3'%3E%3Cpolyline points='20 6 9 17 4 12'/%3E%3C/svg%3E") center/contain no-repeat;
+}
+.aw-placement__saved-actions { display: flex; gap: 14px; }
+/* Stale notice — hidden until the saved placement diverges from live sources */
+.aw-placement__stale-note {
+  display: none; align-items: center; gap: 5px;
+  font-family: var(--font-body); font-size: 11px; line-height: 1.3;
+  color: #ffb04a;
+}
+.aw-placement__stale-note::before {
+  content: "⚠"; font-size: 12px;
+}
+.aw-placement__saved.is-stale { border-color: rgba(255,176,74,0.55); }
+.aw-placement__saved.is-stale .aw-placement__saved-label { display: none; }
+.aw-placement__saved.is-stale .aw-placement__stale-note { display: inline-flex; }
+.aw-placement__saved.is-stale .aw-placement__edit {
+  background: rgba(255,176,74,0.14); color: #ffb04a;
+  padding: 2px 8px; border-radius: 5px; text-decoration: none;
+}
+.aw-placement__edit, .aw-placement__clear {
+  background: none; border: none; padding: 0; cursor: pointer;
+  font-family: var(--font-body); font-size: 11px; letter-spacing: .02em;
+  text-decoration: underline; text-underline-offset: 2px;
+}
+.aw-placement__edit  { color: var(--zone-accent); }
+.aw-placement__clear { color: rgba(245,244,240,0.5); }
+.aw-placement__clear:hover { color: #ff5a5a; }
+
+/* ── Modal shell ── */
+html.awp-lock { overflow: hidden; }
+.awp-modal {
+  position: fixed; inset: 0; z-index: 10000;
+  display: flex; align-items: center; justify-content: center;
+  padding: 24px;
+  opacity: 0; transition: opacity .2s ease;
+}
+.awp-modal.is-open { opacity: 1; }
+/* [hidden] loses to .awp-modal's display:flex — force it off, else the
+   full-screen fixed overlay silently intercepts every click on the page. */
+.awp-modal[hidden] { display: none !important; }
+/* Same specificity trap for every element we toggle via the hidden attribute. */
+.aw-placement__saved[hidden],
+.awp-stage__empty[hidden],
+.awp-layer[hidden],
+.aw-placement__btn[hidden] { display: none !important; }
+.awp-modal__backdrop { position: absolute; inset: 0; background: rgba(0,0,0,0.78); backdrop-filter: blur(3px); }
+.awp-modal__dialog {
+  position: relative; z-index: 1;
+  width: 100%; max-width: 520px; max-height: 92vh;
+  display: flex; flex-direction: column;
+  background: #141414; border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 16px; overflow: hidden;
+  transform: translateY(8px) scale(.98); transition: transform .2s ease;
+}
+.awp-modal.is-open .awp-modal__dialog { transform: none; }
+.awp-modal__head {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 18px 20px; border-bottom: 1px solid rgba(255,255,255,0.06);
+}
+.awp-modal__title {
+  margin: 0; font-family: var(--font-display); font-size: 18px; font-weight: 600;
+  letter-spacing: .02em; text-transform: uppercase; color: var(--white);
+}
+.awp-modal__close {
+  background: none; border: none; color: rgba(245,244,240,0.6); cursor: pointer;
+  padding: 4px; border-radius: 6px; transition: color .15s, background .15s;
+}
+.awp-modal__close:hover { color: var(--white); background: rgba(255,255,255,0.06); }
+.awp-modal__body { padding: 18px 20px; overflow-y: auto; }
+.awp-modal__hint {
+  margin: 0 0 16px; font-family: var(--font-body); font-size: 12px; line-height: 1.5;
+  color: rgba(245,244,240,0.55);
+}
+/* Пояснение для форматов без предпросмотра */
+.awp-modal__note {
+  margin: -8px 0 16px; padding: 8px 10px; border-left: 2px solid var(--accent);
+  background: rgba(255,106,0,0.08); font-family: var(--font-body);
+  font-size: 12px; line-height: 1.45; color: rgba(245,244,240,0.82);
+}
+.awp-modal__note[hidden] { display: none; }
+
+/* ── Stage: light canvas, garment outline, draggable layer ── */
+.awp-stage {
+  position: relative; width: 100%; aspect-ratio: 1212 / 1298;
+  background: #f3f3f1; border-radius: 12px; overflow: hidden;
+  touch-action: none; user-select: none; -webkit-user-select: none;
+}
+.awp-stage__garment { position: absolute; inset: 0; pointer-events: none; }
+.awp-stage__garment svg { width: 100%; height: 100%; display: block; }
+.awp-stage__empty {
+  position: absolute; inset: 0; display: flex; flex-direction: column;
+  align-items: center; justify-content: center; gap: 12px; padding: 24px;
+  text-align: center; color: rgba(10,10,10,0.62);
+  font-family: var(--font-body); font-size: 14px; font-weight: 500; line-height: 1.5;
+}
+.awp-layer {
+  position: absolute; cursor: grab; touch-action: none;
+  outline: 1.5px dashed rgba(255,106,0,0.9); outline-offset: 0;
+}
+.awp-layer.is-dragging { cursor: grabbing; }
+.awp-layer__img { width: 100%; height: 100%; object-fit: contain; pointer-events: none; display: block; }
+.awp-layer__img[hidden] { display: none; }
+/* Заглушка для форматов без предпросмотра. [hidden] проигрывает
+   display:flex по специфичности — правило ниже обязательно. */
+.awp-layer__stub {
+  position: absolute; inset: 0; display: flex; flex-direction: column;
+  align-items: center; justify-content: center; gap: 6px;
+  padding: 8px; box-sizing: border-box; overflow: hidden; text-align: center;
+  background: rgba(255,255,255,0.92); pointer-events: none;
+}
+.awp-layer__stub[hidden] { display: none; }
+.awp-layer__stub-ext {
+  font-family: var(--font-body); font-size: 13px; font-weight: 700;
+  letter-spacing: 0.12em; text-transform: uppercase; color: #ff6a00;
+}
+.awp-layer__stub-name {
+  font-family: var(--font-body); font-size: 10px; line-height: 1.25;
+  color: #444; word-break: break-all; max-width: 100%;
+}
+.awp-layer__handle {
+  position: absolute; right: -9px; bottom: -9px; width: 18px; height: 18px;
+  background: var(--accent); border: 2px solid #fff; border-radius: 50%;
+  cursor: nwse-resize; touch-action: none; box-shadow: 0 1px 4px rgba(0,0,0,0.3);
+}
+
+/* ── Tools row ── */
+.awp-tools { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px; }
+.awp-tool {
+  display: inline-flex; align-items: center; justify-content: center; gap: 6px;
+  padding: 8px 12px; background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.1); border-radius: 8px;
+  color: rgba(245,244,240,0.8); cursor: pointer;
+  font-family: var(--font-body); font-size: 12px; line-height: 1;
+  white-space: nowrap; transition: background .15s;
+}
+.awp-tool svg { flex: 0 0 auto; }
+.awp-tool:hover { background: rgba(255,255,255,0.1); }
+/* Upload takes priority width; reset/center stay compact side by side */
+.awp-tool--upload { flex: 1 1 auto; }
+.awp-tool#awp-tool-reset, .awp-tool#awp-tool-center { flex: 0 0 auto; }
+
+/* ── Footer actions ── */
+.awp-modal__foot {
+  display: flex; gap: 12px; padding: 16px 20px;
+  border-top: 1px solid rgba(255,255,255,0.06);
+}
+.awp-btn {
+  flex: 1; padding: 13px 18px; border-radius: 10px; cursor: pointer;
+  font-family: var(--font-display); font-size: 14px; font-weight: 600;
+  letter-spacing: .03em; text-transform: uppercase;
+  border: 1px solid transparent; transition: opacity .15s, background .15s;
+}
+.awp-btn--ghost { background: transparent; border-color: rgba(255,255,255,0.14); color: rgba(245,244,240,0.75); }
+.awp-btn--ghost:hover { background: rgba(255,255,255,0.05); }
+.awp-btn--primary { background: var(--accent); color: var(--black); }
+.awp-btn--primary:hover { opacity: .9; }
+.awp-btn--primary:disabled { opacity: .45; cursor: not-allowed; }
+.awp-btn.is-loading { position: relative; color: transparent; pointer-events: none; }
+.awp-btn.is-loading::after {
+  content: ""; position: absolute; top: 50%; left: 50%;
+  width: 16px; height: 16px; margin: -8px 0 0 -8px;
+  border: 2px solid rgba(10,10,10,0.4); border-top-color: var(--black);
+  border-radius: 50%; animation: awp-spin .6s linear infinite;
+}
+@keyframes awp-spin { to { transform: rotate(360deg); } }
+
+@media (max-width: 600px) {
+  .awp-modal { padding: 0; align-items: flex-end; }
+  .awp-modal__dialog { max-width: 100%; max-height: 96vh; border-radius: 16px 16px 0 0; }
+  .aw-placement__btn { font-size: 12px; padding: 11px 13px; }
+  /* Tools: upload on its own full row, reset + center split the next row */
+  .awp-tool--upload { flex: 1 1 100%; }
+  .awp-tool#awp-tool-reset, .awp-tool#awp-tool-center { flex: 1 1 0; }
+  .awp-tool { padding: 9px 10px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .awp-modal, .awp-modal__dialog { transition: none; }
+  .awp-btn.is-loading::after { animation: none; }
+}
+
+/* ── Placement editor: text layer + control ── */
+.awp-layer--text {
+  display: inline-block;
+  transform-origin: top left;
+  outline-color: rgba(33,150,243,0.9);
+  white-space: nowrap;
+}
+.awp-layer__text-content {
+  display: block;
+  font-family: var(--font-display); font-weight: 700; color: #111;
+  line-height: 1.05; white-space: pre; pointer-events: none;
+  padding: 2px 4px; text-shadow: 0 0 2px rgba(255,255,255,0.5);
+}
+.awp-layer__handle--text { background: #2196f3; }
+
+/* Upload button — lives in the tools row (not over the canvas), so it never
+   blocks dragging text/image or gets clicked by accident. */
+.awp-tool--upload {
+  background: var(--accent); color: var(--black); border-color: var(--accent);
+  font-weight: 700;
+}
+.awp-tool--upload:hover { opacity: .92; background: var(--accent); }
+.awp-tool--upload[hidden] { display: none !important; }
+.awp-tool--upload.is-loading { opacity: .5; pointer-events: none; }
+
+/* Text control: header row with label + alignment */
+.awp-textctl__head { display: flex; align-items: center; justify-content: space-between; }
+.awp-textctl__align { display: inline-flex; gap: 4px; }
+.awp-align {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 30px; height: 28px; padding: 0;
+  background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 6px; color: rgba(245,244,240,0.6); cursor: pointer;
+  transition: background .15s, color .15s, border-color .15s;
+}
+.awp-align:hover { background: rgba(255,255,255,0.1); color: var(--white); }
+.awp-align.is-active { background: rgba(255,106,0,0.15); border-color: var(--accent); color: var(--accent); }
+textarea.awp-textctl__input { resize: none; overflow: hidden; min-height: 42px; line-height: 1.4; }
+
+.awp-textctl { margin-top: 14px; display: flex; flex-direction: column; gap: 6px; }
+.awp-textctl__label {
+  font-family: var(--font-display); font-size: 11px; font-weight: 600;
+  letter-spacing: .05em; text-transform: uppercase; color: rgba(245,244,240,0.6);
+}
+.awp-textctl__input {
+  width: 100%; padding: 11px 14px; box-sizing: border-box;
+  background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.12);
+  border-radius: 8px; color: var(--white);
+  font-family: var(--font-body); font-size: 14px;
+}
+.awp-textctl__input:focus { outline: none; border-color: var(--accent); background: rgba(255,255,255,0.06); }
+.awp-textctl__input::placeholder { color: rgba(245,244,240,0.35); }
+
+/* Two-sleeve hint — compact note under the sleeve section header */
+.aw-sleeve-note {
+  display: flex; align-items: flex-start; gap: 8px;
+  margin: 0 0 14px; padding: 9px 12px;
+  background: rgba(var(--zone-accent-rgb),0.05);
+  border-left: 2px solid rgba(var(--zone-accent-rgb),0.5);
+  border-radius: 0 6px 6px 0;
+  font-family: var(--font-body); font-size: 12px; line-height: 1.45;
+  color: rgba(245,244,240,0.62);
+}
+.aw-sleeve-note svg { flex: 0 0 auto; margin-top: 1px; color: var(--zone-accent); }
+
+/* ── Dark garment (black tee) overrides ── */
+.awp-stage.is-dark .awp-layer__text-content {
+  color: #fff;
+  text-shadow: 0 0 3px rgba(0,0,0,0.6);
+}
+.awp-stage.is-dark .awp-stage__empty {
+  color: rgba(255,255,255,0.85);
+  text-shadow: 0 1px 3px rgba(0,0,0,0.7);
+}
+/* The empty-state placeholder upload icon also needs contrast on the dark silhouette */
+.awp-stage.is-dark .awp-stage__empty svg { color: rgba(255,255,255,0.7); }
+
+/* Upload-in-progress overlay (in-modal feedback while file uploads in background) */
+.awp-stage__uploading {
+  position: absolute; inset: 0; z-index: 5;
+  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 14px;
+  background: rgba(243,243,241,0.82); backdrop-filter: blur(2px);
+  font-family: var(--font-display); font-size: 13px; font-weight: 600;
+  letter-spacing: .02em; text-transform: uppercase; color: rgba(10,10,10,0.7);
+}
+.awp-stage__uploading[hidden] { display: none !important; }
+.awp-stage.is-dark .awp-stage__uploading { background: rgba(20,20,20,0.82); color: rgba(255,255,255,0.85); }
+.awp-spinner {
+  width: 38px; height: 38px; border-radius: 50%;
+  border: 3px solid rgba(255,106,0,0.25); border-top-color: var(--accent);
+  animation: awp-spin .7s linear infinite;
+}
+@media (prefers-reduced-motion: reduce) { .awp-spinner { animation-duration: 1.4s; } }

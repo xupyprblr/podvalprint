@@ -1,0 +1,1214 @@
+/* =================================================================
+   BUNDLE SINGLE PAGE — детальная страница одного бандла
+   Подключается ТОЛЬКО на page-bundle-single.php
+   Скоуп: .bundle-single-page
+   Грузится в паре со style-bundles.css — на этой странице корневой
+   <main> имеет ОБА класса: "bundles-page bundle-single-page",
+   чтобы стили .bcard/.mini-tee/.tnail/.benefits из style-bundles.css
+   подхватились автоматически.
+   ================================================================= */
+
+/* Локальный токен для зелёного состояния таймлайна (нет в core) */
+.bundle-single-page{
+  --bnd-green:#6cc46c;
+  --bnd-green-bg:rgba(46,160,67,0.15);
+  --bnd-gray-2:#131313;
+  --bnd-primary-clip:polygon(0 0,calc(100% - 10px) 0,100% 10px,100% 100%,10px 100%,0 calc(100% - 10px));
+}
+
+/* Хлебные крошки — добавляем разделитель ›
+   (на родительской используем тире, тут ›) */
+.bundle-single-page .crumbs{
+  font-family:var(--font-text);
+  font-size:13px;color:var(--gray-light);
+  padding:18px 0 6px;letter-spacing:0.01em;
+}
+.bundle-single-page .crumb-sep{color:#555;margin:0 6px}
+
+/* ============================================================
+   1. PRODUCT HERO
+   ============================================================ */
+.bundle-hero{
+  display:grid;grid-template-columns:1fr 480px;gap:14px;
+  padding:14px 0 24px;align-items:stretch;
+}
+.bhero-gallery{
+  position:relative;
+  background:var(--gray);border-radius:10px;
+  padding:32px;
+  display:flex;align-items:center;justify-content:center;
+  aspect-ratio:1/1;
+  overflow:hidden;
+}
+.bhero-grid{
+  display:grid;grid-template-columns:1fr 1fr;gap:18px;
+  width:100%;height:100%;
+}
+.bhero-tee{
+  position:relative;display:flex;align-items:center;justify-content:center;
+  background:radial-gradient(circle at 50% 40%,#232323 0%,#141414 80%);
+  border-radius:6px;
+  aspect-ratio:3/4;
+}
+.bhero-tee .tee-svg{
+  width:78%;height:auto;display:block;
+  filter:drop-shadow(0 8px 18px rgba(0,0,0,0.55));
+}
+/* контраст. Чёрная футболка #0a0a0a сливалась с фоном #1a1a1a stage. */
+.bhero-tee[data-shirt="black"] .tee-svg{
+  color:#1c1c1c;
+  filter:drop-shadow(0 0 3px rgba(255,255,255,0.18)) drop-shadow(0 8px 18px rgba(0,0,0,0.55));
+}
+.bhero-tee[data-shirt="white"] .tee-svg{
+  color:#f0eee8;
+  filter:drop-shadow(0 8px 18px rgba(0,0,0,0.55));
+}
+.bhero-tee .tee-print{
+  position:absolute;top:23%;left:50%;
+  transform:translateX(-50%);
+  width:32%;height:auto;
+}
+.bhero-tee[data-shirt="black"] .tee-print{color:#f0ede5}
+.bhero-tee[data-shirt="white"] .tee-print{color:#111}
+
+/* discount stamp */
+.bhero-stamp{
+  position:absolute;left:24px;top:24px;z-index:6;
+  width:84px;height:84px;border-radius:50%;
+  background:var(--red);color:#fff;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  transform:rotate(-8deg);
+  box-shadow:0 6px 20px rgba(0,0,0,0.5);
+  font-family:var(--font-body);
+  pointer-events:none;
+}
+.bhero-stamp span{
+  font-family:var(--font-display);font-size:24px;font-weight:700;
+  line-height:1;letter-spacing:0;
+}
+.bhero-stamp small{
+  font-size:8px;font-weight:700;letter-spacing:0.15em;
+  margin-top:4px;
+}
+
+/* premium pill bottom-left */
+.bhero-pill{
+  position:absolute;left:20px;bottom:20px;z-index:5;
+  display:flex;align-items:center;gap:10px;
+  background:rgba(0,0,0,0.65);
+  backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);
+  border:1px solid rgba(255,255,255,0.06);
+  padding:8px 12px;border-radius:4px;
+}
+.bhero-pill__icon{width:22px;height:22px;color:var(--accent);flex-shrink:0}
+.bhero-pill__title{
+  font-family:var(--font-body);font-size:9px;font-weight:700;
+  letter-spacing:0.18em;color:var(--white);
+  text-transform:uppercase;line-height:1.2;
+}
+.bhero-pill__sub{
+  font-family:var(--font-body);font-size:8px;font-weight:600;
+  letter-spacing:0.18em;color:var(--gray-light);
+  text-transform:uppercase;line-height:1.4;
+}
+
+/* Excluded overlay (used on bhero-tee AND on bi-shirt) */
+.bundle-single-page .excluded-overlay{
+  position:absolute;inset:0;
+  background:rgba(255,43,43,0.14);
+  display:flex;align-items:center;justify-content:center;
+  border-radius:6px;z-index:7;
+}
+/* критичный фикс — [hidden] перебивается через display:flex
+   из правила выше. Явное переопределение специфичностью 0,3,0
+   гарантирует что overlay прячется на нон-excluded футболках. */
+.bundle-single-page .excluded-overlay[hidden]{display:none}
+.bundle-single-page .excluded-ribbon{
+  font-family:var(--font-body);font-size:10px;font-weight:700;
+  letter-spacing:0.18em;
+  background:rgba(10,10,10,0.92);color:var(--red);
+  border:1px solid var(--red);
+  padding:5px 10px;text-transform:uppercase;
+  transform:rotate(-6deg);
+  box-shadow:0 4px 16px rgba(0,0,0,0.5);
+  white-space:nowrap;
+}
+.bhero-tee--excluded .tee-svg,
+.bhero-tee--excluded .tee-print,
+.bi-shirt--excluded .tee-svg,
+.bi-shirt--excluded .tee-print{opacity:0.45}
+
+/* ===== Info card ===== */
+.bundle-info{
+  background:var(--gray);border-radius:10px;
+  padding:28px 28px 22px;
+  display:flex;flex-direction:column;gap:14px;
+  align-self:stretch;
+}
+
+/* .badge переопределяем под scope — в core .badge мельче (7px), тут 9px */
+.bundle-single-page .badge-row{display:flex;gap:6px;align-items:center}
+.bundle-single-page .badge{
+  display:inline-flex;align-items:center;
+  font-family:var(--font-body);font-size:9px;font-weight:700;
+  letter-spacing:0.18em;text-transform:uppercase;
+  padding:5px 9px;border-radius:4px;line-height:1;
+}
+.bundle-single-page .badge--hot{background:var(--red);color:#fff}
+.bundle-single-page .badge--bestseller{background:var(--white);color:var(--black)}
+.bundle-single-page .badge--new{background:var(--accent);color:var(--black)}
+.bundle-single-page .badge--limited{background:var(--white);color:var(--black)}
+
+.bundle-info__title{
+  font-family:var(--font-display);
+  font-size:clamp(28px,3.5vw,44px);font-weight:700;
+  letter-spacing:0.03em;text-transform:uppercase;
+  color:var(--white);line-height:1;margin:6px 0 0;
+}
+.bundle-info__sub{
+  font-family:var(--font-body);font-size:10px;font-weight:700;
+  letter-spacing:0.18em;text-transform:uppercase;color:var(--gray-light);
+}
+.bundle-info__desc{
+  font-family:var(--font-text);font-size:14px;line-height:1.55;
+  color:rgba(245,244,240,0.7);max-width:440px;
+}
+
+/* inline info note */
+.bundle-single-page .inline-note{
+  display:flex;align-items:flex-start;gap:10px;
+  background:rgba(255,255,255,0.03);
+  border-left:2px solid var(--accent);
+  padding:10px 14px;
+  font-family:var(--font-text);font-size:12px;
+  color:var(--gray-light);line-height:1.4;
+}
+.bundle-single-page .inline-note__icon{
+  width:14px;height:14px;color:var(--accent);
+  flex-shrink:0;margin-top:1px;
+}
+
+/* price block */
+.price-block{
+  display:flex;align-items:stretch;gap:16px;
+  background:var(--bnd-gray-2);
+  padding:16px 18px;border:1px solid var(--border);border-radius:4px;
+  margin-top:2px;
+}
+.price-block__left{
+  display:flex;flex-direction:column;gap:4px;justify-content:center;
+  padding-right:18px;border-right:1px solid var(--border);
+}
+.price-block__caption{
+  font-family:var(--font-body);font-size:9px;font-weight:700;
+  letter-spacing:0.18em;color:var(--red);text-transform:uppercase;
+}
+.price-block__discount{
+  font-family:var(--font-display);font-size:32px;font-weight:700;
+  color:var(--red);line-height:1;
+}
+.price-block__right{
+  display:flex;flex-direction:column;gap:4px;justify-content:center;flex:1;
+}
+.price-block__nowline{
+  display:flex;align-items:baseline;gap:10px;
+  flex-wrap:nowrap;white-space:nowrap;
+}
+.bundle-single-page .price-now{
+  font-family:var(--font-display);font-size:34px;font-weight:700;
+  color:var(--white);line-height:1;letter-spacing:0.01em;
+  white-space:nowrap;flex-shrink:0;
+}
+.bundle-single-page .price-old{
+  font-family:var(--font-text);font-size:15px;color:var(--gray-light);
+  text-decoration:line-through;white-space:nowrap;
+}
+.bundle-single-page .price-save{
+  font-family:var(--font-text);font-size:12px;color:var(--accent);font-weight:500;
+}
+
+.reassure{
+  font-family:var(--font-text);font-size:11px;
+  color:var(--gray-light);font-style:italic;
+  display:flex;align-items:center;gap:8px;
+}
+.reassure::before{
+  content:"";display:inline-block;
+  width:6px;height:6px;background:var(--accent);border-radius:50%;
+}
+
+/* Buttons — модификаторы --lg/--md/--full поверх существующих .btn/.btn--primary/.btn--ghost.
+   Базовые .btn/.btn--primary/.btn--ghost уже определены в style-bundles.css
+   под скоупом .bundles-page, который активен и здесь. */
+.bundle-single-page .btn{gap:10px;line-height:1}
+.bundle-single-page .btn--lg{height:52px;font-size:11px;padding:0 22px}
+.bundle-single-page .btn--md{height:44px;font-size:10px;padding:0 18px}
+.bundle-single-page .btn--full{width:100%}
+.bundle-single-page .btn-ic{width:16px;height:16px;color:currentColor;flex-shrink:0}
+
+/* wishlist row */
+.wish-row{
+  display:inline-flex;align-items:center;gap:10px;
+  font-family:var(--font-text);font-size:13px;color:var(--gray-light);
+  padding:6px 0 2px;cursor:pointer;align-self:flex-start;
+  transition:color 0.2s;
+}
+.wish-row:hover{color:var(--accent)}
+.wish-row__ic{width:16px;height:16px}
+
+/* ============================================================
+   2. EXCLUSION WARNING BAR
+   ============================================================ */
+.bundle-single-page .warn{
+  display:flex;align-items:center;gap:12px;
+  background:rgba(255,43,43,0.06);
+  border:1px solid rgba(255,43,43,0.2);
+  border-left:4px solid var(--red);
+  padding:12px 18px;border-radius:0;
+  font-family:var(--font-text);font-size:13px;
+  color:rgba(245,244,240,0.85);
+  margin:8px 0 0;
+}
+.bundle-single-page .warn[hidden]{display:none}
+.bundle-single-page .warn__ic{
+  width:18px;height:18px;color:var(--red);flex-shrink:0;
+}
+.bundle-single-page .warn s{color:var(--gray-light);text-decoration:line-through;margin:0 2px}
+.bundle-single-page .warn strong{color:var(--red);font-weight:700}
+
+/* ============================================================
+   Section heads
+   ============================================================ */
+.bundle-single-page .sect-head{
+  display:flex;align-items:center;gap:14px;
+  padding:28px 0 16px;margin-top:10px;
+}
+.bundle-single-page .sect-head--row{justify-content:space-between}
+.bundle-single-page .sect-head__title{
+  font-family:var(--font-display);font-size:22px;font-weight:700;
+  letter-spacing:0.05em;text-transform:uppercase;color:var(--white);
+  line-height:1;margin:0;
+}
+.bundle-single-page .sect-head__hint{
+  display:inline-flex;align-items:center;gap:8px;
+  font-family:var(--font-text);font-size:12px;color:var(--gray-light);
+}
+.bundle-single-page .sect-head__ic{
+  width:14px;height:14px;color:var(--gray-light);flex-shrink:0;
+}
+
+.carousel-ctrls{display:flex;gap:6px}
+.carbtn{
+  width:36px;height:36px;
+  border:1px solid var(--border);background:transparent;
+  display:flex;align-items:center;justify-content:center;color:var(--gray-light);
+  cursor:pointer;transition:all 0.15s;
+}
+.carbtn:hover{border-color:var(--accent);color:var(--accent)}
+.carbtn svg{width:14px;height:14px}
+
+/* ============================================================
+   3. CONFIG GRID — состав набора
+   ============================================================ */
+.config-grid{
+  display:grid;
+  /* число колонок приходит инлайном из шаблона (--cfg-cols).
+     --cfg-max-w задаётся только для наборов < 4 футболок: ограничивает
+     ширину сетки, за счёт чего margin:auto её центрирует. */
+  grid-template-columns:repeat(var(--cfg-cols,4),minmax(0,1fr));
+  gap:12px;
+  padding-bottom:14px;
+  max-width:var(--cfg-max-w,none);
+  margin-left:auto;margin-right:auto;
+}
+.bi-card{
+  position:relative;
+  background:var(--gray);border:1px solid transparent;border-radius:10px;
+  padding:16px 14px 14px;
+  display:flex;flex-direction:column;gap:10px;
+  transition:border-color 0.2s,background 0.2s;
+}
+.bi-num{
+  position:absolute;top:14px;left:14px;z-index:5;
+  width:28px;height:28px;border-radius:50%;
+  background:var(--gray-mid);color:var(--accent);
+  display:flex;align-items:center;justify-content:center;
+  font-family:var(--font-display);font-size:14px;font-weight:700;
+  line-height:1;
+}
+.bi-card--excluded{
+  border-color:var(--red);
+  background:linear-gradient(0deg,rgba(255,43,43,0.03),rgba(255,43,43,0.03)),var(--gray);
+}
+.bi-card--excluded .bi-num{background:var(--red);color:#fff}
+
+.bi-shirt{
+  position:relative;
+  width:100%;aspect-ratio:3/4;
+  display:flex;align-items:center;justify-content:center;
+  margin-top:6px;background:transparent;
+}
+.bi-shirt .tee-svg{
+  width:64%;height:auto;display:block;
+  filter:drop-shadow(0 6px 14px rgba(0,0,0,0.45));
+}
+.bi-shirt[data-shirt="black"] .tee-svg{color:#0a0a0a}
+.bi-shirt[data-shirt="white"] .tee-svg{color:#e8e6df}
+.bi-shirt .tee-print{
+  position:absolute;top:20%;left:50%;
+  transform:translateX(-50%);
+  width:24%;height:auto;
+}
+.bi-shirt[data-shirt="black"] .tee-print{color:#f0ede5}
+.bi-shirt[data-shirt="white"] .tee-print{color:#111}
+
+.bi-name{
+  font-family:var(--font-body);font-size:10px;font-weight:700;
+  letter-spacing:0.18em;color:var(--gray-light);
+  text-transform:uppercase;margin-top:-4px;text-align:center;
+}
+
+.bi-row{display:flex;flex-direction:column;gap:6px}
+.bi-label{
+  font-family:var(--font-body);font-size:9px;font-weight:700;
+  letter-spacing:0.18em;color:var(--gray-light);text-transform:uppercase;
+  display:flex;align-items:center;gap:8px;
+}
+/* ссылка на таблицу размеров в строке «Размер» */
+.bi-size-chart{
+  margin-left:auto;
+  font-family:var(--font-body);font-size:9px;font-weight:400;
+  letter-spacing:0.06em;text-transform:none;
+  color:var(--gray-light);text-decoration:underline;text-underline-offset:2px;
+  white-space:nowrap;cursor:pointer;transition:color .2s;
+}
+.bi-size-chart:hover{color:var(--accent)}
+
+/* Type selector — компактный вариант .size-btn с outline-active.
+   Скоупим, чтобы НЕ задеть обычный .size-btn на странице товара. */
+.bi-types{display:flex;gap:6px}
+.bundle-single-page .bi-types .size-btn{
+  flex:1;
+  font-family:var(--font-body);font-size:9px;font-weight:700;
+  letter-spacing:0.10em;text-transform:uppercase;
+  background:transparent;color:var(--gray-light);
+  border:1px solid var(--border);
+  padding:8px 10px;
+  border-radius:0;cursor:pointer;line-height:1;
+  transition:all 0.15s;
+}
+.bundle-single-page .bi-types .size-btn:hover:not(:disabled){
+  border-color:var(--white);color:var(--white);
+}
+.bundle-single-page .bi-types .size-btn.is-active{
+  border-color:var(--accent);color:var(--accent);
+  background:rgba(255,106,0,0.04);
+}
+.bundle-single-page .bi-types .size-btn:disabled{
+  opacity:0.35;cursor:not-allowed;
+}
+
+/* color swatches */
+.bi-colors{display:flex;gap:10px;flex-wrap:wrap}
+.sw{
+  display:flex;flex-direction:column;align-items:center;gap:6px;
+  cursor:pointer;position:relative;
+}
+.sw i{
+  display:block;width:22px;height:22px;border-radius:50%;
+  background:var(--c);
+  border:1px solid rgba(255,255,255,0.18);
+}
+.sw.is-active i{
+  box-shadow:0 0 0 2px var(--black),0 0 0 4px var(--accent);
+}
+.sw-l{
+  font-family:var(--font-body);font-size:7.5px;font-weight:700;
+  letter-spacing:0.12em;color:var(--gray-light);text-transform:uppercase;
+}
+.sw.is-disabled{opacity:0.35;cursor:not-allowed}
+
+/* size select (выглядит как кастомный, на старте просто div, потом заменим на нативный select) */
+.bi-select{
+  display:flex;align-items:center;justify-content:space-between;
+  border:1px solid var(--border);
+  padding:10px 14px;
+  font-family:var(--font-body);font-size:10px;font-weight:700;
+  letter-spacing:0.10em;text-transform:uppercase;color:var(--white);
+  cursor:pointer;height:38px;
+  transition:border-color 0.15s;
+  background:transparent;
+}
+.bi-select:hover{border-color:var(--accent)}
+.bi-select__chev{width:12px;height:12px;color:var(--gray-light)}
+.bi-select.is-disabled{opacity:0.4;cursor:not-allowed}
+
+/* toggle */
+.bi-toggle{
+  display:flex;align-items:center;justify-content:space-between;gap:10px;
+  padding-top:10px;margin-top:auto;
+  border-top:1px solid var(--border);
+  cursor:pointer;
+}
+.bi-toggle__lbl{
+  font-family:var(--font-text);font-size:12px;color:var(--gray-light);
+  display:inline-flex;align-items:center;gap:6px;
+}
+.bi-toggle__x{width:12px;height:12px;color:var(--red)}
+.bi-card--excluded .bi-toggle__lbl{color:var(--red)}
+
+.switch{
+  display:inline-flex;align-items:center;width:36px;height:20px;
+  background:var(--gray-mid);border-radius:10px;padding:2px;
+  position:relative;flex-shrink:0;
+  transition:background 0.15s;
+}
+.switch i{
+  display:block;width:16px;height:16px;background:#fff;border-radius:50%;
+  transition:transform 0.15s;
+}
+.switch--on{background:var(--red)}
+.switch--on i{transform:translateX(16px)}
+
+/* ============================================================
+   4. TIMELINE «Как работает скидка»
+   ============================================================ */
+.timeline{
+  background:var(--gray);border-radius:10px;
+  padding:24px 28px;
+  display:grid;grid-template-columns:240px 1fr 220px;gap:28px;
+  align-items:center;
+  margin:18px 0 0;
+}
+.timeline__h{
+  font-family:var(--font-display);font-size:18px;font-weight:700;
+  letter-spacing:0.05em;text-transform:uppercase;color:var(--white);
+  line-height:1;margin:0 0 8px;
+}
+.timeline__sub{
+  font-family:var(--font-text);font-size:13px;color:var(--gray-light);
+  line-height:1.4;
+}
+
+.timeline__steps{
+  display:flex;align-items:center;justify-content:space-between;gap:8px;
+}
+.tstep{
+  flex:1;display:flex;flex-direction:column;align-items:center;gap:6px;
+  text-align:center;padding:8px 6px;border-radius:4px;
+  font-family:var(--font-body);
+  min-width:0;
+  transition:all 0.2s;
+}
+.tstep__top{
+  font-size:8px;font-weight:700;letter-spacing:0.14em;
+  color:var(--gray-light);text-transform:uppercase;line-height:1.2;
+}
+.tstep__pill{
+  font-family:var(--font-body);font-size:10px;font-weight:700;
+  letter-spacing:0.10em;text-transform:uppercase;
+  padding:6px 10px;border-radius:3px;line-height:1;
+  background:var(--gray-mid);color:var(--gray-light);
+  white-space:nowrap;
+}
+.tstep__cap{
+  font-size:7.5px;font-weight:700;letter-spacing:0.16em;
+  color:var(--gray-light);text-transform:uppercase;line-height:1.2;
+}
+
+/* achievable (better than current) — green */
+.tstep--achievable .tstep__top{color:var(--bnd-green)}
+.tstep--achievable .tstep__pill{
+  background:var(--bnd-green-bg);color:var(--bnd-green);
+  border:1px solid rgba(108,196,108,0.3);
+}
+.tstep--achievable .tstep__cap{color:rgba(108,196,108,0.7)}
+
+/* current — orange */
+.tstep--current{
+  transform:translateY(-2px) scale(1.05);
+  background:rgba(255,106,0,0.06);
+  padding:10px 8px;
+}
+.tstep--current .tstep__top{color:var(--accent)}
+.tstep--current .tstep__pill{
+  background:var(--accent);color:var(--black);
+  font-size:11px;padding:7px 12px;
+}
+.tstep__cap--current{color:var(--red)}
+
+/* locked — dim */
+.tstep--locked .tstep__pill{opacity:0.7}
+
+/* connector lines */
+.tline{flex:0 0 18px;height:1px;background:var(--gray-mid)}
+.tline--on{background:var(--accent)}
+.tline--off{background:var(--gray-mid)}
+
+/* result column */
+.timeline__result{
+  text-align:right;
+  display:flex;flex-direction:column;gap:6px;align-items:flex-end;
+}
+.tres__cap{
+  font-family:var(--font-body);font-size:9px;font-weight:700;
+  letter-spacing:0.18em;color:var(--gray-light);text-transform:uppercase;
+}
+.tres__count{
+  font-family:var(--font-display);font-size:18px;font-weight:700;
+  color:var(--white);line-height:1.1;
+}
+.tres__pill{
+  display:inline-flex;background:var(--red);color:#fff;
+  font-family:var(--font-body);font-size:10px;font-weight:700;
+  letter-spacing:0.12em;padding:4px 8px;border-radius:3px;line-height:1;
+}
+.tres__save{font-family:var(--font-text);font-size:12px;color:var(--accent)}
+
+/* ============================================================
+   5. SIMILAR (.bcard переиспользуется из style-bundles.css)
+   ============================================================ */
+.similar-rail{
+  position:relative;overflow:hidden;
+  margin:-2px -48px 0;padding:0 48px;
+}
+.similar-track{
+  display:grid;grid-template-columns:repeat(4,1fr) 80px;gap:10px;
+  padding-bottom:24px;
+}
+.bcard--peek{
+  opacity:0.85;
+  -webkit-mask-image:linear-gradient(to right,#000 30%,transparent);
+  mask-image:linear-gradient(to right,#000 30%,transparent);
+  pointer-events:none;
+}
+
+/* ============================================================
+   6. STICKY BOTTOM BAR — mobile only
+   ============================================================ */
+.m-stickybar{
+  position:fixed;left:0;right:0;bottom:0;z-index:900;
+  display:none;
+  align-items:center;justify-content:space-between;gap:12px;
+  background:var(--black);border-top:1px solid var(--border);
+  padding:10px 14px;height:64px;
+  transform:translateY(100%);
+  transition:transform 0.25s ease;
+}
+.m-stickybar.is-visible{transform:translateY(0)}
+.m-stickybar__price{
+  display:flex;flex-direction:column;gap:2px;align-items:flex-start;
+}
+.m-stickybar__sub{
+  font-family:var(--font-body);font-size:8px;font-weight:700;
+  letter-spacing:0.18em;text-transform:uppercase;color:var(--gray-light);
+}
+.m-stickybar__now{
+  font-family:var(--font-display);font-size:20px;font-weight:700;
+  color:var(--white);margin-right:6px;
+}
+.m-stickybar__old{
+  font-family:var(--font-text);font-size:12px;color:var(--gray-light);
+  text-decoration:line-through;
+}
+.m-stickybar .btn{flex:0 0 auto;width:auto;padding:0 16px}
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+@media (max-width:1200px){
+  .bundle-hero{grid-template-columns:1fr 400px}
+  .config-grid[data-count="3"],
+  .config-grid[data-count="4"],
+  .config-grid[data-count="5"]{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .timeline{grid-template-columns:200px 1fr;gap:20px}
+  .timeline__result{grid-column:1 / -1;text-align:left;align-items:flex-start;border-top:1px solid var(--border);padding-top:14px;flex-direction:row;gap:14px;align-items:center}
+  .similar-track{grid-template-columns:repeat(3,1fr) 80px}
+}
+
+@media (max-width:900px){
+  /* Hero stacks vertically */
+  .bundle-hero{grid-template-columns:1fr;gap:14px}
+  .bhero-gallery{padding:18px;aspect-ratio:1/1}
+  .bhero-grid{gap:10px}
+  .bhero-stamp{width:64px;height:64px;left:14px;top:14px}
+  .bhero-stamp span{font-size:18px}
+  .bhero-stamp small{font-size:6.5px}
+  .bhero-pill{left:12px;bottom:12px;padding:6px 10px;gap:8px}
+  .bhero-pill__icon{width:18px;height:18px}
+  .bhero-pill__title{font-size:8px;letter-spacing:0.14em}
+  .bhero-pill__sub{font-size:7px;letter-spacing:0.14em}
+  .bundle-single-page .excluded-ribbon{font-size:8px;padding:4px 7px;letter-spacing:0.14em}
+
+  .bundle-info{padding:20px 18px}
+  .bundle-info__title{font-size:26px}
+  .bundle-info__desc{font-size:12.5px}
+  .price-block{padding:12px 14px;gap:10px;flex-wrap:wrap}
+  .price-block__left{padding-right:10px}
+  .price-block__discount{font-size:24px}
+  .bundle-single-page .price-now{font-size:24px}
+  .bundle-single-page .price-old{font-size:12px}
+
+  .bundle-single-page .sect-head{padding:18px 0 10px;flex-wrap:wrap;gap:8px}
+  .bundle-single-page .sect-head__title{font-size:16px}
+  .bundle-single-page .sect-head__hint{font-size:11px;flex-basis:100%}
+
+  /* Configurator: 1 column on mobile */
+  /* Специфичность (0,2,0) — иначе правило [data-count] из блока
+     max-width:1200px перебило бы это и на телефоне остались бы 2 колонки. */
+  .config-grid,
+  .config-grid[data-count]{grid-template-columns:1fr;gap:10px;max-width:none}
+  .bi-card{padding:14px 14px 12px}
+  .bi-shirt{aspect-ratio:auto;height:140px}
+  .bi-shirt .tee-svg{width:auto;height:130px}
+  .bi-shirt .tee-print{width:auto;height:46px;top:22%}
+  .bi-num{width:24px;height:24px;font-size:12px;top:12px;left:12px}
+
+  /* Timeline stacks vertically */
+  .timeline{
+    display:flex;flex-direction:column;gap:14px;padding:18px;
+  }
+  .timeline__steps{
+    flex-direction:column;align-items:stretch;gap:6px;
+  }
+  .timeline__steps .tline{display:none}
+  .timeline__steps .tstep{
+    flex-direction:row;align-items:center;justify-content:space-between;
+    gap:10px;padding:10px 12px;text-align:left;
+  }
+  .timeline__steps .tstep--current{
+    transform:none;background:rgba(255,106,0,0.08);
+    border:1px solid var(--accent);
+  }
+  .timeline__steps .tstep__top{font-size:9px}
+  .timeline__steps .tstep__pill{flex-shrink:0;font-size:10px}
+  .timeline__steps .tstep__cap{font-size:7px;text-align:right}
+  .timeline__result{
+    text-align:left;align-items:flex-start;
+    border-top:1px solid var(--border);padding-top:14px;
+    flex-direction:column;gap:6px;
+  }
+
+  /* Similar — horizontal swipe */
+  .similar-rail{margin:0 -16px;padding:0 16px}
+  .similar-track{
+    display:flex;gap:8px;overflow-x:auto;overflow-y:hidden;
+    grid-template-columns:none;
+    padding-bottom:8px;
+    scrollbar-width:none;-webkit-overflow-scrolling:touch;
+    scroll-snap-type:x proximity;
+  }
+  .similar-track::-webkit-scrollbar{display:none}
+  .similar-track .bcard{
+    flex:0 0 240px;
+    scroll-snap-align:start;
+  }
+  .bcard--peek{display:none}
+
+  /* Mobile sticky bar — show */
+  .m-stickybar{display:flex}
+
+  /* Bottom padding so sticky bar doesn't cover content */
+  .bundle-single-page{padding-bottom:80px}
+}
+
+@media (max-width:480px){
+  .similar-track .bcard{flex:0 0 200px}
+}
+
+/* ════════════════════════════════════════════════════════════════════
+   WC product image support + новые элементы configurator'а
+   ════════════════════════════════════════════════════════════════════ */
+
+/* Обложка бандла как hero cover */
+.bhero-cover{
+  position:relative;
+  width:100%;
+  aspect-ratio:1 / 1;
+  background:rgba(255,255,255,0.04);
+  border-radius:12px;
+  overflow:hidden;
+}
+.bhero-cover img{
+  position:absolute;inset:0;
+  width:100%;height:100%;
+  object-fit:cover;
+  display:block;
+}
+
+/* Hero-tee с WC product image (когда нет общей обложки) */
+.bhero-tee--img{
+  background:rgba(255,255,255,0.04);
+  border-radius:8px;
+  overflow:hidden;
+}
+.bhero-tee--img img{
+  width:100%;height:100%;
+  object-fit:cover;
+  display:block;
+}
+
+/* Bi-shirt с WC product image */
+.bi-shirt--img{
+  background:rgba(255,255,255,0.05);
+  border-radius:8px;
+  overflow:hidden;
+}
+.bi-shirt--img img{
+  width:100%;height:100%;
+  object-fit:cover;
+  display:block;
+  transition:opacity .15s ease;
+}
+.bi-shirt--excluded.bi-shirt--img img{opacity:.35}
+
+/* Цена per-shirt в карточке configurator'а */
+.bi-price-row{
+  display:flex;justify-content:space-between;align-items:center;
+  margin:8px 0 4px;
+  padding-top:8px;
+  border-top:1px dashed rgba(255,255,255,0.08);
+  font-size:13px;
+}
+.bi-price-label{color:rgba(255,255,255,0.55)}
+.bi-price-value{
+  font-weight:600;
+  color:#fff;
+  font-family:var(--font-display,inherit);
+}
+
+/* Color swatch без HEX (текстовый чип) */
+.sw--text{
+  width:auto !important;
+  height:auto !important;
+  padding:6px 12px;
+  border-radius:14px;
+  background:rgba(255,255,255,0.06);
+  border:1px solid rgba(255,255,255,0.1);
+}
+.sw--text i{display:none}
+.sw--text .sw-l{
+  position:static !important;
+  opacity:1 !important;
+  transform:none !important;
+  font-size:12px;
+  color:#fff;
+  white-space:nowrap;
+}
+.sw--text.is-active{
+  background:var(--accent,#ff6a00);
+  border-color:var(--accent,#ff6a00);
+}
+.sw--text.is-active .sw-l{color:#fff}
+
+/* Error-карточка slot (товар не найден / fatal) */
+.bi-card--error{
+  background:rgba(220,38,38,0.06) !important;
+  border-color:rgba(220,38,38,0.25) !important;
+}
+
+/* Category lable в info-card */
+.bundle-info__cat{
+  color:var(--accent,#ff6a00);
+  text-transform:uppercase;
+  font-size:12px;
+  letter-spacing:0.18em;
+  font-weight:700;
+  margin-bottom:8px;
+}
+
+/* Описание под subtitle */
+.bundle-info__desc{
+  /* font-size:14px убран — задан в базовом блоке выше, а здесь перебивал мобильные 12.5px */
+  line-height:1.6;
+  color:rgba(255,255,255,0.75);
+  margin:12px 0;
+}
+.bundle-info__desc p{margin:0 0 8px}
+.bundle-info__desc p:last-child{margin-bottom:0}
+
+/* ════════════════════════════════════════════════════════════════════
+   UI fixes + новые секции (benefits, timeline intro, anchor btn,
+   align placeholder для bi-card, mobile fixes)
+   ════════════════════════════════════════════════════════════════════ */
+
+/* ---------- Anchor button (secondary CTA в hero) ---------- */
+.bundle-anchor-btn{
+  margin-top:10px;
+  display:inline-flex;align-items:center;justify-content:center;gap:8px;
+  font-family:var(--font-body);font-size:13px;font-weight:700;
+  letter-spacing:0.10em;text-transform:uppercase;
+}
+.bundle-anchor-btn .btn-ic--right{
+  width:14px;height:14px;
+  transition:transform .2s ease;
+}
+.bundle-anchor-btn:hover .btn-ic--right{transform:translateY(2px)}
+
+/* ---------- Bi-card align placeholder ---------- */
+/* Carrier-row высота резервируется через содержимое + bi-label высота. */
+.bi-row--empty{
+  /* Совпадает по вертикали с обычным bi-row (label + controls). */
+  visibility:hidden;
+  pointer-events:none;
+}
+.bi-row--empty.bi-row--color{min-height:54px}    /* label(~14px+gap) + sw(28px) */
+.bi-row--empty.bi-row--size{ min-height:54px}    /* label + size-btns row */
+.bi-row--empty.bi-row--type{ min-height:54px}
+
+/* ---------- Fix overflow на size-btn (длинный label типа "Оверсайз Premium") ---------- */
+.bi-types,
+.bi-sizes{
+  display:flex;flex-wrap:wrap;gap:6px;
+}
+.bi-types .size-btn,
+.bi-sizes .size-btn{
+  white-space:normal;
+  line-height:1.15;
+  text-align:center;
+  min-height:34px;
+  padding:6px 12px;
+}
+
+/* ---------- Timeline intro wrapper (новый) ---------- */
+.timeline__intro{
+  display:flex;flex-direction:column;gap:6px;
+}
+
+/* ---------- BENEFITS ---------- */
+.benefits{
+  background:var(--gray);border-radius:10px;
+  padding:24px 28px;
+  display:grid;grid-template-columns:repeat(4,1fr);gap:24px;
+  margin:18px 0 0;
+}
+.benefit{
+  display:flex;align-items:flex-start;gap:14px;
+}
+.benefit__icon{
+  width:30px;height:30px;
+  color:var(--accent);
+  flex-shrink:0;
+}
+.benefit__txt{min-width:0}
+.benefit__title{
+  font-family:var(--font-display);font-size:13px;font-weight:700;
+  letter-spacing:0.06em;text-transform:uppercase;
+  color:var(--white);margin-bottom:4px;
+}
+.benefit__sub{
+  font-family:var(--font-text);font-size:12px;color:var(--gray-light);
+  line-height:1.4;
+}
+
+/* ---------- SIMILAR cards — переопределение через .bcard уже есть в style-bundles.css ----- */
+/* Используем тот же .bcard / .bcard__pct / .bcard__img / .bcard__title / .bcard__meta / .bcard__price */
+
+/* ---------- Bundle toast ---------- */
+.bundle-toast{
+  position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(20px);
+  z-index:1000;
+  background:var(--black);color:#fff;
+  border:1px solid var(--border);border-radius:8px;
+  padding:14px 22px;
+  font-family:var(--font-body);font-size:14px;
+  display:flex;align-items:center;gap:10px;
+  box-shadow:0 8px 30px rgba(0,0,0,0.5);
+  opacity:0;pointer-events:none;
+  transition:opacity .2s ease, transform .25s ease;
+}
+.bundle-toast.is-visible{
+  opacity:1;transform:translateX(-50%) translateY(0);
+  pointer-events:auto;
+}
+.bundle-toast--success{border-color:rgba(108,196,108,0.4)}
+.bundle-toast--error{border-color:rgba(220,38,38,0.5)}
+.bundle-toast a{color:var(--accent);text-decoration:underline;font-weight:600}
+
+/* ---------- Btn loading state (для AJAX) ---------- */
+.btn[data-add-to-cart].is-loading{
+  pointer-events:none;
+  opacity:0.7;
+  position:relative;
+}
+.btn[data-add-to-cart].is-loading .btn-ic{opacity:0}
+.btn[data-add-to-cart].is-loading .btn-label{opacity:0.6}
+.btn[data-add-to-cart].is-loading::after{
+  content:"";
+  position:absolute;left:50%;top:50%;
+  width:18px;height:18px;margin:-9px 0 0 -9px;
+  border:2px solid rgba(255,255,255,0.3);
+  border-top-color:#fff;
+  border-radius:50%;
+  animation:bundleSpin .7s linear infinite;
+}
+@keyframes bundleSpin{to{transform:rotate(360deg)}}
+
+/* ════════════════════════════════════════════════════════════════════
+   RESPONSIVE FIXES — прежней версии
+   ════════════════════════════════════════════════════════════════════ */
+
+/* Desktop средний экран — переписываем timeline grid под новый intro wrapper */
+@media (min-width:901px){
+  .timeline{grid-template-columns:240px 1fr 220px}
+}
+
+@media (max-width:1200px){
+  .benefits{grid-template-columns:repeat(2,1fr);gap:18px;padding:20px 22px}
+}
+
+@media (max-width:900px){
+  /* ---- Mobile padding для секций — текст «Состав набора» прижимался к краю ---- */
+  .bundle-single-page .chub-container{padding-left:16px;padding-right:16px}
+
+  /* ---- Mobile фото shirts в карточках — показывать всю футболку, не crop ---- */
+  /* БАГФИКС «белый прямоугольник».
+     Было: aspect-ratio:3/4 + max-height:280px. max-height перебивал
+     aspect-ratio, контейнер становился ландшафтным (455x280), а фото
+     2:3 внутри object-fit:contain давало широкие пустые поля по бокам.
+     Стало: контейнер не задаёт пропорцию вообще — высоту диктует само
+     фото, ограниченное max-height. Работает с любым соотношением
+     сторон мокапа, полей не остаётся. */
+  .bi-shirt--img{
+    aspect-ratio:auto;
+    height:auto;
+    max-height:none;
+    background:transparent;
+    border-radius:8px;
+    overflow:hidden;
+  }
+  .bi-shirt--img img{
+    width:auto;
+    height:auto;
+    max-width:100%;
+    max-height:300px;
+    object-fit:contain;
+    padding:0;
+    margin:0 auto;
+  }
+
+  /* ---- Anchor button — на мобиле hero уже видим configurator при скролле, спрятать ---- */
+  .bundle-anchor-btn{display:none}
+
+  /* ---- Benefits stacked ---- */
+  .benefits{
+    grid-template-columns:1fr;gap:14px;padding:20px 18px;
+  }
+
+  /* ---- bi-row empty placeholder тоньше на мобиле ---- */
+  .bi-row--empty.bi-row--color,
+  .bi-row--empty.bi-row--size,
+  .bi-row--empty.bi-row--type{min-height:48px}
+
+  /* ---- Toast — над sticky bar ---- */
+  .bundle-toast{
+    bottom:80px;left:16px;right:16px;
+    transform:translateY(20px);
+    max-width:none;
+  }
+  .bundle-toast.is-visible{transform:translateY(0)}
+}
+
+/* ════════════════════════════════════════════════════════════════════
+   full-set green, mobile фон карточек, уплотнение timeline,
+   invalid-card подсветка, страховка overlay containment
+   ════════════════════════════════════════════════════════════════════ */
+
+/* ---------- TIMELINE: current при full set = positive green ---------- */
+/* Структура: tstep--current-full перебивает tstep--current */
+.tstep--current-full{
+  transform:translateY(-2px) scale(1.05);
+  background:rgba(108,196,108,0.08);
+  padding:10px 8px;
+  border-radius:4px;
+}
+.tstep--current-full .tstep__top{color:var(--bnd-green)}
+.tstep--current-full .tstep__pill{
+  background:var(--bnd-green);color:#0a0a0a;
+  font-size:11px;padding:7px 12px;
+  border:none;
+}
+.tstep--current-full .tstep__cap{
+  color:var(--bnd-green);
+  font-weight:700;
+}
+
+.tres__pill--best{
+  background:var(--bnd-green) !important;
+  color:#0a0a0a !important;
+}
+
+/* ---------- INVALID CARD подсветка (preflight fail) ---------- */
+.bi-card--invalid{
+  border:1px solid var(--red) !important;
+  box-shadow:0 0 0 3px rgba(255,43,43,0.18);
+  animation:bundleShake 0.32s ease-in-out;
+}
+@keyframes bundleShake{
+  0%,100%{transform:translateX(0)}
+  25%{transform:translateX(-4px)}
+  75%{transform:translateX(4px)}
+}
+
+/* ---------- HERO overlay containment (страховка чтобы overlay не выходил
+   за границы своего tile при excluded toggle) ---------- */
+.bundle-single-page .bhero-tee{
+  position:relative;
+  overflow:hidden;
+}
+.bundle-single-page .bhero-tee--img{
+  position:relative;
+  overflow:hidden;
+}
+/* Excluded overlay строго в границах tile */
+.bundle-single-page .bhero-tee .excluded-overlay,
+.bundle-single-page .bi-shirt .excluded-overlay{
+  position:absolute;inset:0;
+  pointer-events:none;
+}
+
+/* ---------- DESKTOP padding-bottom от последнего блока до футера ---------- */
+@media (min-width:901px){
+  .bundle-single-page{padding-bottom:60px}
+}
+
+/* ════════════════════════════════════════════════════════════════════
+   MOBILE FIXES — фон фото, уплотнение timeline result
+   ════════════════════════════════════════════════════════════════════ */
+@media (max-width:900px){
+  /* --- Фон за фото shirts (карточки configurator) ---
+     белый фон убран. Мокапы приходят со своей подложкой,
+     и #fff вылезал полями вокруг фото. Прозрачный — универсально. */
+  .bi-shirt--img{
+    background:transparent;
+  }
+
+  /* --- Белый фон за hero-tee--img (когда нет общей обложки) --- */
+  .bhero-tee--img{
+    background:#fff;
+  }
+  /* Hero gallery container — белый фон когда внутри images-grid вместо .bhero-cover */
+  .bhero-gallery:has(.bhero-grid){
+    background:#fff;
+  }
+
+  /* --- TIMELINE STEPS: grid 3-col, выравнивание count|pill|cap --- */
+  .timeline__steps .tstep{
+    display:grid;
+    grid-template-columns:1fr auto auto;
+    column-gap:12px;
+    align-items:center;
+  }
+  .timeline__steps .tstep__top{
+    text-align:left;
+    font-size:10px;
+  }
+  .timeline__steps .tstep__pill{
+    justify-self:center;
+    font-size:11px;
+    padding:6px 10px;
+  }
+  .timeline__steps .tstep__cap{
+    justify-self:end;
+    font-size:8.5px;
+    text-align:right;
+    max-width:90px;
+    line-height:1.2;
+  }
+  /* На очень узких экранах cap прячется в подпись */
+  @media (max-width:380px){
+    .timeline__steps .tstep__cap{display:none}
+  }
+
+  /* --- TIMELINE RESULT: уплотнение в 2 строки --- */
+  .timeline__result{
+    display:grid;
+    grid-template-columns:1fr auto;
+    column-gap:12px;
+    row-gap:4px;
+    align-items:center;
+    border-top:1px solid var(--border);
+    padding-top:14px;
+  }
+  .tres__cap{
+    grid-column:1 / -1;
+    text-align:left;
+    font-size:9px;
+  }
+  .tres__count{
+    grid-column:1;
+    font-size:16px;
+    line-height:1.1;
+  }
+  .tres__pill{
+    grid-column:2;
+    justify-self:end;
+    align-self:center;
+  }
+  .tres__save{
+    grid-column:1 / -1;
+    font-size:13px;
+    color:var(--accent);
+    margin-top:2px;
+  }
+
+  /* --- Timeline outer — снижаем padding на узких экранах --- */
+  .timeline{padding:18px 14px}
+  .timeline__intro{margin-bottom:4px}
+  .timeline__h{font-size:15px}
+  .timeline__sub{font-size:12px}
+}
+
+/* ════════════════════════════════════════════════════════════════════
+   HERO EXCLUDED через pseudo-element
+   (overlay-div убран из bhero-tee HTML — не мог гарантированно
+   удерживаться внутри tile при caching/CSS resolution issues)
+   ════════════════════════════════════════════════════════════════════ */
+
+/* Гарантия stacking context — pseudo-elements не выйдут за tile */
+.bundle-single-page .bhero-tee{
+  isolation:isolate;
+}
+
+/* Excluded tile — dimming photo (никаких overlays-заливок) */
+.bundle-single-page .bhero-tee--excluded > img,
+.bundle-single-page .bhero-tee--excluded > svg{
+  opacity:0.45;
+  filter:grayscale(0.4);
+}
+
+/* Excluded tile — красный outline по периметру tile (внутри границ) */
+.bundle-single-page .bhero-tee--excluded{
+  outline:2px solid var(--red);
+  outline-offset:-2px;
+}
+
+/* Excluded tile — ribbon «Исключено» строго в центре tile */
+.bundle-single-page .bhero-tee--excluded::after{
+  content:"Исключено";
+  position:absolute;
+  top:50%;left:50%;
+  transform:translate(-50%,-50%) rotate(-6deg);
+  background:rgba(10,10,10,0.92);
+  color:var(--red);
+  border:1px solid var(--red);
+  padding:5px 10px;
+  font-family:var(--font-body);
+  font-size:10px;font-weight:700;
+  letter-spacing:0.18em;
+  text-transform:uppercase;
+  line-height:1;
+  box-shadow:0 4px 16px rgba(0,0,0,0.5);
+  white-space:nowrap;
+  z-index:7;
+  pointer-events:none;
+}
+
+/* Mobile — ribbon чуть мельче чтобы помещалась в узкий tile */
+@media (max-width:900px){
+  .bundle-single-page .bhero-tee--excluded::after{
+    font-size:8.5px;
+    padding:4px 8px;
+    letter-spacing:0.14em;
+  }
+}

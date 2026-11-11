@@ -1,0 +1,208 @@
+.sp-wrap{max-width:var(--container);margin:0 auto;padding:0 48px 80px}
+/* на мобиле гарантируем что layout НЕ выходит за viewport.
+   overflow-x: hidden на .sp-wrap страхует от любого contained-элемента,
+   который пытается распирать grid (длинный текст в кнопках, картинки,
+   white-space:nowrap и т.д.). min-width:0 на .sp-details и .sp-gallery
+   позволяет flex/grid-cells сжиматься меньше своего intrinsic content. */
+@media (max-width: 900px) {
+  .sp-wrap { overflow-x: hidden; }
+  .sp-layout > .sp-details,
+  .sp-layout > .sp-gallery { min-width: 0; max-width: 100%; }
+  /* Все дочерние .sp-section не могут быть шире своей колонки */
+  .sp-details .sp-section,
+  .sp-details .sp-sizes,
+  .sp-details .sp-segment,
+  .sp-details .sp-toggle { max-width: 100%; min-width: 0; }
+  /* Сегмент кнопок (Спереди/Сзади/С обеих сторон) — пусть растягивается на всю ширину */
+  .sp-segment { width: 100%; }
+}
+.sp-breadcrumbs{display:flex;align-items:center;flex-wrap:wrap;gap:8px;padding:20px 0 24px;font-family:var(--font-text);font-size:11px;color:var(--gray-light)}
+.sp-breadcrumbs a{color:var(--gray-light);text-decoration:none;transition:color var(--transition)}
+.sp-breadcrumbs a:hover{color:var(--white)}
+.sp-breadcrumbs__sep{color:var(--border)}
+.sp-breadcrumbs span:last-child{color:var(--white)}
+.sp-layout{display:grid;grid-template-columns:1fr 480px;gap:48px;align-items:start}
+.sp-gallery{display:flex;gap:8px;position:sticky;top:80px}
+.sp-thumbs{display:flex;flex-direction:column;gap:4px;width:72px;flex-shrink:0}
+/* базовый .sp-thumb перенесён ВЫШЕ @media (max-width:900px) — иначе мобильные 60×80 проигрывали по каскаду */
+.sp-thumb{width:72px;height:96px;overflow:hidden;cursor:pointer;border:2px solid transparent;transition:border-color var(--transition);flex-shrink:0}
+/* мобильный layout галереи + грид дублируем здесь, чтобы перебить
+   правила выше — они в style-core.css в @media (max-width:900px), но
+   общие правила .sp-* в product.css БЕЗ media грузятся позже и одинаковы
+   по специфичности → побеждают по правилу каскада. */
+@media (max-width: 1100px) {
+  .sp-layout { grid-template-columns: 1fr 380px; gap: 32px; }
+}
+@media (max-width: 900px) {
+  .sp-wrap { padding: 0 16px 60px; }
+  .sp-layout { grid-template-columns: 1fr; gap: 0; }
+  .sp-gallery {
+    flex-direction: column-reverse;
+    position: relative;
+    top: 0;
+    gap: 8px;
+  }
+  .sp-thumbs {
+    flex-direction: row;
+    width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+  .sp-thumb {
+    width: 60px;
+    height: 80px;
+    flex-shrink: 0;
+  }
+}
+.sp-thumb img{width:100%;height:100%;object-fit:cover;object-position:center top}
+.sp-thumb.is-active{border-color:var(--accent)}
+.sp-thumb:hover{border-color:var(--white)}
+.sp-main-img{position:relative;flex:1;overflow:hidden;background:var(--gray)}
+.sp-main-img img{width:100%;display:block;aspect-ratio:3/4;object-fit:cover;object-position:center top;transition:transform 0.4s ease}
+.sp-main-img:hover img{transform:scale(1.03)}
+.sp-img-placeholder{aspect-ratio:3/4;display:flex;align-items:center;justify-content:center;font-family:var(--font-display);font-size:80px;color:var(--border);background:var(--gray)}
+.sp-badges{position:absolute;top:16px;left:16px;display:flex;flex-direction:column;gap:6px;z-index:3}
+.sp-details{padding-top:4px}
+.sp-brand{font-family:var(--font-body);font-size:9px;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:var(--accent);margin-bottom:10px}
+.sp-title{font-family:var(--font-display);font-size:clamp(28px,3vw,48px);font-weight:700;letter-spacing:0;text-transform:uppercase;color:var(--white);line-height:1.05;margin:0 0 16px}
+.sp-price{font-family:var(--font-display);font-size:36px;color:var(--white);margin-bottom:28px;line-height:1}
+.sp-price del .woocommerce-Price-amount{color:var(--gray-light);font-size:22px;margin-right:8px}
+.sp-price ins{text-decoration:none;color:var(--accent)}
+.sp-price .woocommerce-Price-amount{color:var(--white)}
+.sp-price-hint{font-size:12px;color:var(--gray-light);margin-top:4px;letter-spacing:0.02em}
+.sp-section{border-top:1px solid var(--border);padding:20px 0}
+.sp-section__label{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;font-family:var(--font-body);font-size:9px;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:var(--gray-light)}
+.sp-size-guide{color:var(--gray-light);text-decoration:underline;transition:color var(--transition)}
+.sp-size-guide:hover{color:var(--white)}
+.sp-sizes{display:flex;flex-wrap:wrap;gap:6px}
+.sp-size-btn{min-width:56px;height:40px;padding:0 14px;border:1px solid var(--border);background:transparent;color:var(--white);font-family:var(--font-body);font-size:10px;letter-spacing:0.1em;text-transform:uppercase;cursor:pointer;transition:all 0.15s;display:inline-flex;align-items:center;justify-content:center;white-space:nowrap;line-height:1;-webkit-appearance:none;appearance:none}
+.sp-size-btn:hover:not(:disabled):not(.is-unavailable){border-color:var(--accent);color:var(--accent)}
+.sp-size-btn.is-selected{background:var(--accent) !important;border-color:var(--accent) !important;color:var(--black) !important}
+.sp-size-btn.is-unavailable{opacity:0.3;cursor:not-allowed;text-decoration:line-through}
+.sp-actions{border-top:1px solid var(--border);padding:20px 0;display:flex;gap:8px;flex-wrap:wrap}
+.podval-add-to-cart-form{flex:1}
+.sp-add-btn{width:100%;padding:16px 24px;background:var(--accent);color:var(--black);border:none;cursor:pointer;font-family:var(--font-body);font-size:10px;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;transition:background var(--transition),color var(--transition);display:flex;align-items:center;justify-content:center;text-decoration:none}
+.sp-add-btn:hover:not(:disabled){background:var(--white)}
+.sp-add-btn:disabled,.sp-add-btn--disabled{opacity:0.4;cursor:not-allowed}
+.sp-wish-btn{width:52px;height:52px;flex-shrink:0;border:1px solid var(--border);background:transparent;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all var(--transition);align-self:stretch;height:auto}
+.sp-wish-btn svg{width:20px;height:20px;stroke:var(--white)}
+.sp-wish-btn:hover{border-color:var(--accent)}
+.sp-wish-btn:hover svg{stroke:var(--accent)}
+.sp-size-chart-btn{display:flex;align-items:center;justify-content:center;gap:8px;padding:14px 20px;background:transparent;color:var(--white);border:1px solid var(--border);cursor:pointer;font-family:var(--font-body);font-size:9px;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;transition:border-color var(--transition),color var(--transition);white-space:nowrap;flex-shrink:0}
+.sp-size-chart-btn svg{width:18px;height:18px;flex-shrink:0}
+.sp-size-chart-btn:hover{border-color:var(--accent);color:var(--accent)}
+.sp-stock-warning{font-family:var(--font-body);font-size:9px;letter-spacing:0.15em;text-transform:uppercase;color:var(--red);margin:-8px 0 16px}
+/* ── Кросс-сейл бандла ─────────────────────────────────── */
+.sp-bundle-hint{display:flex;align-items:center;gap:10px;padding:12px 14px;margin:0 0 12px;background:rgba(255,106,0,0.06);border:1px solid rgba(255,106,0,0.28);border-left:2px solid var(--accent);color:var(--gray-light);font-family:var(--font-text);font-size:13px;line-height:1.4;transition:background var(--transition),border-color var(--transition)}
+.sp-bundle-hint:hover{background:rgba(255,106,0,0.12);border-color:rgba(255,106,0,0.5);color:var(--white)}
+.sp-bundle-hint__ic{flex-shrink:0;color:var(--accent)}
+.sp-bundle-hint__txt{flex:1;min-width:0}
+.sp-bundle-hint__txt strong{color:var(--accent);font-weight:600;white-space:nowrap}
+.sp-bundle-hint__arr{flex-shrink:0;opacity:0.6;transition:transform var(--transition)}
+.sp-bundle-hint:hover .sp-bundle-hint__arr{transform:translateX(3px);opacity:1}
+@media (max-width:600px){
+  .sp-bundle-hint{font-size:12px;padding:10px 12px;gap:8px}
+  .sp-bundle-hint__txt strong{display:block;white-space:normal}
+}
+.sp-swatches{gap:10px}
+.sp-swatch{width:36px;height:36px;min-width:36px;padding:0;border-radius:50%;border:2px solid var(--border);display:inline-flex;align-items:center;justify-content:center;position:relative;transition:border-color 0.15s,box-shadow 0.15s;font-size:10px;font-weight:700;letter-spacing:0}
+.sp-swatch__dot{width:100%;height:100%;border-radius:50%;background:var(--swatch,#888)}
+.sp-swatch--light{border-color:rgba(255,255,255,0.2)}
+.sp-swatch:hover:not(:disabled){border-color:var(--accent);box-shadow:0 0 0 2px rgba(255,102,0,0.2)}
+.sp-swatch.is-selected{border-color:var(--accent) !important;box-shadow:0 0 0 3px rgba(255,102,0,0.3) !important}
+.sp-color-name{font-weight:400;letter-spacing:0.05em;color:var(--white);font-size:9px;text-transform:uppercase}
+.sp-segment{display:flex;border:1px solid var(--border);border-radius:6px;overflow:hidden}
+.sp-segment__btn{flex:1;min-width:0;height:40px;padding:0 12px;border:none;border-right:1px solid var(--border);background:transparent;color:var(--white);font-family:var(--font-body);font-size:10px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;cursor:pointer;transition:all 0.15s;display:flex;align-items:center;justify-content:center;white-space:nowrap;line-height:1}
+.sp-segment__btn:last-child{border-right:none}
+.sp-segment__btn:hover:not(:disabled){background:rgba(255,102,0,0.06);color:var(--accent)}
+.sp-segment__btn.is-selected{background:var(--accent) !important;color:var(--black) !important}
+.sp-segment__btn.is-unavailable{opacity:0.3;cursor:not-allowed}
+.sp-toggle-row{display:flex;align-items:center;justify-content:space-between;margin-top:16px;padding-top:14px;border-top:1px solid rgba(255,255,255,0.04)}
+.sp-toggle-label{font-family:var(--font-body);font-size:9px;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:var(--gray-light)}
+.sp-toggle{display:flex;border:1px solid var(--border);border-radius:6px;overflow:hidden}
+.sp-toggle__btn{min-width:48px;height:34px;padding:0 14px;border:none;border-right:1px solid var(--border);background:transparent;color:var(--white);font-family:var(--font-body);font-size:10px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;cursor:pointer;transition:all 0.15s;display:flex;align-items:center;justify-content:center}
+.sp-toggle__btn:last-child{border-right:none}
+.sp-toggle__btn:hover:not(:disabled){background:rgba(255,102,0,0.06)}
+.sp-toggle__btn.is-selected{background:var(--accent) !important;color:var(--black) !important}
+.sp-section--print-group{padding-bottom:20px}
+.sp-sticky-bar{display:none;position:fixed;bottom:0;left:0;right:0;z-index:999;background:rgba(10,10,10,0.95);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-top:1px solid var(--border);padding:10px 16px;box-sizing:border-box;align-items:center;justify-content:space-between;gap:12px}
+.sp-sticky-bar.is-visible{display:flex}
+.sp-sticky-bar__price{font-family:var(--font-display);font-size:22px;color:var(--white);line-height:1;white-space:nowrap}
+.sp-sticky-bar__price del .woocommerce-Price-amount{color:var(--gray-light);font-size:14px;margin-right:4px}
+.sp-sticky-bar__price ins{text-decoration:none}
+.sp-sticky-bar__price .woocommerce-Price-amount{color:var(--white)}
+.sp-sticky-bar__btn{padding:12px 24px;background:var(--accent);color:var(--black);border:none;cursor:pointer;white-space:nowrap;font-family:var(--font-body);font-size:10px;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;transition:background 0.15s}
+.sp-sticky-bar__btn:hover{background:var(--white)}
+.sp-accordion{border-top:1px solid var(--border);margin-top:8px}
+/* ссылка на лендинг услуги под аккордеонами */
+.sp-sl-link{margin:20px 0 0;padding:14px 16px;border:1px dashed rgba(255,255,255,.18);border-radius:8px;font-size:14px;line-height:1.5;color:var(--gray-light)}
+.sp-sl-link a{color:var(--accent);font-weight:600;text-decoration:none}
+.sp-sl-link a:hover{text-decoration:underline}
+.sp-acc-item{border-bottom:1px solid var(--border)}
+.sp-acc-trigger{width:100%;display:flex;align-items:center;justify-content:space-between;padding:18px 0;background:none;border:none;cursor:pointer;font-family:var(--font-body);font-size:10px;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:var(--white);text-align:left;transition:color var(--transition)}
+.sp-acc-trigger:hover{color:var(--accent)}
+.sp-acc-trigger svg{width:18px;height:18px;flex-shrink:0;transition:transform 0.25s}
+.sp-acc-trigger.is-open svg{transform:rotate(180deg)}
+.sp-acc-body{max-height:0;overflow:hidden;transition:max-height 0.4s ease}
+.sp-acc-body.is-open{max-height:3000px}
+.sp-acc-content{padding:0 0 20px;font-family:var(--font-text);font-size:13px;color:var(--gray-light);line-height:1.7}
+.sp-acc-content p{margin:0 0 12px}
+.sp-acc-content p:last-child{margin-bottom:0}
+.sp-acc-content h2,.sp-acc-content h3,.sp-acc-content h4{font-family:var(--font-display);font-size:13px;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;color:var(--white);margin:20px 0 10px;line-height:1.3}
+.sp-acc-content h2:first-child,.sp-acc-content h3:first-child,.sp-acc-content h4:first-child{margin-top:0}
+.sp-acc-content ul,.sp-acc-content ol{margin:0 0 12px;padding-left:18px}
+.sp-acc-content li{margin-bottom:6px}
+.sp-acc-content strong{color:var(--white);font-weight:600}
+.sp-acc-content a{color:var(--accent);text-decoration:underline;text-underline-offset:2px}
+.sp-acc-content a:hover{filter:brightness(1.2)}
+.sp-related{border-top:1px solid var(--border);padding:60px 0}
+.sp-related__inner{max-width:var(--container);margin:0 auto;padding:0 48px}
+.sp-related__title{font-family:var(--font-display);font-size:28px;letter-spacing:0.06em;text-transform:uppercase;color:var(--white);margin-bottom:20px}
+.sp-go-cart-btn{display:none;align-items:center;justify-content:center;gap:8px;width:100%;padding:16px 24px;background:transparent;border:2px solid var(--accent);border-radius:4px;color:var(--accent);font-family:var(--font-body);font-size:13px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;text-decoration:none;text-align:center;transition:background 0.2s,color 0.2s;cursor:pointer}
+.sp-go-cart-btn:hover{background:var(--accent);color:var(--black)}
+.sp-go-cart-btn svg{flex-shrink:0}
+.sp-custom-hint{display:none;text-align:center;width:100%;font-size:13px;color:rgba(255,255,255,0.45);margin-top:12px;letter-spacing:0.03em}
+.sp-care-list{list-style:none;padding:0;margin:0}
+.sp-care-list li{padding:6px 0 6px 24px;position:relative;font-size:14px;line-height:1.5}
+.sp-care-list li::before{content:"•";position:absolute;left:8px;color:var(--accent)}
+.sp-size-chart-link{font-family:var(--font-body);font-size:10px;letter-spacing:0.06em;color:var(--gray-light);text-decoration:underline;text-underline-offset:2px;margin-left:auto;cursor:pointer;transition:color 0.2s}
+.sp-size-chart-link:hover{color:var(--accent)}
+.sp-section__label{display:flex;align-items:center;gap:8px}
+/* Стили попапа таблицы размеров переехали в style-size-chart.css */
+.sp-seo{padding:56px 0 80px;background:#111;border-top:1px solid var(--border)}
+.sp-seo__inner{max-width:760px;margin:0 auto;padding:0 24px}
+.sp-seo__title{font-family:var(--font-display);font-size:22px;font-weight:800;letter-spacing:0.02em;text-transform:uppercase;color:var(--white);margin:0 0 20px;line-height:1.25}
+.sp-seo__title--faq{margin-top:48px}
+.sp-seo__subtitle{font-family:var(--font-display);font-size:14px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--white);margin:28px 0 12px}
+.sp-seo__text{font-family:var(--font-text);font-size:13px;line-height:1.75;color:var(--gray-light);margin:0 0 14px}
+.sp-seo__text a{color:var(--accent);text-decoration:underline;text-underline-offset:2px}
+.sp-seo__text a:hover{filter:brightness(1.2)}
+.sp-seo__benefits{margin:0 0 14px;padding:0;list-style:none;display:grid;gap:8px}
+.sp-seo__benefits li{font-family:var(--font-text);font-size:13px;line-height:1.6;color:var(--gray-light);padding-left:18px;position:relative}
+.sp-seo__benefits li::before{content:"→";color:var(--accent);position:absolute;left:0;font-weight:700}
+.sp-seo__cta{margin-top:36px;padding-top:24px;border-top:1px solid var(--border)}
+.sp-seo__link{font-family:var(--font-display);font-size:13px;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;color:var(--accent);text-decoration:none;transition:filter 0.2s}
+.sp-seo__link:hover{filter:brightness(1.2)}
+.sp-howto{margin-top:28px;padding:24px;background:rgba(255,255,255,0.02);border:1px solid var(--border);border-radius:10px}
+.sp-howto__title{font-family:var(--font-display);font-size:12px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:var(--white);margin:0 0 18px}
+.sp-howto__steps{display:flex;flex-direction:column;gap:0}
+.sp-howto__step{display:flex;align-items:flex-start;gap:14px;padding:12px 0;border-bottom:1px solid rgba(255,255,255,0.04)}
+.sp-howto__step:last-child{border-bottom:none;padding-bottom:0}
+.sp-howto__step:first-child{padding-top:0}
+.sp-howto__num{display:flex;align-items:center;justify-content:center;width:26px;height:26px;flex-shrink:0;background:var(--accent);color:var(--black);font-family:var(--font-display);font-size:12px;font-weight:700;border-radius:50%}
+.sp-howto__text{font-family:var(--font-text);font-size:12px;line-height:1.6;color:var(--gray-light);padding-top:3px}
+.sp-howto__text strong{color:var(--white);font-weight:600}
+.sp-howto__cta{margin-top:18px;padding-top:18px;border-top:1px solid rgba(255,255,255,0.06);display:flex;flex-direction:column;align-items:center;gap:12px;text-align:center}
+.sp-howto__cta-text{font-family:var(--font-text);font-size:12px;line-height:1.5;color:var(--gray-light);margin:0}
+.sp-howto__tg-btn{display:inline-flex;align-items:center;gap:8px;padding:10px 22px;background:#2AABEE;color:#fff;font-family:var(--font-body);font-size:11px;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;text-decoration:none;border-radius:8px;transition:background 0.2s,transform 0.15s}
+.sp-howto__tg-btn:hover{background:#229ED9;transform:translateY(-1px)}
+.sp-howto__tg-btn svg{flex-shrink:0}
+/* ── Карточка товара с конструктором ─────────────────────────────
+   Стили лежат здесь, а не в style-tpl-builder.css: тот подключается
+   только когда конструктор реально открыт, а этот блок нужен именно
+   на карточке товара. */
+.sp-tpl-pick{margin-bottom:4px}
+.sp-add-btn--tpl{display:inline-flex;align-items:center;justify-content:center;gap:8px}
+.sp-tpl-pick .sp-size-btn.is-active{border-color:var(--accent);color:var(--accent)}
+.sp-tpl-pick .sp-swatch.is-active{outline:2px solid var(--accent);outline-offset:2px}
+a.sp-sticky-bar__btn{display:inline-flex;align-items:center;justify-content:center;text-decoration:none}

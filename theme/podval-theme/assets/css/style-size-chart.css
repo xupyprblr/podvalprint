@@ -1,0 +1,43 @@
+/* ════════════════════════════════════════════════════════════════════
+   SIZE CHART POPUP
+   Вынесено из style-product.css: попап нужен и на странице товара,
+   и на странице бандла. Подключается на обеих (см. functions.php).
+   JS-обработчики (.js-size-chart-open / .js-sc-close / .sc-tab)
+   живут в main.js, который грузится везде.
+   ════════════════════════════════════════════════════════════════════ */
+.sc-overlay{position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,0.95);display:none;align-items:center;justify-content:center;padding:24px;overflow-y:auto}
+.sc-overlay.is-open{display:flex}
+.sc-popup{background:#111111;border:1px solid rgba(255,255,255,0.12);border-radius:12px;max-width:680px;width:100%;max-height:90vh;overflow-y:auto;padding:0}
+.sc-header{display:flex;align-items:center;justify-content:space-between;padding:20px 24px 16px;border-bottom:1px solid rgba(255,255,255,0.08)}
+.sc-title{font-family:var(--font-display);font-size:16px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:var(--white);margin:0}
+.sc-close{background:none;border:none;cursor:pointer;color:var(--gray-light);width:28px;height:28px;transition:color 0.2s}
+.sc-close:hover{color:var(--white)}
+.sc-close svg{width:100%;height:100%}
+.sc-body{padding:20px 24px 28px}
+.sc-tabs{display:flex;gap:4px;margin-bottom:20px;background:rgba(255,255,255,0.05);border-radius:8px;padding:3px}
+.sc-tab{flex:1;font-family:var(--font-display);font-size:11px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;padding:8px 16px;background:none;border:none;border-radius:6px;color:var(--gray-light);cursor:pointer;transition:all 0.2s}
+.sc-panel{display:none}
+.sc-illustration{display:flex;justify-content:center;margin-bottom:20px;padding:16px 0}
+/* Усиленный селектор + !important чтобы перебить любые общие img-правила
+   (woo gallery, lazy-load плагины, eww). Размер картинки таблицы размеров
+   должен быть жёстко ограничен. */
+.sc-illustration .sc-img,
+.sc-popup .sc-img,
+img.sc-img{max-width:260px !important;width:100% !important;height:auto !important;border-radius:4px;display:block}
+.sc-table{width:100%;border-collapse:collapse;font-family:var(--font-body);font-size:12px;letter-spacing:0.04em}
+.sc-table th{background:rgba(255,255,255,0.08);color:var(--gray-light);font-weight:600;font-size:9px;letter-spacing:0.14em;text-transform:uppercase;padding:10px 12px;text-align:center;border-bottom:1px solid rgba(255,255,255,0.08)}
+.sc-table td{padding:9px 12px;text-align:center;color:var(--white);border-bottom:1px solid rgba(255,255,255,0.05)}
+.sc-table tr:hover td{background:rgba(255,255,255,0.03)}
+.sc-table td:first-child{font-weight:600;color:var(--accent);text-align:left}
+.sc-table th:first-child{text-align:left}
+@media (max-width:600px){
+  .sc-overlay{padding:0;align-items:flex-end}
+  .sc-popup{border-radius:12px 12px 0 0;max-height:90vh;margin-top:auto}
+  .sc-body{padding:16px}
+  .sc-illustration .sc-img,
+  .sc-popup .sc-img,
+  img.sc-img{max-width:200px !important}
+  .sc-table{font-size:11px}
+  .sc-table th,.sc-table td{padding:8px 8px}
+}
+.sc-disclaimer{font-family:var(--font-body);font-size:10px;line-height:1.5;color:var(--gray-light);opacity:0.6;margin-top:16px;padding-top:12px;border-top:1px solid rgba(255,255,255,0.06)}
