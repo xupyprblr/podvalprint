@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<title>Корзина · мобильная</title>
+<script src="./support.js"></script>
+<link rel="stylesheet" href="ds/pp/tokens.css">
+<link rel="stylesheet" href="ds/pp/components/bundle.css">
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bitter:wght@600..900&family=Golos+Text:wght@400..900&family=Onest:wght@400..900&display=swap">
+<style>body{margin:0}</style>
+</helmet>
+<div data-theme="light" style="width: 390px; min-height: 844px; position: relative; background: var(--bg); color: var(--ink); font-family: var(--font-text); overflow: hidden">
+  <dc-import name="Header" mobile="{{yes}}" count="{{four}}" hint-size="390px,56px"></dc-import>
+  <div style="padding: 16px 16px 0; display: flex; align-items: baseline; gap: 10px"><h1 style="margin: 0; font: 800 34px/1.04 var(--font-display); letter-spacing: -0.025em">Корзина</h1><span class="pp-muted">4 вещи</span></div>
+  <div style="margin: 16px 16px 0; padding: 12px; background: var(--surface); border-radius: 6px; display: grid; grid-template-columns: auto 1fr; gap: 10px; align-items: center">
+    <span class="pp-badge pp-badge--new">−10%</span>
+    <div style="display: grid; gap: 6px"><b style="font-size: 14px">Ещё 1 вещь — скидка 10%</b><div style="display: grid; grid-template-columns: repeat(5, 1fr); gap: 3px"><i style="height: 4px; background: var(--ink)"></i><i style="height: 4px; background: var(--ink)"></i><i style="height: 4px; background: var(--ink)"></i><i style="height: 4px; background: var(--ink)"></i><i style="height: 4px; background: var(--line-strong)"></i></div></div>
+  </div>
+  <div style="padding: 8px 16px 0">
+    <article style="display: grid; grid-template-columns: 88px 1fr; gap: 12px; padding: 16px 0; border-bottom: 1.5px solid var(--line)">
+      <div class="pp-tex-concrete" style="width: 88px; height: 88px; border-radius: 4px; display: grid; place-items: center"><svg viewBox="0 0 300 300" style="width: 78px" aria-hidden="true"><path d="M100 38 52 54 18 108l34 24 18-12-4 146h168l-4-146 18 12 34-24-34-54-48-16c-8 18-28 26-50 26s-42-8-50-26z" fill="#151515"></path><rect x="122" y="96" width="56" height="66" fill="#d8c7a6"></rect></svg></div>
+      <div style="display: grid; gap: 8px">
+        <div style="display: flex; justify-content: space-between; gap: 8px"><b style="font: 700 16px/1.25 var(--font-display)">Оверсайз, чёрная</b><span class="pp-price pp-price--s" style="font-size: 17px">00 Br</span></div>
+        <span class="pp-small">Свой принт · перед A4</span>
+        <div style="display: flex; gap: 8px; flex-wrap: wrap"><span style="display: inline-flex; align-items: center; gap: 6px"><b>M</b><div class="pp-stepper"><button aria-label="Убрать M"><svg class="pp-icon pp-icon--s" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true"><path d="M4 12h16"></path></svg></button><output>1</output><button aria-label="Добавить M"><svg class="pp-icon pp-icon--s" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true"><path d="M12 4v16M4 12h16"></path></svg></button></div></span><span style="display: inline-flex; align-items: center; gap: 6px"><b>L</b><div class="pp-stepper"><button aria-label="Убрать L"><svg class="pp-icon pp-icon--s" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true"><path d="M4 12h16"></path></svg></button><output>1</output><button aria-label="Добавить L"><svg class="pp-icon pp-icon--s" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true"><path d="M12 4v16M4 12h16"></path></svg></button></div></span></div>
+        <div style="display: flex; gap: 12px"><a class="pp-btn pp-btn--text pp-btn--s" href="#" style="padding-left: 0">Изменить дизайн</a><button class="pp-btn pp-btn--icon pp-btn--ghost pp-btn--s" aria-label="Удалить" style="margin-left: auto"><svg class="pp-icon pp-icon--s" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true"><path d="M3 6h18M8 6V3h8v3M5 6l1 15h12l1-15"></path></svg></button></div>
+      </div>
+    </article>
+    <article style="display: grid; grid-template-columns: 88px 1fr; gap: 12px; padding: 16px 0; border-bottom: 1.5px solid var(--line)">
+      <div class="pp-tex-concrete" style="width: 88px; height: 88px; border-radius: 4px; display: grid; place-items: center"><svg viewBox="0 0 300 300" style="width: 78px" aria-hidden="true"><path d="M105 40 70 52 30 90l22 38 26-16v150h144V112l26 16 22-38-40-38-35-12c-7 18-25 28-45 28s-38-10-45-28z" fill="#ffffff" stroke="#7d7a72" stroke-width="3"></path><text x="150" y="150" text-anchor="middle" font-family="Onest" font-weight="900" font-size="36" fill="#a68f68">ПАПА</text></svg></div>
+      <div style="display: grid; gap: 8px">
+        <div style="display: flex; justify-content: space-between; gap: 8px"><b style="font: 700 16px/1.25 var(--font-display)">Слово из фото</b><span class="pp-price pp-price--s" style="font-size: 17px">00 Br</span></div>
+        <span class="pp-small">Классика, белая · XL × 1</span>
+        <a class="pp-btn pp-btn--text pp-btn--s" href="#" style="padding-left: 0; justify-self: start">Изменить дизайн</a>
+      </div>
+    </article>
+    <article style="display: grid; grid-template-columns: 88px 1fr; gap: 12px; padding: 16px 0; border-bottom: 1.5px solid var(--line)">
+      <div data-theme="dark" style="width: 88px; height: 88px; border-radius: 4px; display: grid; place-items: center"><div class="pp-tex-night" style="width: 62px; height: 72px; border: 3px solid var(--ink); box-shadow: 4px 4px 0 rgba(0,0,0,.35)"></div></div>
+      <div style="display: grid; gap: 6px">
+        <div style="display: flex; justify-content: space-between; gap: 8px"><b style="font: 700 16px/1.25 var(--font-display)">Последний трамвай</b><span class="pp-price pp-price--s" style="font-size: 17px">00 Br</span></div>
+        <span class="pp-small">Deadlock · оверсайз · L × 1</span>
+        <span class="pp-badge pp-badge--limit" style="justify-self: start">Осталось 12</span>
+      </div>
+    </article>
+  </div>
+  <section style="margin: 20px 16px 0; padding: 16px; background: var(--surface); border-radius: 6px; display: grid; gap: 12px">
+    <dl class="pp-breakdown"><div><dt>Вещи · 4 шт.</dt><dd>00 Br</dd></div><div><dt>Печать · 3 зоны</dt><dd>00 Br</dd></div><div><dt>Получение</dt><dd>следующий шаг</dd></div><div class="is-total"><dt>К оплате</dt><dd><span class="pp-price pp-price--s">00 Br</span></dd></div></dl>
+    <details><summary class="pp-link pp-small" style="cursor: pointer; list-style: none">Есть промокод?</summary></details>
+  </section>
+  <p class="pp-small" style="margin: 16px; text-align: center">Проверим макет до печати · самовывоз бесплатно</p>
+  <div style="height: 96px"></div>
+  <div class="pp-summary pp-summary--m" style="position: absolute; left: 0; right: 0; bottom: 0">
+    <div class="pp-summary__info"><span class="pp-small">4 вещи</span><span class="pp-price pp-price--s">00 Br</span></div>
+    <a class="pp-btn pp-btn--accent pp-btn--l" href="#">Оформить</a>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":1300}}'>
+class Component extends DCLogic {
+  renderVals() { return { yes: true, four: 4 }; }
+}
+</script>
+</body>
+</html>

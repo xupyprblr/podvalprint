@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<title>Deadlock · ночной путеводитель</title>
+<script src="./support.js"></script>
+<link rel="stylesheet" href="ds/pp/tokens.css">
+<link rel="stylesheet" href="ds/pp/components/bundle.css">
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bitter:wght@600..900&family=Golos+Text:wght@400..900&family=Onest:wght@400..900&display=swap">
+<style>
+body{margin:0}
+.wrap{box-sizing:border-box;width:100%;max-width:1440px;margin:0 auto;padding:0 clamp(16px,5.5vw,80px)}
+</style>
+</helmet>
+<div data-theme="dark" class="pp-grain" style="min-height: 100%; background: var(--bg); color: var(--ink); font-family: var(--font-text)">
+  <dc-import name="Header" current="deadlock" count="{{one}}" hint-size="100%,72px"></dc-import>
+  <main>
+    <div class="wrap" style="padding-top: 16px"><nav aria-label="Хлебные крошки"><ol class="pp-crumbs"><li><a href="#">Главная</a></li><li><span aria-current="page">Deadlock</span></li></ol></nav></div>
+    <section class="wrap" style="padding-top: 40px; padding-bottom: 96px; display: flex; flex-wrap: wrap; gap: 56px; align-items: center">
+      <div style="flex: 6 1 520px; min-width: 0; display: flex; flex-direction: column; gap: 26px">
+        <span class="pp-label pp-muted">Остановка первая · футболки по Deadlock</span>
+        <h1 class="pp-h pp-h--display" style="font-size: 84px">Город не спит. <span class="pp-hl">Мы</span> тоже.</h1>
+        <p class="pp-lead pp-muted" style="max-width: 540px">Наши принты по игре на плотном чёрном оверсайзе и мерч канала «Подвальный Акробат». Каждая модель — тираж 50 штук, печатаем в Минске.</p>
+        <div style="display: flex; gap: 12px; flex-wrap: wrap"><a class="pp-btn pp-btn--accent pp-btn--l" href="#collection">Смотреть коллекцию<svg class="pp-icon pp-icon--l" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true"><path d="M4 12h16M14 6l6 6-6 6"></path></svg></a><a class="pp-btn pp-btn--secondary pp-btn--l" href="#merch">Мерч канала</a></div>
+        <ol style="list-style: none; margin: 12px 0 0; padding: 0; display: grid; grid-template-columns: auto 1fr auto 1fr auto; gap: 12px; align-items: center; max-width: 560px">
+          <li style="display: grid; justify-items: center; gap: 6px"><span class="pp-marker">1</span><span class="pp-small">Коллекция</span></li><li aria-hidden="true" class="pp-route" style="margin-bottom: 22px"></li>
+          <li style="display: grid; justify-items: center; gap: 6px"><span class="pp-marker">2</span><span class="pp-small">Мерч канала</span></li><li aria-hidden="true" class="pp-route" style="margin-bottom: 22px"></li>
+          <li style="display: grid; justify-items: center; gap: 6px"><span class="pp-marker">3</span><span class="pp-small">Как получить</span></li>
+        </ol>
+      </div>
+      <div style="flex: 5 1 420px; min-width: 0; position: relative; height: 560px">
+        <div class="pp-frame pp-frame--tilt pp-tex-night" style="position: absolute; left: 0; top: 40px; width: 300px; height: 380px; display: grid; place-items: center"><span class="pp-label" style="color: var(--ink-2)">Фото: спина, принт A3</span></div>
+        <div class="pp-frame pp-tex-night" style="position: absolute; right: 0; top: 0; width: 260px; height: 320px; transform: rotate(2deg); display: grid; place-items: center"><span class="pp-label" style="color: var(--ink-2)">Фото: на модели, ночь</span></div>
+        <span class="pp-sticker" style="position: absolute; left: 230px; top: 12px">Новый тираж</span>
+        <span class="pp-sticker pp-sticker--paper" style="position: absolute; right: 40px; top: 340px">Тираж 50</span>
+        <div class="pp-note" style="position: absolute; left: 140px; bottom: 0; width: 280px"><b>Записка для тех, кто не спит</b>Повторов тиражей не будет. Размер берите свой обычный — крой свободный.</div>
+      </div>
+    </section>
+    <div class="pp-hazard"></div>
+
+    <section class="wrap" id="collection" style="padding-top: 88px; padding-bottom: 96px; display: flex; flex-direction: column; gap: 32px">
+      <div style="display: flex; justify-content: space-between; align-items: end; gap: 24px; flex-wrap: wrap">
+        <div style="display: flex; gap: 20px; align-items: center"><span class="pp-marker" style="width: 48px; height: 48px; font-size: 24px">1</span><div style="display: grid; gap: 6px"><span class="pp-label pp-muted">Коллекция · 8 моделей</span><h2 class="pp-h pp-h--2" style="font-size: 44px">Встречайте новый тираж</h2></div></div>
+        <div style="display: flex; gap: 8px; flex-wrap: wrap"><a class="pp-chip" aria-pressed="true" href="?">Все</a><a class="pp-chip" aria-pressed="false" href="?line=yellow">Жёлтая линия</a><a class="pp-chip" aria-pressed="false" href="?line=green">Зелёная линия</a><a class="pp-chip" aria-pressed="false" href="?limit=1">Последние штуки</a></div>
+      </div>
+      <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 40px 32px">
+        <sc-for list="{{items}}" as="it" hint-placeholder-count="4">
+          <article class="pp-card pp-card--deco">
+            <div class="pp-card__media pp-tex-night"><div class="pp-card__badges"><sc-if value="{{it.a}}" hint-placeholder-val="{{true}}"><span class="pp-badge pp-badge--team-a">Жёлтая линия</span></sc-if><sc-if value="{{it.b}}" hint-placeholder-val="{{false}}"><span class="pp-badge pp-badge--team-b">Зелёная линия</span></sc-if></div><span class="pp-label" style="color: var(--ink-2); text-align: center; padding: 24px">Принт коллекции<br>{{it.zone}}</span></div>
+            <div class="pp-card__body" style="gap: 10px">
+              <div class="pp-stickers"><span class="pp-sticker pp-sticker--s">{{it.s1}}</span><sc-if value="{{it.isNew}}" hint-placeholder-val="{{false}}"><span class="pp-badge pp-badge--new">Новинка</span></sc-if></div>
+              <h3 class="pp-card__title"><a href="#">{{it.name}}</a></h3>
+              <p class="pp-card__meta">Оверсайз · чёрный · {{it.zone}} · осталось {{it.left}}</p>
+              <div role="radiogroup" aria-label="Размер" style="display: flex; gap: 4px; position: relative; z-index: 1"><button class="pp-chip pp-btn--s" role="radio" aria-checked="false" aria-pressed="false" style="min-width: 40px; padding: 0 8px; justify-content: center">S</button><button class="pp-chip" role="radio" aria-checked="true" aria-pressed="{{it.m}}" style="min-width: 40px; padding: 0 8px; justify-content: center">M</button><button class="pp-chip" role="radio" aria-checked="false" aria-pressed="false" style="min-width: 40px; padding: 0 8px; justify-content: center">L</button><button class="pp-chip" role="radio" aria-checked="false" aria-pressed="false" style="min-width: 40px; padding: 0 8px; justify-content: center">XL</button></div>
+              <div class="pp-card__foot"><span class="pp-price pp-price--s">00 Br</span><button class="pp-btn pp-btn--accent pp-btn--s"><svg class="pp-icon pp-icon--s" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true"><path d="M2 3h3l2.4 11.2a1 1 0 0 0 1 .8H18l2.5-8H6.2"></path><circle cx="9" cy="19.5" r="1.5"></circle><circle cx="17" cy="19.5" r="1.5"></circle></svg>В корзину</button></div>
+            </div>
+          </article>
+        </sc-for>
+      </div>
+    </section>
+
+    <section id="merch" style="background: transparent">
+      <div class="pp-torn-top" style="background: var(--surface)"></div>
+      <div style="background: var(--surface); padding: 72px 0 88px">
+        <div class="wrap" style="display: flex; flex-wrap: wrap; gap: 56px; align-items: start">
+          <div style="flex: 1 1 380px; display: flex; flex-direction: column; gap: 22px">
+            <div style="display: flex; gap: 20px; align-items: center"><span class="pp-marker" style="width: 48px; height: 48px; font-size: 24px">2</span><span class="pp-label pp-muted">Мерч канала</span></div>
+            <h2 class="pp-h pp-h--2" style="font-size: 44px">«Подвальный Акробат»</h2>
+            <p class="pp-text pp-muted" style="max-width: 440px">YouTube-канал про Deadlock. [2–3 предложения о канале от автора.] Мерч печатаем здесь же, в подвале.</p>
+            <div style="display: flex; gap: 12px; flex-wrap: wrap"><a class="pp-btn pp-btn--secondary" href="#"><svg class="pp-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true"><rect x="2" y="5" width="20" height="14" rx="3"></rect><path d="M10 9v6l5-3z" fill="currentColor"></path></svg>YouTube</a><a class="pp-btn pp-btn--secondary" href="#"><svg class="pp-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true"><path d="M21 4 3 11l6 2 2 6 3-4 5 4z"></path></svg>Telegram</a></div>
+            <div class="pp-note" style="max-width: 320px; transform: rotate(-1.5deg)"><b>Остановка вторая</b>Новые вещи канала анонсируем в Telegram за день до тиража.</div>
+          </div>
+          <div style="flex: 2 1 600px; min-width: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 32px">
+            <article class="pp-card pp-card--deco"><div class="pp-card__media pp-tex-night" style="background-color: var(--bg)"><span class="pp-label" style="color: var(--ink-2)">Мерч канала · грудь</span></div><div class="pp-card__body"><div class="pp-stickers"><span class="pp-sticker pp-sticker--s">Канал</span></div><h3 class="pp-card__title"><a href="#">Акробат · лого</a></h3><div class="pp-card__foot"><span class="pp-price pp-price--s">00 Br</span><button class="pp-btn pp-btn--secondary pp-btn--s">Выбрать</button></div></div></article>
+            <article class="pp-card pp-card--deco"><div class="pp-card__media pp-tex-night" style="background-color: var(--bg)"><span class="pp-label" style="color: var(--ink-2)">Мерч канала · спина</span></div><div class="pp-card__body"><div class="pp-stickers"><span class="pp-sticker pp-sticker--s">Канал</span></div><h3 class="pp-card__title"><a href="#">Сальто в подвал</a></h3><div class="pp-card__foot"><span class="pp-price pp-price--s">00 Br</span><button class="pp-btn pp-btn--secondary pp-btn--s">Выбрать</button></div></div></article>
+            <article class="pp-card pp-card--deco"><div class="pp-card__media pp-tex-night" style="background-color: var(--bg)"><span class="pp-label" style="color: var(--ink-2)">Мерч канала · рукав</span></div><div class="pp-card__body"><div class="pp-stickers"><span class="pp-sticker pp-sticker--s">Лимит</span></div><h3 class="pp-card__title"><a href="#">Ночная смена</a></h3><div class="pp-card__foot"><span class="pp-price pp-price--s">00 Br</span><button class="pp-btn pp-btn--secondary pp-btn--s">Выбрать</button></div></div></article>
+          </div>
+        </div>
+      </div>
+      <div class="pp-torn-bottom" style="background: var(--surface)"></div>
+    </section>
+
+    <section class="wrap" style="padding-top: 88px; padding-bottom: 96px; display: flex; flex-wrap: wrap; gap: 56px">
+      <div style="flex: 1 1 420px; display: flex; flex-direction: column; gap: 24px">
+        <div style="display: flex; gap: 20px; align-items: center"><span class="pp-marker" style="width: 48px; height: 48px; font-size: 24px">3</span><span class="pp-label pp-muted">Как получить</span></div>
+        <h2 class="pp-h pp-h--2" style="font-size: 44px">Последний трамвай — до двери</h2>
+        <ol style="list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: 36px 1fr; gap: 0 16px">
+          <li style="display: contents"><span class="pp-marker" style="width: 28px; height: 28px; font-size: 14px; margin: 2px 4px 0">а</span><div style="padding-bottom: 20px; border-left: 0"><b style="font: 800 18px var(--font-deco)">Выберите модель и размер</b><p class="pp-small" style="margin: 4px 0 0">Прямо в карточке, без лишних страниц.</p></div></li>
+          <li style="display: contents"><span class="pp-marker" style="width: 28px; height: 28px; font-size: 14px; margin: 2px 4px 0">б</span><div style="padding-bottom: 20px"><b style="font: 800 18px var(--font-deco)">Оформите в общей корзине</b><p class="pp-small" style="margin: 4px 0 0">Можно вместе со своим принтом — скидка за количество общая.</p></div></li>
+          <li style="display: contents"><span class="pp-marker" style="width: 28px; height: 28px; font-size: 14px; margin: 2px 4px 0">в</span><div><b style="font: 800 18px var(--font-deco)">Заберите в мастерской или получите доставкой</b><p class="pp-small" style="margin: 4px 0 0">Готовые вещи отправляем на следующий день.</p></div></li>
+        </ol>
+      </div>
+      <div class="pp-faq" style="flex: 1 1 520px; min-width: 0">
+        <details open><summary>Это официальный мерч Deadlock?</summary><div class="pp-faq__a">Нет. Это наши авторские принты по мотивам игры, без логотипов и артов правообладателя.</div></details>
+        <details><summary>Будет ли повтор тиража?</summary><div class="pp-faq__a">Нет, каждая модель — 50 штук.</div></details>
+        <details><summary>Как подобрать размер?</summary><div class="pp-faq__a">Крой оверсайз: берите свой обычный размер.</div></details>
+      </div>
+    </section>
+  </main>
+  <dc-import name="Footer" hint-size="100%,380px"></dc-import>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":4600}}'>
+class Component extends DCLogic {
+  renderVals() {
+    return {
+      one: 1,
+      items: [
+        { name: 'Последний трамвай', zone: 'спина A3', left: 12, a: true, b: false, s1: 'Ночной', isNew: true, m: 'true' },
+        { name: 'Неспящий квартал', zone: 'грудь A5', left: 31, a: false, b: true, s1: 'Шумный', isNew: false, m: 'false' },
+        { name: 'Фонарщик', zone: 'спина A3', left: 7, a: true, b: false, s1: 'Лимит', isNew: false, m: 'false' },
+        { name: 'Стрелка у моста', zone: 'грудь и рукав', left: 44, a: false, b: true, s1: 'Свой', isNew: true, m: 'false' }
+      ]
+    };
+  }
+}
+</script>
+</body>
+</html>

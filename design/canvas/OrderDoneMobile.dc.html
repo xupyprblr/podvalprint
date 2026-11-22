@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<title>Заказ принят · мобильный</title>
+<script src="./support.js"></script>
+<link rel="stylesheet" href="ds/pp/tokens.css">
+<link rel="stylesheet" href="ds/pp/components/bundle.css">
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bitter:wght@600..900&family=Golos+Text:wght@400..900&family=Onest:wght@400..900&display=swap">
+<style>body{margin:0}</style>
+</helmet>
+<div data-theme="light" style="width: 390px; background: var(--bg); color: var(--ink); font-family: var(--font-text); overflow: hidden">
+  <dc-import name="Header" mobile="{{yes}}" count="{{zero}}" hint-size="390px,56px"></dc-import>
+  <section style="padding: 28px 16px 24px; display: flex; flex-direction: column; gap: 14px">
+    <div style="display: flex; gap: 8px; align-items: center"><span class="pp-orderno pp-label">Заказ № 0451</span><span class="pp-badge pp-badge--success"><svg class="pp-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true"><path d="M4 12.5l5 5L20 6.5"></path></svg>Принят</span></div>
+    <h1 style="margin: 0; font: 850 44px/0.98 var(--font-display); letter-spacing: -0.03em">Заказ принят. Печатаем.</h1>
+    <p style="margin: 0; font-size: 17px; line-height: 1.45">Превью макета пришлём в течение часа. Печать — после вашего «да».</p>
+    <div style="display: flex; gap: 8px">
+      <div class="pp-tex-concrete" style="flex: 1; aspect-ratio: 1; border-radius: 4px; display: grid; place-items: center"><svg viewBox="0 0 300 300" style="width: 80%" aria-hidden="true"><path d="M100 38 52 54 18 108l34 24 18-12-4 146h168l-4-146 18 12 34-24-34-54-48-16c-8 18-28 26-50 26s-42-8-50-26z" fill="#151515"></path></svg></div>
+      <div class="pp-tex-concrete" style="flex: 1; aspect-ratio: 1; border-radius: 4px; display: grid; place-items: center"><svg viewBox="0 0 300 300" style="width: 80%" aria-hidden="true"><path d="M105 40 70 52 30 90l22 38 26-16v150h144V112l26 16 22-38-40-38-35-12c-7 18-25 28-45 28s-38-10-45-28z" fill="#ffffff" stroke="#7d7a72" stroke-width="3"></path></svg></div>
+      <div data-theme="dark" style="flex: 1; aspect-ratio: 1; border-radius: 4px; display: grid; place-items: center"><i class="pp-tex-night" style="width: 60%; height: 70%; border: 3px solid var(--ink)"></i></div>
+    </div>
+  </section>
+  <div class="pp-hazard"></div>
+  <section style="background: var(--surface); padding: 28px 16px; display: flex; flex-direction: column; gap: 20px">
+    <h2 style="margin: 0; font: 700 20px/1.25 var(--font-display)">Статус</h2>
+    <ol style="list-style: none; margin: 0; padding: 0; display: grid">
+      <li style="display: grid; grid-template-columns: 28px 1fr; gap: 12px; padding-bottom: 18px; position: relative"><span style="width: 26px; height: 26px; border-radius: 50%; background: var(--accent); border: 2px solid var(--ink); display: grid; place-items: center; font: 700 12px var(--font-text); box-sizing: border-box" aria-hidden="true">1</span><div aria-current="step"><b>Принят</b><br><span class="pp-small">сегодня, 14:20</span></div></li>
+      <li style="display: grid; grid-template-columns: 28px 1fr; gap: 12px; padding-bottom: 18px"><span style="width: 26px; height: 26px; border-radius: 50%; border: 1.5px solid var(--line-strong); background: var(--bg); display: grid; place-items: center; font: 700 12px var(--font-text); color: var(--ink-2); box-sizing: border-box" aria-hidden="true">2</span><div><b class="pp-muted">В печати</b><br><span class="pp-small">после согласования превью</span></div></li>
+      <li style="display: grid; grid-template-columns: 28px 1fr; gap: 12px; padding-bottom: 18px"><span style="width: 26px; height: 26px; border-radius: 50%; border: 1.5px solid var(--line-strong); background: var(--bg); display: grid; place-items: center; font: 700 12px var(--font-text); color: var(--ink-2); box-sizing: border-box" aria-hidden="true">3</span><div><b class="pp-muted">Готов</b><br><span class="pp-small">ожидается 24 ноября</span></div></li>
+      <li style="display: grid; grid-template-columns: 28px 1fr; gap: 12px"><span style="width: 26px; height: 26px; border-radius: 50%; border: 1.5px solid var(--line-strong); background: var(--bg); display: grid; place-items: center; font: 700 12px var(--font-text); color: var(--ink-2); box-sizing: border-box" aria-hidden="true">4</span><div><b class="pp-muted">Выдан</b></div></li>
+    </ol>
+    <div style="padding: 16px; background: var(--bg); border: 1.5px solid var(--line); border-radius: 6px; display: grid; gap: 6px">
+      <span class="pp-label pp-muted">Куда приходить</span>
+      <b>Минск, [улица, дом], вход со двора</b>
+      <span class="pp-small">пн–пт 10–20 · сб 11–17 · назовите № 0451</span>
+      <div class="pp-tex-concrete pp-corners" style="height: 120px; border-radius: 4px; margin-top: 6px"></div>
+      <a class="pp-btn pp-btn--text pp-btn--s" href="#" style="padding-left: 0; justify-self: start">Маршрут</a>
+    </div>
+    <a class="pp-btn pp-btn--primary pp-btn--l pp-btn--block" href="#">Написать в Telegram</a>
+    <a class="pp-btn pp-btn--text pp-btn--block" href="#">На главную</a>
+  </section>
+  <dc-import name="Footer" mobile="{{yes}}" hint-size="390px,560px"></dc-import>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":1800}}'>
+class Component extends DCLogic {
+  renderVals() { return { yes: true, zero: 0 }; }
+}
+</script>
+</body>
+</html>

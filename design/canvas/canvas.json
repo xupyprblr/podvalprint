@@ -1,0 +1,452 @@
+{
+ "v": 3,
+ "createdOnFiles": {
+  "v": 1,
+  "at": "2026-11-22T06:59:56Z"
+ },
+ "title": "Подвальный Принт — сайт",
+ "launch": {
+  "view": "canvas",
+  "page": "sys"
+ },
+ "pages": [
+  {
+   "id": "sys",
+   "name": "Дизайн-система"
+  },
+  {
+   "id": "home",
+   "name": "Главная, SEO, изделие"
+  },
+  {
+   "id": "editor",
+   "name": "Конструктор"
+  },
+  {
+   "id": "tpl",
+   "name": "Шаблоны"
+  },
+  {
+   "id": "order",
+   "name": "Корзина и заказ"
+  },
+  {
+   "id": "deadlock",
+   "name": "Deadlock"
+  }
+ ],
+ "boards": {
+  "Main.dc.html": {
+   "x": 0,
+   "y": 0,
+   "w": 1440,
+   "h": 3940,
+   "title": "Токены и типографика",
+   "page": "sys"
+  },
+  "Components.dc.html": {
+   "x": 1520,
+   "y": 0,
+   "w": 1440,
+   "h": 3020,
+   "title": "Компоненты · светлая",
+   "page": "sys"
+  },
+  "ComponentsDark.dc.html": {
+   "x": 3040,
+   "y": 0,
+   "w": 1440,
+   "h": 3700,
+   "title": "Компоненты · тёмная Deadlock",
+   "page": "sys"
+  },
+  "Logos.dc.html": {
+   "x": 4560,
+   "y": 0,
+   "w": 1440,
+   "h": 1090,
+   "title": "Логотип · 3 варианта",
+   "page": "sys"
+  },
+  "Palettes.dc.html": {
+   "x": 6080,
+   "y": 0,
+   "w": 1440,
+   "h": 1850,
+   "title": "Палитры светлой темы: А · Б · В",
+   "page": "sys"
+  },
+  "PaletteSample.dc.html": {
+   "x": 7600,
+   "y": 0,
+   "w": 440,
+   "h": 1450,
+   "title": "Фрагмент для сравнения палитр",
+   "page": "sys"
+  },
+  "HeaderFooter.dc.html": {
+   "x": 8120,
+   "y": 0,
+   "w": 1440,
+   "h": 2350,
+   "title": "Шапка и подвал · обе темы",
+   "page": "sys"
+  },
+  "Header.dc.html": {
+   "x": 9640,
+   "y": 0,
+   "w": 1440,
+   "h": 72,
+   "title": "Компонент · шапка",
+   "page": "sys"
+  },
+  "Footer.dc.html": {
+   "x": 9640,
+   "y": 152,
+   "w": 1440,
+   "h": 380,
+   "title": "Компонент · подвал",
+   "page": "sys"
+  },
+  "Home.dc.html": {
+   "x": 0,
+   "y": 0,
+   "w": 1440,
+   "h": 7240,
+   "title": "Главная · 1440",
+   "page": "home",
+   "expand": "fill"
+  },
+  "HomeMobile.dc.html": {
+   "x": 1520,
+   "y": 0,
+   "w": 390,
+   "h": 7490,
+   "title": "Главная · 390",
+   "page": "home"
+  },
+  "Landing.dc.html": {
+   "x": 1990,
+   "y": 0,
+   "w": 1440,
+   "h": 6080,
+   "title": "SEO-лендинг · 1440",
+   "page": "home",
+   "expand": "fill"
+  },
+  "LandingMobile.dc.html": {
+   "x": 3510,
+   "y": 0,
+   "w": 390,
+   "h": 5030,
+   "title": "SEO-лендинг · 390",
+   "page": "home"
+  },
+  "Product.dc.html": {
+   "x": 3980,
+   "y": 0,
+   "w": 1440,
+   "h": 2740,
+   "title": "Изделие · оверсайз · 1440",
+   "page": "home",
+   "expand": "fill"
+  },
+  "ProductMobile.dc.html": {
+   "x": 5500,
+   "y": 0,
+   "w": 390,
+   "h": 2810,
+   "title": "Изделие · оверсайз · 390",
+   "page": "home"
+  },
+  "Constructor.dc.html": {
+   "x": 0,
+   "y": 0,
+   "w": 1440,
+   "h": 900,
+   "title": "Конструктор · 1440 · рабочий",
+   "page": "editor",
+   "is_interactive": true
+  },
+  "ConstructorMobile.dc.html": {
+   "x": 1520,
+   "y": 0,
+   "w": 390,
+   "h": 844,
+   "title": "Конструктор · 390 · рабочий",
+   "page": "editor"
+  },
+  "ConstructorStates.dc.html": {
+   "x": 0,
+   "y": 1020,
+   "w": 1440,
+   "h": 2700,
+   "title": "Конструктор · 1440 · все состояния",
+   "page": "editor"
+  },
+  "ConstructorMobileStates.dc.html": {
+   "x": 1520,
+   "y": 1020,
+   "w": 2240,
+   "h": 2040,
+   "title": "Конструктор · 390 · все состояния",
+   "page": "editor"
+  },
+  "Templates.dc.html": {
+   "x": 0,
+   "y": 0,
+   "w": 1440,
+   "h": 2590,
+   "title": "Каталог шаблонов · 1440",
+   "page": "tpl",
+   "expand": "fill"
+  },
+  "TemplatesMobile.dc.html": {
+   "x": 1520,
+   "y": 0,
+   "w": 390,
+   "h": 2110,
+   "title": "Каталог шаблонов · 390",
+   "page": "tpl"
+  },
+  "TemplateEditor.dc.html": {
+   "x": 1990,
+   "y": 0,
+   "w": 1440,
+   "h": 1000,
+   "title": "Редактор шаблона «Фото в буквах» · 1440",
+   "page": "tpl"
+  },
+  "TemplateEditorMobile.dc.html": {
+   "x": 3510,
+   "y": 0,
+   "w": 390,
+   "h": 844,
+   "title": "Редактор шаблона · 390",
+   "page": "tpl"
+  },
+  "TemplatePair.dc.html": {
+   "x": 1990,
+   "y": 1120,
+   "w": 1440,
+   "h": 1000,
+   "title": "Парный шаблон · 1440",
+   "page": "tpl"
+  },
+  "TemplatePairMobile.dc.html": {
+   "x": 3510,
+   "y": 1120,
+   "w": 390,
+   "h": 844,
+   "title": "Парный шаблон · 390",
+   "page": "tpl"
+  },
+  "Cart.dc.html": {
+   "x": 0,
+   "y": 0,
+   "w": 1440,
+   "h": 1380,
+   "title": "Корзина · 1440",
+   "page": "order",
+   "expand": "fill"
+  },
+  "CartMobile.dc.html": {
+   "x": 1520,
+   "y": 0,
+   "w": 390,
+   "h": 970,
+   "title": "Корзина · 390",
+   "page": "order"
+  },
+  "Checkout.dc.html": {
+   "x": 1990,
+   "y": 0,
+   "w": 1440,
+   "h": 1480,
+   "title": "Оформление · шаг 2 · 1440",
+   "page": "order",
+   "expand": "fill"
+  },
+  "CheckoutMobile1.dc.html": {
+   "x": 3510,
+   "y": 0,
+   "w": 390,
+   "h": 950,
+   "title": "Оформление · шаг 1 · 390",
+   "page": "order"
+  },
+  "CheckoutMobile2.dc.html": {
+   "x": 3980,
+   "y": 0,
+   "w": 390,
+   "h": 1160,
+   "title": "Оформление · шаг 2 · 390",
+   "page": "order"
+  },
+  "OrderDone.dc.html": {
+   "x": 4450,
+   "y": 0,
+   "w": 1440,
+   "h": 1460,
+   "title": "Заказ принят · 1440",
+   "page": "order",
+   "expand": "fill"
+  },
+  "OrderDoneMobile.dc.html": {
+   "x": 5970,
+   "y": 0,
+   "w": 390,
+   "h": 2000,
+   "title": "Заказ принят · 390",
+   "page": "order"
+  },
+  "Deadlock.dc.html": {
+   "x": 0,
+   "y": 0,
+   "w": 1440,
+   "h": 3310,
+   "title": "Лендинг Deadlock · 1440",
+   "page": "deadlock",
+   "expand": "fill"
+  },
+  "DeadlockMobile.dc.html": {
+   "x": 1520,
+   "y": 0,
+   "w": 390,
+   "h": 4050,
+   "title": "Лендинг Deadlock · 390",
+   "page": "deadlock"
+  },
+  "DeadlockProduct.dc.html": {
+   "x": 1990,
+   "y": 0,
+   "w": 1440,
+   "h": 2150,
+   "title": "Товар Deadlock · 1440",
+   "page": "deadlock",
+   "expand": "fill"
+  },
+  "DeadlockProductMobile.dc.html": {
+   "x": 3510,
+   "y": 0,
+   "w": 390,
+   "h": 2310,
+   "title": "Товар Deadlock · 390",
+   "page": "deadlock"
+  },
+  "ThemeJoin.dc.html": {
+   "x": 3980,
+   "y": 0,
+   "w": 1800,
+   "h": 2570,
+   "title": "Стык тем и глобальная тёмная",
+   "page": "deadlock"
+  }
+ },
+ "order": [
+  "Main.dc.html",
+  "Components.dc.html",
+  "ComponentsDark.dc.html",
+  "Logos.dc.html",
+  "Palettes.dc.html",
+  "PaletteSample.dc.html",
+  "HeaderFooter.dc.html",
+  "Header.dc.html",
+  "Footer.dc.html",
+  "Home.dc.html",
+  "HomeMobile.dc.html",
+  "Landing.dc.html",
+  "LandingMobile.dc.html",
+  "Product.dc.html",
+  "ProductMobile.dc.html",
+  "Constructor.dc.html",
+  "ConstructorMobile.dc.html",
+  "ConstructorStates.dc.html",
+  "ConstructorMobileStates.dc.html",
+  "Templates.dc.html",
+  "TemplatesMobile.dc.html",
+  "TemplateEditor.dc.html",
+  "TemplateEditorMobile.dc.html",
+  "TemplatePair.dc.html",
+  "TemplatePairMobile.dc.html",
+  "Cart.dc.html",
+  "CartMobile.dc.html",
+  "Checkout.dc.html",
+  "CheckoutMobile1.dc.html",
+  "CheckoutMobile2.dc.html",
+  "OrderDone.dc.html",
+  "OrderDoneMobile.dc.html",
+  "Deadlock.dc.html",
+  "DeadlockMobile.dc.html",
+  "DeadlockProduct.dc.html",
+  "DeadlockProductMobile.dc.html",
+  "ThemeJoin.dc.html"
+ ],
+ "notes": {
+  "memo": {
+   "x": -760,
+   "y": 0,
+   "w": 640,
+   "page": "sys",
+   "fill": "orange",
+   "text": "Записка к макетам\n\n1. Всё собрано на DS «Подвальный Принт»: Onest + Golos Text, Bitter в Deadlock, жёлтый только заливкой. tokens.css собран из tokens.json — в DS его не было.\n2. Тёмная тема — «ночной путеводитель» из DS (терракота + циан), а не ар-деко/латунь из брифа: латунь на тёмном слабо держит текст по контрасту.\n3. Глобальная тёмная — отдельная тема «Ночная смена» (night): структура и шрифты светлой, тёмный бетон, жёлтый. Deadlock не трогает. Лист «Стык тем».\n4. Конструктор: добавил верхнюю панель (назад, отменить/повторить, закрыть) и 9-е состояние — шаблон в конструкторе. «В корзину» неактивна только при пустом холсте и ошибке; предупреждения не блокируют.\n5. Мобильный конструктор: третья ячейка — «В корзину →» словом, а не голой стрелкой.\n6. Оформление: на десктопе шаг 1 сворачивается в строку с «Изменить»; доставка разбита на 4 варианта с ценой.\n7. Карточка «Скоро: худи, шопперы» в сетке изделий — проверка, что сетка и вкладки зон не завязаны на футболку.\n8. Отзывы, текст о канале, адрес, цены — заглушки под реальные данные."
+  },
+  "t-sys": {
+   "x": 0,
+   "y": -300,
+   "kind": "title1",
+   "text": "Дизайн-система: токены, компоненты, логотип, палитры, шапка и подвал",
+   "maxW": 11080,
+   "page": "sys"
+  },
+  "t-home": {
+   "x": 0,
+   "y": -300,
+   "kind": "title1",
+   "text": "Главная, SEO-лендинг, страница изделия — десктоп и 390",
+   "maxW": 5890,
+   "page": "home"
+  },
+  "t-editor": {
+   "x": 0,
+   "y": -300,
+   "kind": "title1",
+   "text": "Конструктор: рабочие макеты и все состояния",
+   "maxW": 3320,
+   "page": "editor"
+  },
+  "t-tpl": {
+   "x": 0,
+   "y": -300,
+   "kind": "title1",
+   "text": "Шаблоны: каталог, редактор, парные",
+   "maxW": 3900,
+   "page": "tpl"
+  },
+  "t-order": {
+   "x": 0,
+   "y": -300,
+   "kind": "title1",
+   "text": "Корзина, оформление в 2 шага, заказ принят",
+   "maxW": 6360,
+   "page": "order"
+  },
+  "t-deadlock": {
+   "x": 0,
+   "y": -300,
+   "kind": "title1",
+   "text": "Deadlock: лендинг, товар, стык со светлой корзиной",
+   "maxW": 5780,
+   "page": "deadlock"
+  }
+ },
+ "designSystems": [
+  {
+   "title": "Подвальный Принт",
+   "namespace": "pp",
+   "artifact": "https://claude.ai/code/artifact/0fec562e-8343-4fa4-afdd-6fd878001987",
+   "version": "1795330398-c125",
+   "copiedAt": "2026-11-22T06:59:56Z"
+  }
+ ]
+}

@@ -1,0 +1,220 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<title>Компоненты</title>
+<script src="./support.js"></script>
+<link rel="stylesheet" href="ds/pp/tokens.css">
+<link rel="stylesheet" href="ds/pp/components/bundle.css">
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bitter:wght@600..900&family=Golos+Text:wght@400..900&family=Onest:wght@400..900&display=swap">
+<style>body{margin:0}</style>
+</helmet>
+<div style="width: 1440px; box-sizing: border-box; padding: 72px 80px 96px; display: flex; flex-direction: column; gap: 56px; background: var(--bg); color: var(--ink); font-family: var(--font-text)">
+  <div style="display: flex; justify-content: space-between; align-items: end; gap: 24px">
+    <div style="display: flex; flex-direction: column; gap: 12px">
+      <span class="pp-label pp-muted">Лист 02 · {{themeName}}</span>
+      <h1 class="pp-h pp-h--1">Компоненты и состояния</h1>
+    </div>
+    <p class="pp-small" style="max-width: 420px">Один и тот же набор классов pp-… Тема меняется только атрибутом data-theme на обёртке — разметка компонентов не меняется.</p>
+  </div>
+
+  <section style="display: flex; flex-direction: column; gap: 16px">
+    <h2 class="pp-h pp-h--3">Кнопки · M · все состояния</h2>
+    <div style="display: grid; grid-template-columns: 140px repeat(6, minmax(0, 1fr)); gap: 16px 12px; align-items: center">
+      <span></span><span class="pp-label pp-muted">Обычное</span><span class="pp-label pp-muted">Ховер</span><span class="pp-label pp-muted">Фокус</span><span class="pp-label pp-muted">Нажатие</span><span class="pp-label pp-muted">Disabled</span><span class="pp-label pp-muted">Загрузка</span>
+      <span class="pp-small">Акцентная</span>
+      <div><button class="pp-btn pp-btn--accent">В корзину</button></div><div><button class="pp-btn pp-btn--accent is-hover">В корзину</button></div><div><button class="pp-btn pp-btn--accent is-focus">В корзину</button></div><div><button class="pp-btn pp-btn--accent is-active">В корзину</button></div><div><button class="pp-btn pp-btn--accent" disabled>В корзину</button></div><div><button class="pp-btn pp-btn--accent is-loading" aria-busy="true">В корзину</button></div>
+      <span class="pp-small">Основная</span>
+      <div><button class="pp-btn pp-btn--primary">Оформить</button></div><div><button class="pp-btn pp-btn--primary is-hover">Оформить</button></div><div><button class="pp-btn pp-btn--primary is-focus">Оформить</button></div><div><button class="pp-btn pp-btn--primary is-active">Оформить</button></div><div><button class="pp-btn pp-btn--primary" disabled>Оформить</button></div><div><button class="pp-btn pp-btn--primary is-loading" aria-busy="true">Оформить</button></div>
+      <span class="pp-small">Вторичная</span>
+      <div><button class="pp-btn pp-btn--secondary">Выбрать шаблон</button></div><div><button class="pp-btn pp-btn--secondary is-hover">Выбрать шаблон</button></div><div><button class="pp-btn pp-btn--secondary is-focus">Выбрать шаблон</button></div><div><button class="pp-btn pp-btn--secondary is-active">Выбрать шаблон</button></div><div><button class="pp-btn pp-btn--secondary" disabled>Выбрать шаблон</button></div><div><button class="pp-btn pp-btn--secondary is-loading" aria-busy="true">Выбрать шаблон</button></div>
+      <span class="pp-small">Текстовая</span>
+      <div><button class="pp-btn pp-btn--text">Все шаблоны</button></div><div><button class="pp-btn pp-btn--text is-hover">Все шаблоны</button></div><div><button class="pp-btn pp-btn--text is-focus">Все шаблоны</button></div><div><button class="pp-btn pp-btn--text is-active">Все шаблоны</button></div><div><button class="pp-btn pp-btn--text" disabled>Все шаблоны</button></div><div><button class="pp-btn pp-btn--text is-loading" aria-busy="true">Все шаблоны</button></div>
+      <span class="pp-small">Иконка</span>
+      <div><button class="pp-btn pp-btn--icon" aria-label="Удалить"><svg class="pp-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="square" stroke-linejoin="miter" aria-hidden="true"><path d="M3 6h18M8 6V3h8v3M5 6l1 15h12l1-15M10 10v7M14 10v7"></path></svg></button></div>
+      <div><button class="pp-btn pp-btn--icon is-hover" aria-label="Удалить"><svg class="pp-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="square" stroke-linejoin="miter" aria-hidden="true"><path d="M3 6h18M8 6V3h8v3M5 6l1 15h12l1-15M10 10v7M14 10v7"></path></svg></button></div>
+      <div><button class="pp-btn pp-btn--icon is-focus" aria-label="Удалить"><svg class="pp-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="square" stroke-linejoin="miter" aria-hidden="true"><path d="M3 6h18M8 6V3h8v3M5 6l1 15h12l1-15M10 10v7M14 10v7"></path></svg></button></div>
+      <div><button class="pp-btn pp-btn--icon is-active" aria-label="Удалить"><svg class="pp-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="square" stroke-linejoin="miter" aria-hidden="true"><path d="M3 6h18M8 6V3h8v3M5 6l1 15h12l1-15M10 10v7M14 10v7"></path></svg></button></div>
+      <div><button class="pp-btn pp-btn--icon" aria-label="Удалить" disabled><svg class="pp-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="square" stroke-linejoin="miter" aria-hidden="true"><path d="M3 6h18M8 6V3h8v3M5 6l1 15h12l1-15M10 10v7M14 10v7"></path></svg></button></div>
+      <span class="pp-small">—</span>
+    </div>
+    <div style="display: flex; gap: 12px; align-items: center; padding-top: 8px">
+      <span class="pp-small" style="width: 140px">Размеры S · M · L</span>
+      <button class="pp-btn pp-btn--accent pp-btn--s">S · 36</button><button class="pp-btn pp-btn--accent">M · 44</button><button class="pp-btn pp-btn--accent pp-btn--l"><svg class="pp-icon pp-icon--l" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="square" stroke-linejoin="miter" aria-hidden="true"><path d="M12 16V4M7 9l5-5 5 5M4 15v5h16v-5"></path></svg>Загрузить принт · L 56</button>
+    </div>
+  </section>
+
+  <div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 48px">
+    <section style="display: flex; flex-direction: column; gap: 16px">
+      <h2 class="pp-h pp-h--3">Поля</h2>
+      <div class="pp-field"><label class="pp-field__label" for="c-n1">Имя</label><input class="pp-input" id="c-n1" placeholder="Как к вам обращаться"></div>
+      <div class="pp-field"><label class="pp-field__label" for="c-n2">Имя <em>· фокус</em></label><input class="pp-input is-focus" id="c-n2" value="Андрей"></div>
+      <div class="pp-field"><label class="pp-field__label" for="c-p2">Телефон <em>· ошибка</em></label><div class="pp-input-group is-invalid"><span class="pp-input-group__prefix">+375</span><input class="pp-input" id="c-p2" type="tel" value="29 12" aria-invalid="true"></div><p class="pp-field__error"><svg class="pp-icon pp-icon--s" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="square" stroke-linejoin="miter" aria-hidden="true"><path d="M12 3l10 18H2L12 3z"></path><path d="M12 10v5M12 17.5v.5"></path></svg>Введите 9 цифр номера после +375</p></div>
+      <div class="pp-field"><label class="pp-field__label" for="c-s1">Изделие</label><div class="pp-select"><select id="c-s1"><option>Футболка оверсайз</option></select></div></div>
+      <div class="pp-field"><label class="pp-field__label" for="c-d1">Промокод <em>· disabled</em></label><input class="pp-input" id="c-d1" value="Недоступно для мерча" disabled></div>
+    </section>
+    <section style="display: flex; flex-direction: column; gap: 16px">
+      <h2 class="pp-h pp-h--3">Выбор</h2>
+      <label class="pp-check"><input type="checkbox">Упаковать в крафт-пакет</label>
+      <label class="pp-check"><input type="checkbox" checked>Прислать превью перед печатью</label>
+      <label class="pp-check is-focus"><input type="checkbox" checked>Фокус</label>
+      <label class="pp-check"><input type="checkbox" aria-invalid="true">Согласен с условиями · ошибка</label>
+      <label class="pp-check"><input type="radio" name="cr" checked>Оверсайз</label>
+      <label class="pp-check"><input type="radio" name="cr">Классика</label>
+      <label class="pp-check"><input type="radio" name="cr2" disabled>Худи — скоро</label>
+      <label class="pp-switch"><input type="checkbox" role="switch" checked>Печать на рукаве</label>
+      <label class="pp-switch"><input type="checkbox" role="switch">Ч/б фото</label>
+    </section>
+    <section style="display: flex; flex-direction: column; gap: 16px">
+      <h2 class="pp-h pp-h--3">Чипы, табы, бейджи</h2>
+      <div style="display: flex; flex-wrap: wrap; gap: 8px"><button class="pp-chip" aria-pressed="true">С фото <span class="pp-chip__count">12</span></button><button class="pp-chip" aria-pressed="false">Папе</button><button class="pp-chip is-hover" aria-pressed="false">Паре</button><button class="pp-chip is-focus" aria-pressed="false">Другу</button><button class="pp-chip" disabled>Худи · скоро</button></div>
+      <div class="pp-tabs" role="tablist"><button class="pp-tab" role="tab" aria-selected="true">Описание</button><button class="pp-tab is-hover" role="tab" aria-selected="false">Размеры</button><button class="pp-tab" role="tab" aria-selected="false">Уход</button><button class="pp-tab" role="tab" aria-selected="false" disabled>Отзывы · 0</button></div>
+      <div style="display: flex; flex-wrap: wrap; gap: 8px"><span class="pp-badge pp-badge--new">Новинка</span><span class="pp-badge pp-badge--limit">Лимит</span><span class="pp-badge pp-badge--outline"><svg class="pp-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="square" stroke-linejoin="miter" aria-hidden="true"><rect x="3" y="4" width="18" height="16"></rect><circle cx="9" cy="10" r="2"></circle><path d="M3 18l5-5 4 4 3-3 6 6"></path></svg>Ваше фото</span><span class="pp-badge pp-badge--outline"><svg class="pp-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="square" stroke-linejoin="miter" aria-hidden="true"><path d="M4 7V4h16v3M12 4v16M8.5 20h7"></path></svg>Ваш текст</span></div>
+      <div style="display: flex; flex-wrap: wrap; gap: 8px"><span class="pp-badge pp-badge--success"><svg class="pp-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="square" stroke-linejoin="miter" aria-hidden="true"><path d="M4 12.5l5 5L20 6.5"></path></svg>Готов</span><span class="pp-badge pp-badge--warning"><svg class="pp-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="square" stroke-linejoin="miter" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><path d="M12 7v5l3 2"></path></svg>В печати</span><span class="pp-badge pp-badge--danger"><svg class="pp-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="square" stroke-linejoin="miter" aria-hidden="true"><path d="M12 3l10 18H2L12 3z"></path><path d="M12 10v5M12 17.5v.5"></path></svg>Нет в наличии</span><span class="pp-badge pp-badge--count">3</span></div>
+      <nav aria-label="Хлебные крошки"><ol class="pp-crumbs"><li><a href="#">Главная</a></li><li><a href="#">Печать</a></li><li><span aria-current="page">Оверсайз</span></li></ol></nav>
+      <nav aria-label="Страницы" class="pp-pager"><a href="#" aria-current="page">1</a><a href="#">2</a><a href="#">3</a><span>…</span><a href="#">8</a></nav>
+    </section>
+  </div>
+
+  <div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 48px">
+    <section style="display: flex; flex-direction: column; gap: 16px">
+      <h2 class="pp-h pp-h--3">Цена</h2>
+      <div style="display: flex; gap: 20px; align-items: baseline; flex-wrap: wrap"><span class="pp-price"><span class="pp-price__from">от</span>00 Br</span><span class="pp-price">00 Br <span class="pp-price__old">00 Br</span></span><span class="pp-badge pp-badge--new">−10%</span></div>
+      <dl class="pp-breakdown"><div><dt>Футболка оверсайз × 3</dt><dd>00 Br</dd></div><div><dt>Печать A3 · спина</dt><dd>00 Br</dd></div><div><dt>Печать A6 · рукав</dt><dd>00 Br</dd></div><div><dt>Скидка от 3 шт.</dt><dd>−00 Br</dd></div><div class="is-total"><dt>Итого</dt><dd><span class="pp-price">00 Br</span></dd></div></dl>
+    </section>
+    <section style="display: flex; flex-direction: column; gap: 16px">
+      <h2 class="pp-h pp-h--3">Свотчи цвета</h2>
+      <fieldset class="pp-swatches"><legend class="pp-field__label" style="margin-bottom: 8px">Цвет: <span class="pp-muted">Чёрный</span></legend>
+        <label class="pp-swatch" style="--swatch: #ffffff"><input type="radio" name="csw"><span class="pp-swatch__dot"></span>Белый</label>
+        <label class="pp-swatch" style="--swatch: #141414"><input type="radio" name="csw" checked><span class="pp-swatch__dot"></span>Чёрный</label>
+        <label class="pp-swatch is-hover" style="--swatch: #4a4a48"><input type="radio" name="csw"><span class="pp-swatch__dot"></span>Графит</label>
+        <label class="pp-swatch" style="--swatch: #d8c7a6"><input type="radio" name="csw"><span class="pp-swatch__dot"></span>Песочный</label>
+        <label class="pp-swatch is-disabled" style="--swatch: #6b1f2a"><input type="radio" name="csw" disabled><span class="pp-swatch__dot"></span>Бордовый</label>
+      </fieldset>
+      <p class="pp-small">Название цвета видно всегда. Нет в наличии — пунктир.</p>
+    </section>
+    <section style="display: flex; flex-direction: column; gap: 16px">
+      <h2 class="pp-h pp-h--3">Размеры с количеством</h2>
+      <div class="pp-sizes" style="grid-template-columns: repeat(3, minmax(0, 1fr))">
+        <div class="pp-size"><span class="pp-size__name">S</span><div class="pp-stepper"><button aria-label="Убрать S" disabled><svg class="pp-icon pp-icon--s" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="square" stroke-linejoin="miter" aria-hidden="true"><path d="M4 12h16"></path></svg></button><output>0</output><button aria-label="Добавить S"><svg class="pp-icon pp-icon--s" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="square" stroke-linejoin="miter" aria-hidden="true"><path d="M12 4v16M4 12h16"></path></svg></button></div></div>
+        <div class="pp-size is-filled"><span class="pp-size__name">M</span><div class="pp-stepper"><button aria-label="Убрать M"><svg class="pp-icon pp-icon--s" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="square" stroke-linejoin="miter" aria-hidden="true"><path d="M4 12h16"></path></svg></button><output>2</output><button aria-label="Добавить M"><svg class="pp-icon pp-icon--s" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="square" stroke-linejoin="miter" aria-hidden="true"><path d="M12 4v16M4 12h16"></path></svg></button></div></div>
+        <div class="pp-size is-disabled"><span class="pp-size__name">3XL</span><span class="pp-size__note">нет</span></div>
+      </div>
+      <span class="pp-small">Всего: <b style="color: var(--ink)">2 шт.</b> · ещё 1 — скидка 10%</span>
+    </section>
+  </div>
+
+  <section style="display: flex; flex-direction: column; gap: 16px">
+    <h2 class="pp-h pp-h--3">Карточки: изделие · шаблон · работа · отзыв</h2>
+    <div style="display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 24px">
+      <article class="pp-card">
+        <div class="pp-card__media pp-tex-concrete"><div class="pp-card__badges"><span class="pp-badge pp-badge--new">Новинка</span></div><svg viewBox="0 0 300 300" style="width: 82%" aria-hidden="true"><path d="M100 38 52 54 18 108l34 24 18-12-4 146h168l-4-146 18 12 34-24-34-54-48-16c-8 18-28 26-50 26s-42-8-50-26z" fill="#141414"></path></svg><span class="pp-label" style="position: absolute; left: 12px; bottom: 12px">Фото: оверсайз на бетоне</span></div>
+        <div class="pp-card__body"><h3 class="pp-card__title"><a href="#">Футболка оверсайз</a></h3><p class="pp-card__meta">100% хлопок · 220 г/м² · S–3XL</p><div class="pp-mini-dots" aria-label="5 цветов"><i style="--swatch: #ffffff"></i><i style="--swatch: #141414"></i><i style="--swatch: #4a4a48"></i><i style="--swatch: #d8c7a6"></i><i style="--swatch: #5c6340"></i></div><div class="pp-card__foot"><span class="pp-price pp-price--s"><span class="pp-price__from">от</span>00 Br</span><button class="pp-btn pp-btn--primary pp-btn--s">Создать принт</button></div></div>
+      </article>
+      <article class="pp-card is-hover">
+        <div class="pp-card__media pp-card__media--sq pp-tex-concrete"><div class="pp-card__badges"><span class="pp-badge pp-badge--outline">Ваше фото</span><span class="pp-badge pp-badge--outline">Ваш текст</span></div><svg viewBox="0 0 300 300" style="width: 82%" aria-hidden="true"><path d="M105 40 70 52 30 90l22 38 26-16v150h144V112l26 16 22-38-40-38-35-12c-7 18-25 28-45 28s-38-10-45-28z" fill="#ffffff" stroke="#7d7a72" stroke-width="2"></path><text x="150" y="160" text-anchor="middle" font-family="Onest" font-weight="900" font-size="40" fill="#121212">ПАПА</text></svg><span class="pp-label" style="position: absolute; left: 12px; bottom: 12px">Фото: пример «Слово из фото»</span></div>
+        <div class="pp-card__body"><h3 class="pp-card__title"><a href="#">Слово из фото</a></h3><p class="pp-card__meta">Четыре буквы — четыре ваших фото · ховер</p><div class="pp-card__foot"><span class="pp-price pp-price--s"><span class="pp-price__from">от</span>00 Br</span><button class="pp-btn pp-btn--primary pp-btn--s">Создать</button></div></div>
+      </article>
+      <article class="pp-card">
+        <div class="pp-card__media pp-card__media--sq pp-tex-concrete"><span class="pp-label" style="color: var(--ink-2)">Фото работы: футболки выпускников</span></div>
+        <div class="pp-card__body"><p class="pp-card__meta"><span class="pp-orderno pp-label">№ 0427</span></p><h3 class="pp-card__title"><a href="#">Футболки на выпускной</a></h3><p class="pp-card__meta">Классика · 24 шт. · A4 спина</p></div>
+      </article>
+      <article class="pp-card pp-review">
+        <div class="pp-stars" aria-label="Оценка 5 из 5"><svg class="pp-icon" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="1.75" aria-hidden="true"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1-4.4-4.3 6.1-.9L12 3z"></path></svg><svg class="pp-icon" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="1.75" aria-hidden="true"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1-4.4-4.3 6.1-.9L12 3z"></path></svg><svg class="pp-icon" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="1.75" aria-hidden="true"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1-4.4-4.3 6.1-.9L12 3z"></path></svg><svg class="pp-icon" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="1.75" aria-hidden="true"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1-4.4-4.3 6.1-.9L12 3z"></path></svg><svg class="pp-icon" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="1.75" aria-hidden="true"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1-4.4-4.3 6.1-.9L12 3z"></path></svg></div>
+        <blockquote>«Место под реальный отзыв с площадки: 2–4 строки, что заказывали и как получили».</blockquote>
+        <footer><span><b>Имя Ф.</b>дата отзыва</span><a class="pp-link" href="#">Яндекс Карты</a></footer>
+      </article>
+    </div>
+  </section>
+
+  <sc-if value="{{dark}}" hint-placeholder-val="{{false}}">
+    <section style="display: flex; flex-direction: column; gap: 16px">
+      <h2 class="pp-h pp-h--3">Только Deadlock: карточка товара, наклейки, записка</h2>
+      <div style="display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 32px; align-items: start">
+        <article class="pp-card pp-card--deco">
+          <div class="pp-card__media pp-tex-night"><div class="pp-card__badges"><span class="pp-badge pp-badge--team-a">Жёлтая линия</span></div><span class="pp-label" style="color: var(--ink-2)">Принт коллекции</span></div>
+          <div class="pp-card__body"><div class="pp-stickers"><span class="pp-sticker pp-sticker--s">Ночной</span><span class="pp-sticker pp-sticker--s">Тираж 50</span></div><h3 class="pp-card__title"><a href="#">Последний трамвай</a></h3><p class="pp-card__meta">Оверсайз · чёрный · A3 на спине</p><div class="pp-card__foot"><span class="pp-price pp-price--s">00 Br</span><button class="pp-btn pp-btn--accent pp-btn--s">В корзину</button></div></div>
+        </article>
+        <article class="pp-card pp-card--deco is-hover">
+          <div class="pp-card__media pp-tex-night"><div class="pp-card__badges"><span class="pp-badge pp-badge--team-b">Зелёная линия</span></div><span class="pp-label" style="color: var(--ink-2)">Принт коллекции</span></div>
+          <div class="pp-card__body"><div class="pp-stickers"><span class="pp-sticker pp-sticker--s">Лимит</span></div><h3 class="pp-card__title"><a href="#">Неспящий квартал</a></h3><p class="pp-card__meta">Ховер — рамка-открытка циановая</p><div class="pp-card__foot"><span class="pp-price pp-price--s">00 Br</span><button class="pp-btn pp-btn--accent pp-btn--s">В корзину</button></div></div>
+        </article>
+        <div style="display: flex; flex-direction: column; gap: 24px; padding-top: 12px">
+          <span class="pp-sticker">Новый тираж</span>
+          <span class="pp-sticker pp-sticker--paper">Остановка первая</span>
+          <h3 class="pp-h pp-h--2" style="font-size: 36px">Город <span class="pp-hl">не спит</span></h3>
+        </div>
+        <div class="pp-note"><b>Записка для тех, кто не спит</b>Печатаем 50 штук каждой модели. Повторов не будет.</div>
+      </div>
+    </section>
+  </sc-if>
+
+  <div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 48px">
+    <section style="display: flex; flex-direction: column; gap: 16px">
+      <h2 class="pp-h pp-h--3">FAQ</h2>
+      <div class="pp-faq"><details open><summary>Можно заказать одну футболку?</summary><div class="pp-faq__a">Да, от 1 штуки. Цена за штуку падает от 3 и от 10.</div></details><details><summary>Сколько длится печать?</summary><div class="pp-faq__a">1–2 рабочих дня после согласования макета.</div></details></div>
+    </section>
+    <section style="display: flex; flex-direction: column; gap: 12px">
+      <h2 class="pp-h pp-h--3">Тосты и тултип</h2>
+      <div class="pp-toast" role="status"><span class="pp-toast__icon"><svg class="pp-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="square" stroke-linejoin="miter" aria-hidden="true"><path d="M4 12.5l5 5L20 6.5"></path></svg></span><div class="pp-toast__body"><b>Добавлено в корзину</b>Оверсайз, чёрная · 3 шт. <button class="pp-toast__action">Открыть корзину</button></div></div>
+      <div class="pp-toast pp-toast--warning" role="status"><span class="pp-toast__icon"><svg class="pp-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="square" stroke-linejoin="miter" aria-hidden="true"><path d="M12 3l10 18H2L12 3z"></path><path d="M12 10v5M12 17.5v.5"></path></svg></span><div class="pp-toast__body"><b>Низкое разрешение</b>640 × 480 px — на A3 будет нечётко.</div></div>
+      <div class="pp-toast pp-toast--danger" role="alert"><span class="pp-toast__icon"><svg class="pp-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="square" stroke-linejoin="miter" aria-hidden="true"><path d="M5 5l14 14M19 5L5 19"></path></svg></span><div class="pp-toast__body"><b>Файл не загрузился</b>PNG, JPG и PDF до 20 МБ. <button class="pp-toast__action">Повторить</button></div></div>
+      <div style="padding-bottom: 6px"><span class="pp-tooltip" role="tooltip">По центру <kbd>C</kbd></span></div>
+    </section>
+    <section style="display: flex; flex-direction: column; gap: 14px">
+      <h2 class="pp-h pp-h--3">Конструктор</h2>
+      <div class="pp-zones" role="tablist" aria-label="Зона печати"><button class="pp-zone" role="tab" aria-selected="true">Перед <span class="pp-zone__dot"></span></button><button class="pp-zone" role="tab" aria-selected="false">Спина <span class="pp-zone__dot"></span></button><button class="pp-zone" role="tab" aria-selected="false">Л. рукав</button></div>
+      <div style="display: flex; flex-wrap: wrap; gap: 8px"><span class="pp-status" role="status"><svg class="pp-icon pp-icon--s" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="square" stroke-linejoin="miter" aria-hidden="true"><path d="M4 12.5l5 5L20 6.5"></path></svg>Всё в зоне печати</span><span class="pp-status pp-status--warning" role="status"><svg class="pp-icon pp-icon--s" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="square" stroke-linejoin="miter" aria-hidden="true"><path d="M12 3l10 18H2L12 3z"></path><path d="M12 10v5M12 17.5v.5"></path></svg>Выходит за зону</span></div>
+      <div style="display: flex; gap: 8px; align-items: center"><span class="pp-printsize"><b>A4</b>21 × 29,7 см</span><div class="pp-formats" aria-label="Формат A4"><span>A7</span><span>A6</span><span>A5</span><span class="is-on">A4</span><span>A3</span><span>A2</span></div></div>
+      <div class="pp-objbar" role="toolbar" aria-label="Действия с объектом">
+        <button class="pp-btn pp-btn--icon pp-btn--s" aria-label="Повернуть"><svg class="pp-icon pp-icon--s" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="square" stroke-linejoin="miter" aria-hidden="true"><path d="M20 12a8 8 0 1 1-2.3-5.7"></path><path d="M20 4v5h-5"></path></svg></button>
+        <button class="pp-btn pp-btn--icon pp-btn--s" aria-label="По центру"><svg class="pp-icon pp-icon--s" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="square" stroke-linejoin="miter" aria-hidden="true"><path d="M12 2v20"></path><rect x="6" y="6" width="12" height="5"></rect><rect x="8" y="14" width="8" height="5"></rect></svg></button>
+        <button class="pp-btn pp-btn--icon pp-btn--s" aria-label="Дублировать"><svg class="pp-icon pp-icon--s" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="square" stroke-linejoin="miter" aria-hidden="true"><rect x="8" y="8" width="13" height="13"></rect><path d="M16 8V3H3v13h5"></path></svg></button>
+        <button class="pp-btn pp-btn--icon pp-btn--s is-danger" aria-label="Удалить"><svg class="pp-icon pp-icon--s" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="square" stroke-linejoin="miter" aria-hidden="true"><path d="M3 6h18M8 6V3h8v3M5 6l1 15h12l1-15M10 10v7M14 10v7"></path></svg></button>
+        <span class="pp-objbar__sep"></span>
+        <button class="pp-btn pp-btn--icon pp-btn--s" aria-label="Отменить"><svg class="pp-icon pp-icon--s" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="square" stroke-linejoin="miter" aria-hidden="true"><path d="M9 14L4 9l5-5"></path><path d="M4 9h11a5 5 0 0 1 0 10h-3"></path></svg></button>
+        <button class="pp-btn pp-btn--icon pp-btn--s" aria-label="Повторить" disabled><svg class="pp-icon pp-icon--s" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="square" stroke-linejoin="miter" aria-hidden="true"><path d="M15 14l5-5-5-5"></path><path d="M20 9H9a5 5 0 0 0 0 10h3"></path></svg></button>
+      </div>
+    </section>
+  </div>
+
+  <div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 48px">
+    <section style="display: flex; flex-direction: column; gap: 12px">
+      <h2 class="pp-h pp-h--3">Получение</h2>
+      <div role="radiogroup" aria-label="Способ получения" style="display: grid; gap: 12px">
+        <label class="pp-option is-checked"><input type="radio" name="cdl" checked><span class="pp-option__icon"><svg class="pp-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="square" stroke-linejoin="miter" aria-hidden="true"><path d="M12 21s7-6.2 7-12a7 7 0 0 0-14 0c0 5.8 7 12 7 12z"></path><circle cx="12" cy="9" r="2.5"></circle></svg></span><span class="pp-option__title">Самовывоз из мастерской</span><span class="pp-option__side"><span class="pp-option__radio"><svg class="pp-icon pp-icon--s" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="square" aria-hidden="true"><path d="M4 12.5l5 5L20 6.5"></path></svg></span>Бесплатно</span><span class="pp-option__desc">Минск, [адрес] · пн–пт 10–20</span></label>
+        <label class="pp-option"><input type="radio" name="cdl"><span class="pp-option__icon"><svg class="pp-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="square" stroke-linejoin="miter" aria-hidden="true"><path d="M2 5h12v11H2zM14 9h4l4 4v3h-8"></path><circle cx="6.5" cy="18" r="2"></circle><circle cx="17.5" cy="18" r="2"></circle></svg></span><span class="pp-option__title">Доставка</span><span class="pp-option__side"><span class="pp-option__radio"></span>от 00 Br</span><span class="pp-option__desc">СДЭК, Европочта, курьер по Минску</span></label>
+      </div>
+    </section>
+    <section style="display: flex; flex-direction: column; gap: 16px">
+      <h2 class="pp-h pp-h--3">Шаги и статус заказа</h2>
+      <div class="pp-steps" style="--n: 4"><div class="pp-steps__head"><span class="pp-label">Шаг 2 из 4</span><span class="pp-small">Дальше: стиль</span></div><ol class="pp-steps__bar"><li class="is-done">Фото</li><li aria-current="step">Текст</li><li>Стиль</li><li>Изделие</li></ol></div>
+      <ol class="pp-track"><li class="is-done"><b>Принят</b>12 мая</li><li aria-current="step"><b>В печати</b>13 мая</li><li><b>Готов</b>ожидается</li><li><b>Выдан</b>—</li></ol>
+    </section>
+    <section style="display: flex; flex-direction: column; gap: 12px">
+      <h2 class="pp-h pp-h--3">Слот фото</h2>
+      <div style="display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px">
+        <button class="pp-slot pp-slot--empty"><span class="pp-slot__inner" style="padding: 4px"><svg class="pp-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="square" stroke-linejoin="miter" aria-hidden="true"><path d="M12 4v16M4 12h16"></path></svg><b style="font-size: 12px">Фото</b></span></button>
+        <div class="pp-slot" aria-busy="true"><span class="pp-slot__inner" style="width: 100%; padding: 6px"><b style="font-size: 12px">60%</b><span class="pp-progress" role="progressbar" aria-valuenow="60"><i style="--p: .6"></i></span></span></div>
+        <div class="pp-slot pp-tex-concrete"><span class="pp-label" style="font-size: 10px">фото</span></div>
+        <div class="pp-slot pp-slot--error" role="alert"><span class="pp-slot__inner" style="padding: 4px"><b style="font-size: 12px">34 МБ</b><span style="font-size: 11px">макс. 20</span></span></div>
+      </div>
+      <p class="pp-small">Пустой · загрузка · с фото · ошибка</p>
+    </section>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"dark":{"editor":"boolean","default":false},"$preview":{"width":1440,"height":3300}}'>
+class Component extends DCLogic {
+  renderVals() {
+    const dark = this.props.dark ?? false;
+    return { dark, themeName: dark ? 'тёмная тема Deadlock' : 'светлая тема' };
+  }
+}
+</script>
+</body>
+</html>

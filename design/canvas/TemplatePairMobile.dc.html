@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<title>Парный шаблон · мобильный</title>
+<script src="./support.js"></script>
+<link rel="stylesheet" href="ds/pp/tokens.css">
+<link rel="stylesheet" href="ds/pp/components/bundle.css">
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bitter:wght@600..900&family=Golos+Text:wght@400..900&family=Onest:wght@400..900&display=swap">
+<style>body{margin:0}</style>
+</helmet>
+<div data-theme="light" style="width: 390px; height: 844px; display: flex; flex-direction: column; background: var(--bg); color: var(--ink); font-family: var(--font-text); overflow: hidden">
+  <div style="height: 52px; flex: none; display: flex; align-items: center; gap: 4px; padding: 0 4px; border-bottom: 1.5px solid var(--line)">
+    <button class="pp-btn pp-btn--icon pp-btn--ghost" aria-label="Назад"><svg class="pp-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true"><path d="M15 6l-6 6 6 6"></path></svg></button>
+    <b style="flex: 1; text-align: center; font: 700 15px var(--font-display)">Он и она · пара</b>
+    <button class="pp-btn pp-btn--icon pp-btn--ghost" aria-label="Закрыть"><svg class="pp-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true"><path d="M5 5l14 14M19 5L5 19"></path></svg></button>
+  </div>
+  <div class="pp-tex-concrete" style="height: 210px; flex: none; display: flex; align-items: center; justify-content: center; gap: 12px">
+    <div style="width: 160px; height: 160px; position: relative; outline: 2px solid var(--ink); outline-offset: 4px; border-radius: 2px"><svg viewBox="0 0 300 300" style="width: 100%; height: 100%" aria-hidden="true"><path d="M105 40 70 52 30 90l22 38 26-16v150h144V112l26 16 22-38-40-38-35-12c-7 18-25 28-45 28s-38-10-45-28z" fill="#ffffff" stroke="#7d7a72"></path><rect x="114" y="92" width="72" height="72" fill="#c9b48f"></rect><text x="150" y="196" text-anchor="middle" font-family="Onest" font-weight="900" font-size="30" fill="#121212">ОН</text></svg></div>
+    <div style="width: 160px; height: 160px"><svg viewBox="0 0 300 300" style="width: 100%; height: 100%" aria-hidden="true"><path d="M105 40 70 52 30 90l22 38 26-16v150h144V112l26 16 22-38-40-38-35-12c-7 18-25 28-45 28s-38-10-45-28z" fill="#151515"></path><rect x="114" y="92" width="72" height="72" fill="#c9b48f"></rect><text x="150" y="196" text-anchor="middle" font-family="Onest" font-weight="900" font-size="30" fill="#f4f3ef">ОНА</text></svg></div>
+  </div>
+  <div style="flex: 1; padding: 14px 16px 0; display: flex; flex-direction: column; gap: 14px">
+    <div class="pp-steps" style="--n: 4"><div class="pp-steps__head"><span class="pp-label">Шаг 4 из 4 · Изделие</span></div><ol class="pp-steps__bar"><li class="is-done">Фото</li><li class="is-done">Текст</li><li class="is-done">Стиль</li><li aria-current="step">Изделие</li></ol></div>
+    <div class="pp-zones" role="tablist" aria-label="Какая футболка" style="display: grid; grid-template-columns: 1fr 1fr"><button class="pp-zone" role="tab" aria-selected="true" style="justify-content: center">Первая · ОН</button><button class="pp-zone" role="tab" aria-selected="false" style="justify-content: center">Вторая · ОНА</button></div>
+    <div role="radiogroup" aria-label="Крой" style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px"><label class="pp-option is-checked" style="grid-template-columns: 1fr; padding: 11.5px"><input type="radio" name="tpm" checked><span class="pp-option__title" style="font-size: 15px">Классика</span><span class="pp-option__desc" style="grid-column: 1; font-size: 13px">от 00 Br</span></label><label class="pp-option" style="grid-template-columns: 1fr; padding: 12px"><input type="radio" name="tpm"><span class="pp-option__title" style="font-size: 15px">Оверсайз</span><span class="pp-option__desc" style="grid-column: 1; font-size: 13px">от 00 Br</span></label></div>
+    <fieldset class="pp-swatches" style="gap: 6px"><legend class="pp-field__label" style="margin-bottom: 8px">Цвет: <span class="pp-muted">Белый</span></legend><label class="pp-swatch" style="--swatch: #ffffff"><input type="radio" name="tpc" checked><span class="pp-swatch__dot"></span>Белый</label><label class="pp-swatch" style="--swatch: #151515"><input type="radio" name="tpc"><span class="pp-swatch__dot"></span>Чёрный</label><label class="pp-swatch" style="--swatch: #d8c7a6"><input type="radio" name="tpc"><span class="pp-swatch__dot"></span>Песок</label></fieldset>
+    <div style="display: grid; gap: 8px"><div style="display: flex; justify-content: space-between"><span class="pp-field__label">Размер первой</span><a class="pp-link pp-small" href="#">Сетка</a></div><div role="radiogroup" aria-label="Размер" style="display: grid; grid-template-columns: repeat(6, 1fr); gap: 4px"><button class="pp-chip" role="radio" aria-checked="false" aria-pressed="false" style="padding: 0; justify-content: center">S</button><button class="pp-chip" role="radio" aria-checked="false" aria-pressed="false" style="padding: 0; justify-content: center">M</button><button class="pp-chip" role="radio" aria-checked="true" aria-pressed="true" style="padding: 0; justify-content: center">L</button><button class="pp-chip" role="radio" aria-checked="false" aria-pressed="false" style="padding: 0; justify-content: center">XL</button><button class="pp-chip" role="radio" aria-checked="false" aria-pressed="false" style="padding: 0; justify-content: center">2XL</button><button class="pp-chip" disabled style="padding: 0; justify-content: center">3XL</button></div></div>
+  </div>
+  <div class="pp-summary pp-summary--m" style="flex: none">
+    <div class="pp-summary__info"><span class="pp-small">Пара · L + S</span><span class="pp-price pp-price--s">00 Br</span></div>
+    <button class="pp-btn pp-btn--accent pp-btn--l">В корзину</button>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":844}}'>
+class Component extends DCLogic {
+  renderVals() { return {}; }
+}
+</script>
+</body>
+</html>

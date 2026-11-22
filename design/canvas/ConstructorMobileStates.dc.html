@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<title>Конструктор 390 · все состояния</title>
+<script src="./support.js"></script>
+<link rel="stylesheet" href="ds/pp/tokens.css">
+<link rel="stylesheet" href="ds/pp/components/bundle.css">
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bitter:wght@600..900&family=Golos+Text:wght@400..900&family=Onest:wght@400..900&family=Caveat:wght@600&family=Lobster&family=Rubik:wght@700&display=swap">
+<style>body{margin:0}</style>
+</helmet>
+<div data-theme="light" style="width: 2240px; box-sizing: border-box; padding: 56px 48px 64px; background: var(--surface-2); color: var(--ink); font-family: var(--font-text); display: flex; flex-direction: column; gap: 32px">
+  <div style="display: flex; justify-content: space-between; align-items: end; gap: 24px">
+    <div style="display: flex; flex-direction: column; gap: 10px"><span class="pp-label pp-muted">Конструктор · 390 · основной сценарий</span><h1 class="pp-h pp-h--1">Мобильный: все состояния</h1></div>
+    <p class="pp-small" style="max-width: 640px">Вкладки зон сверху, холст на всю ширину, цвета миниатюрами. Внизу — шторка с итогом и панель «Изделие · Дизайн · В корзину →». При выделении объекта над шторкой появляется панель действий.</p>
+  </div>
+  <div style="display: grid; grid-template-columns: repeat(5, 390px); gap: 44px 40px">
+    <sc-for list="{{tiles}}" as="t" hint-placeholder-count="9">
+      <figure style="margin: 0; display: grid; gap: 10px">
+        <figcaption style="display: flex; gap: 8px; align-items: baseline"><span class="pp-orderno pp-label">{{t.n}}</span><b style="font: 700 16px var(--font-display)">{{t.title}}</b></figcaption>
+        <div style="width: 390px; height: 844px; overflow: hidden; border: 1.5px solid var(--line-strong); border-radius: 14px; background: var(--bg)"><dc-import name="ConstructorMobile" state="{{t.s}}" hint-size="390px,844px"></dc-import></div>
+      </figure>
+    </sc-for>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":2240,"height":2050}}'>
+class Component extends DCLogic {
+  renderVals() {
+    return {
+      tiles: [
+        { n: '01', s: 'empty', title: 'Пустой холст' },
+        { n: '02', s: 'design', title: 'Шторка «Дизайн»' },
+        { n: '03', s: 'uploaded', title: 'Объект выделен' },
+        { n: '04', s: 'lowres', title: 'Низкое разрешение' },
+        { n: '05', s: 'outzone', title: 'За пределами зоны' },
+        { n: '06', s: 'text', title: 'Текст в редактировании' },
+        { n: '07', s: 'product', title: 'Изделие: размеры' },
+        { n: '08', s: 'twosides', title: 'Две стороны' },
+        { n: '09', s: 'error', title: 'Ошибка загрузки' }
+      ]
+    };
+  }
+}
+</script>
+</body>
+</html>

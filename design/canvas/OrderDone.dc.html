@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<title>Заказ принят</title>
+<script src="./support.js"></script>
+<link rel="stylesheet" href="ds/pp/tokens.css">
+<link rel="stylesheet" href="ds/pp/components/bundle.css">
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bitter:wght@600..900&family=Golos+Text:wght@400..900&family=Onest:wght@400..900&display=swap">
+<style>
+body{margin:0}
+.wrap{box-sizing:border-box;width:100%;max-width:1440px;margin:0 auto;padding:0 clamp(16px,5.5vw,80px)}
+</style>
+</helmet>
+<div data-theme="light" style="min-height: 100%; background: var(--bg); color: var(--ink); font-family: var(--font-text)">
+  <dc-import name="Header" count="{{zero}}" hint-size="100%,72px"></dc-import>
+  <main>
+    <section class="wrap" style="padding-top: 56px; padding-bottom: 48px; display: flex; flex-wrap: wrap; gap: 48px; align-items: end">
+      <div style="flex: 3 1 560px; display: flex; flex-direction: column; gap: 18px">
+        <div style="display: flex; gap: 12px; align-items: center"><span class="pp-orderno pp-label" style="font-size: 14px; padding: 6px 10px">Заказ № 0451</span><span class="pp-badge pp-badge--success"><svg class="pp-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true"><path d="M4 12.5l5 5L20 6.5"></path></svg>Принят</span></div>
+        <h1 class="pp-h pp-h--display" style="font-size: 72px">Заказ принят. Печатаем.</h1>
+        <p class="pp-lead pp-muted" style="max-width: 620px">В течение часа пришлём превью макета в Telegram и SMS на +375 29 123-45-67. Печать начнём после вашего «да».</p>
+      </div>
+      <div style="flex: 2 1 380px; display: flex; gap: 12px; justify-content: flex-end">
+        <div class="pp-tex-concrete" style="width: 120px; height: 140px; border-radius: 6px; display: grid; place-items: center"><svg viewBox="0 0 300 300" style="width: 104px" aria-hidden="true"><path d="M100 38 52 54 18 108l34 24 18-12-4 146h168l-4-146 18 12 34-24-34-54-48-16c-8 18-28 26-50 26s-42-8-50-26z" fill="#151515"></path><rect x="122" y="96" width="56" height="66" fill="#d8c7a6"></rect></svg></div>
+        <div class="pp-tex-concrete" style="width: 120px; height: 140px; border-radius: 6px; display: grid; place-items: center"><svg viewBox="0 0 300 300" style="width: 104px" aria-hidden="true"><path d="M105 40 70 52 30 90l22 38 26-16v150h144V112l26 16 22-38-40-38-35-12c-7 18-25 28-45 28s-38-10-45-28z" fill="#ffffff" stroke="#7d7a72" stroke-width="3"></path><text x="150" y="150" text-anchor="middle" font-family="Onest" font-weight="900" font-size="36" fill="#a68f68">ПАПА</text></svg></div>
+        <div data-theme="dark" class="pp-grain" style="width: 120px; height: 140px; border-radius: 6px; display: grid; place-items: center"><i class="pp-tex-night" style="width: 76px; height: 92px; border: 4px solid var(--ink); box-shadow: 5px 5px 0 rgba(0,0,0,.35)"></i></div>
+      </div>
+    </section>
+    <div class="pp-hazard"></div>
+    <section style="background: var(--surface); padding: 56px 0 72px">
+      <div class="wrap" style="display: flex; flex-direction: column; gap: 40px">
+        <div style="display: flex; flex-direction: column; gap: 20px"><h2 class="pp-h pp-h--3">Статус заказа</h2>
+          <ol class="pp-track" style="max-width: 980px"><li aria-current="step"><b>Принят</b>22 ноября, 14:20</li><li><b>В печати</b>после согласования</li><li><b>Готов</b>ожидается 24 ноября</li><li><b>Выдан</b>—</li></ol>
+        </div>
+        <div style="display: flex; flex-wrap: wrap; gap: 24px">
+          <div style="flex: 1 1 420px; display: grid; grid-template-columns: 1fr 240px; gap: 0; background: var(--bg); border: 1.5px solid var(--line); border-radius: 6px; overflow: hidden">
+            <div style="padding: 24px; display: flex; flex-direction: column; gap: 10px"><span class="pp-label pp-muted">Куда приходить</span><b style="font: 700 20px var(--font-display)">Мастерская в подвале</b><span>Минск, [улица, дом], вход со двора, вниз по лестнице</span><span class="pp-small">пн–пт 10:00–20:00 · сб 11:00–17:00 · возьмите номер заказа</span><a class="pp-btn pp-btn--text pp-btn--s" href="#" style="align-self: flex-start; padding-left: 0">Построить маршрут</a></div>
+            <div class="pp-tex-concrete pp-corners" style="display: grid; place-items: center"><svg class="pp-icon pp-icon--l" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true"><path d="M12 21s7-6.2 7-12a7 7 0 0 0-14 0c0 5.8 7 12 7 12z"></path><circle cx="12" cy="9" r="2.5"></circle></svg></div>
+          </div>
+          <div style="flex: 1 1 360px; display: flex; flex-direction: column; gap: 14px; padding: 24px; background: var(--bg); border: 1.5px solid var(--line); border-radius: 6px">
+            <span class="pp-label pp-muted">Что дальше</span>
+            <ol style="margin: 0; padding-left: 20px; display: grid; gap: 8px"><li>Пришлём превью — ответьте «да» или правки</li><li>Печатаем 1–2 рабочих дня</li><li>SMS, когда можно забирать</li></ol>
+            <div style="display: flex; gap: 12px; flex-wrap: wrap; margin-top: auto"><a class="pp-btn pp-btn--primary" href="#"><svg class="pp-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true"><path d="M21 4 3 11l6 2 2 6 3-4 5 4z"></path></svg>Написать в Telegram</a><a class="pp-btn pp-btn--text" href="#">На главную</a></div>
+          </div>
+        </div>
+        <dl class="pp-breakdown" style="max-width: 420px"><div><dt>4 вещи · оплачено картой</dt><dd>00 Br</dd></div><div><dt>Самовывоз</dt><dd>бесплатно</dd></div></dl>
+      </div>
+    </section>
+  </main>
+  <dc-import name="Footer" hint-size="100%,380px"></dc-import>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":1300}}'>
+class Component extends DCLogic {
+  renderVals() { return { zero: 0 }; }
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<title>Товар Deadlock · мобильный</title>
+<script src="./support.js"></script>
+<link rel="stylesheet" href="ds/pp/tokens.css">
+<link rel="stylesheet" href="ds/pp/components/bundle.css">
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bitter:wght@600..900&family=Golos+Text:wght@400..900&family=Onest:wght@400..900&display=swap">
+<style>body{margin:0}</style>
+</helmet>
+<div data-theme="dark" class="pp-grain" style="width: 390px; position: relative; background: var(--bg); color: var(--ink); font-family: var(--font-text); overflow: hidden">
+  <dc-import name="Header" mobile="{{yes}}" count="{{count}}" hint-size="390px,56px"></dc-import>
+  <div style="padding: 4px 16px 0"><nav aria-label="Хлебные крошки"><ol class="pp-crumbs" style="font-size: 13px"><li><a href="#">Главная</a></li><li><a href="#">Deadlock</a></li><li><span aria-current="page">Последний трамвай</span></li></ol></nav></div>
+  <div style="padding: 12px 24px 8px; position: relative">
+    <div class="pp-frame pp-tex-night" style="aspect-ratio: 4 / 5; display: grid; place-items: center"><span class="pp-label" style="color: var(--ink-2); font-size: 11px">Фото: принт крупно</span></div>
+    <span class="pp-sticker" style="position: absolute; left: 10px; top: 24px">Новый тираж</span>
+    <div style="display: flex; justify-content: center; gap: 6px; padding-top: 16px" aria-hidden="true"><i style="width: 18px; height: 4px; background: var(--glow); border-radius: 2px"></i><i style="width: 6px; height: 4px; background: var(--line-strong); border-radius: 2px"></i><i style="width: 6px; height: 4px; background: var(--line-strong); border-radius: 2px"></i></div>
+  </div>
+  <section style="padding: 12px 16px 24px; display: flex; flex-direction: column; gap: 16px">
+    <div style="display: flex; gap: 8px"><span class="pp-badge pp-badge--team-a">Жёлтая линия</span><span class="pp-badge pp-badge--new">Новинка</span></div>
+    <h1 style="margin: 0; font: 800 36px/1.04 var(--font-deco); color: var(--ink)">Последний трамвай</h1>
+    <div style="display: flex; justify-content: space-between; align-items: baseline"><span class="pp-price">00 Br</span><span class="pp-label">Осталось 12 из 50</span></div>
+    <div role="radiogroup" aria-label="Размер" style="display: grid; grid-template-columns: repeat(6, 1fr); gap: 6px"><button class="pp-chip" role="radio" aria-checked="false" aria-pressed="false" style="padding: 0; justify-content: center">S</button><button class="pp-chip" role="radio" aria-checked="false" aria-pressed="false" style="padding: 0; justify-content: center">M</button><button class="pp-chip" role="radio" aria-checked="true" aria-pressed="true" style="padding: 0; justify-content: center">L</button><button class="pp-chip" role="radio" aria-checked="false" aria-pressed="false" style="padding: 0; justify-content: center">XL</button><button class="pp-chip" role="radio" aria-checked="false" aria-pressed="false" style="padding: 0; justify-content: center">2XL</button><button class="pp-chip" disabled style="padding: 0; justify-content: center">3XL</button></div>
+    <button class="pp-btn pp-btn--accent pp-btn--l pp-btn--block">В корзину · L</button>
+    <p class="pp-text pp-muted">Остановка «Депо», без пятнадцати три. Принт A3 на спине, номер маршрута на груди.</p>
+    <dl class="pp-breakdown" style="padding: 16px; border: 1.5px dashed var(--line-strong); border-radius: 4px"><div><dt>Состав</dt><dd>100% хлопок</dd></div><div><dt>Плотность</dt><dd>240 г/м²</dd></div><div><dt>Печать</dt><dd>спина A3, грудь A7</dd></div></dl>
+  </section>
+  <section style="padding: 8px 0 40px; display: flex; flex-direction: column; gap: 14px">
+    <h2 style="margin: 0; padding: 0 16px; font: 800 26px/1.1 var(--font-deco); color: var(--ink)">Из той же линии</h2>
+    <div style="display: flex; gap: 20px; padding: 8px 16px 12px; overflow-x: auto">
+      <article class="pp-card pp-card--deco" style="flex: 0 0 180px"><div class="pp-card__media pp-tex-night"><span class="pp-label" style="font-size: 10px; color: var(--ink-2)">Принт</span></div><div class="pp-card__body"><h3 class="pp-card__title" style="font-size: 17px"><a href="#">Фонарщик</a></h3><span class="pp-price pp-price--s">00 Br</span></div></article>
+      <article class="pp-card pp-card--deco" style="flex: 0 0 180px"><div class="pp-card__media pp-tex-night"><span class="pp-label" style="font-size: 10px; color: var(--ink-2)">Принт</span></div><div class="pp-card__body"><h3 class="pp-card__title" style="font-size: 17px"><a href="#">Депо</a></h3><span class="pp-price pp-price--s">00 Br</span></div></article>
+    </div>
+  </section>
+  <dc-import name="Footer" mobile="{{yes}}" hint-size="390px,560px"></dc-import>
+  <sc-if value="{{toast}}" hint-placeholder-val="{{false}}">
+    <div style="position: absolute; left: 12px; right: 12px; top: 64px"><div class="pp-toast" role="status" style="max-width: none"><span class="pp-toast__icon"><svg class="pp-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true"><path d="M4 12.5l5 5L20 6.5"></path></svg></span><div class="pp-toast__body"><b>Добавлено в корзину</b>Последний трамвай · L <button class="pp-toast__action">Открыть корзину</button></div></div></div>
+  </sc-if>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"toast":{"editor":"boolean","default":false},"$preview":{"width":390,"height":2300}}'>
+class Component extends DCLogic {
+  renderVals() {
+    const toast = this.props.toast ?? false;
+    return { yes: true, toast, count: toast ? 4 : 3 };
+  }
+}
+</script>
+</body>
+</html>

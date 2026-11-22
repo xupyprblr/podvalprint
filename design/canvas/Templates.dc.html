@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<title>Каталог шаблонов</title>
+<script src="./support.js"></script>
+<link rel="stylesheet" href="ds/pp/tokens.css">
+<link rel="stylesheet" href="ds/pp/components/bundle.css">
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bitter:wght@600..900&family=Golos+Text:wght@400..900&family=Onest:wght@400..900&display=swap">
+<style>
+body{margin:0}
+.wrap{box-sizing:border-box;width:100%;max-width:1440px;margin:0 auto;padding:0 clamp(16px,5.5vw,80px)}
+</style>
+</helmet>
+<div data-theme="light" style="min-height: 100%; background: var(--bg); color: var(--ink); font-family: var(--font-text)">
+  <dc-import name="Header" current="templates" count="{{zero}}" hint-size="100%,72px"></dc-import>
+  <main>
+    <div class="wrap" style="padding-top: 16px"><nav aria-label="Хлебные крошки"><ol class="pp-crumbs"><li><a href="#">Главная</a></li><li><span aria-current="page">Шаблоны</span></li></ol></nav></div>
+    <section class="wrap" style="padding-top: 24px; padding-bottom: 32px; display: flex; flex-wrap: wrap; gap: 24px; align-items: end; justify-content: space-between">
+      <div style="display: flex; flex-direction: column; gap: 14px; max-width: 760px"><h1 class="pp-h pp-h--1">Шаблоны футболок с вашими фото</h1><p class="pp-lead pp-muted">Готовая раскладка — вы подставляете фото и текст. Превью на футболке сразу, макет проверим перед печатью.</p></div>
+      <div style="display: flex; gap: 24px"><div style="display: grid; gap: 2px"><b style="font: 800 28px/1 var(--font-display)">24</b><span class="pp-small">шаблона</span></div><div style="display: grid; gap: 2px"><b style="font: 800 28px/1 var(--font-display)">5 мин</b><span class="pp-small">на макет</span></div></div>
+    </section>
+    <section class="wrap" style="display: flex; flex-direction: column; gap: 14px; padding-bottom: 28px">
+      <div class="pp-tabs" role="tablist" aria-label="Группа шаблонов"><a class="pp-tab" role="tab" aria-selected="true" href="?group=all" style="display: inline-flex; align-items: center; text-decoration: none">Все · 24</a><a class="pp-tab" role="tab" aria-selected="false" href="?group=photo" style="display: inline-flex; align-items: center; text-decoration: none">С фото · 14</a><a class="pp-tab" role="tab" aria-selected="false" href="?group=free" style="display: inline-flex; align-items: center; text-decoration: none">Свободные · 4</a><a class="pp-tab" role="tab" aria-selected="false" href="?group=pair" style="display: inline-flex; align-items: center; text-decoration: none">Парные · 6</a></div>
+      <div style="display: flex; flex-wrap: wrap; gap: 8px; align-items: center">
+        <span class="pp-small" style="width: 72px">Повод</span>
+        <a class="pp-chip" aria-pressed="true" href="?for=dad">Папе <span class="pp-chip__count">6</span></a><a class="pp-chip" aria-pressed="false" href="?for=mom">Маме <span class="pp-chip__count">4</span></a><a class="pp-chip" aria-pressed="false" href="?for=couple">Паре <span class="pp-chip__count">5</span></a><a class="pp-chip" aria-pressed="false" href="?for=friend">Другу <span class="pp-chip__count">5</span></a><a class="pp-chip" aria-pressed="false" href="?for=holiday">На праздник <span class="pp-chip__count">4</span></a>
+        <span style="width: 1.5px; height: 28px; background: var(--line); margin: 0 8px"></span>
+        <span class="pp-small">Изделие</span>
+        <a class="pp-chip" aria-pressed="false" href="?item=classic">Классика</a><a class="pp-chip" aria-pressed="false" href="?item=oversize">Оверсайз</a>
+        <div class="pp-select" style="margin-left: auto; width: 220px"><select aria-label="Сортировка"><option>Сначала популярные</option><option>Сначала новые</option></select></div>
+      </div>
+      <div style="display: flex; gap: 8px; align-items: center"><span class="pp-small">Выбрано: Папе · 6 шаблонов</span><a class="pp-btn pp-btn--text pp-btn--s" href="?">Сбросить</a></div>
+    </section>
+    <section class="wrap" style="padding-bottom: 48px">
+      <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 24px">
+        <sc-for list="{{cards}}" as="c" hint-placeholder-count="8">
+          <article class="pp-card">
+            <div class="pp-card__media pp-card__media--sq pp-tex-concrete">
+              <div class="pp-card__badges"><sc-if value="{{c.photo}}" hint-placeholder-val="{{true}}"><span class="pp-badge pp-badge--outline"><svg class="pp-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true"><rect x="3" y="4" width="18" height="16"></rect><circle cx="9" cy="10" r="2"></circle><path d="M3 18l5-5 4 4 3-3 6 6"></path></svg>{{c.photoN}}</span></sc-if><sc-if value="{{c.text}}" hint-placeholder-val="{{true}}"><span class="pp-badge pp-badge--outline"><svg class="pp-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true"><path d="M4 7V4h16v3M12 4v16M8.5 20h7"></path></svg>Ваш текст</span></sc-if><sc-if value="{{c.isNew}}" hint-placeholder-val="{{false}}"><span class="pp-badge pp-badge--new">Новинка</span></sc-if></div>
+              <svg viewBox="0 0 300 300" style="width: 80%; margin-top: 18px" aria-hidden="true">
+                <sc-if value="{{c.single}}" hint-placeholder-val="{{true}}"><path d="M105 40 70 52 30 90l22 38 26-16v150h144V112l26 16 22-38-40-38-35-12c-7 18-25 28-45 28s-38-10-45-28z" fill="{{c.fill}}" stroke="#7d7a72" stroke-width="2"></path></sc-if>
+                <sc-if value="{{c.pair}}" hint-placeholder-val="{{false}}"><path d="M48 70 30 76 12 96l10 18 12-8v110h68V106l12 8 10-18-18-20-18-6c-4 9-12 14-22 14s-18-5-22-14z" fill="#ffffff" stroke="#7d7a72" stroke-width="2"></path><path d="M198 70 180 76 162 96l10 18 12-8v110h68V106l12 8 10-18-18-20-18-6c-4 9-12 14-22 14s-18-5-22-14z" fill="#151515"></path><text x="68" y="150" text-anchor="middle" font-family="Onest" font-weight="900" font-size="22" fill="#121212">ОН</text><text x="218" y="150" text-anchor="middle" font-family="Onest" font-weight="900" font-size="22" fill="#f4f3ef">ОНА</text></sc-if>
+                <sc-if value="{{c.kLetters}}" hint-placeholder-val="{{false}}"><g fill="#c9b48f"><rect x="102" y="110" width="22" height="40"></rect><rect x="127" y="110" width="22" height="40"></rect><rect x="152" y="110" width="22" height="40"></rect><rect x="177" y="110" width="22" height="40"></rect></g><text x="150" y="144" text-anchor="middle" font-family="Onest" font-weight="900" font-size="34" letter-spacing="2" fill="{{c.ink}}">ПАПА</text><text x="150" y="168" text-anchor="middle" font-family="Golos Text" font-size="9" letter-spacing="2" fill="{{c.ink}}">BEST DAD · SINCE 1994</text></sc-if>
+                <sc-if value="{{c.kGrid}}" hint-placeholder-val="{{false}}"><g fill="#c9b48f"><rect x="112" y="92" width="36" height="36"></rect><rect x="152" y="92" width="36" height="36"></rect><rect x="112" y="132" width="36" height="36"></rect><rect x="152" y="132" width="36" height="36"></rect></g><text x="150" y="186" text-anchor="middle" font-family="Onest" font-weight="900" font-size="12" fill="{{c.ink}}">НАША КОМАНДА</text></sc-if>
+                <sc-if value="{{c.kPolaroid}}" hint-placeholder-val="{{false}}"><rect x="118" y="92" width="64" height="76" fill="#ffffff" stroke="#7d7a72"></rect><rect x="124" y="98" width="52" height="52" fill="#c9b48f"></rect><text x="150" y="162" text-anchor="middle" font-family="Caveat, cursive" font-size="10" fill="#121212">лето 2026</text></sc-if>
+                <sc-if value="{{c.kCollage}}" hint-placeholder-val="{{false}}"><g fill="#c9b48f"><rect x="108" y="88" width="26" height="26"></rect><rect x="137" y="88" width="26" height="26"></rect><rect x="166" y="88" width="26" height="26"></rect><rect x="108" y="117" width="26" height="26"></rect><rect x="137" y="117" width="26" height="26"></rect><rect x="166" y="117" width="26" height="26"></rect><rect x="108" y="146" width="26" height="26"></rect><rect x="137" y="146" width="26" height="26"></rect><rect x="166" y="146" width="26" height="26"></rect></g><text x="150" y="190" text-anchor="middle" font-family="Onest" font-weight="900" font-size="12" fill="{{c.ink}}">ЛЕТО · 2026</text></sc-if>
+                <sc-if value="{{c.kName}}" hint-placeholder-val="{{false}}"><rect x="116" y="88" width="68" height="78" fill="#c9b48f"></rect><text x="150" y="186" text-anchor="middle" font-family="Onest" font-weight="900" font-size="16" fill="{{c.ink}}">АЛЕКСАНДРОВИЧ</text></sc-if>
+                <sc-if value="{{c.kLadder}}" hint-placeholder-val="{{false}}"><g font-family="Onest" font-weight="900" font-size="18" fill="{{c.ink}}"><text x="112" y="112">ТОЛЬКО</text><text x="122" y="134">ТЫ</text><text x="132" y="156">ТОЛЬКО</text><text x="142" y="178">ТЫ</text></g></sc-if>
+                <sc-if value="{{c.kStrip}}" hint-placeholder-val="{{false}}"><g fill="#c9b48f"><rect x="106" y="114" width="20" height="30"></rect><rect x="129" y="114" width="20" height="30"></rect><rect x="152" y="114" width="20" height="30"></rect><rect x="175" y="114" width="20" height="30"></rect></g><rect x="104" y="110" width="93" height="38" fill="none" stroke="{{c.ink}}" stroke-width="2"></rect></sc-if>
+              </svg>
+              <span class="pp-label" style="position: absolute; left: 12px; bottom: 12px; color: var(--ink-2)">Фото: {{c.ph}}</span>
+            </div>
+            <div class="pp-card__body">
+              <h3 class="pp-card__title"><a href="#">{{c.name}}</a></h3>
+              <p class="pp-card__meta">{{c.desc}}</p>
+              <div class="pp-card__foot"><span class="pp-price pp-price--s"><span class="pp-price__from">{{c.from}}</span>00 Br</span><a class="pp-btn pp-btn--primary pp-btn--s" href="#">Создать</a></div>
+            </div>
+          </article>
+        </sc-for>
+      </div>
+    </section>
+    <section class="wrap" style="padding-bottom: 80px; display: flex; flex-direction: column; align-items: center; gap: 24px">
+      <nav aria-label="Страницы" class="pp-pager"><span aria-disabled="true"><svg class="pp-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true"><path d="M15 6l-6 6 6 6"></path></svg></span><a href="?page=1" aria-current="page">1</a><a href="?page=2">2</a><a href="?page=3">3</a><a href="?page=2" aria-label="Следующая"><svg class="pp-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true"><path d="M9 6l6 6-6 6"></path></svg></a></nav>
+      <p class="pp-small" style="max-width: 640px; text-align: center">Не нашли подходящий? Соберите принт сами в <a class="pp-link" href="#">конструкторе</a> — или пришлите идею в Telegram, сделаем макет.</p>
+    </section>
+  </main>
+  <dc-import name="Footer" hint-size="100%,380px"></dc-import>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":2500}}'>
+class Component extends DCLogic {
+  renderVals() {
+    const base = { photo: true, text: true, isNew: false, single: true, pair: false, kLetters: false, kGrid: false, kPolaroid: false, kCollage: false, kName: false, kLadder: false, kStrip: false, fill: '#ffffff', ink: '#121212', from: 'от', photoN: 'Ваше фото' };
+    const D = (o) => Object.assign({}, base, o);
+    return {
+      zero: 0,
+      cards: [
+        D({ name: 'Слово из фото', desc: '«ПАПА» из четырёх ваших фото и подпись.', kLetters: true, ph: 'белая, слово из фото', photoN: '4 фото', isNew: true }),
+        D({ name: 'Слово из фото · чёрная', desc: 'То же на чёрной: буквы ярче, фото в ч/б.', kLetters: true, fill: '#151515', ink: '#f4f3ef', ph: 'чёрная, слово из фото', photoN: '4 фото' }),
+        D({ name: 'Постер-коллаж', desc: 'От 3 до 9 фото в сетке постера с датой.', kCollage: true, fill: '#151515', ink: '#f4f3ef', ph: 'коллаж 9 фото', photoN: '3–9 фото' }),
+        D({ name: 'Фото и отчество', desc: 'Одно фото крупно и отчество под ним.', kName: true, ph: 'фото + имя', photoN: '1 фото' }),
+        D({ name: 'Полароид', desc: 'Фото в рамке-полароиде и подпись от руки.', kPolaroid: true, fill: '#d8c7a6', ph: 'полароид на песочной', photoN: '1 фото' }),
+        D({ name: 'Сетка 4 фото', desc: 'Четыре квадрата и строка текста.', kGrid: true, ph: 'сетка 2 × 2', photoN: '4 фото' }),
+        D({ name: 'Полоса', desc: 'Фотоплёнка из 4 кадров через грудь.', kStrip: true, fill: '#151515', ink: '#f4f3ef', ph: 'плёнка 4 кадра', photoN: '4 фото' }),
+        D({ name: 'Лесенка', desc: 'Повтор фразы ступенями, своё имя внизу.', kLadder: true, photo: false, ph: 'надпись лесенкой' }),
+        D({ name: 'Он и она', desc: 'Пара: половинки фразы и ваши фото.', single: false, pair: true, ph: 'две футболки рядом', photoN: '2 фото', from: 'пара от' }),
+        D({ name: 'Папа и сын', desc: 'Большая и маленькая футболка, одно фото.', single: false, pair: true, ph: 'взрослая и детская', photoN: '1–2 фото', from: 'пара от' }),
+        D({ name: 'Свой коллаж', desc: 'Свободная раскладка: двигайте фото и текст.', kCollage: true, ph: 'свободный коллаж', photoN: 'до 9 фото' }),
+        D({ name: 'Фото + надпись', desc: 'Одно фото и надпись в любом месте зоны.', kName: true, fill: '#4a4a48', ink: '#f4f3ef', ph: 'фото и надпись', photoN: '1 фото' })
+      ].map((c) => c)
+    };
+  }
+}
+</script>
+</body>
+</html>

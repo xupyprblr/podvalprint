@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="ru"><head><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta charset="utf-8">
+<title>Конструктор · десктоп</title>
+
+<link rel="stylesheet" href="../canvas/ds/pp/tokens.css">
+<link rel="stylesheet" href="../canvas/ds/pp/components/bundle.css">
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bitter:wght@600..900&amp;family=Golos+Text:wght@400..900&amp;family=Onest:wght@400..900&amp;family=Rubik:wght@700&amp;family=Russo+One&amp;family=Caveat:wght@600&amp;family=Lobster&amp;family=PT+Mono&amp;family=Comfortaa:wght@700&amp;family=Playfair+Display:wght@700&amp;display=swap">
+<style>body{margin:0}</style>
+</head>
+<body>
+
+
+
+
+
+
+<div data-theme="light" style="width: 1440px; height: 900px; display: flex; flex-direction: column; background: var(--bg); color: var(--ink); font-family: var(--font-text); overflow: hidden; position: relative">
+  <div style="height: 56px; flex: none; display: flex; align-items: center; gap: 16px; padding: 0 16px 0 8px; border-bottom: 1.5px solid var(--line)">
+    <a class="pp-btn pp-btn--text pp-btn--s" href="#"><svg class="pp-icon pp-icon--s" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="square" stroke-linejoin="miter" aria-hidden="true"><path d="M15 6l-6 6 6 6"></path></svg>Оверсайз</a>
+    <span style="width: 1.5px; height: 24px; background: var(--line)"></span>
+    <b style="font: 700 15px var(--font-display)">Футболка оверсайз</b><span class="pp-small">· макет сохраняется сам</span>
+    <div style="margin-left: auto; display: flex; gap: 4px; align-items: center">
+      <button class="pp-btn pp-btn--icon pp-btn--ghost pp-btn--s" aria-label="Отменить"><svg class="pp-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="square" stroke-linejoin="miter" aria-hidden="true"><path d="M9 14L4 9l5-5"></path><path d="M4 9h11a5 5 0 0 1 0 10h-3"></path></svg></button>
+      <button class="pp-btn pp-btn--icon pp-btn--ghost pp-btn--s" aria-label="Повторить" disabled=""><svg class="pp-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="square" stroke-linejoin="miter" aria-hidden="true"><path d="M15 14l5-5-5-5"></path><path d="M20 9H9a5 5 0 0 0 0 10h3"></path></svg></button>
+      <span style="width: 1.5px; height: 24px; background: var(--line); margin: 0 8px"></span>
+      <button class="pp-btn pp-btn--icon pp-btn--ghost pp-btn--s" aria-label="Закрыть конструктор"><svg class="pp-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="square" stroke-linejoin="miter" aria-hidden="true"><path d="M5 5l14 14M19 5L5 19"></path></svg></button>
+    </div>
+  </div>
+
+  <div style="flex: 1; min-height: 0; display: flex">
+    <nav class="pp-rail" aria-label="Инструменты" style="flex: none">
+      <button class="pp-rail__item"><svg class="pp-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="square" stroke-linejoin="miter" aria-hidden="true"><path d="M8 3L3 6l2 5 2-1v11h10V10l2 1 2-5-5-3c-.5 1.8-2 3-4 3S8.5 4.8 8 3z"></path></svg>Изделие</button>
+      <button class="pp-rail__item" aria-current="true"><svg class="pp-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="square" stroke-linejoin="miter" aria-hidden="true"><path d="M12 16V4M7 9l5-5 5 5M4 15v5h16v-5"></path></svg>Загрузить</button>
+      <button class="pp-rail__item"><svg class="pp-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="square" stroke-linejoin="miter" aria-hidden="true"><path d="M4 7V4h16v3M12 4v16M8.5 20h7"></path></svg>Текст</button>
+      <button class="pp-rail__item"><svg class="pp-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="square" stroke-linejoin="miter" aria-hidden="true"><rect x="3" y="3" width="18" height="18"></rect><path d="M3 9h18M9 9v12"></path></svg>Шаблоны</button>
+      <button class="pp-rail__item"><svg class="pp-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="square" stroke-linejoin="miter" aria-hidden="true"><path d="M12 3l9 5-9 5-9-5 9-5z"></path><path d="M3 13l9 5 9-5"></path></svg>Слои</button>
+      <div style="flex: 1"></div>
+      <button class="pp-rail__item"><svg class="pp-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="square" stroke-linejoin="miter" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><path d="M9.5 9.5a2.5 2.5 0 1 1 3.5 2.3c-.7.3-1 .9-1 1.7M12 16.8v.4"></path></svg>Помощь</button>
+    </nav>
+
+    <aside style="width: 360px; flex: none; border-right: 1.5px solid var(--line); overflow: hidden; display: flex; flex-direction: column">
+      
+
+      
+        <div style="padding: 20px; display: flex; flex-direction: column; gap: 16px">
+          <h2 class="pp-h pp-h--3" style="font-size: 20px">Загрузить</h2>
+          <button class="pp-slot pp-slot--empty" style="aspect-ratio: auto; min-height: 168px; width: 100%"><span class="pp-slot__inner"><svg class="pp-icon pp-icon--l" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="square" stroke-linejoin="miter" aria-hidden="true"><path d="M12 16V4M7 9l5-5 5 5M4 15v5h16v-5"></path></svg><b>Перетащите файл или выберите</b>PNG, JPG, PDF · до 20 МБ<br>для A3 — от 3000 px по длинной стороне</span></button>
+          
+          
+          <div style="display: flex; justify-content: space-between; align-items: baseline"><span class="pp-field__label">Ваши загрузки</span><span class="pp-small">хранятся 30 дней</span></div>
+          <div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px">
+            <button class="pp-tex-concrete" style="aspect-ratio: 1; border: 2px solid var(--ink); border-radius: 4px; position: relative; padding: 0" aria-label="kot-v-ochkah.png, на макете"><span class="pp-label" style="font-size: 10px">кот.png</span><span class="pp-badge pp-badge--count" style="position: absolute; top: 4px; right: 4px">1</span></button>
+            <button class="pp-tex-concrete" style="aspect-ratio: 1; border: 1.5px solid var(--line); border-radius: 4px; position: relative; padding: 0" aria-label="logo.pdf"><span class="pp-label" style="font-size: 10px">logo.pdf</span></button>
+            <button class="pp-tex-concrete" style="aspect-ratio: 1; border: 1.5px solid var(--warning); border-radius: 4px; position: relative; padding: 0" aria-label="foto.jpg, низкое разрешение"><span class="pp-label" style="font-size: 10px">foto.jpg</span><span class="pp-badge pp-badge--warning" style="position: absolute; left: 4px; bottom: 4px; font-size: 10px">640 px</span></button>
+          </div>
+        </div>
+      
+
+      
+
+      
+
+      
+    </aside>
+
+    <section style="flex: 1; min-width: 0; position: relative; display: flex; flex-direction: column; align-items: center; gap: 12px; padding: 16px 24px 12px; background: var(--surface)">
+      <div style="display: flex; width: 100%; align-items: center; justify-content: center; position: relative">
+        <div class="pp-zones" role="tablist" aria-label="Зона печати">
+          <button class="pp-zone" role="tab" aria-selected="true">Перед<span class="pp-zone__dot" aria-label="есть печать"></span></button>
+          <button class="pp-zone" role="tab" aria-selected="false">Спина</button>
+          <button class="pp-zone" role="tab" aria-selected="false">Левый рукав</button>
+          <button class="pp-zone" role="tab" aria-selected="false">Правый рукав</button>
+        </div>
+        <div style="position: absolute; right: 0; top: 4px">
+          <span class="pp-status" role="status"><svg class="pp-icon pp-icon--s" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="square" aria-hidden="true"><path d="M4 12.5l5 5L20 6.5"></path></svg>Всё в зоне печати</span>
+          
+          
+        </div>
+      </div>
+
+      <div style="position: relative; width: 560px; height: 560px; flex: none">
+        <svg viewBox="0 0 300 300" style="position: absolute; inset: 0; width: 100%; height: 100%" aria-hidden="true">
+          <path d="M100 38 52 54 18 108l34 24 18-12-4 146h168l-4-146 18 12 34-24-34-54-48-16c-8 18-28 26-50 26s-42-8-50-26z" fill="#151515" stroke="#151515" stroke-width="1"></path><path d="M100 38c8 18 28 26 50 26s42-8 50-26" fill="none" stroke="#e9e7e1" stroke-width=".8" opacity=".5"></path>
+          
+        </svg>
+        <div style="position: absolute; left: 190px; top: 168px; width: 179px; height: 239px; border: 1.5px dashed #e9e7e1; box-sizing: border-box">
+          <span style="position: absolute; top: -20px; left: 0; font: 600 10px/1 var(--font-text); letter-spacing: .08em; text-transform: uppercase; color: #e9e7e1">Зона печати · до A3</span>
+          
+          
+          
+            <div style="position: absolute; left: 28px; top: 26px; width: 120px; height: 140px">
+              <div style="position: absolute; inset: 0; background: #e9e7e1; display: grid; place-items: center; overflow: hidden"><svg viewBox="0 0 120 140" style="width: 100%; height: 100%" aria-hidden="true"><rect width="120" height="140" fill="#d8c7a6"></rect><circle cx="60" cy="58" r="30" fill="#121212"></circle><circle cx="49" cy="54" r="9" fill="none" stroke="#ffd60a" stroke-width="3"></circle><circle cx="71" cy="54" r="9" fill="none" stroke="#ffd60a" stroke-width="3"></circle><path d="M58 54h4M34 30l10 14M86 30 76 44" stroke="#ffd60a" stroke-width="3"></path><text x="60" y="122" text-anchor="middle" font-family="Onest" font-weight="900" font-size="18" fill="#121212">КОТ</text></svg></div>
+              <div style="position: absolute; inset: -1px; border: 1.5px solid var(--ink); outline: 1.5px solid #ffffff"></div>
+              <span style="position: absolute; left: -5px; top: -5px; width: 9px; height: 9px; background: #fff; border: 1.5px solid var(--ink)"></span><span style="position: absolute; right: -5px; top: -5px; width: 9px; height: 9px; background: #fff; border: 1.5px solid var(--ink)"></span><span style="position: absolute; left: -5px; bottom: -5px; width: 9px; height: 9px; background: #fff; border: 1.5px solid var(--ink)"></span><span style="position: absolute; right: -5px; bottom: -5px; width: 9px; height: 9px; background: #fff; border: 1.5px solid var(--ink)"></span>
+              <button aria-label="Повернуть" style="position: absolute; left: 50%; bottom: -40px; margin-left: -14px; width: 28px; height: 28px; border-radius: 50%; border: 1.5px solid var(--ink); background: #fff; color: var(--ink); display: grid; place-items: center; padding: 0"><svg class="pp-icon pp-icon--s" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M20 12a8 8 0 1 1-2.3-5.7"></path><path d="M20 4v5h-5"></path></svg></button>
+              <span class="pp-printsize" style="position: absolute; left: 50%; top: -38px; transform: translateX(-50%); white-space: nowrap"><b>A4</b>21 × 25 см</span>
+            </div>
+          
+          
+          
+        </div>
+        <span style="position: absolute; left: 279px; top: 150px; width: 0; height: 280px; border-left: 1px dashed #ff3d8b"></span>
+        
+          <div class="pp-objbar" role="toolbar" aria-label="Действия с объектом" style="position: absolute; left: 50%; top: 92px; transform: translateX(-50%)">
+            <button class="pp-btn pp-btn--icon pp-btn--s" aria-label="Повернуть"><svg class="pp-icon pp-icon--s" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true"><path d="M20 12a8 8 0 1 1-2.3-5.7"></path><path d="M20 4v5h-5"></path></svg></button>
+            <button class="pp-btn pp-btn--icon pp-btn--s" aria-label="Масштаб"><svg class="pp-icon pp-icon--s" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true"><path d="M14 4h6v6M10 20H4v-6M20 4l-7 7M4 20l7-7"></path></svg></button>
+            <button class="pp-btn pp-btn--icon pp-btn--s" aria-label="По центру"><svg class="pp-icon pp-icon--s" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true"><path d="M12 2v20"></path><rect x="6" y="6" width="12" height="5"></rect><rect x="8" y="14" width="8" height="5"></rect></svg></button>
+            <button class="pp-btn pp-btn--icon pp-btn--s" aria-label="Дублировать"><svg class="pp-icon pp-icon--s" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true"><rect x="8" y="8" width="13" height="13"></rect><path d="M16 8V3H3v13h5"></path></svg></button>
+            <button class="pp-btn pp-btn--icon pp-btn--s" aria-label="Выше"><svg class="pp-icon pp-icon--s" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true"><rect x="9" y="3" width="12" height="12"></rect><path d="M5 9H3v12h12v-2"></path></svg></button>
+            <button class="pp-btn pp-btn--icon pp-btn--s" aria-label="Ниже"><svg class="pp-icon pp-icon--s" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true"><rect x="3" y="9" width="12" height="12"></rect><path d="M9 5V3h12v12h-2"></path></svg></button>
+            <button class="pp-btn pp-btn--icon pp-btn--s is-danger" aria-label="Удалить"><svg class="pp-icon pp-icon--s" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true"><path d="M3 6h18M8 6V3h8v3M5 6l1 15h12l1-15M10 10v7M14 10v7"></path></svg></button>
+          </div>
+        
+      </div>
+
+      <fieldset class="pp-swatches" style="justify-content: center"><legend class="pp-sr">Цвет изделия</legend>
+        <label class="pp-swatch" style="--swatch: #ffffff"><input type="radio" name="sc"><span class="pp-swatch__dot"></span>Белый</label>
+        <label class="pp-swatch" style="--swatch: #151515"><input type="radio" name="sc" checked=""><span class="pp-swatch__dot"></span>Чёрный</label>
+        <label class="pp-swatch" style="--swatch: #4a4a48"><input type="radio" name="sc"><span class="pp-swatch__dot"></span>Графит</label>
+        <label class="pp-swatch" style="--swatch: #d8c7a6"><input type="radio" name="sc"><span class="pp-swatch__dot"></span>Песочный</label>
+      </fieldset>
+
+      <div style="position: absolute; left: 16px; bottom: 16px; display: grid; gap: 6px">
+        <button class="pp-btn pp-btn--icon pp-btn--secondary pp-btn--s" aria-label="Приблизить" style="background: var(--bg)"><svg class="pp-icon pp-icon--s" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true"><path d="M12 4v16M4 12h16"></path></svg></button>
+        <button class="pp-btn pp-btn--icon pp-btn--secondary pp-btn--s" aria-label="Отдалить" style="background: var(--bg)"><svg class="pp-icon pp-icon--s" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true"><path d="M4 12h16"></path></svg></button>
+      </div>
+      <div style="position: absolute; right: 16px; bottom: 16px; width: 360px; display: grid; gap: 8px">
+        
+        
+        
+      </div>
+    </section>
+  </div>
+
+  <div class="pp-summary" style="flex: none; height: 80px; box-sizing: border-box; position: relative">
+    <span class="pp-tex-concrete" style="width: 52px; height: 52px; border-radius: 4px; display: grid; place-items: center; flex: none"><svg viewBox="0 0 300 300" style="width: 44px" aria-hidden="true"><path d="M100 38 52 54 18 108l34 24 18-12-4 146h168l-4-146 18 12 34-24-34-54-48-16c-8 18-28 26-50 26s-42-8-50-26z" fill="#151515" stroke="#7d7a72" stroke-width="4"></path></svg></span>
+    <div class="pp-summary__info"><b style="font-size: 15px">Футболка оверсайз, чёрная</b><span class="pp-small">M ×1, L ×1 · перед A4</span></div>
+    <div style="display: grid; justify-items: end; gap: 2px; position: relative">
+      <span class="pp-small" style="display: inline-flex; align-items: center; gap: 4px">Итого<svg class="pp-icon pp-icon--s" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><path d="M12 11v6M12 7.5V8"></path></svg></span>
+      <span class="pp-price">00 Br</span>
+      
+    </div>
+    <button class="pp-btn pp-btn--accent pp-btn--l"><svg class="pp-icon pp-icon--l" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="square" aria-hidden="true"><path d="M2 3h3l2.4 11.2a1 1 0 0 0 1 .8H18l2.5-8H6.2"></path><circle cx="9" cy="19.5" r="1.5"></circle><circle cx="17" cy="19.5" r="1.5"></circle></svg>В корзину</button>
+  </div>
+</div>
+</body></html>

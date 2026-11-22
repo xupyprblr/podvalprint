@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="ru"><head><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta charset="utf-8">
+<title>Редактор шаблона · Фото в буквах</title>
+
+<link rel="stylesheet" href="../canvas/ds/pp/tokens.css">
+<link rel="stylesheet" href="../canvas/ds/pp/components/bundle.css">
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bitter:wght@600..900&amp;family=Golos+Text:wght@400..900&amp;family=Onest:wght@400..900&amp;display=swap">
+<style>body{margin:0}</style>
+</head>
+<body>
+
+
+
+
+
+
+<div data-theme="light" style="width: 1440px; height: 1000px; display: flex; flex-direction: column; background: var(--bg); color: var(--ink); font-family: var(--font-text); overflow: hidden">
+  <div style="height: 56px; flex: none; display: flex; align-items: center; gap: 16px; padding: 0 16px 0 8px; border-bottom: 1.5px solid var(--line)">
+    <a class="pp-btn pp-btn--text pp-btn--s" href="#"><svg class="pp-icon pp-icon--s" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true"><path d="M15 6l-6 6 6 6"></path></svg>Шаблоны</a>
+    <span style="width: 1.5px; height: 24px; background: var(--line)"></span>
+    <b style="font: 700 15px var(--font-display)">Слово из фото · «ПАПА»</b>
+    <a class="pp-btn pp-btn--text pp-btn--s" href="#" style="margin-left: auto"><svg class="pp-icon pp-icon--s" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true"><path d="M3 13l9 5 9-5"></path><path d="M12 3l9 5-9 5-9-5 9-5z"></path></svg>Открыть в конструкторе</a>
+  </div>
+  <div style="flex: 1; min-height: 0; display: flex">
+    <section class="pp-tex-concrete" style="flex: 1; position: relative; display: grid; place-items: center">
+      <div style="position: relative; width: 640px; height: 640px">
+        <svg viewBox="0 0 300 300" style="position: absolute; inset: 0; width: 100%; height: 100%" aria-hidden="true"><path d="M105 40 70 52 30 90l22 38 26-16v150h144V112l26 16 22-38-40-38-35-12c-7 18-25 28-45 28s-38-10-45-28z" fill="#ffffff" stroke="#7d7a72" stroke-width="1"></path></svg>
+        <div style="position: absolute; left: 213px; top: 205px; width: 214px; display: grid; gap: 8px; justify-items: center">
+          <div style="display: flex; gap: 2px">
+            <span class="pp-tex-concrete" style="font: 900 92px/0.9 var(--font-display); letter-spacing: -0.04em; background-color: #b9a27a; -webkit-background-clip: text; background-clip: text; color: transparent">П</span>
+            <span class="pp-tex-concrete" style="font: 900 92px/0.9 var(--font-display); letter-spacing: -0.04em; background-color: #8f7a58; -webkit-background-clip: text; background-clip: text; color: transparent">А</span>
+            <span class="pp-tex-concrete" style="font: 900 92px/0.9 var(--font-display); letter-spacing: -0.04em; background-color: #a68f68; -webkit-background-clip: text; background-clip: text; color: transparent">П</span>
+            <span class="pp-tex-concrete" style="font: 900 92px/0.9 var(--font-display); letter-spacing: -0.04em; background-color: #c9b48f; -webkit-background-clip: text; background-clip: text; color: transparent; outline: 2px solid var(--ink); outline-offset: 2px">А</span>
+          </div>
+          <span style="font: 700 12px var(--font-text); letter-spacing: .2em">BEST DAD · SINCE 1994</span>
+        </div>
+      </div>
+      <div style="position: absolute; left: 24px; top: 20px; display: flex; gap: 8px"><span class="pp-label pp-muted">Живое превью</span><span class="pp-printsize"><b>A4</b>24 × 13 см</span></div>
+      <div style="position: absolute; left: 24px; bottom: 20px; display: flex; gap: 8px">
+        <button class="pp-zone" aria-pressed="true" style="background: var(--bg); box-shadow: var(--shadow-1); color: var(--ink)">На футболке</button><button class="pp-zone" aria-pressed="false" style="background: var(--bg)">Только принт</button>
+      </div>
+    </section>
+    <aside style="width: 480px; flex: none; border-left: 1.5px solid var(--line); display: flex; flex-direction: column">
+      <div style="padding: 24px 28px 20px; border-bottom: 1.5px solid var(--line)">
+        <div class="pp-steps" style="--n: 4"><div class="pp-steps__head"><span class="pp-label">Шаг 1 из 4 · Фото</span><span class="pp-small">Дальше: текст</span></div><ol class="pp-steps__bar"><li aria-current="step">Фото</li><li>Текст</li><li>Стиль</li><li>Изделие</li></ol></div>
+      </div>
+      <div style="flex: 1; padding: 24px 28px; display: flex; flex-direction: column; gap: 18px; overflow: hidden">
+        <div style="display: flex; justify-content: space-between; align-items: baseline"><h2 class="pp-h pp-h--3">Фото в буквах</h2><span class="pp-small">Тапните букву, чтобы заменить фото</span></div>
+        <div role="tablist" aria-label="Буквы" style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px">
+          <button role="tab" aria-selected="false" class="pp-size" style="cursor: pointer"><span class="pp-size__name">П</span><span class="pp-small" style="display: inline-flex; gap: 4px; color: var(--success)"><svg class="pp-icon pp-icon--s" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 12.5l5 5L20 6.5"></path></svg>фото</span></button>
+          <button role="tab" aria-selected="false" class="pp-size" style="cursor: pointer"><span class="pp-size__name">А</span><span class="pp-small" style="display: inline-flex; gap: 4px; color: var(--success)"><svg class="pp-icon pp-icon--s" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 12.5l5 5L20 6.5"></path></svg>фото</span></button>
+          <button role="tab" aria-selected="false" class="pp-size" style="cursor: pointer"><span class="pp-size__name">П</span><span class="pp-small" style="display: inline-flex; gap: 4px; color: var(--success)"><svg class="pp-icon pp-icon--s" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 12.5l5 5L20 6.5"></path></svg>фото</span></button>
+          <button role="tab" aria-selected="true" class="pp-size is-filled" style="cursor: pointer"><span class="pp-size__name">А</span><span class="pp-small" style="color: var(--ink)">сейчас</span></button>
+        </div>
+        <div style="display: flex; justify-content: space-between; align-items: baseline"><b style="font: 700 17px var(--font-display)">Буква А</b><span class="pp-label pp-muted">4 из 4</span></div>
+        <div style="position: relative; height: 260px; border-radius: 6px; background: var(--surface); display: grid; place-items: center; overflow: hidden">
+          <span class="pp-tex-concrete" style="font: 900 280px/0.8 var(--font-display); background-color: #c9b48f; -webkit-background-clip: text; background-clip: text; color: transparent">А</span>
+          <span class="pp-label" style="position: absolute; left: 12px; bottom: 12px; color: var(--ink-2)">Фото: ребёнок, кадр в форме буквы</span>
+          <span class="pp-corners" style="position: absolute; inset: 8px"></span>
+        </div>
+        <div style="display: flex; align-items: center; gap: 12px">
+          <button class="pp-btn pp-btn--icon pp-btn--secondary pp-btn--s" aria-label="Уменьшить"><svg class="pp-icon pp-icon--s" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true"><path d="M4 12h16"></path></svg></button>
+          <div style="flex: 1; height: 4px; border-radius: 2px; background: var(--line); position: relative"><span style="position: absolute; left: 0; top: 0; bottom: 0; width: 40%; background: var(--ink); border-radius: 2px"></span><span style="position: absolute; left: 40%; top: 50%; width: 20px; height: 20px; margin: -10px 0 0 -10px; border-radius: 50%; background: var(--bg); border: 2px solid var(--ink)" role="slider" aria-label="Масштаб фото" aria-valuenow="120"></span></div>
+          <span class="pp-num" style="width: 44px; font-weight: 700">120%</span>
+          <button class="pp-btn pp-btn--icon pp-btn--secondary pp-btn--s" aria-label="Увеличить"><svg class="pp-icon pp-icon--s" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true"><path d="M12 4v16M4 12h16"></path></svg></button>
+          <button class="pp-btn pp-btn--text pp-btn--s">Сбросить</button>
+        </div>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px">
+          <button class="pp-btn pp-btn--secondary"><svg class="pp-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true"><path d="M20 11a8 8 0 0 0-14.3-4.3L4 9M4 4v5h5M4 13a8 8 0 0 0 14.3 4.3L20 15M20 20v-5h-5"></path></svg>Заменить фото</button>
+          <label class="pp-switch" style="justify-content: center"><input type="checkbox" role="switch">Ч/б фото</label>
+        </div>
+        <p class="pp-small" style="margin: 0">Все фото можно заменить позже. Кадрирование: перетащите фото внутри буквы.</p>
+      </div>
+      <div style="padding: 16px 28px 20px; border-top: 1.5px solid var(--line); display: grid; grid-template-columns: 1fr auto; gap: 12px; align-items: center">
+        <div style="display: grid; gap: 2px"><span class="pp-small">Классика, белая · M · от</span><span class="pp-price">00 Br</span></div>
+        <button class="pp-btn pp-btn--primary pp-btn--l">Дальше: текст<svg class="pp-icon pp-icon--l" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true"><path d="M4 12h16M14 6l6 6-6 6"></path></svg></button>
+      </div>
+    </aside>
+  </div>
+</div>
+</body></html>

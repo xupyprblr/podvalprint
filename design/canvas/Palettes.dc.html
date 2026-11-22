@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<title>Палитры светлой темы</title>
+<script src="./support.js"></script>
+<link rel="stylesheet" href="ds/pp/tokens.css">
+<link rel="stylesheet" href="ds/pp/components/bundle.css">
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bitter:wght@600..900&family=Golos+Text:wght@400..900&family=Onest:wght@400..900&display=swap">
+<style>body{margin:0}</style>
+</helmet>
+<div data-theme="light" style="width: 1440px; box-sizing: border-box; padding: 64px 80px 72px; display: flex; flex-direction: column; gap: 32px; background: var(--bg); color: var(--ink); font-family: var(--font-text)">
+  <div style="display: flex; justify-content: space-between; align-items: end; gap: 24px">
+    <div style="display: flex; flex-direction: column; gap: 12px">
+      <span class="pp-label pp-muted">Лист 04 · Выбор акцента</span>
+      <h1 class="pp-h pp-h--1">Три акцента на одной главной</h1>
+    </div>
+    <p class="pp-small" style="max-width: 460px">Меняются только accent, accent-hover и accent-press. Поверхности, текст и статусы общие. Во всех трёх акцент — заливка с чёрным текстом.</p>
+  </div>
+  <div style="display: grid; grid-template-columns: repeat(3, 440px); gap: 0 20px">
+    <div style="display: flex; flex-direction: column; gap: 6px; padding-bottom: 16px"><b style="font: 800 20px var(--font-display)">А · Сигнальный жёлтый</b><span class="pp-small pp-num">#FFD60A · on-accent #121212 · 13,3:1</span><span class="pp-small">Разметка, каски, станок. Рекомендую: самый «подвальный» и узнаваемый.</span></div>
+    <div style="display: flex; flex-direction: column; gap: 6px; padding-bottom: 16px"><b style="font: 800 20px var(--font-display)">Б · Маджента плёнки</b><span class="pp-small pp-num">#FF3D8B · on-accent #121212 · 5,6:1</span><span class="pp-small">Цвет DTF-краски (M в CMYK). Смелее, ближе к стрит-мерчу.</span></div>
+    <div style="display: flex; flex-direction: column; gap: 6px; padding-bottom: 16px"><b style="font: 800 20px var(--font-display)">В · Люминофор</b><span class="pp-small pp-num">#B6F23A · on-accent #121212 · 14,1:1</span><span class="pp-small">Светящаяся разметка в темноте. Свежо, но спорит с «Всё в зоне печати».</span></div>
+    <div data-theme="light"><dc-import name="PaletteSample" hint-size="440px,1400px"></dc-import></div>
+    <div data-theme="light-magenta"><dc-import name="PaletteSample" hint-size="440px,1400px"></dc-import></div>
+    <div data-theme="light-lime"><dc-import name="PaletteSample" hint-size="440px,1400px"></dc-import></div>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":1500}}'>
+class Component extends DCLogic {
+  renderVals() { return {}; }
+}
+</script>
+</body>
+</html>

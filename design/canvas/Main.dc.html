@@ -1,0 +1,219 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<title>Токены и типографика</title>
+<script src="./support.js"></script>
+<link rel="stylesheet" href="ds/pp/tokens.css">
+<link rel="stylesheet" href="ds/pp/components/bundle.css">
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bitter:wght@600..900&family=Golos+Text:wght@400..900&family=Onest:wght@400..900&display=swap">
+<style>
+body{margin:0}
+.tk td{vertical-align:middle}
+.tk td:first-child{font:600 14px var(--font-text)}
+</style>
+</helmet>
+<div data-theme="light" style="width: 1440px; box-sizing: border-box; padding: 80px; display: flex; flex-direction: column; gap: 72px; font-family: var(--font-text); color: var(--ink); background: var(--bg)">
+  <div style="display: grid; grid-template-columns: 7fr 5fr; gap: 48px; align-items: end">
+    <div style="display: flex; flex-direction: column; gap: 20px">
+      <span class="pp-label pp-muted">Подвальный Принт · дизайн-система v1</span>
+      <h1 class="pp-h pp-h--display">Токены, шрифты, сетка</h1>
+      <p class="pp-lead pp-muted" style="max-width: 680px">Одни компоненты — четыре темы. Светлая «мастерская» по умолчанию, тёмная «ночной путеводитель» для Deadlock, две альтернативы акцента и предложение глобальной тёмной.</p>
+    </div>
+    <div style="display: flex; gap: 12px; align-items: center; justify-content: flex-end">
+      <svg class="pp-regmark" viewBox="0 0 28 28" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="14" cy="14" r="7"></circle><path d="M14 0v28M0 14h28"></path></svg>
+      <span class="pp-orderno pp-label">Лист 01 · Цвет и типографика</span>
+    </div>
+  </div>
+  <div class="pp-hazard"></div>
+
+  <section style="display: flex; flex-direction: column; gap: 24px">
+    <div style="display: flex; justify-content: space-between; align-items: baseline">
+      <h2 class="pp-h pp-h--2">Цвет · токены тем</h2>
+      <span class="pp-small">Тема включается атрибутом data-theme на body или на секции</span>
+    </div>
+    <table class="pp-table tk">
+      <thead><tr><th scope="col" style="width: 150px">Токен</th><th scope="col" style="width: 190px">Светлая · А</th><th scope="col" style="width: 190px">Тёмная · Deadlock</th><th scope="col" style="width: 190px">Ночная смена · предложение</th><th scope="col">Назначение</th></tr></thead>
+      <tbody>
+        <sc-for list="{{tokens}}" as="t" hint-placeholder-count="12">
+          <tr>
+            <td>{{t.n}}</td>
+            <td><span style="display: inline-flex; align-items: center; gap: 10px"><span style="width: 36px; height: 36px; border-radius: 4px; box-shadow: inset 0 0 0 1.5px rgba(0,0,0,.18); background: {{t.l}}"></span><span class="pp-num pp-small" style="color: var(--ink)">{{t.l}}</span></span></td>
+            <td><span style="display: inline-flex; align-items: center; gap: 10px"><span style="width: 36px; height: 36px; border-radius: 4px; box-shadow: inset 0 0 0 1.5px rgba(0,0,0,.18); background: {{t.d}}"></span><span class="pp-num pp-small" style="color: var(--ink)">{{t.d}}</span></span></td>
+            <td><span style="display: inline-flex; align-items: center; gap: 10px"><span style="width: 36px; height: 36px; border-radius: 4px; box-shadow: inset 0 0 0 1.5px rgba(0,0,0,.18); background: {{t.k}}"></span><span class="pp-num pp-small" style="color: var(--ink)">{{t.k}}</span></span></td>
+            <td class="pp-small" style="font-family: var(--font-text); font-size: 13px; font-weight: 400">{{t.u}}</td>
+          </tr>
+        </sc-for>
+      </tbody>
+    </table>
+    <div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px">
+      <div style="display: flex; flex-direction: column; gap: 12px; padding: 24px; border: 1.5px solid var(--line); border-radius: 6px">
+        <span class="pp-label pp-muted">Правило акцента</span>
+        <p class="pp-text">Жёлтый — только заливка с чёрным текстом. Одна акцентная кнопка на экран: «В корзину», «Загрузить принт», корзина в шапке.</p>
+        <div style="display: flex; gap: 8px; flex-wrap: wrap"><button class="pp-btn pp-btn--accent pp-btn--s">В корзину</button><span class="pp-badge pp-badge--new">Новинка</span></div>
+      </div>
+      <div style="display: flex; flex-direction: column; gap: 12px; padding: 24px; border: 1.5px solid var(--line); border-radius: 6px">
+        <span class="pp-label pp-muted">Контраст · проверено</span>
+        <p class="pp-text">ink на bg 18,7:1 · ink-2 на surface-2 5,7:1 · on-accent на accent 13,3:1 · ink Deadlock на bg 14,6:1 · line-strong ≥3:1 для рамок полей.</p>
+      </div>
+      <div style="display: flex; flex-direction: column; gap: 12px; padding: 24px; border: 1.5px solid var(--line); border-radius: 6px">
+        <span class="pp-label pp-muted">Чего нет в палитре</span>
+        <p class="pp-text">Чёрный + оранжевый #FF6A00 (старый сайт), ярко-синий «как в приложениях», градиенты-заливки, неон на всю площадь.</p>
+      </div>
+    </div>
+  </section>
+
+  <section style="display: flex; flex-direction: column; gap: 24px">
+    <h2 class="pp-h pp-h--2">Типографика</h2>
+    <div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px">
+      <div style="padding: 24px; background: var(--surface); border-radius: 6px; display: flex; flex-direction: column; gap: 8px">
+        <span class="pp-label pp-muted">Заголовки · светлая</span>
+        <span style="font: 850 56px/1 var(--font-display); letter-spacing: -0.035em">Onest</span>
+        <span class="pp-small">850 / 800 / 700 · трекинг −0,035…−0,01em · кириллица полная · woff2</span>
+      </div>
+      <div style="padding: 24px; background: var(--surface); border-radius: 6px; display: flex; flex-direction: column; gap: 8px">
+        <span class="pp-label pp-muted">Текст · обе темы</span>
+        <span style="font: 400 56px/1 var(--font-text)">Golos Text</span>
+        <span class="pp-small">400 / 600 · основной текст, интерфейс, метки, таблицы</span>
+      </div>
+      <div data-theme="dark" class="pp-grain" style="padding: 24px; border-radius: 6px; display: flex; flex-direction: column; gap: 8px">
+        <span class="pp-label pp-muted">Заголовки · Deadlock</span>
+        <span style="font: 800 56px/1 var(--font-deco); letter-spacing: -0.015em; color: var(--ink)">Bitter</span>
+        <span class="pp-small">800 · строчные с прописной · брусковая антиква «вывески»</span>
+      </div>
+    </div>
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 48px">
+      <div style="display: flex; flex-direction: column">
+        <div class="pp-label pp-muted" style="padding-bottom: 12px; border-bottom: 2px solid var(--ink)">Десктоп 1440</div>
+        <sc-for list="{{typeD}}" as="s" hint-placeholder-count="7">
+          <div style="display: grid; grid-template-columns: 110px 1fr; gap: 16px; align-items: baseline; padding: 14px 0; border-bottom: 1.5px solid var(--line)">
+            <span class="pp-small pp-num">{{s.n}} · {{s.m}}</span>
+            <span style="font-family: {{s.f}}; font-size: {{s.size}}; line-height: {{s.lh}}; font-weight: {{s.w}}; letter-spacing: {{s.ls}}">{{s.sample}}</span>
+          </div>
+        </sc-for>
+      </div>
+      <div style="display: flex; flex-direction: column">
+        <div class="pp-label pp-muted" style="padding-bottom: 12px; border-bottom: 2px solid var(--ink)">Мобильный 390</div>
+        <sc-for list="{{typeM}}" as="s" hint-placeholder-count="7">
+          <div style="display: grid; grid-template-columns: 110px 1fr; gap: 16px; align-items: baseline; padding: 14px 0; border-bottom: 1.5px solid var(--line)">
+            <span class="pp-small pp-num">{{s.n}} · {{s.m}}</span>
+            <span style="font-family: {{s.f}}; font-size: {{s.size}}; line-height: {{s.lh}}; font-weight: {{s.w}}; letter-spacing: {{s.ls}}">{{s.sample}}</span>
+          </div>
+        </sc-for>
+        <div class="pp-label pp-muted" style="padding: 28px 0 12px; border-bottom: 2px solid var(--ink)">Служебные</div>
+        <div style="display: grid; grid-template-columns: 110px 1fr; gap: 16px; align-items: baseline; padding: 14px 0; border-bottom: 1.5px solid var(--line)"><span class="pp-small">label · 12</span><span class="pp-label">Заказ № 0427 · A3 · 29,7 × 42 см</span></div>
+        <div style="display: grid; grid-template-columns: 110px 1fr; gap: 16px; align-items: baseline; padding: 14px 0; border-bottom: 1.5px solid var(--line)"><span class="pp-small">price · 28</span><span class="pp-price"><span class="pp-price__from">от</span>00 Br</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 48px">
+    <div style="display: flex; flex-direction: column; gap: 16px">
+      <h2 class="pp-h pp-h--3">Отступы · шаг 4</h2>
+      <sc-for list="{{spaces}}" as="s" hint-placeholder-count="10">
+        <div style="display: grid; grid-template-columns: 84px 1fr; align-items: center; gap: 12px">
+          <span class="pp-small pp-num">{{s.n}} · {{s.v}}</span>
+          <span style="height: 12px; background: var(--ink); width: {{s.v}}"></span>
+        </div>
+      </sc-for>
+    </div>
+    <div style="display: flex; flex-direction: column; gap: 16px">
+      <h2 class="pp-h pp-h--3">Скругления и тени</h2>
+      <div style="display: flex; gap: 16px; flex-wrap: wrap">
+        <div style="display: grid; gap: 6px; justify-items: center"><span style="width: 64px; height: 64px; background: var(--surface-2); border: 1.5px solid var(--line-strong); border-radius: 2px"></span><span class="pp-small">xs 2 · бейдж</span></div>
+        <div style="display: grid; gap: 6px; justify-items: center"><span style="width: 64px; height: 64px; background: var(--surface-2); border: 1.5px solid var(--line-strong); border-radius: 4px"></span><span class="pp-small">sm 4 · кнопка</span></div>
+        <div style="display: grid; gap: 6px; justify-items: center"><span style="width: 64px; height: 64px; background: var(--surface-2); border: 1.5px solid var(--line-strong); border-radius: 6px"></span><span class="pp-small">md 6 · карточка</span></div>
+        <div style="display: grid; gap: 6px; justify-items: center"><span style="width: 64px; height: 64px; background: var(--surface-2); border: 1.5px solid var(--line-strong); border-radius: 14px 14px 0 0"></span><span class="pp-small">lg 14 · шторка</span></div>
+      </div>
+      <div style="display: flex; gap: 24px; padding-top: 8px">
+        <div style="display: grid; gap: 8px"><span style="width: 120px; height: 64px; background: var(--bg); border-radius: 6px; box-shadow: var(--shadow-1)"></span><span class="pp-small">shadow-1 · тост, панель</span></div>
+        <div style="display: grid; gap: 8px"><span style="width: 120px; height: 64px; background: var(--bg); border-radius: 6px; box-shadow: var(--shadow-2)"></span><span class="pp-small">shadow-2 · модалка</span></div>
+      </div>
+      <p class="pp-small">Границы важнее теней. Кнопок-пилюль нет: radius-full только у свотчей, точек и переключателя.</p>
+    </div>
+    <div style="display: flex; flex-direction: column; gap: 16px">
+      <h2 class="pp-h pp-h--3">Сетка</h2>
+      <div style="display: grid; gap: 6px">
+        <span class="pp-small">1440 · 12 колонок · гаттер 24 · поля 80 · контент 1280</span>
+        <div style="display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 4px; padding: 0 14px; height: 72px; border: 1.5px solid var(--line)">
+          <i style="background: var(--surface-2)"></i><i style="background: var(--surface-2)"></i><i style="background: var(--surface-2)"></i><i style="background: var(--surface-2)"></i><i style="background: var(--surface-2)"></i><i style="background: var(--surface-2)"></i><i style="background: var(--surface-2)"></i><i style="background: var(--surface-2)"></i><i style="background: var(--surface-2)"></i><i style="background: var(--surface-2)"></i><i style="background: var(--surface-2)"></i><i style="background: var(--surface-2)"></i>
+        </div>
+      </div>
+      <div style="display: grid; gap: 6px">
+        <span class="pp-small">390 · 4 колонки · гаттер 16 · поля 16 · контент 358</span>
+        <div style="display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px; padding: 0 8px; width: 160px; height: 72px; border: 1.5px solid var(--line)">
+          <i style="background: var(--surface-2)"></i><i style="background: var(--surface-2)"></i><i style="background: var(--surface-2)"></i><i style="background: var(--surface-2)"></i>
+        </div>
+      </div>
+      <p class="pp-small">Ритм секций 96 / 64. Карточки каталога: 4 в ряд на 1440, 2 в ряд на 390. Перелом 1024: 8 колонок, поля 32.</p>
+    </div>
+  </section>
+
+  <section style="display: grid; grid-template-columns: 1fr 1fr; gap: 24px">
+    <div class="pp-tex-concrete pp-corners" style="padding: 32px; border-radius: 6px; display: flex; flex-direction: column; gap: 12px">
+      <span class="pp-label pp-muted">Мотивы светлой</span>
+      <p class="pp-text" style="max-width: 440px">Бетон (SVG-шум ~400 байт), сигнальная полоса, крест совмещения, размерные линии, номер заказа, уголки обреза. Метки показывают правду: формат и сантиметры, тираж.</p>
+      <div style="display: flex; gap: 16px; align-items: center; flex-wrap: wrap"><span class="pp-printsize"><b>A3</b>29,7 × 42 см</span><span class="pp-orderno pp-label">№ 0427</span><div class="pp-dim pp-label" style="width: 160px">29,7 см</div></div>
+    </div>
+    <div data-theme="dark" class="pp-grain" style="padding: 32px; border-radius: 6px; display: flex; flex-direction: column; gap: 14px">
+      <span class="pp-label pp-muted">Мотивы Deadlock · ночной путеводитель</span>
+      <p class="pp-text" style="max-width: 440px">Зерно, пунктир маршрута с номерами остановок, наклейки с жёсткой тенью, фото в рамке-открытке, записки на бумаге. Циан — одна-две детали на экран.</p>
+      <div style="display: flex; gap: 12px; align-items: center"><span class="pp-marker">1</span><div class="pp-route" style="flex: 1"></div><span class="pp-marker">2</span><div class="pp-route" style="flex: 1"></div><span class="pp-sticker">Новый тираж</span></div>
+    </div>
+  </section>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":2600}}'>
+class Component extends DCLogic {
+  renderVals() {
+    const D = 'var(--font-display)', T = 'var(--font-text)';
+    return {
+      tokens: [
+        { n: 'bg', l: '#FFFFFF', d: '#1C1A19', k: '#141413', u: 'Фон страницы' },
+        { n: 'surface', l: '#F4F3EF', d: '#24272A', k: '#1D1D1B', u: 'Светлый бетон / ночной сланец: секции, карточки, «Коротко»' },
+        { n: 'surface-2', l: '#E9E7E1', d: '#2F3236', k: '#282825', u: 'Вложенное: фон превью изделия, активный пункт рейла' },
+        { n: 'line', l: '#D9D6CE', d: '#43464A', k: '#3A3935', u: 'Декоративные разделители и рамки карточек' },
+        { n: 'line-strong', l: '#7D7A72', d: '#878279', k: '#85827A', u: 'Рамки полей, чипов, вторичных кнопок (≥3:1)' },
+        { n: 'ink', l: '#121212', d: '#F7E9D5', k: '#F2F0EA', u: 'Основной текст, основная кнопка, рамка-открытка в Deadlock' },
+        { n: 'ink-2', l: '#5A5853', d: '#B9AD9C', k: '#B2AFA6', u: 'Второстепенный текст, подсказки (≥5,7:1)' },
+        { n: 'accent', l: '#FFD60A', d: '#DD6638', k: '#FFD60A', u: 'Только заливка с on-accent: «В корзину», «Новинка», полоса, текущий шаг' },
+        { n: 'on-accent', l: '#121212', d: '#121D22', k: '#121212', u: 'Текст на акценте (≥5:1 во всех вариантах)' },
+        { n: 'glow', l: '#121212', d: '#60CDE3', k: '#F2F0EA', u: 'Циан Deadlock: номера остановок, ховер, фокус. В светлой = ink' },
+        { n: 'paper', l: '#F4F3EF', d: '#E8D6B8', k: '#282825', u: 'Бумага записок и наклеек в Deadlock' },
+        { n: 'success', l: '#15703A', d: '#97DA79', k: '#8FD19E', u: '«Всё в зоне печати», «Готов» — всегда со словом' },
+        { n: 'warning', l: '#9A4F00', d: '#FFE14D', k: '#FFC266', u: 'Принт за зоной, низкое разрешение' },
+        { n: 'danger', l: '#C01E34', d: '#FF8A7A', k: '#FF8A7A', u: 'Ошибки полей и загрузки, удаление' },
+        { n: 'team-a / b', l: '#7A6200', d: '#FFE14D', k: '#FFE14D', u: '«Жёлтая» и «Зелёная линия» — только парой, бейджи коллекций Deadlock' }
+      ],
+      typeD: [
+        { n: 'display', m: '80', f: D, size: '80px', lh: '0.95', w: 850, ls: '-0.035em', sample: 'Печать на футболках' },
+        { n: 'h1', m: '56', f: D, size: '56px', lh: '1', w: 800, ls: '-0.03em', sample: 'Футболки оверсайз' },
+        { n: 'h2', m: '40', f: D, size: '40px', lh: '1.08', w: 800, ls: '-0.025em', sample: 'Как мы печатаем' },
+        { n: 'h3', m: '24', f: D, size: '24px', lh: '1.2', w: 700, ls: '-0.01em', sample: 'Подарок папе' },
+        { n: 'lead', m: '20', f: T, size: '20px', lh: '1.45', w: 400, ls: '0', sample: 'Свой принт, шаблон с фото или мерч' },
+        { n: 'body', m: '16', f: T, size: '16px', lh: '1.55', w: 400, ls: '0', sample: 'Принимаем PNG, JPG и PDF до 20 МБ.' },
+        { n: 'small', m: '13', f: T, size: '13px', lh: '1.4', w: 400, ls: '0', sample: 'DTF · 100% хлопок · 180 г/м²' }
+      ],
+      typeM: [
+        { n: 'display', m: '44', f: D, size: '44px', lh: '0.98', w: 850, ls: '-0.03em', sample: 'Печать на футболках' },
+        { n: 'h1', m: '34', f: D, size: '34px', lh: '1.04', w: 800, ls: '-0.025em', sample: 'Футболки оверсайз' },
+        { n: 'h2', m: '28', f: D, size: '28px', lh: '1.1', w: 800, ls: '-0.02em', sample: 'Как мы печатаем' },
+        { n: 'h3', m: '20', f: D, size: '20px', lh: '1.25', w: 700, ls: '-0.01em', sample: 'Подарок папе' },
+        { n: 'lead', m: '18', f: T, size: '18px', lh: '1.45', w: 400, ls: '0', sample: 'Свой принт или шаблон с фото' },
+        { n: 'body', m: '16', f: T, size: '16px', lh: '1.55', w: 400, ls: '0', sample: 'Не меньше 16 px — iOS не зумит поля' },
+        { n: 'small', m: '13', f: T, size: '13px', lh: '1.4', w: 400, ls: '0', sample: 'DTF · 100% хлопок' }
+      ],
+      spaces: [
+        { n: 'space-1', v: '4px' }, { n: 'space-2', v: '8px' }, { n: 'space-3', v: '12px' }, { n: 'space-4', v: '16px' }, { n: 'space-5', v: '24px' },
+        { n: 'space-6', v: '32px' }, { n: 'space-7', v: '48px' }, { n: 'space-8', v: '64px' }, { n: 'space-9', v: '96px' }, { n: 'space-10', v: '128px' }
+      ]
+    };
+  }
+}
+</script>
+</body>
+</html>
