@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<title>Оформление · шаг 2</title>
+<script src="./support.js"></script>
+<link rel="stylesheet" href="ds/pp/tokens.css">
+<link rel="stylesheet" href="ds/pp/components/bundle.css">
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bitter:wght@600..900&family=Golos+Text:wght@400..900&family=Onest:wght@400..900&display=swap">
+<style>
+body{margin:0}
+.wrap{box-sizing:border-box;width:100%;max-width:1440px;margin:0 auto;padding:0 clamp(16px,5.5vw,80px)}
+</style>
+</helmet>
+<div data-theme="light" style="min-height: 100%; background: var(--bg); color: var(--ink); font-family: var(--font-text)">
+  <dc-import name="Header" count="{{four}}" hint-size="100%,72px"></dc-import>
+  <main class="wrap" style="padding-top: 16px; padding-bottom: 96px">
+    <nav aria-label="Хлебные крошки"><ol class="pp-crumbs"><li><a href="#">Корзина</a></li><li><span aria-current="page">Оформление</span></li></ol></nav>
+    <div style="display: flex; justify-content: space-between; align-items: end; gap: 24px; padding: 16px 0 28px; flex-wrap: wrap"><h1 class="pp-h pp-h--1">Оформление заказа</h1>
+      <div class="pp-steps" style="--n: 2; width: 360px"><div class="pp-steps__head"><span class="pp-label">Шаг 2 из 2</span><span class="pp-small">Контакты и оплата</span></div><ol class="pp-steps__bar"><li class="is-done">Получение</li><li aria-current="step">Контакты и оплата</li></ol></div>
+    </div>
+    <div style="display: flex; flex-wrap: wrap; gap: 48px; align-items: start">
+      <div style="flex: 2 1 640px; min-width: 0; display: flex; flex-direction: column; gap: 24px">
+        <section style="display: grid; grid-template-columns: auto 1fr auto; gap: 16px; align-items: center; padding: 16px 20px; border: 1.5px solid var(--line); border-radius: 6px">
+          <span style="width: 32px; height: 32px; border-radius: 50%; background: var(--ink); color: var(--on-ink); display: grid; place-items: center"><svg class="pp-icon pp-icon--s" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M4 12.5l5 5L20 6.5"></path></svg></span>
+          <div style="display: grid; gap: 2px"><span class="pp-label pp-muted">1 · Получение</span><b>Самовывоз из мастерской · бесплатно</b><span class="pp-small">Минск, [улица, дом] · пн–пт 10–20 · готово 24 ноября</span></div>
+          <a class="pp-btn pp-btn--text pp-btn--s" href="#">Изменить</a>
+        </section>
+        <section style="display: flex; flex-direction: column; gap: 20px; padding: 28px; border: 2px solid var(--ink); border-radius: 6px">
+          <div style="display: flex; align-items: center; gap: 12px"><span style="width: 32px; height: 32px; border-radius: 50%; background: var(--accent); color: var(--on-accent); display: grid; place-items: center; font: 800 15px var(--font-display); box-shadow: inset 0 0 0 2px var(--ink)">2</span><h2 class="pp-h pp-h--3">Контакты и оплата</h2></div>
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px">
+            <div class="pp-field"><label class="pp-field__label" for="co-n">Имя</label><input class="pp-input" id="co-n" value="Андрей" autocomplete="given-name"></div>
+            <div class="pp-field"><label class="pp-field__label" for="co-p">Телефон</label><div class="pp-input-group is-invalid"><span class="pp-input-group__prefix">+375</span><input class="pp-input" id="co-p" type="tel" value="29 12" aria-invalid="true" aria-describedby="co-pe"></div><p class="pp-field__error" id="co-pe"><svg class="pp-icon pp-icon--s" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true"><path d="M12 3l10 18H2L12 3z"></path><path d="M12 10v5M12 17.5v.5"></path></svg>Введите 9 цифр номера после +375</p></div>
+            <div class="pp-field"><label class="pp-field__label" for="co-t">Telegram <em>· необязательно</em></label><div class="pp-input-group"><span class="pp-input-group__prefix">@</span><input class="pp-input" id="co-t" placeholder="nickname"></div><p class="pp-field__hint">Пришлём превью макета и статус туда</p></div>
+            <div class="pp-field"><label class="pp-field__label" for="co-c">Комментарий <em>· необязательно</em></label><textarea class="pp-textarea" id="co-c" placeholder="Например: позвонить перед печатью" style="min-height: 48px"></textarea></div>
+          </div>
+          <fieldset style="border: 0; margin: 0; padding: 0; display: grid; gap: 10px"><legend class="pp-field__label" style="margin-bottom: 10px">Оплата</legend>
+            <div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px">
+              <label class="pp-option is-checked"><input type="radio" name="pay" checked><span class="pp-option__icon"><svg class="pp-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true"><rect x="2" y="5" width="20" height="14"></rect><path d="M2 10h20M6 15h4"></path></svg></span><span class="pp-option__title">Картой</span><span class="pp-option__side"><span class="pp-option__radio"><svg class="pp-icon pp-icon--s" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M4 12.5l5 5L20 6.5"></path></svg></span></span><span class="pp-option__desc">Онлайн, Visa, Mastercard, БЕЛКАРТ</span></label>
+              <label class="pp-option"><input type="radio" name="pay"><span class="pp-option__icon"><b style="font: 800 11px var(--font-display)">ЕРИП</b></span><span class="pp-option__title">ЕРИП</span><span class="pp-option__side"><span class="pp-option__radio"></span></span><span class="pp-option__desc">Код счёта пришлём в SMS</span></label>
+              <label class="pp-option"><input type="radio" name="pay"><span class="pp-option__icon"><svg class="pp-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true"><path d="M12 21s7-6.2 7-12a7 7 0 0 0-14 0c0 5.8 7 12 7 12z"></path><circle cx="12" cy="9" r="2.5"></circle></svg></span><span class="pp-option__title">При получении</span><span class="pp-option__side"><span class="pp-option__radio"></span></span><span class="pp-option__desc">Картой или наличными в мастерской</span></label>
+            </div>
+          </fieldset>
+          <label class="pp-check"><input type="checkbox" checked>Согласен с <a class="pp-link" href="#">условиями</a> и обработкой персональных данных</label>
+          <div style="display: flex; gap: 16px; align-items: center; flex-wrap: wrap"><button class="pp-btn pp-btn--accent pp-btn--l">Подтвердить заказ · 00 Br</button><span class="pp-small">Печать начнём после согласования превью</span></div>
+        </section>
+      </div>
+      <aside style="flex: 1 1 360px; display: flex; flex-direction: column; gap: 16px; padding: 28px; background: var(--surface); border-radius: 6px">
+        <div style="display: flex; justify-content: space-between; align-items: baseline"><h2 class="pp-h pp-h--3">Ваш заказ</h2><a class="pp-btn pp-btn--text pp-btn--s" href="#">Изменить</a></div>
+        <ul style="list-style: none; margin: 0; padding: 0; display: grid; gap: 12px">
+          <li style="display: grid; grid-template-columns: 56px 1fr auto; gap: 12px; align-items: center"><span class="pp-tex-concrete" style="width: 56px; height: 56px; border-radius: 4px; background-color: var(--bg)"></span><span style="font-size: 14px"><b>Оверсайз, чёрная</b><br><span class="pp-muted">M, L · перед A4</span></span><span class="pp-num" style="font-weight: 600">00 Br</span></li>
+          <li style="display: grid; grid-template-columns: 56px 1fr auto; gap: 12px; align-items: center"><span class="pp-tex-concrete" style="width: 56px; height: 56px; border-radius: 4px; background-color: var(--bg)"></span><span style="font-size: 14px"><b>Слово из фото</b><br><span class="pp-muted">Классика · XL</span></span><span class="pp-num" style="font-weight: 600">00 Br</span></li>
+          <li style="display: grid; grid-template-columns: 56px 1fr auto; gap: 12px; align-items: center"><span data-theme="dark" style="width: 56px; height: 56px; border-radius: 4px; display: grid; place-items: center"><i class="pp-tex-night" style="width: 38px; height: 44px; border: 3px solid var(--ink)"></i></span><span style="font-size: 14px"><b>Последний трамвай</b><br><span class="pp-muted">Deadlock · L</span></span><span class="pp-num" style="font-weight: 600">00 Br</span></li>
+        </ul>
+        <dl class="pp-breakdown" style="padding-top: 12px; border-top: 1.5px solid var(--line)"><div><dt>Вещи и печать</dt><dd>00 Br</dd></div><div><dt>Скидка за количество</dt><dd>−00 Br</dd></div><div><dt>Самовывоз</dt><dd>бесплатно</dd></div><div class="is-total"><dt>К оплате</dt><dd><span class="pp-price">00 Br</span></dd></div></dl>
+      </aside>
+    </div>
+  </main>
+  <dc-import name="Footer" hint-size="100%,380px"></dc-import>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":1400}}'>
+class Component extends DCLogic {
+  renderVals() { return { four: 4 }; }
+}
+</script>
+</body>
+</html>

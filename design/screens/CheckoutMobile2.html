@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="ru"><head><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta charset="utf-8">
+<title>Оформление · шаг 2 · мобильный</title>
+
+<link rel="stylesheet" href="../canvas/ds/pp/tokens.css">
+<link rel="stylesheet" href="../canvas/ds/pp/components/bundle.css">
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bitter:wght@600..900&amp;family=Golos+Text:wght@400..900&amp;family=Onest:wght@400..900&amp;display=swap">
+<style>body{margin:0}</style>
+</head>
+<body>
+
+
+
+
+
+
+<div data-theme="light" style="width: 390px; min-height: 844px; position: relative; background: var(--bg); color: var(--ink); font-family: var(--font-text); overflow: hidden">
+  <div style="height: 52px; display: flex; align-items: center; gap: 4px; padding: 0 4px; border-bottom: 1.5px solid var(--line)">
+    <button class="pp-btn pp-btn--icon pp-btn--ghost" aria-label="Назад к получению"><svg class="pp-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true"><path d="M15 6l-6 6 6 6"></path></svg></button>
+    <b style="flex: 1; text-align: center; font: 700 16px var(--font-display)">Оформление</b>
+    <button class="pp-btn pp-btn--icon pp-btn--ghost" aria-label="Закрыть"><svg class="pp-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true"><path d="M5 5l14 14M19 5L5 19"></path></svg></button>
+  </div>
+  <div style="padding: 12px 16px 0"><div class="pp-steps" style="--n: 2"><div class="pp-steps__head"><span class="pp-label">Шаг 2 из 2</span><span class="pp-small">Последний</span></div><ol class="pp-steps__bar"><li class="is-done">Получение</li><li aria-current="step">Контакты и оплата</li></ol></div></div>
+  <div style="margin: 16px 16px 0; display: grid; grid-template-columns: 1fr auto; gap: 8px; align-items: center; padding: 12px; background: var(--surface); border-radius: 6px"><span style="font-size: 14px"><b>Самовывоз</b> · Минск, [адрес] · бесплатно</span><a class="pp-btn pp-btn--text pp-btn--s" href="#">Изменить</a></div>
+  <section style="padding: 20px 16px 0; display: flex; flex-direction: column; gap: 16px">
+    <h1 style="margin: 0; font: 800 28px/1.1 var(--font-display); letter-spacing: -0.02em">Контакты и оплата</h1>
+    <div class="pp-field"><label class="pp-field__label" for="m2n">Имя</label><input class="pp-input" id="m2n" value="Андрей" autocomplete="given-name"></div>
+    <div class="pp-field"><label class="pp-field__label" for="m2p">Телефон</label><div class="pp-input-group is-focus"><span class="pp-input-group__prefix">+375</span><input class="pp-input" id="m2p" type="tel" inputmode="tel" value="29 123-45-67" autocomplete="tel-national"></div><p class="pp-field__hint">Позвоним, только если что-то с макетом</p></div>
+    <div class="pp-field"><label class="pp-field__label" for="m2t">Telegram <em>· необязательно</em></label><div class="pp-input-group"><span class="pp-input-group__prefix">@</span><input class="pp-input" id="m2t" placeholder="nickname"></div></div>
+    <fieldset style="border: 0; margin: 0; padding: 0; display: grid; gap: 8px" role="radiogroup"><legend class="pp-field__label" style="margin-bottom: 8px">Оплата</legend>
+      <label class="pp-option is-checked" style="padding: 13.5px"><input type="radio" name="m2pay" checked=""><span class="pp-option__icon"><svg class="pp-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true"><rect x="2" y="5" width="20" height="14"></rect><path d="M2 10h20M6 15h4"></path></svg></span><span class="pp-option__title">Картой онлайн</span><span class="pp-option__side"><span class="pp-option__radio"><svg class="pp-icon pp-icon--s" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M4 12.5l5 5L20 6.5"></path></svg></span></span><span class="pp-option__desc">Visa, Mastercard, БЕЛКАРТ</span></label>
+      <label class="pp-option" style="padding: 14px"><input type="radio" name="m2pay"><span class="pp-option__icon"><b style="font: 800 10px var(--font-display)">ЕРИП</b></span><span class="pp-option__title">ЕРИП</span><span class="pp-option__side"><span class="pp-option__radio"></span></span><span class="pp-option__desc">Код счёта в SMS</span></label>
+      <label class="pp-option" style="padding: 14px"><input type="radio" name="m2pay"><span class="pp-option__icon"><svg class="pp-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true"><path d="M12 21s7-6.2 7-12a7 7 0 0 0-14 0c0 5.8 7 12 7 12z"></path><circle cx="12" cy="9" r="2.5"></circle></svg></span><span class="pp-option__title">При получении</span><span class="pp-option__side"><span class="pp-option__radio"></span></span><span class="pp-option__desc">Картой или наличными</span></label>
+    </fieldset>
+    <div class="pp-field"><label class="pp-field__label" for="m2c">Комментарий <em>· необязательно</em></label><textarea class="pp-textarea" id="m2c" placeholder="Например: надпись на 2 см ниже" style="min-height: 72px"></textarea></div>
+    <label class="pp-check"><input type="checkbox" checked="">Согласен с <a class="pp-link" href="#">условиями</a></label>
+  </section>
+  <div style="height: 120px"></div>
+  <div class="pp-summary pp-summary--m" style="position: absolute; left: 0; right: 0; bottom: 0">
+    <div class="pp-summary__info"><span class="pp-small">К оплате</span><span class="pp-price pp-price--s">00 Br</span></div>
+    <button class="pp-btn pp-btn--accent pp-btn--l">Подтвердить</button>
+  </div>
+</div>
+</body></html>

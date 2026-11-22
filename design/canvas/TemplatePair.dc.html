@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<title>Парный шаблон</title>
+<script src="./support.js"></script>
+<link rel="stylesheet" href="ds/pp/tokens.css">
+<link rel="stylesheet" href="ds/pp/components/bundle.css">
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bitter:wght@600..900&family=Golos+Text:wght@400..900&family=Onest:wght@400..900&display=swap">
+<style>body{margin:0}</style>
+</helmet>
+<div data-theme="light" style="width: 1440px; height: 1000px; display: flex; flex-direction: column; background: var(--bg); color: var(--ink); font-family: var(--font-text); overflow: hidden">
+  <div style="height: 56px; flex: none; display: flex; align-items: center; gap: 16px; padding: 0 16px 0 8px; border-bottom: 1.5px solid var(--line)">
+    <a class="pp-btn pp-btn--text pp-btn--s" href="#"><svg class="pp-icon pp-icon--s" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true"><path d="M15 6l-6 6 6 6"></path></svg>Шаблоны</a>
+    <span style="width: 1.5px; height: 24px; background: var(--line)"></span>
+    <b style="font: 700 15px var(--font-display)">Он и она · парный</b><span class="pp-badge pp-badge--outline">2 футболки</span>
+    <a class="pp-btn pp-btn--text pp-btn--s" href="#" style="margin-left: auto">Открыть в конструкторе</a>
+  </div>
+  <div style="flex: 1; min-height: 0; display: flex">
+    <section class="pp-tex-concrete" style="flex: 1; position: relative; display: flex; align-items: center; justify-content: center; gap: 24px">
+      <figure style="margin: 0; display: grid; gap: 12px; justify-items: center">
+        <div style="position: relative; width: 400px; height: 400px; outline: 2px solid var(--ink); outline-offset: 8px; border-radius: 4px">
+          <svg viewBox="0 0 300 300" style="position: absolute; inset: 0; width: 100%; height: 100%" aria-hidden="true"><path d="M105 40 70 52 30 90l22 38 26-16v150h144V112l26 16 22-38-40-38-35-12c-7 18-25 28-45 28s-38-10-45-28z" fill="#ffffff" stroke="#7d7a72"></path><rect x="114" y="92" width="72" height="72" fill="#c9b48f"></rect><text x="150" y="190" text-anchor="middle" font-family="Onest" font-weight="900" font-size="26" fill="#121212">ОН</text><text x="150" y="206" text-anchor="middle" font-family="Golos Text" font-size="8" letter-spacing="2" fill="#121212">ВМЕСТЕ С 2020 →</text></svg>
+        </div>
+        <figcaption style="display: flex; gap: 8px; align-items: center"><span class="pp-orderno pp-label">1</span><b>Первая · белая · L</b></figcaption>
+      </figure>
+      <figure style="margin: 0; display: grid; gap: 12px; justify-items: center">
+        <div style="position: relative; width: 400px; height: 400px">
+          <svg viewBox="0 0 300 300" style="position: absolute; inset: 0; width: 100%; height: 100%" aria-hidden="true"><path d="M105 40 70 52 30 90l22 38 26-16v150h144V112l26 16 22-38-40-38-35-12c-7 18-25 28-45 28s-38-10-45-28z" fill="#151515"></path><rect x="114" y="92" width="72" height="72" fill="#c9b48f"></rect><text x="150" y="190" text-anchor="middle" font-family="Onest" font-weight="900" font-size="26" fill="#f4f3ef">ОНА</text><text x="150" y="206" text-anchor="middle" font-family="Golos Text" font-size="8" letter-spacing="2" fill="#f4f3ef">← ВМЕСТЕ С 2020</text></svg>
+        </div>
+        <figcaption style="display: flex; gap: 8px; align-items: center"><span class="pp-orderno pp-label">2</span><span class="pp-muted">Вторая · чёрная · S</span></figcaption>
+      </figure>
+      <span class="pp-label pp-muted" style="position: absolute; left: 24px; top: 20px">Превью пары · фразы складываются, когда стоите рядом</span>
+    </section>
+    <aside style="width: 480px; flex: none; border-left: 1.5px solid var(--line); display: flex; flex-direction: column">
+      <div style="padding: 20px 28px; border-bottom: 1.5px solid var(--line); display: grid; gap: 16px">
+        <div class="pp-steps" style="--n: 4"><div class="pp-steps__head"><span class="pp-label">Шаг 2 из 4 · Текст</span><span class="pp-small">Дальше: стиль</span></div><ol class="pp-steps__bar"><li class="is-done">Фото</li><li aria-current="step">Текст</li><li>Стиль</li><li>Изделие</li></ol></div>
+        <div class="pp-zones" role="tablist" aria-label="Какая футболка" style="display: grid; grid-template-columns: 1fr 1fr"><button class="pp-zone" role="tab" aria-selected="true" style="justify-content: center">Первая · ОН</button><button class="pp-zone" role="tab" aria-selected="false" style="justify-content: center">Вторая · ОНА</button></div>
+      </div>
+      <div style="flex: 1; padding: 20px 28px; display: flex; flex-direction: column; gap: 18px; overflow: hidden">
+        <div class="pp-field"><label class="pp-field__label" for="tp1">Крупная надпись</label><input class="pp-input is-focus" id="tp1" value="ОН"><div style="display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px"><button class="pp-chip" aria-pressed="true">ОН</button><button class="pp-chip" aria-pressed="false">ЕГО</button><button class="pp-chip" aria-pressed="false">HALF</button><button class="pp-chip" aria-pressed="false">КОРОЛЬ</button><button class="pp-chip" aria-pressed="false">ПАПА</button></div></div>
+        <div class="pp-field"><label class="pp-field__label" for="tp2">Подпись <em>· необязательно</em></label><input class="pp-input" id="tp2" value="ВМЕСТЕ С 2020"><div style="display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px"><button class="pp-chip" aria-pressed="false">Since 2020</button><button class="pp-chip" aria-pressed="false">Навсегда</button><button class="pp-chip" aria-pressed="false">Минск · 2026</button></div></div>
+        <div style="display: grid; gap: 10px; padding-top: 12px; border-top: 1.5px solid var(--line)">
+          <span class="pp-field__label">Изделие первой футболки</span>
+          <div style="display: flex; gap: 8px; flex-wrap: wrap"><label class="pp-swatch" style="--swatch: #ffffff"><input type="radio" name="tps" checked><span class="pp-swatch__dot"></span>Белый</label><label class="pp-swatch" style="--swatch: #151515"><input type="radio" name="tps"><span class="pp-swatch__dot"></span>Чёрный</label><label class="pp-swatch" style="--swatch: #d8c7a6"><input type="radio" name="tps"><span class="pp-swatch__dot"></span>Песочный</label></div>
+          <div role="radiogroup" aria-label="Размер первой" style="display: flex; gap: 6px"><button class="pp-chip" role="radio" aria-checked="false" aria-pressed="false">S</button><button class="pp-chip" role="radio" aria-checked="false" aria-pressed="false">M</button><button class="pp-chip" role="radio" aria-checked="true" aria-pressed="true">L</button><button class="pp-chip" role="radio" aria-checked="false" aria-pressed="false">XL</button><button class="pp-chip" role="radio" aria-checked="false" aria-pressed="false">2XL</button><span class="pp-small" style="align-self: center; margin-left: 6px">Классика</span></div>
+        </div>
+      </div>
+      <div style="padding: 16px 28px 20px; border-top: 1.5px solid var(--line); display: grid; gap: 12px">
+        <dl class="pp-breakdown" style="font-size: 14px"><div><dt>Первая · классика, белая, L</dt><dd>00 Br</dd></div><div><dt>Вторая · классика, чёрная, S</dt><dd>00 Br</dd></div><div class="is-total"><dt>За пару</dt><dd><span class="pp-price pp-price--s">00 Br</span></dd></div></dl>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px"><button class="pp-btn pp-btn--secondary pp-btn--l">Назад</button><button class="pp-btn pp-btn--primary pp-btn--l">Дальше: стиль</button></div>
+      </div>
+    </aside>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":1000}}'>
+class Component extends DCLogic {
+  renderVals() { return {}; }
+}
+</script>
+</body>
+</html>

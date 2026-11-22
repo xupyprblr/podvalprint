@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<title>Конструктор · все состояния</title>
+<script src="./support.js"></script>
+<link rel="stylesheet" href="ds/pp/tokens.css">
+<link rel="stylesheet" href="ds/pp/components/bundle.css">
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bitter:wght@600..900&family=Golos+Text:wght@400..900&family=Onest:wght@400..900&family=Rubik:wght@700&family=Russo+One&family=Caveat:wght@600&family=Lobster&family=PT+Mono&family=Comfortaa:wght@700&family=Playfair+Display:wght@700&display=swap">
+<style>body{margin:0}</style>
+</helmet>
+<div data-theme="light" style="width: 1440px; box-sizing: border-box; padding: 56px 24px 64px; background: var(--surface-2); color: var(--ink); font-family: var(--font-text); display: flex; flex-direction: column; gap: 32px">
+  <div style="padding: 0 16px; display: flex; justify-content: space-between; align-items: end; gap: 24px">
+    <div style="display: flex; flex-direction: column; gap: 10px"><span class="pp-label pp-muted">Конструктор · 1440 · масштаб 48%</span><h1 class="pp-h pp-h--1">Все состояния</h1></div>
+    <p class="pp-small" style="max-width: 520px">Каждая плитка — тот же компонент «Конструктор · рабочий» с другим значением state. Предупреждения не блокируют заказ; ошибка загрузки и пустой холст — блокируют «В корзину».</p>
+  </div>
+  <div style="display: grid; grid-template-columns: repeat(2, 691px); gap: 32px 10px; justify-content: center">
+    <sc-for list="{{tiles}}" as="t" hint-placeholder-count="9">
+      <figure style="margin: 0; display: grid; gap: 10px">
+        <figcaption style="display: flex; gap: 10px; align-items: baseline"><span class="pp-orderno pp-label">{{t.n}}</span><b style="font: 700 17px var(--font-display)">{{t.title}}</b><span class="pp-small">{{t.note}}</span></figcaption>
+        <div style="width: 691px; height: 432px; overflow: hidden; border: 1.5px solid var(--line-strong); border-radius: 6px; background: var(--bg)">
+          <div style="width: 1440px; height: 900px; transform: scale(.48); transform-origin: 0 0">
+            <dc-import name="Constructor" state="{{t.s}}" hint-size="1440px,900px"></dc-import>
+          </div>
+        </div>
+      </figure>
+    </sc-for>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":2420}}'>
+class Component extends DCLogic {
+  renderVals() {
+    return {
+      tiles: [
+        { n: '01', s: 'empty', title: 'Пустой холст', note: 'зона-приглашение, «В корзину» неактивна' },
+        { n: '02', s: 'uploading', title: 'Загрузка файла', note: 'прогресс в панели и в зоне' },
+        { n: '03', s: 'error', title: 'Ошибка загрузки', note: 'причина и действие, тост' },
+        { n: '04', s: 'uploaded', title: 'Картинка загружена', note: 'рамка, ручки, A4, направляющая' },
+        { n: '05', s: 'lowres', title: 'Низкое разрешение', note: 'предупреждение + «Уменьшить до A5»' },
+        { n: '06', s: 'outzone', title: 'Принт за зоной', note: 'зона жёлтая, «Вписать в зону», слои' },
+        { n: '07', s: 'text', title: 'Текст в редактировании', note: 'каретка, панель шрифтов' },
+        { n: '08', s: 'twosides', title: 'Печать с двух сторон', note: 'две точки, разбивка цены' },
+        { n: '09', s: 'templates', title: 'Шаблон в конструкторе', note: 'те же шаблоны, что в каталоге' }
+      ]
+    };
+  }
+}
+</script>
+</body>
+</html>

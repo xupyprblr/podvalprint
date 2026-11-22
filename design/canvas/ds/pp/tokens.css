@@ -1,0 +1,56 @@
+/* Подвальный Принт — переменные из tokens.json (v1). Темы: light (А), light-magenta (Б), light-lime (В), dark (Deadlock), night (предложение: глобальная тёмная «Ночная смена»). */
+:root, [data-theme="light"], [data-theme="light-magenta"], [data-theme="light-lime"] {
+  --bg: #ffffff; --surface: #f4f3ef; --surface-2: #e9e7e1; --line: #d9d6ce; --line-strong: #7d7a72;
+  --ink: #121212; --ink-2: #5a5853; --on-ink: #ffffff;
+  --accent: #ffd60a; --accent-hover: #ffe14d; --accent-press: #f0c400; --on-accent: #121212;
+  --glow: #121212; --on-glow: #ffffff; --paper: #f4f3ef; --on-paper: #121212; --focus: #121212;
+  --team-a: #7a6200; --team-b: #2f6b1c;
+  --success: #15703a; --success-soft: #e6f2e9; --warning: #9a4f00; --warning-soft: #fbeedd; --danger: #c01e34; --danger-soft: #fbe6e8;
+  --disabled-bg: #e9e7e1; --disabled-ink: #9c9990; --scrim: rgba(18, 18, 18, 0.55);
+  --shadow-1: 0 1px 2px rgba(18, 18, 18, 0.08), 0 6px 16px rgba(18, 18, 18, 0.08);
+  --shadow-2: 0 24px 64px rgba(18, 18, 18, 0.22);
+  --shadow-glow: none;
+  color-scheme: light;
+}
+[data-theme="light-magenta"] { --accent: #ff3d8b; --accent-hover: #ff5c9e; --accent-press: #f7337f; }
+[data-theme="light-lime"] { --accent: #b6f23a; --accent-hover: #c8f765; --accent-press: #a3db2c; }
+[data-theme="dark"] {
+  --bg: #1c1a19; --surface: #24272a; --surface-2: #2f3236; --line: #43464a; --line-strong: #878279;
+  --ink: #f7e9d5; --ink-2: #b9ad9c; --on-ink: #1c1a19;
+  --accent: #dd6638; --accent-hover: #e8794d; --accent-press: #d65f33; --on-accent: #121d22;
+  --glow: #60cde3; --on-glow: #121d22; --paper: #e8d6b8; --on-paper: #121d22; --focus: #60cde3;
+  --team-a: #ffe14d; --team-b: #97da79;
+  --success: #97da79; --success-soft: #1f2a1c; --warning: #ffe14d; --warning-soft: #2e2a16; --danger: #ff8a7a; --danger-soft: #3a2422;
+  --disabled-bg: #2f3236; --disabled-ink: #6c6a66; --scrim: rgba(0, 0, 0, 0.72);
+  --shadow-1: 0 2px 10px rgba(0, 0, 0, 0.55);
+  --shadow-2: 0 24px 64px rgba(0, 0, 0, 0.7);
+  --shadow-glow: 0 0 0 1px #60cde3, 0 0 18px rgba(96, 205, 227, 0.35);
+  color-scheme: dark;
+}
+/* Предложение: глобальная тёмная тема магазина. Та же структура и шрифты светлой, тёмный бетон, тот же жёлтый акцент. Deadlock остаётся отдельной темой. */
+[data-theme="night"] {
+  --bg: #141413; --surface: #1d1d1b; --surface-2: #282825; --line: #3a3935; --line-strong: #85827a;
+  --ink: #f2f0ea; --ink-2: #b2afa6; --on-ink: #141413;
+  --accent: #ffd60a; --accent-hover: #ffe14d; --accent-press: #f0c400; --on-accent: #121212;
+  --glow: #f2f0ea; --on-glow: #141413; --paper: #282825; --on-paper: #f2f0ea; --focus: #f2f0ea;
+  --team-a: #ffe14d; --team-b: #97da79;
+  --success: #8fd19e; --success-soft: #1c2a20; --warning: #ffc266; --warning-soft: #2e2516; --danger: #ff8a7a; --danger-soft: #3a2422;
+  --disabled-bg: #282825; --disabled-ink: #6c6a66; --scrim: rgba(0, 0, 0, 0.72);
+  --shadow-1: 0 2px 10px rgba(0, 0, 0, 0.55);
+  --shadow-2: 0 24px 64px rgba(0, 0, 0, 0.7);
+  --shadow-glow: none;
+  color-scheme: dark;
+}
+:root {
+  --font-display: Onest, "Arial Narrow", Arial, sans-serif;
+  --font-text: "Golos Text", system-ui, "Segoe UI", Roboto, sans-serif;
+  --font-deco: Bitter, Rockwell, Georgia, serif;
+  --space-1: 4px; --space-2: 8px; --space-3: 12px; --space-4: 16px; --space-5: 24px;
+  --space-6: 32px; --space-7: 48px; --space-8: 64px; --space-9: 96px; --space-10: 128px;
+  --radius-xs: 2px; --radius-sm: 4px; --radius-md: 6px; --radius-lg: 14px; --radius-full: 999px;
+  --size-control-s: 36px; --size-control-m: 44px; --size-control-l: 56px; --size-field: 48px; --size-tap: 44px;
+  --size-header: 72px; --size-header-m: 56px;
+  --grid-cols: 12; --grid-gutter: 24px; --grid-margin: 80px; --grid-max: 1280px;
+  --grid-cols-m: 4; --grid-gutter-m: 16px; --grid-margin-m: 16px;
+  --z-sticky: 40; --z-header: 50; --z-overlay: 90; --z-toast: 100;
+}

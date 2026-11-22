@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="ru"><head><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta charset="utf-8">
+<title>Оформление · шаг 1 · мобильный</title>
+
+<link rel="stylesheet" href="../canvas/ds/pp/tokens.css">
+<link rel="stylesheet" href="../canvas/ds/pp/components/bundle.css">
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bitter:wght@600..900&amp;family=Golos+Text:wght@400..900&amp;family=Onest:wght@400..900&amp;display=swap">
+<style>body{margin:0}</style>
+</head>
+<body>
+
+
+
+
+
+
+<div data-theme="light" style="width: 390px; min-height: 844px; position: relative; background: var(--bg); color: var(--ink); font-family: var(--font-text); overflow: hidden">
+  <div style="height: 52px; display: flex; align-items: center; gap: 4px; padding: 0 4px; border-bottom: 1.5px solid var(--line)">
+    <button class="pp-btn pp-btn--icon pp-btn--ghost" aria-label="Назад в корзину"><svg class="pp-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true"><path d="M15 6l-6 6 6 6"></path></svg></button>
+    <b style="flex: 1; text-align: center; font: 700 16px var(--font-display)">Оформление</b>
+    <button class="pp-btn pp-btn--icon pp-btn--ghost" aria-label="Закрыть"><svg class="pp-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true"><path d="M5 5l14 14M19 5L5 19"></path></svg></button>
+  </div>
+  <div style="padding: 12px 16px 0"><div class="pp-steps" style="--n: 2"><div class="pp-steps__head"><span class="pp-label">Шаг 1 из 2</span><span class="pp-small">Дальше: контакты и оплата</span></div><ol class="pp-steps__bar"><li aria-current="step">Получение</li><li>Контакты и оплата</li></ol></div></div>
+  <section style="padding: 24px 16px 0; display: flex; flex-direction: column; gap: 12px">
+    <h1 style="margin: 0; font: 800 28px/1.1 var(--font-display); letter-spacing: -0.02em">Как получить заказ</h1>
+    <p class="pp-small" style="margin: 0">Готово к 24 ноября — пришлём SMS и сообщение в Telegram.</p>
+    <div role="radiogroup" aria-label="Способ получения" style="display: grid; gap: 10px; padding-top: 4px">
+      <label class="pp-option is-checked"><input type="radio" name="m1" checked=""><span class="pp-option__icon"><svg class="pp-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true"><path d="M12 21s7-6.2 7-12a7 7 0 0 0-14 0c0 5.8 7 12 7 12z"></path><circle cx="12" cy="9" r="2.5"></circle></svg></span><span class="pp-option__title">Самовывоз из мастерской</span><span class="pp-option__side"><span class="pp-option__radio"><svg class="pp-icon pp-icon--s" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M4 12.5l5 5L20 6.5"></path></svg></span>Бесплатно</span><span class="pp-option__desc">Минск, [улица, дом], вход со двора · пн–пт 10–20, сб 11–17</span></label>
+      <label class="pp-option"><input type="radio" name="m1"><span class="pp-option__icon"><svg class="pp-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true"><path d="M2 5h12v11H2zM14 9h4l4 4v3h-8"></path><circle cx="6.5" cy="18" r="2"></circle><circle cx="17.5" cy="18" r="2"></circle></svg></span><span class="pp-option__title">Курьер по Минску</span><span class="pp-option__side"><span class="pp-option__radio"></span>00 Br</span><span class="pp-option__desc">На следующий день после готовности, 10–22</span></label>
+      <label class="pp-option"><input type="radio" name="m1"><span class="pp-option__icon"><b style="font: 800 10px var(--font-display)">СДЭК</b></span><span class="pp-option__title">СДЭК · пункт выдачи</span><span class="pp-option__side"><span class="pp-option__radio"></span>от 00 Br</span><span class="pp-option__desc">По Беларуси, 1–3 дня</span></label>
+      <label class="pp-option"><input type="radio" name="m1"><span class="pp-option__icon"><b style="font: 800 9px var(--font-display)">ЕВРО</b></span><span class="pp-option__title">Европочта</span><span class="pp-option__side"><span class="pp-option__radio"></span>от 00 Br</span><span class="pp-option__desc">В отделение, 2–4 дня</span></label>
+    </div>
+  </section>
+  <div style="margin: 20px 16px 0" class="pp-tex-concrete pp-corners"><div style="height: 120px; display: grid; place-items: center"><span class="pp-label" style="background: var(--bg); padding: 4px 8px">Карта · как пройти</span></div></div>
+  <div style="height: 120px"></div>
+  <div class="pp-summary pp-summary--m" style="position: absolute; left: 0; right: 0; bottom: 0">
+    <div class="pp-summary__info"><span class="pp-small">4 вещи · самовывоз</span><span class="pp-price pp-price--s">00 Br</span></div>
+    <button class="pp-btn pp-btn--primary pp-btn--l">Дальше</button>
+  </div>
+</div>
+</body></html>

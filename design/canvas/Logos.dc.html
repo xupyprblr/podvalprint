@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<title>Логотип</title>
+<script src="./support.js"></script>
+<link rel="stylesheet" href="ds/pp/tokens.css">
+<link rel="stylesheet" href="ds/pp/components/bundle.css">
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bitter:wght@600..900&family=Golos+Text:wght@400..900&family=Onest:wght@400..900&display=swap">
+<style>body{margin:0}</style>
+</helmet>
+<div data-theme="light" style="width: 1440px; box-sizing: border-box; padding: 72px 80px 80px; display: flex; flex-direction: column; gap: 40px; background: var(--bg); color: var(--ink); font-family: var(--font-text)">
+  <div style="display: flex; justify-content: space-between; align-items: end; gap: 24px">
+    <div style="display: flex; flex-direction: column; gap: 12px">
+      <span class="pp-label pp-muted">Лист 03 · Бренд</span>
+      <h1 class="pp-h pp-h--1">Словесный знак и «ПП»</h1>
+    </div>
+    <p class="pp-small" style="max-width: 460px">Буквы нарисованы с нуля на квадратной сетке — знак не зависит от загрузки шрифтов. Цвет — только ink или белый. Жёлтая плитка — только иконка приложения и аватары.</p>
+  </div>
+  <sc-for list="{{rows}}" as="r" hint-placeholder-count="3">
+    <section style="display: grid; grid-template-columns: 220px 2fr 2fr 1fr 1fr; gap: 12px; align-items: stretch">
+      <div style="display: flex; flex-direction: column; gap: 8px; padding-top: 8px">
+        <b style="font: 800 22px/1.1 var(--font-display); letter-spacing: -0.01em">{{r.name}}</b>
+        <span class="pp-small">{{r.desc}}</span>
+        <sc-if value="{{r.rec}}" hint-placeholder-val="{{false}}"><span><span class="pp-badge pp-badge--new">Рекомендую</span></span></sc-if>
+      </div>
+      <div style="display: grid; place-items: center; min-height: 170px; padding: 28px; border: 1.5px solid var(--line); border-radius: 6px; background: #ffffff"><img src="{{r.ink}}" alt="{{r.alt}} на белом" style="width: 100%; max-width: 300px; height: auto"></div>
+      <div style="display: grid; place-items: center; min-height: 170px; padding: 28px; border-radius: 6px; background: #121212"><img src="{{r.paper}}" alt="{{r.alt}} на чёрном" style="width: 100%; max-width: 300px; height: auto"></div>
+      <div class="pp-tex-concrete" style="display: grid; place-items: center; min-height: 170px; border-radius: 6px"><img src="{{r.mark}}" alt="Знак ПП" style="width: 72px; height: auto"></div>
+      <div style="display: flex; align-items: center; justify-content: center; gap: 16px; min-height: 170px; border: 1.5px solid var(--line); border-radius: 6px">
+        <img src="{{r.app}}" alt="Иконка приложения" style="width: 72px; height: 72px">
+        <div style="display: grid; gap: 10px; justify-items: center"><img src="{{r.app}}" alt="" style="width: 32px; height: 32px"><img src="{{r.app}}" alt="" style="width: 16px; height: 16px"><span class="pp-small">32 · 16</span></div>
+      </div>
+    </section>
+  </sc-for>
+  <div style="display: grid; grid-template-columns: 220px 2fr 2fr 1fr 1fr; gap: 12px">
+    <span></span><span class="pp-label pp-muted">На белом · ink</span><span class="pp-label pp-muted">На чёрном · paper</span><span class="pp-label pp-muted">«ПП» · фавикон</span><span class="pp-label pp-muted">Иконка приложения</span>
+  </div>
+  <div class="pp-hazard"></div>
+  <div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px">
+    <div style="display: grid; gap: 8px"><span class="pp-label pp-muted">Охранное поле</span><p class="pp-text">Высота буквы «П» с каждой стороны. Минимум: словесный знак 24 px, «ПП» 16 px.</p></div>
+    <div style="display: grid; gap: 8px"><span class="pp-label pp-muted">В шапке</span><p class="pp-text">Inline SVG с fill: currentColor — знак сам берёт ink темы, в Deadlock становится кремовым.</p></div>
+    <div style="display: grid; gap: 8px"><span class="pp-label pp-muted">Нельзя</span><p class="pp-text">Красить терракотой или цианом, растягивать, обводить, добавлять тень и свечение.</p></div>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":1150}}'>
+class Component extends DCLogic {
+  renderVals() {
+    return {
+      rows: [
+        { name: 'А · «Блок»', desc: 'Две строки, крест совмещения на свободном месте второй строки. Компактен для шапки.', rec: true, alt: 'Подвальный Принт, вариант А',
+          ink: '/_blob/73088573c99f68d0d49374a6ab274401', paper: '/_blob/b51a2f61d21f660946dc8b6bdaf4dd64', mark: '/_blob/2116f86914ea7684007672f332837d46', app: '/_blob/5cad86ab2f98ec6e35ffd860596d7b49' },
+        { name: 'Б · «Трафарет»', desc: 'Разрывы в буквах, как у трафарета для покраски. Громче, лучше на мерче и бирках.', rec: false, alt: 'Подвальный Принт, вариант Б',
+          ink: '/_blob/d8bc5bbabce122c5f38a2d36e664af36', paper: '/_blob/97c88025f0aec84e6da44eb18f91e718', mark: '/_blob/30cc87e12c9de17d9a463c397d483873', app: '/_blob/5add9b74f9f89a9ed68a4ef398e57a1d' },
+        { name: 'В · «Уровень −1»', desc: 'Знак-этаж: подвал как минус первый уровень. Самый технический из трёх.', rec: false, alt: 'Подвальный Принт, вариант В',
+          ink: '/_blob/bd18647f129f152bc8e0604b50a269fc', paper: '/_blob/da9bcf3cb3d40fa8b95089bee0a8544e', mark: '/_blob/30928df06b73ac3d2f9f7382474af9af', app: '/_blob/536967daf6d5223868a77e364be98869' }
+      ]
+    };
+  }
+}
+</script>
+</body>
+</html>

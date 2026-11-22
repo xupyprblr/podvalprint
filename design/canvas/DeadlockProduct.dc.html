@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<title>Товар Deadlock · Последний трамвай</title>
+<script src="./support.js"></script>
+<link rel="stylesheet" href="ds/pp/tokens.css">
+<link rel="stylesheet" href="ds/pp/components/bundle.css">
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bitter:wght@600..900&family=Golos+Text:wght@400..900&family=Onest:wght@400..900&display=swap">
+<style>
+body{margin:0}
+.wrap{box-sizing:border-box;width:100%;max-width:1440px;margin:0 auto;padding:0 clamp(16px,5.5vw,80px)}
+</style>
+</helmet>
+<div data-theme="dark" class="pp-grain" style="min-height: 100%; background: var(--bg); color: var(--ink); font-family: var(--font-text)">
+  <dc-import name="Header" current="deadlock" count="{{one}}" hint-size="100%,72px"></dc-import>
+  <main>
+    <div class="wrap" style="padding-top: 16px"><nav aria-label="Хлебные крошки"><ol class="pp-crumbs"><li><a href="#">Главная</a></li><li><a href="#">Deadlock</a></li><li><span aria-current="page">Последний трамвай</span></li></ol></nav></div>
+    <section class="wrap" style="padding-top: 28px; padding-bottom: 88px; display: flex; flex-wrap: wrap; gap: 64px; align-items: start">
+      <div style="flex: 7 1 560px; min-width: 0; display: grid; grid-template-columns: 1fr 140px; gap: 24px">
+        <div class="pp-frame pp-tex-night" style="aspect-ratio: 4 / 5; position: relative; display: grid; place-items: center">
+          <span class="pp-label" style="color: var(--ink-2)">Фото: принт крупно · 1200 px</span>
+          <span class="pp-sticker" style="position: absolute; left: -14px; top: 24px">Новый тираж</span>
+        </div>
+        <div style="display: grid; gap: 16px; align-content: start">
+          <button class="pp-tex-night" aria-label="Принт крупно" aria-current="true" style="aspect-ratio: 4 / 5; border: 3px solid var(--glow); border-radius: 2px; padding: 0; display: grid; place-items: center; box-shadow: var(--shadow-glow)"><span class="pp-label" style="font-size: 10px; color: var(--ink-2)">принт</span></button>
+          <button class="pp-tex-night" aria-label="Футболка целиком" style="aspect-ratio: 4 / 5; border: 3px solid var(--ink); border-radius: 2px; padding: 0; display: grid; place-items: center"><svg viewBox="0 0 300 300" style="width: 86%" aria-hidden="true"><path d="M100 38 52 54 18 108l34 24 18-12-4 146h168l-4-146 18 12 34-24-34-54-48-16c-6 8-28 12-50 12s-44-4-50-12z" fill="#0d0c0b"></path><rect x="104" y="92" width="92" height="124" fill="#2f3236"></rect></svg></button>
+          <button class="pp-tex-night" aria-label="На модели" style="aspect-ratio: 4 / 5; border: 3px solid var(--ink); border-radius: 2px; padding: 0; display: grid; place-items: center"><span class="pp-label" style="font-size: 10px; color: var(--ink-2)">модель</span></button>
+        </div>
+      </div>
+      <div style="flex: 5 1 400px; min-width: 0; display: flex; flex-direction: column; gap: 22px">
+        <div style="display: flex; gap: 8px; align-items: center"><span class="pp-badge pp-badge--team-a">Жёлтая линия</span><span class="pp-badge pp-badge--new">Новинка</span></div>
+        <h1 class="pp-h pp-h--1" style="font-size: 60px">Последний трамвай</h1>
+        <p class="pp-text pp-muted">Остановка «Депо», без пятнадцати три. Принт A3 на спине, маленький номер маршрута на груди. Плотный чёрный оверсайз.</p>
+        <div style="display: flex; align-items: baseline; gap: 16px"><span class="pp-price pp-price--l">00 Br</span><span class="pp-small">готовая вещь, отправим завтра</span></div>
+        <div style="display: grid; gap: 8px"><div style="display: flex; justify-content: space-between"><span class="pp-label">Осталось 12 из 50</span><span class="pp-small">повтора не будет</span></div><div style="height: 6px; background: var(--surface-2); border-radius: 3px; overflow: hidden"><i style="display: block; height: 100%; width: 24%; background: var(--accent)"></i></div></div>
+        <div style="display: grid; gap: 10px">
+          <div style="display: flex; justify-content: space-between"><span class="pp-field__label">Размер</span><a class="pp-link pp-small" href="#">Размерная сетка</a></div>
+          <div role="radiogroup" aria-label="Размер" style="display: grid; grid-template-columns: repeat(6, 1fr); gap: 8px"><button class="pp-chip" role="radio" aria-checked="false" aria-pressed="false" style="justify-content: center">S</button><button class="pp-chip" role="radio" aria-checked="false" aria-pressed="false" style="justify-content: center">M</button><button class="pp-chip" role="radio" aria-checked="true" aria-pressed="true" style="justify-content: center">L</button><button class="pp-chip" role="radio" aria-checked="false" aria-pressed="false" style="justify-content: center">XL</button><button class="pp-chip" role="radio" aria-checked="false" aria-pressed="false" style="justify-content: center">2XL</button><button class="pp-chip" disabled style="justify-content: center">3XL</button></div>
+        </div>
+        <button class="pp-btn pp-btn--accent pp-btn--l pp-btn--block"><svg class="pp-icon pp-icon--l" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true"><path d="M2 3h3l2.4 11.2a1 1 0 0 0 1 .8H18l2.5-8H6.2"></path><circle cx="9" cy="19.5" r="1.5"></circle><circle cx="17" cy="19.5" r="1.5"></circle></svg>В корзину · L</button>
+        <dl class="pp-breakdown" style="padding: 20px; border: 1.5px dashed var(--line-strong); border-radius: 4px"><div><dt>Состав</dt><dd>100% хлопок</dd></div><div><dt>Плотность</dt><dd>240 г/м²</dd></div><div><dt>Крой</dt><dd>оверсайз, спущенное плечо</dd></div><div><dt>Печать</dt><dd>DTF · спина A3, грудь A7</dd></div><div><dt>Уход</dt><dd>30 °C, наизнанку</dd></div></dl>
+        <div class="pp-note" style="transform: rotate(-1deg)"><b>Записка водителя</b>Корзина общая со всем сайтом: можно добавить свой принт и получить скидку за количество.</div>
+      </div>
+    </section>
+    <section class="wrap" style="padding-bottom: 96px; display: flex; flex-direction: column; gap: 28px">
+      <div style="display: flex; justify-content: space-between; align-items: end"><h2 class="pp-h pp-h--2" style="font-size: 40px">Из той же <span class="pp-hl">линии</span></h2><a class="pp-btn pp-btn--text" href="#">Вся коллекция</a></div>
+      <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 32px">
+        <article class="pp-card pp-card--deco"><div class="pp-card__media pp-tex-night"><div class="pp-card__badges"><span class="pp-badge pp-badge--team-a">Жёлтая линия</span></div><span class="pp-label" style="color: var(--ink-2)">Принт коллекции</span></div><div class="pp-card__body"><h3 class="pp-card__title"><a href="#">Фонарщик</a></h3><div class="pp-card__foot"><span class="pp-price pp-price--s">00 Br</span><button class="pp-btn pp-btn--secondary pp-btn--s">Выбрать</button></div></div></article>
+        <article class="pp-card pp-card--deco is-hover"><div class="pp-card__media pp-tex-night"><div class="pp-card__badges"><span class="pp-badge pp-badge--team-a">Жёлтая линия</span></div><span class="pp-label" style="color: var(--ink-2)">Принт коллекции</span></div><div class="pp-card__body"><h3 class="pp-card__title"><a href="#">Депо</a></h3><div class="pp-card__foot"><span class="pp-price pp-price--s">00 Br</span><button class="pp-btn pp-btn--secondary pp-btn--s">Выбрать</button></div></div></article>
+        <article class="pp-card pp-card--deco"><div class="pp-card__media pp-tex-night"><div class="pp-card__badges"><span class="pp-badge pp-badge--team-a">Жёлтая линия</span></div><span class="pp-label" style="color: var(--ink-2)">Принт коллекции</span></div><div class="pp-card__body"><h3 class="pp-card__title"><a href="#">Три часа ночи</a></h3><div class="pp-card__foot"><span class="pp-price pp-price--s">00 Br</span><button class="pp-btn pp-btn--secondary pp-btn--s">Выбрать</button></div></div></article>
+        <article class="pp-card pp-card--deco"><div class="pp-card__media pp-tex-night"><div class="pp-card__badges"><span class="pp-badge pp-badge--team-b">Зелёная линия</span></div><span class="pp-label" style="color: var(--ink-2)">Принт коллекции</span></div><div class="pp-card__body"><h3 class="pp-card__title"><a href="#">Неспящий квартал</a></h3><div class="pp-card__foot"><span class="pp-price pp-price--s">00 Br</span><button class="pp-btn pp-btn--secondary pp-btn--s">Выбрать</button></div></div></article>
+      </div>
+    </section>
+  </main>
+  <dc-import name="Footer" hint-size="100%,380px"></dc-import>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":2400}}'>
+class Component extends DCLogic {
+  renderVals() { return { one: 1 }; }
+}
+</script>
+</body>
+</html>

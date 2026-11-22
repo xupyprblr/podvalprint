@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<title>SEO-лендинг · мобильный</title>
+<script src="./support.js"></script>
+<link rel="stylesheet" href="ds/pp/tokens.css">
+<link rel="stylesheet" href="ds/pp/components/bundle.css">
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bitter:wght@600..900&family=Golos+Text:wght@400..900&family=Onest:wght@400..900&display=swap">
+<style>
+body{margin:0}
+.sec{display:flex;align-items:center;gap:8px;color:var(--ink-2);font-size:11px}
+.sec::after{content:"";flex:1;height:1px;background:var(--line)}
+.h2m{margin:0;font:800 28px/1.1 var(--font-display);letter-spacing:-0.02em}
+.seo h2{font:800 26px/1.15 var(--font-display);letter-spacing:-0.02em;margin:28px 0 10px}
+.seo h3{font:700 20px/1.25 var(--font-display);margin:22px 0 6px}
+.seo p{font-size:17px;line-height:1.6;margin:0 0 14px}
+</style>
+</helmet>
+<div data-theme="light" style="width: 390px; background: var(--bg); color: var(--ink); font-family: var(--font-text); overflow: hidden">
+  <dc-import name="Header" mobile="{{yes}}" count="{{zero}}" hint-size="390px,56px"></dc-import>
+  <div style="padding: 4px 16px 0"><nav aria-label="Хлебные крошки"><ol class="pp-crumbs" style="font-size: 13px"><li><a href="#">Главная</a></li><li><a href="#">Печать</a></li><li><span aria-current="page">Свой принт</span></li></ol></nav></div>
+  <section style="padding: 12px 16px 32px; display: flex; flex-direction: column; gap: 16px">
+    <span class="pp-label sec">§ 01 · Hero</span>
+    <h1 style="margin: 0; font: 800 34px/1.04 var(--font-display); letter-spacing: -0.025em">Футболка со своим принтом в Минске</h1>
+    <p style="margin: 0; font-size: 18px; line-height: 1.45">От 1 штуки, от 00 Br, готово за 1–2 дня.</p>
+    <div style="display: grid; gap: 8px"><a class="pp-btn pp-btn--accent pp-btn--l pp-btn--block" href="#">Загрузить принт</a><a class="pp-btn pp-btn--secondary pp-btn--l pp-btn--block" href="#">Открыть конструктор</a></div>
+    <span class="pp-label sec" style="margin-top: 8px">§ 02 · Короткий ответ</span>
+    <aside class="pp-answer" aria-label="Коротко" style="margin-top: 10px; padding: 20px 16px"><span class="pp-badge pp-badge--new pp-answer__tag">Коротко</span><p style="font-size: 16px">Печатаем вашу картинку на футболке методом DTF: от 1 штуки, от 00 Br, за 1–2 рабочих дня. Макет проверяем бесплатно.</p><dl style="grid-template-columns: 1fr 1fr"><div><dt>Цена</dt><dd>от 00 Br</dd></div><div><dt>Срок</dt><dd>1–2 дня</dd></div><div><dt>Минимум</dt><dd>1 шт.</dd></div><div><dt>Получение</dt><dd>Самовывоз, доставка</dd></div></dl></aside>
+  </section>
+
+  <section style="background: var(--surface); padding: 40px 16px; display: flex; flex-direction: column; gap: 16px">
+    <span class="pp-label sec">§ 03 · Калькулятор</span>
+    <h2 class="h2m">Посчитайте цену</h2>
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px"><label class="pp-option is-checked" style="grid-template-columns: 1fr; padding: 14px"><input type="radio" name="lmp" checked><span class="pp-option__title">Классика</span><span class="pp-option__desc" style="grid-column: 1">от 00 Br</span></label><label class="pp-option" style="grid-template-columns: 1fr; padding: 14px"><input type="radio" name="lmp"><span class="pp-option__title">Оверсайз</span><span class="pp-option__desc" style="grid-column: 1">от 00 Br</span></label></div>
+    <div style="display: flex; justify-content: space-between; align-items: center"><span class="pp-field__label">Количество</span><div class="pp-stepper"><button type="button" aria-label="Меньше"><svg class="pp-icon pp-icon--s" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true"><path d="M4 12h16"></path></svg></button><output style="min-width: 40px">3</output><button type="button" aria-label="Больше"><svg class="pp-icon pp-icon--s" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true"><path d="M12 4v16M4 12h16"></path></svg></button></div></div>
+    <div style="display: flex; flex-wrap: wrap; gap: 8px"><button class="pp-chip" aria-pressed="true">Перед</button><button class="pp-chip" aria-pressed="true">Спина</button><button class="pp-chip" aria-pressed="false">Рукав</button></div>
+    <div style="display: flex; justify-content: space-between; align-items: center; padding: 16px; background: var(--ink); color: var(--on-ink); border-radius: 6px"><div style="display: grid; gap: 2px"><span style="font-size: 13px; opacity: .8">Итого за 3 шт.</span><span style="font: 850 32px/1 var(--font-display)">00 Br</span></div><a class="pp-btn pp-btn--accent" href="#">Сделать макет</a></div>
+  </section>
+
+  <section style="padding: 40px 16px; display: flex; flex-direction: column; gap: 16px">
+    <span class="pp-label sec">§ 04 · Цены</span>
+    <h2 class="h2m">Цены по формату</h2>
+    <div style="overflow-x: auto; margin: 0 -16px; padding: 0 16px">
+      <table class="pp-table" style="min-width: 460px"><caption>Скидка от 3 и от 10 шт.</caption><thead><tr><th scope="col" style="position: sticky; left: 0; background: var(--bg)">Формат</th><th scope="col" class="is-num">1–2</th><th scope="col" class="is-num">3–9</th><th scope="col" class="is-num">10+</th></tr></thead><tbody><tr><td style="position: sticky; left: 0; background: var(--bg)">A6</td><td class="is-num">00 Br</td><td class="is-num">00 Br</td><td class="is-num">00 Br</td></tr><tr><td style="position: sticky; left: 0; background: var(--bg)">A5</td><td class="is-num">00 Br</td><td class="is-num">00 Br</td><td class="is-num">00 Br</td></tr><tr class="is-hl"><td style="position: sticky; left: 0; background: var(--surface)">A4</td><td class="is-num">00 Br</td><td class="is-num">00 Br</td><td class="is-num">00 Br</td></tr><tr><td style="position: sticky; left: 0; background: var(--bg)">A3</td><td class="is-num">00 Br</td><td class="is-num">00 Br</td><td class="is-num">00 Br</td></tr></tbody></table>
+    </div>
+  </section>
+
+  <section style="background: var(--surface); padding: 40px 16px; display: flex; flex-direction: column; gap: 12px">
+    <span class="pp-label sec">§ 05 · Изделия</span>
+    <article class="pp-card" style="flex-direction: row"><div class="pp-card__media pp-tex-concrete" style="flex: 0 0 120px; aspect-ratio: auto"><svg viewBox="0 0 300 300" style="width: 90%" aria-hidden="true"><path d="M105 40 70 52 30 90l22 38 26-16v150h144V112l26 16 22-38-40-38-35-12c-7 18-25 28-45 28s-38-10-45-28z" fill="#ffffff" stroke="#7d7a72" stroke-width="2"></path></svg></div><div class="pp-card__body" style="padding: 12px; gap: 4px"><h3 class="pp-card__title" style="font-size: 17px"><a href="#">Классика</a></h3><p class="pp-card__meta">Хлопок 180 г/м² · S–3XL · 6 цветов</p><span class="pp-price pp-price--s"><span class="pp-price__from">от</span>00 Br</span></div></article>
+    <article class="pp-card" style="flex-direction: row"><div class="pp-card__media pp-tex-concrete" style="flex: 0 0 120px; aspect-ratio: auto"><svg viewBox="0 0 300 300" style="width: 94%" aria-hidden="true"><path d="M100 38 52 54 18 108l34 24 18-12-4 146h168l-4-146 18 12 34-24-34-54-48-16c-8 18-28 26-50 26s-42-8-50-26z" fill="#151515"></path></svg></div><div class="pp-card__body" style="padding: 12px; gap: 4px"><h3 class="pp-card__title" style="font-size: 17px"><a href="#">Оверсайз</a></h3><p class="pp-card__meta">Хлопок 220 г/м² · S–3XL · 5 цветов</p><span class="pp-price pp-price--s"><span class="pp-price__from">от</span>00 Br</span></div></article>
+  </section>
+
+  <section style="padding: 40px 0; display: flex; flex-direction: column; gap: 12px">
+    <span class="pp-label sec" style="padding: 0 16px">§ 06 · Галерея</span>
+    <div style="display: flex; gap: 10px; padding: 0 16px; overflow-x: auto">
+      <div class="pp-tex-concrete" style="flex: 0 0 200px; aspect-ratio: 1; border-radius: 6px; display: grid; place-items: center"><span class="pp-label" style="font-size: 10px; color: var(--ink-2)">Фото: надпись</span></div>
+      <div class="pp-tex-concrete" style="flex: 0 0 200px; aspect-ratio: 1; border-radius: 6px; display: grid; place-items: center"><span class="pp-label" style="font-size: 10px; color: var(--ink-2)">Фото: спина A3</span></div>
+      <div class="pp-tex-concrete" style="flex: 0 0 200px; aspect-ratio: 1; border-radius: 6px; display: grid; place-items: center"><span class="pp-label" style="font-size: 10px; color: var(--ink-2)">Фото: команда</span></div>
+    </div>
+  </section>
+
+  <section style="background: var(--surface); padding: 40px 16px; display: flex; flex-direction: column; gap: 12px">
+    <span class="pp-label sec">§ 07 · Шаги и макет</span>
+    <ol style="list-style: none; margin: 0; padding: 0; display: grid">
+      <li style="display: grid; grid-template-columns: 44px 1fr; gap: 10px; padding: 12px 0; border-top: 2px solid var(--ink)"><b style="font: 850 28px/1 var(--font-display)">01</b><span>Загрузите картинку</span></li>
+      <li style="display: grid; grid-template-columns: 44px 1fr; gap: 10px; padding: 12px 0; border-top: 2px solid var(--ink)"><b style="font: 850 28px/1 var(--font-display)">02</b><span>Получите превью — бесплатно</span></li>
+      <li style="display: grid; grid-template-columns: 44px 1fr; gap: 10px; padding: 12px 0; border-top: 2px solid var(--ink)"><b style="font: 850 28px/1 var(--font-display)">03</b><span>Заберите через 1–2 дня</span></li>
+    </ol>
+    <p class="pp-small" style="margin: 0; padding: 12px; background: var(--bg); border-radius: 4px">PNG, JPG, PDF до 20 МБ · от 3000 px для A3 · прозрачный фон</p>
+  </section>
+
+  <section style="padding: 40px 16px; display: flex; flex-direction: column; gap: 12px">
+    <span class="pp-label sec">§ 08 · Технологии</span>
+    <h2 class="h2m">DTF или шелкография</h2>
+    <div style="overflow-x: auto; margin: 0 -16px; padding: 0 16px"><table class="pp-table" style="min-width: 520px"><thead><tr><th scope="col" style="position: sticky; left: 0; background: var(--bg)">Метод</th><th scope="col">Тираж</th><th scope="col">Фото</th><th scope="col">Срок</th></tr></thead><tbody><tr class="is-hl"><td style="position: sticky; left: 0; background: var(--surface)">DTF</td><td>от 1</td><td>Да</td><td>1–2 дня</td></tr><tr><td style="position: sticky; left: 0; background: var(--bg)">Шелкография</td><td>от 30</td><td>Нет</td><td>5–10 дней</td></tr><tr><td style="position: sticky; left: 0; background: var(--bg)">Термотрансфер</td><td>от 1</td><td>Частично</td><td>1 день</td></tr></tbody></table></div>
+  </section>
+
+  <section style="background: var(--surface); padding: 40px 16px; display: flex; flex-direction: column; gap: 12px">
+    <span class="pp-label sec">§ 09 · Отзывы · § 10 · FAQ</span>
+    <article class="pp-card pp-review"><blockquote>«Место под реальный отзыв».</blockquote><footer><span><b>Имя Ф.</b>Классика · 1 шт.</span><a class="pp-link" href="#">Яндекс Карты</a></footer></article>
+    <div class="pp-faq"><details open><summary style="font-size: 18px">Можно свою картинку из интернета?</summary><div class="pp-faq__a" style="padding-right: 0">Да, если у вас есть права и картинка крупная.</div></details><details><summary style="font-size: 18px">Пришлёте превью?</summary><div class="pp-faq__a">Да, бесплатно.</div></details><details><summary style="font-size: 18px">Можно срочно?</summary><div class="pp-faq__a">В день обращения, если очередь позволяет.</div></details></div>
+  </section>
+
+  <section style="padding: 40px 16px; display: flex; flex-direction: column; gap: 12px">
+    <span class="pp-label sec">§ 11 · Где мы · § 12 · По теме</span>
+    <p class="pp-text" style="font-weight: 600">Минск, [улица, дом] · пн–пт 10–20</p>
+    <div style="display: flex; flex-wrap: wrap; gap: 8px"><a class="pp-chip" href="#">Печать на футболках</a><a class="pp-chip" href="#">Оверсайз с принтом</a><a class="pp-chip" href="#">Футболка с фото</a><a class="pp-chip" href="#">Срочная печать</a></div>
+  </section>
+
+  <section style="padding: 8px 16px 56px">
+    <span class="pp-label sec">§ 13 · SEO-текст</span>
+    <article class="seo">
+      <h2>Как заказать футболку со своим принтом</h2>
+      <p>Своя футболка начинается с картинки: рисунок, надпись, фото или логотип. Мы печатаем методом DTF — сначала на плёнку, затем прессом на ткань. Так можно напечатать даже одну футболку.</p>
+      <h3>Какой файл подойдёт</h3>
+      <p>PNG с прозрачным фоном от 3000 px по длинной стороне. Подойдут JPG и PDF до 20 МБ…</p>
+      <p class="pp-small">[продолжение — 600–1200 слов, колонка на всю ширину, 17 px]</p>
+    </article>
+  </section>
+  <dc-import name="Footer" mobile="{{yes}}" hint-size="390px,560px"></dc-import>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":7000}}'>
+class Component extends DCLogic {
+  renderVals() { return { yes: true, zero: 0 }; }
+}
+</script>
+</body>
+</html>
