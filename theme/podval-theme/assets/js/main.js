@@ -542,16 +542,16 @@
     const overlay = document.createElement('div');
     overlay.id = 'search-overlay';
     overlay.style.cssText = `
-      display:none;position:fixed;inset:0;background:rgba(10,10,10,0.97);
+      display:none;position:fixed;inset:0;background:var(--bg);
       z-index:500;align-items:center;justify-content:center;flex-direction:column;gap:24px;
     `;
     overlay.innerHTML = `
       <button id="search-close" style="position:absolute;top:24px;right:24px;background:none;border:none;color:var(--white);font-size:28px;cursor:pointer;line-height:1;">✕</button>
-      <form role="search" method="get" action="${window.location.origin}" style="width:100%;max-width:600px;padding:0 24px;">
+      <form role="search" method="get" action="${(window.PodvalStore && PodvalStore.homeUrl) || window.location.origin + '/'}" style="width:100%;max-width:600px;padding:0 24px;">
         <input type="search" name="s" placeholder="Поиск товаров..." autocomplete="off"
-          style="width:100%;background:transparent;border:none;border-bottom:2px solid var(--accent);
+          style="width:100%;background:transparent;border:none;border-bottom:2px solid var(--ink);
                  color:var(--white);font-family:var(--font-display);font-size:clamp(28px,5vw,56px);
-                 letter-spacing:0.04em;text-transform:uppercase;padding:8px 0;outline:none;caret-color:var(--accent);"
+                 letter-spacing:-0.02em;font-weight:800;padding:8px 0;outline:none;caret-color:var(--accent-legacy);"
           id="search-input">
         <input type="hidden" name="post_type" value="product">
       </form>

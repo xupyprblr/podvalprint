@@ -237,7 +237,7 @@ if ( is_front_page() || is_home() ) :
             // фоны у всех совпавших элементов, даже при opacity:0, и второй
             // слайд отъедал 95 КБ параллельно с LCP-картинкой. Правило
             // `.hero__slide.is-active .hero__bg{background-image:var(--slide-bg)}`
-            // в critical.css включает фон только когда слайд стал активным.
+            // в старом critical.css включал фон только когда слайд стал активным.
         ?>
         <div class="hero__bg"></div>
         <?php endif; ?>

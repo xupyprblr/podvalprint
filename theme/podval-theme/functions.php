@@ -540,6 +540,7 @@ function podval_enqueue() {
         'nonce'   => wp_create_nonce( 'podval_nonce' ),
         'restNonce'    => wp_create_nonce( 'wc_store_api' ),
         'cartUrl' => function_exists( 'wc_get_cart_url' ) ? wc_get_cart_url() : home_url( '/cart/' ),
+        'homeUrl' => home_url( '/' ),
     ] );
 }
 add_action( 'wp_enqueue_scripts', 'podval_enqueue' );
@@ -907,6 +908,7 @@ if ( ! function_exists('podval_cat_banner') ) {
 
 /* Load Customizer */
 require get_template_directory() . '/inc/copy.php';       // тексты сайта — слой данных
+require get_template_directory() . '/inc/design.php';     // дизайн-система: стили, иконки, меню
 require get_template_directory() . '/inc/admin-menu.php'; // раздел сайта в админке
 require get_template_directory() . '/inc/customizer.php';
 
@@ -1974,16 +1976,7 @@ add_action( 'send_headers', function() {
     }
 });
 
-// 2. Preload критических шрифтов (self-hosted)
-add_action( 'wp_head', function() {
-    $dir = get_template_directory_uri() . '/assets/fonts';
-    // Preload only the most critical fonts (above-the-fold: Oswald 700 for headings, Unbounded 600 for UI, Inter 400 for body text)
-    // Inter cyrillic 400 — на критическом пути LCP (был 438ms), preload убирает задержку на парсинг CSS
-    echo '<link rel="preload" href="' . $dir . '/oswald-cyrillic-700.woff2" as="font" type="font/woff2" crossorigin>' . "\n";
-    echo '<link rel="preload" href="' . $dir . '/oswald-latin-700.woff2" as="font" type="font/woff2" crossorigin>' . "\n";
-    echo '<link rel="preload" href="' . $dir . '/unbounded-cyrillic-600.woff2" as="font" type="font/woff2" crossorigin>' . "\n";
-    echo '<link rel="preload" href="' . $dir . '/inter-cyrillic-400.woff2" as="font" type="font/woff2" crossorigin>' . "\n";
-}, 1 );
+// 2. Предзагрузка шрифтов — в inc/design.php (Golos Text и Onest).
 
 // 2b. Универсальная система инвалидации кеша
 // Работает с WP Super Cache, WP Fastest Cache, LiteSpeed Cache, W3 Total Cache

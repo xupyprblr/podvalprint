@@ -28,7 +28,7 @@ img.sc-img{max-width:260px !important;width:100% !important;height:auto !importa
 .sc-table th{background:rgba(255,255,255,0.08);color:var(--gray-light);font-weight:600;font-size:9px;letter-spacing:0.14em;text-transform:uppercase;padding:10px 12px;text-align:center;border-bottom:1px solid rgba(255,255,255,0.08)}
 .sc-table td{padding:9px 12px;text-align:center;color:var(--white);border-bottom:1px solid rgba(255,255,255,0.05)}
 .sc-table tr:hover td{background:rgba(255,255,255,0.03)}
-.sc-table td:first-child{font-weight:600;color:var(--accent);text-align:left}
+.sc-table td:first-child{font-weight:600;color:var(--accent-legacy);text-align:left}
 .sc-table th:first-child{text-align:left}
 @media (max-width:600px){
   .sc-overlay{padding:0;align-items:flex-end}
