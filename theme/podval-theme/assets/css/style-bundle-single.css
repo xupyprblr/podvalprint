@@ -100,7 +100,7 @@
   border:1px solid rgba(255,255,255,0.06);
   padding:8px 12px;border-radius:4px;
 }
-.bhero-pill__icon{width:22px;height:22px;color:var(--accent);flex-shrink:0}
+.bhero-pill__icon{width:22px;height:22px;color:var(--accent-legacy);flex-shrink:0}
 .bhero-pill__title{
   font-family:var(--font-body);font-size:9px;font-weight:700;
   letter-spacing:0.18em;color:var(--white);
@@ -156,7 +156,7 @@
 }
 .bundle-single-page .badge--hot{background:var(--red);color:#fff}
 .bundle-single-page .badge--bestseller{background:var(--white);color:var(--black)}
-.bundle-single-page .badge--new{background:var(--accent);color:var(--black)}
+.bundle-single-page .badge--new{background:var(--accent-legacy);color:var(--black)}
 .bundle-single-page .badge--limited{background:var(--white);color:var(--black)}
 
 .bundle-info__title{
@@ -178,13 +178,13 @@
 .bundle-single-page .inline-note{
   display:flex;align-items:flex-start;gap:10px;
   background:rgba(255,255,255,0.03);
-  border-left:2px solid var(--accent);
+  border-left:2px solid var(--accent-legacy);
   padding:10px 14px;
   font-family:var(--font-text);font-size:12px;
   color:var(--gray-light);line-height:1.4;
 }
 .bundle-single-page .inline-note__icon{
-  width:14px;height:14px;color:var(--accent);
+  width:14px;height:14px;color:var(--accent-legacy);
   flex-shrink:0;margin-top:1px;
 }
 
@@ -224,7 +224,7 @@
   text-decoration:line-through;white-space:nowrap;
 }
 .bundle-single-page .price-save{
-  font-family:var(--font-text);font-size:12px;color:var(--accent);font-weight:500;
+  font-family:var(--font-text);font-size:12px;color:var(--accent-legacy);font-weight:500;
 }
 
 .reassure{
@@ -234,7 +234,7 @@
 }
 .reassure::before{
   content:"";display:inline-block;
-  width:6px;height:6px;background:var(--accent);border-radius:50%;
+  width:6px;height:6px;background:var(--accent-legacy);border-radius:50%;
 }
 
 /* Buttons — модификаторы --lg/--md/--full поверх существующих .btn/.btn--primary/.btn--ghost.
@@ -253,7 +253,7 @@
   padding:6px 0 2px;cursor:pointer;align-self:flex-start;
   transition:color 0.2s;
 }
-.wish-row:hover{color:var(--accent)}
+.wish-row:hover{color:var(--accent-legacy)}
 .wish-row__ic{width:16px;height:16px}
 
 /* ============================================================
@@ -304,7 +304,7 @@
   display:flex;align-items:center;justify-content:center;color:var(--gray-light);
   cursor:pointer;transition:all 0.15s;
 }
-.carbtn:hover{border-color:var(--accent);color:var(--accent)}
+.carbtn:hover{border-color:var(--accent-legacy);color:var(--accent-legacy)}
 .carbtn svg{width:14px;height:14px}
 
 /* ============================================================
@@ -331,7 +331,7 @@
 .bi-num{
   position:absolute;top:14px;left:14px;z-index:5;
   width:28px;height:28px;border-radius:50%;
-  background:var(--gray-mid);color:var(--accent);
+  background:var(--gray-mid);color:var(--accent-legacy);
   display:flex;align-items:center;justify-content:center;
   font-family:var(--font-display);font-size:14px;font-weight:700;
   line-height:1;
@@ -382,7 +382,7 @@
   color:var(--gray-light);text-decoration:underline;text-underline-offset:2px;
   white-space:nowrap;cursor:pointer;transition:color .2s;
 }
-.bi-size-chart:hover{color:var(--accent)}
+.bi-size-chart:hover{color:var(--accent-legacy)}
 
 /* Type selector — компактный вариант .size-btn с outline-active.
    Скоупим, чтобы НЕ задеть обычный .size-btn на странице товара. */
@@ -401,7 +401,7 @@
   border-color:var(--white);color:var(--white);
 }
 .bundle-single-page .bi-types .size-btn.is-active{
-  border-color:var(--accent);color:var(--accent);
+  border-color:var(--accent-legacy);color:var(--accent-legacy);
   background:rgba(255,106,0,0.04);
 }
 .bundle-single-page .bi-types .size-btn:disabled{
@@ -420,7 +420,7 @@
   border:1px solid rgba(255,255,255,0.18);
 }
 .sw.is-active i{
-  box-shadow:0 0 0 2px var(--black),0 0 0 4px var(--accent);
+  box-shadow:0 0 0 2px var(--black),0 0 0 4px var(--accent-legacy);
 }
 .sw-l{
   font-family:var(--font-body);font-size:7.5px;font-weight:700;
@@ -439,7 +439,7 @@
   transition:border-color 0.15s;
   background:transparent;
 }
-.bi-select:hover{border-color:var(--accent)}
+.bi-select:hover{border-color:var(--accent-legacy)}
 .bi-select__chev{width:12px;height:12px;color:var(--gray-light)}
 .bi-select.is-disabled{opacity:0.4;cursor:not-allowed}
 
@@ -530,9 +530,9 @@
   background:rgba(255,106,0,0.06);
   padding:10px 8px;
 }
-.tstep--current .tstep__top{color:var(--accent)}
+.tstep--current .tstep__top{color:var(--accent-legacy)}
 .tstep--current .tstep__pill{
-  background:var(--accent);color:var(--black);
+  background:var(--accent-legacy);color:var(--black);
   font-size:11px;padding:7px 12px;
 }
 .tstep__cap--current{color:var(--red)}
@@ -542,7 +542,7 @@
 
 /* connector lines */
 .tline{flex:0 0 18px;height:1px;background:var(--gray-mid)}
-.tline--on{background:var(--accent)}
+.tline--on{background:var(--accent-legacy)}
 .tline--off{background:var(--gray-mid)}
 
 /* result column */
@@ -563,7 +563,7 @@
   font-family:var(--font-body);font-size:10px;font-weight:700;
   letter-spacing:0.12em;padding:4px 8px;border-radius:3px;line-height:1;
 }
-.tres__save{font-family:var(--font-text);font-size:12px;color:var(--accent)}
+.tres__save{font-family:var(--font-text);font-size:12px;color:var(--accent-legacy)}
 
 /* ============================================================
    5. SIMILAR (.bcard переиспользуется из style-bundles.css)
@@ -678,7 +678,7 @@
   }
   .timeline__steps .tstep--current{
     transform:none;background:rgba(255,106,0,0.08);
-    border:1px solid var(--accent);
+    border:1px solid var(--accent-legacy);
   }
   .timeline__steps .tstep__top{font-size:9px}
   .timeline__steps .tstep__pill{flex-shrink:0;font-size:10px}
@@ -796,8 +796,8 @@
   white-space:nowrap;
 }
 .sw--text.is-active{
-  background:var(--accent,#ff6a00);
-  border-color:var(--accent,#ff6a00);
+  background:var(--accent-legacy,#ff6a00);
+  border-color:var(--accent-legacy,#ff6a00);
 }
 .sw--text.is-active .sw-l{color:#fff}
 
@@ -809,7 +809,7 @@
 
 /* Category lable в info-card */
 .bundle-info__cat{
-  color:var(--accent,#ff6a00);
+  color:var(--accent-legacy,#ff6a00);
   text-transform:uppercase;
   font-size:12px;
   letter-spacing:0.18em;
@@ -887,7 +887,7 @@
 }
 .benefit__icon{
   width:30px;height:30px;
-  color:var(--accent);
+  color:var(--accent-legacy);
   flex-shrink:0;
 }
 .benefit__txt{min-width:0}
@@ -923,7 +923,7 @@
 }
 .bundle-toast--success{border-color:rgba(108,196,108,0.4)}
 .bundle-toast--error{border-color:rgba(220,38,38,0.5)}
-.bundle-toast a{color:var(--accent);text-decoration:underline;font-weight:600}
+.bundle-toast a{color:var(--accent-legacy);text-decoration:underline;font-weight:600}
 
 /* ---------- Btn loading state (для AJAX) ---------- */
 .btn[data-add-to-cart].is-loading{
@@ -1148,7 +1148,7 @@
   .tres__save{
     grid-column:1 / -1;
     font-size:13px;
-    color:var(--accent);
+    color:var(--accent-legacy);
     margin-top:2px;
   }
 

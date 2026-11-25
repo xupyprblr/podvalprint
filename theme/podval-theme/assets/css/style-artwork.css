@@ -321,7 +321,7 @@ html.awp-lock { overflow: hidden; }
 }
 /* Пояснение для форматов без предпросмотра */
 .awp-modal__note {
-  margin: -8px 0 16px; padding: 8px 10px; border-left: 2px solid var(--accent);
+  margin: -8px 0 16px; padding: 8px 10px; border-left: 2px solid var(--accent-legacy);
   background: rgba(255,106,0,0.08); font-family: var(--font-body);
   font-size: 12px; line-height: 1.45; color: rgba(245,244,240,0.82);
 }
@@ -367,7 +367,7 @@ html.awp-lock { overflow: hidden; }
 }
 .awp-layer__handle {
   position: absolute; right: -9px; bottom: -9px; width: 18px; height: 18px;
-  background: var(--accent); border: 2px solid #fff; border-radius: 50%;
+  background: var(--accent-legacy); border: 2px solid #fff; border-radius: 50%;
   cursor: nwse-resize; touch-action: none; box-shadow: 0 1px 4px rgba(0,0,0,0.3);
 }
 
@@ -400,7 +400,7 @@ html.awp-lock { overflow: hidden; }
 }
 .awp-btn--ghost { background: transparent; border-color: rgba(255,255,255,0.14); color: rgba(245,244,240,0.75); }
 .awp-btn--ghost:hover { background: rgba(255,255,255,0.05); }
-.awp-btn--primary { background: var(--accent); color: var(--black); }
+.awp-btn--primary { background: var(--accent-legacy); color: var(--black); }
 .awp-btn--primary:hover { opacity: .9; }
 .awp-btn--primary:disabled { opacity: .45; cursor: not-allowed; }
 .awp-btn.is-loading { position: relative; color: transparent; pointer-events: none; }
@@ -445,10 +445,10 @@ html.awp-lock { overflow: hidden; }
 /* Upload button — lives in the tools row (not over the canvas), so it never
    blocks dragging text/image or gets clicked by accident. */
 .awp-tool--upload {
-  background: var(--accent); color: var(--black); border-color: var(--accent);
+  background: var(--accent-legacy); color: var(--black); border-color: var(--accent-legacy);
   font-weight: 700;
 }
-.awp-tool--upload:hover { opacity: .92; background: var(--accent); }
+.awp-tool--upload:hover { opacity: .92; background: var(--accent-legacy); }
 .awp-tool--upload[hidden] { display: none !important; }
 .awp-tool--upload.is-loading { opacity: .5; pointer-events: none; }
 
@@ -463,7 +463,7 @@ html.awp-lock { overflow: hidden; }
   transition: background .15s, color .15s, border-color .15s;
 }
 .awp-align:hover { background: rgba(255,255,255,0.1); color: var(--white); }
-.awp-align.is-active { background: rgba(255,106,0,0.15); border-color: var(--accent); color: var(--accent); }
+.awp-align.is-active { background: rgba(255,106,0,0.15); border-color: var(--accent-legacy); color: var(--accent-legacy); }
 textarea.awp-textctl__input { resize: none; overflow: hidden; min-height: 42px; line-height: 1.4; }
 
 .awp-textctl { margin-top: 14px; display: flex; flex-direction: column; gap: 6px; }
@@ -477,7 +477,7 @@ textarea.awp-textctl__input { resize: none; overflow: hidden; min-height: 42px; 
   border-radius: 8px; color: var(--white);
   font-family: var(--font-body); font-size: 14px;
 }
-.awp-textctl__input:focus { outline: none; border-color: var(--accent); background: rgba(255,255,255,0.06); }
+.awp-textctl__input:focus { outline: none; border-color: var(--accent-legacy); background: rgba(255,255,255,0.06); }
 .awp-textctl__input::placeholder { color: rgba(245,244,240,0.35); }
 
 /* Two-sleeve hint — compact note under the sleeve section header */
@@ -516,7 +516,7 @@ textarea.awp-textctl__input { resize: none; overflow: hidden; min-height: 42px; 
 .awp-stage.is-dark .awp-stage__uploading { background: rgba(20,20,20,0.82); color: rgba(255,255,255,0.85); }
 .awp-spinner {
   width: 38px; height: 38px; border-radius: 50%;
-  border: 3px solid rgba(255,106,0,0.25); border-top-color: var(--accent);
+  border: 3px solid rgba(255,106,0,0.25); border-top-color: var(--accent-legacy);
   animation: awp-spin .7s linear infinite;
 }
 @media (prefers-reduced-motion: reduce) { .awp-spinner { animation-duration: 1.4s; } }

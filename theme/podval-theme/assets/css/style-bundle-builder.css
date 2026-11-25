@@ -27,7 +27,7 @@
 .builder-hero__label{
   display:inline-flex;align-items:center;
   font-family:var(--font-body);font-size:9px;font-weight:700;
-  letter-spacing:0.2em;text-transform:uppercase;color:var(--accent);
+  letter-spacing:0.2em;text-transform:uppercase;color:var(--accent-legacy);
   margin-bottom:16px;
 }
 .builder-hero__title{
@@ -41,7 +41,7 @@
 }
 .vprops{display:flex;gap:28px;flex-wrap:wrap;list-style:none;padding:0;margin:0}
 .vprop{display:flex;align-items:flex-start;gap:12px}
-.vprop__ic{width:24px;height:24px;color:var(--accent);flex-shrink:0;margin-top:2px}
+.vprop__ic{width:24px;height:24px;color:var(--accent-legacy);flex-shrink:0;margin-top:2px}
 .vprop__t{
   font-family:var(--font-body);font-size:11px;font-weight:700;
   letter-spacing:0.06em;color:var(--white);text-transform:uppercase;line-height:1.3;
@@ -85,7 +85,7 @@
   font-family:var(--font-body);font-size:12px;font-weight:700;
   letter-spacing:0.14em;color:var(--gray-light);text-transform:uppercase;
 }
-.bundle-builder-page .sect-head__hint--accent{color:var(--accent)}
+.bundle-builder-page .sect-head__hint--accent{color:var(--accent-legacy)}
 
 /* явные [hidden] переопределения. Без них display:flex/grid из
    стилей ниже бьёт [hidden]{display:none} по specificity и условные блоки
@@ -155,8 +155,8 @@
   width:100%;
   font-family:var(--font-body);font-size:9px;font-weight:700;
   letter-spacing:0.14em;text-transform:uppercase;
-  color:var(--accent);background:transparent;
-  border:1px solid var(--accent);
+  color:var(--accent-legacy);background:transparent;
+  border:1px solid var(--accent-legacy);
   padding:7px 10px;border-radius:0;line-height:1;cursor:pointer;
   transition:background 0.15s;
 }
@@ -185,9 +185,9 @@
   cursor:pointer;
   transition:border-color 0.15s;
 }
-.builder-slot--empty:hover{border-color:var(--accent)}
+.builder-slot--empty:hover{border-color:var(--accent-legacy)}
 .builder-slot--empty:hover .slot-empty__plus,
-.builder-slot--empty:hover .slot-empty__t{color:var(--accent)}
+.builder-slot--empty:hover .slot-empty__t{color:var(--accent-legacy)}
 .slot-empty{
   flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;
   gap:12px;color:var(--gray-light);padding:18px 0;
@@ -217,7 +217,7 @@
   min-width:220px;max-width:280px;
   transition:border-color 0.15s;
 }
-.search-input:focus-within{border-color:var(--accent)}
+.search-input:focus-within{border-color:var(--accent-legacy)}
 .search-input__ic{width:14px;height:14px;color:var(--gray-light);flex-shrink:0}
 .search-input input{
   flex:1;font-family:var(--font-text);font-size:13px;color:var(--white);
@@ -246,7 +246,7 @@
   letter-spacing:0.18em;color:var(--gray-light);text-transform:uppercase;
   cursor:pointer;transition:color 0.15s;
 }
-.theme__all:hover{color:var(--accent)}
+.theme__all:hover{color:var(--accent-legacy)}
 
 .prn-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:8px}
 
@@ -262,13 +262,13 @@
 }
 .print-card:hover{border-color:rgba(255,106,0,0.4);transform:scale(1.02)}
 .print-card.is-selected{
-  border-color:var(--accent);
+  border-color:var(--accent-legacy);
   background:linear-gradient(0deg,rgba(255,106,0,0.05),rgba(255,106,0,0.05)),var(--gray);
 }
 .print-card__check{
   position:absolute;top:-7px;right:-7px;z-index:5;
   width:22px;height:22px;border-radius:50%;
-  background:var(--accent);color:#000;
+  background:var(--accent-legacy);color:#000;
   display:flex;align-items:center;justify-content:center;
   box-shadow:0 4px 10px rgba(255,106,0,0.4);
 }
@@ -298,7 +298,7 @@
   letter-spacing:0.18em;color:var(--gray-light);text-transform:uppercase;
   text-align:center;padding:2px 0 0;transition:color 0.15s;
 }
-.print-card.is-selected .pc-cap{color:var(--accent)}
+.print-card.is-selected .pc-cap{color:var(--accent-legacy)}
 
 .catalog-more{margin-top:16px}
 
@@ -341,25 +341,25 @@
 }
 .pstep__pill{
   font-family:var(--font-body);font-size:10px;font-weight:700;
-  letter-spacing:0.04em;color:var(--black);background:var(--accent);
+  letter-spacing:0.04em;color:var(--black);background:var(--accent-legacy);
   padding:3px 7px;border-radius:3px;line-height:1;white-space:nowrap;
 }
 .pstep--past .pstep__dot{
-  background:transparent;color:var(--accent);
-  border:1px solid var(--accent);
+  background:transparent;color:var(--accent-legacy);
+  border:1px solid var(--accent-legacy);
 }
-.pstep--past .pstep__pct{color:var(--accent)}
+.pstep--past .pstep__pct{color:var(--accent-legacy)}
 .pstep--current .pstep__dot{
-  background:var(--accent);color:var(--black);transform:scale(1.15);
+  background:var(--accent-legacy);color:var(--black);transform:scale(1.15);
 }
 .pstep--locked .pstep__dot{background:var(--gray-mid);color:var(--gray-light)}
 .pstep--locked .pstep__pct{color:var(--gray-light)}
 
 .pline{height:2px;background:var(--gray-mid);width:100%;align-self:start;margin-top:13px}
-.pline--on{background:var(--accent)}
+.pline--on{background:var(--accent-legacy)}
 
 .progress__cap{
-  font-family:var(--font-text);font-size:12.5px;color:var(--accent);
+  font-family:var(--font-text);font-size:12.5px;color:var(--accent-legacy);
   line-height:1.4;margin-top:4px;
 }
 .progress__cap[hidden]{display:none}
@@ -375,7 +375,7 @@
 }
 .item__num{
   width:22px;height:22px;border-radius:50%;
-  background:var(--gray-mid);color:var(--accent);
+  background:var(--gray-mid);color:var(--accent-legacy);
   display:inline-flex;align-items:center;justify-content:center;
   font-family:var(--font-display);font-size:12px;font-weight:700;
 }
@@ -459,9 +459,9 @@
 }
 .totals__save{
   display:flex;align-items:center;gap:6px;
-  font-family:var(--font-text);font-size:12px;color:var(--accent);margin-top:2px;
+  font-family:var(--font-text);font-size:12px;color:var(--accent-legacy);margin-top:2px;
 }
-.totals__save-ic{width:12px;height:12px;color:var(--accent);flex-shrink:0}
+.totals__save-ic{width:12px;height:12px;color:var(--accent-legacy);flex-shrink:0}
 
 .share-link{
   display:flex;align-items:center;justify-content:center;gap:8px;
@@ -469,7 +469,7 @@
   padding:4px 0 0;cursor:pointer;
   transition:color 0.15s;
 }
-.share-link:hover{color:var(--accent)}
+.share-link:hover{color:var(--accent-legacy)}
 .share-link__ic{width:14px;height:14px}
 
 /* ============================================================

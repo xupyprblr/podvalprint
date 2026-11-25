@@ -20,6 +20,7 @@ VERSION="$(sed -n 's/^Version: //p' theme/podval-theme/style.css)"
 ( cd theme && zip -qr "../dist/podval-theme-$VERSION.zip" podval-theme -x '*.DS_Store' )
 for dir in plugins/*/; do
   name="$(basename "$dir")"
-  ( cd plugins && zip -qr "../dist/$name-$VERSION.zip" "$name" -x '*/tests/*' '*.DS_Store' )
+  pver="$(sed -n 's/^[ *]*Version: *//p' "$dir/$name.php" | head -1 | tr -d '\r')"
+  ( cd plugins && zip -qr "../dist/$name-${pver:-$VERSION}.zip" "$name" -x '*/tests/*' '*.DS_Store' )
 done
 ls -1 dist

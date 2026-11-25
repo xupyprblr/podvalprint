@@ -7,7 +7,7 @@
 .podval-cart__empty-icon{width:72px;height:72px;color:var(--gray-light)}
 .podval-cart__empty-icon svg{width:100%;height:100%}
 .podval-cart__empty-text{font-family:var(--font-body);font-size:16px;color:var(--gray-light);margin:0}
-.podval-cart__empty-btn{display:inline-flex;align-items:center;padding:14px 32px;background:var(--accent);color:var(--black);font-family:var(--font-body);font-size:13px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;text-decoration:none;transition:opacity 0.15s}
+.podval-cart__empty-btn{display:inline-flex;align-items:center;padding:14px 32px;background:var(--accent-legacy);color:var(--black);font-family:var(--font-body);font-size:13px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;text-decoration:none;transition:opacity 0.15s}
 .podval-cart__empty-btn:hover{opacity:0.85}
 .podval-cart__layout{display:grid;grid-template-columns:1fr 360px;gap:40px;align-items:start}
 .podval-cart__items{display:flex;flex-direction:column;gap:0}
@@ -18,7 +18,7 @@
 .podval-cart__item-info{display:flex;flex-direction:column;gap:10px}
 .podval-cart__item-top{display:flex;justify-content:space-between;align-items:flex-start;gap:12px}
 .podval-cart__item-name{font-family:var(--font-body);font-size:14px;font-weight:400;letter-spacing:0.04em;color:var(--white);text-decoration:none;line-height:1.4;flex:1;transition:color 0.15s}
-.podval-cart__item-name:hover{color:var(--accent)}
+.podval-cart__item-name:hover{color:var(--accent-legacy)}
 .podval-cart__remove{flex-shrink:0;width:32px;height:32px;display:flex;align-items:center;justify-content:center;background:none;border:none;cursor:pointer;color:var(--gray-light);transition:color 0.15s;padding:0}
 .podval-cart__remove:hover{color:var(--white)}
 .podval-cart__remove svg{width:18px;height:18px}
@@ -30,8 +30,8 @@
 .podval-cart__qty-btn:hover{background:var(--gray)}
 .podval-cart__qty-btn svg{width:16px;height:16px}
 .podval-cart__qty-num{min-width:40px;text-align:center;font-family:var(--font-body);font-size:15px;color:var(--white);line-height:36px}
-.podval-cart__new-design{display:inline-flex;align-items:center;gap:6px;height:38px;padding:0 14px;border:1px solid var(--accent);color:var(--accent);background:none;font-family:var(--font-body);font-size:11px;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;text-decoration:none;cursor:pointer;transition:background 0.15s,color 0.15s;white-space:nowrap}
-.podval-cart__new-design:hover{background:var(--accent);color:#0a0a0a}
+.podval-cart__new-design{display:inline-flex;align-items:center;gap:6px;height:38px;padding:0 14px;border:1px solid var(--accent-legacy);color:var(--accent-legacy);background:none;font-family:var(--font-body);font-size:11px;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;text-decoration:none;cursor:pointer;transition:background 0.15s,color 0.15s;white-space:nowrap}
+.podval-cart__new-design:hover{background:var(--accent-legacy);color:#0a0a0a}
 .podval-cart__new-design svg{width:14px;height:14px;flex-shrink:0}
 .podval-cart__item-price{flex:1;display:flex;flex-direction:column;align-items:flex-end;gap:2px}
 .podval-cart__item-total{font-family:var(--font-display);font-size:22px;font-weight:700;color:var(--white);letter-spacing:0.02em}
@@ -39,7 +39,7 @@
 .podval-cart__item-unit{font-family:var(--font-text);font-size:11px;color:var(--gray-light);letter-spacing:0.03em}
 .podval-cart__item-unit .woocommerce-Price-amount{color:var(--gray-light)}
 .podval-cart__wishlist{width:36px;height:36px;display:flex;align-items:center;justify-content:center;background:none;border:none;cursor:pointer;color:var(--gray-light);transition:color 0.15s;padding:0}
-.podval-cart__wishlist:hover{color:var(--accent)}
+.podval-cart__wishlist:hover{color:var(--accent-legacy)}
 .podval-cart__wishlist svg{width:18px;height:18px}
 .podval-cart__sidebar{position:sticky;top:100px}
 .podval-cart__summary{border:1px solid var(--border);padding:28px 24px;display:flex;flex-direction:column;gap:16px}
@@ -54,13 +54,13 @@
 .podval-cart__coupon-btn{width:44px;height:44px;display:flex;align-items:center;justify-content:center;background:none;border:none;border-left:1px solid var(--border);cursor:pointer;color:var(--gray-light);transition:color 0.15s,background 0.15s;padding:0;flex-shrink:0}
 .podval-cart__coupon-btn:hover{color:var(--white);background:var(--gray)}
 .podval-cart__coupon-btn svg{width:16px;height:16px}
-.podval-cart__checkout-btn{display:flex;align-items:center;justify-content:center;width:100%;padding:16px;background:var(--accent);color:var(--black);font-family:var(--font-body);font-size:13px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;text-decoration:none;transition:opacity 0.15s;margin-top:4px}
+.podval-cart__checkout-btn{display:flex;align-items:center;justify-content:center;width:100%;padding:16px;background:var(--accent-legacy);color:var(--black);font-family:var(--font-body);font-size:13px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;text-decoration:none;transition:opacity 0.15s;margin-top:4px}
 .podval-cart__checkout-btn:hover{opacity:0.88;color:var(--black)}
 .podval-cart__clear-btn{display:flex;align-items:center;justify-content:center;width:100%;background:none;border:none;cursor:pointer;font-family:var(--font-text);font-size:12px;color:var(--gray-light);letter-spacing:0.04em;padding:8px;transition:color 0.15s}
 .podval-cart__clear-btn:hover{color:var(--white)}
 .podval-cart__back{margin-top:32px;padding-top:24px;border-top:1px solid var(--border)}
 .podval-cart__back-btn{display:inline-flex;align-items:center;gap:8px;font-family:var(--font-body);font-size:12px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--gray-light);text-decoration:none;transition:color 0.2s}
-.podval-cart__back-btn:hover{color:var(--accent)}
+.podval-cart__back-btn:hover{color:var(--accent-legacy)}
 .podval-cart__back-btn svg{flex-shrink:0;transition:transform 0.2s}
 .podval-cart__back-btn:hover svg{transform:translateX(-3px)}
 .podval-checkout{max-width:1600px;margin:0 auto;padding:40px 48px 80px}
@@ -72,20 +72,20 @@
 .podval-co__section-title{font-family:var(--font-body);font-size:13px;font-weight:600;letter-spacing:0.15em;text-transform:uppercase;color:var(--white);margin-bottom:24px;padding-bottom:12px;border-bottom:1px solid var(--border)}
 .podval-co__field{margin-bottom:20px}
 .podval-co__label{display:block;font-family:var(--font-text);font-size:12px;letter-spacing:0.08em;text-transform:uppercase;color:var(--gray-light);margin-bottom:8px}
-.podval-co__label abbr{color:var(--accent);text-decoration:none}
+.podval-co__label abbr{color:var(--accent-legacy);text-decoration:none}
 .podval-co__input,.podval-co__textarea{width:100%;padding:14px 16px;background:var(--gray);border:1px solid var(--border);border-radius:4px;color:var(--white);font-family:var(--font-text);font-size:15px;transition:border-color 0.2s;box-sizing:border-box}
-.podval-co__input:focus,.podval-co__textarea:focus{border-color:var(--accent)}
+.podval-co__input:focus,.podval-co__textarea:focus{border-color:var(--accent-legacy)}
 .podval-co__input::placeholder,.podval-co__textarea::placeholder{color:var(--gray-light);opacity:0.6}
 .podval-co__hint{display:block;margin-top:6px;font-family:var(--font-text);font-size:12px;color:var(--gray-light)}
 /* Панель адреса доставки — появляется при выборе Yandex / Евро-Почты.
    Аналог CDEK-панели: акцентная подсветка, чтобы пользователь её заметил. */
-.podval-co__address-panel{margin:24px 0 32px;padding:20px 22px;background:rgba(255,106,0,0.04);border:1px solid var(--accent);border-radius:8px;animation:podvalAddressFadeIn 0.25s ease-out}
+.podval-co__address-panel{margin:24px 0 32px;padding:20px 22px;background:rgba(255,106,0,0.04);border:1px solid var(--accent-legacy);border-radius:8px;animation:podvalAddressFadeIn 0.25s ease-out}
 @keyframes podvalAddressFadeIn{from{opacity:0;transform:translateY(-4px)}to{opacity:1;transform:translateY(0)}}
 .podval-co__address-panel-title{font-family:var(--font-body);font-size:13px;font-weight:600;letter-spacing:0.15em;text-transform:uppercase;color:var(--white);margin-bottom:18px;padding-bottom:10px;border-bottom:1px solid rgba(255,106,0,0.25)}
 .podval-co__address-panel .podval-co__field:last-child{margin-bottom:0}
 .podval-co__field-hint{margin-top:6px;font-family:var(--font-text);font-size:12px;color:var(--gray-light);line-height:1.4}
 .podval-co__address-note{display:flex;align-items:flex-start;gap:8px;margin-top:14px;padding:10px 12px;background:rgba(255,106,0,0.06);border-radius:4px;font-family:var(--font-text);font-size:12px;color:var(--gray-light);line-height:1.4}
-.podval-co__address-note svg{flex-shrink:0;color:var(--accent);margin-top:1px}
+.podval-co__address-note svg{flex-shrink:0;color:var(--accent-legacy);margin-top:1px}
 .podval-co__shipping-payment-row{display:grid;grid-template-columns:1fr 1fr;gap:24px;align-items:start}
 .podval-co__shipping-payment-row .podval-co__section{margin-bottom:20px;min-width:0;overflow:hidden}
 .podval-co__shipping-payment-row .podval-co__select-group{min-width:0;overflow:hidden}
@@ -101,8 +101,8 @@
 .podval-co__select-desc{font-family:var(--font-text);font-size:12px;color:var(--gray-light);margin-top:2px;transition:opacity 0.2s,max-height 0.2s}
 .podval-co__select-chevron{width:20px;height:20px;color:var(--gray-light);flex-shrink:0;transition:transform 0.3s,color 0.2s}
 .podval-co__select-card.is-selected{background:rgba(255,106,0,0.05);padding:20px 20px}
-.podval-co__select-card.is-selected .podval-co__select-title{color:var(--accent)}
-.podval-co__select-card.is-selected .podval-co__select-chevron{color:var(--accent);transform:rotate(180deg)}
+.podval-co__select-card.is-selected .podval-co__select-title{color:var(--accent-legacy)}
+.podval-co__select-card.is-selected .podval-co__select-chevron{color:var(--accent-legacy);transform:rotate(180deg)}
 .podval-co__select-card.is-collapsed{padding:14px 20px}
 .podval-co__select-card.is-collapsed .podval-co__select-desc{opacity:0;max-height:0;margin:0;overflow:hidden}
 .podval-co__select-card.is-collapsed .podval-co__select-title{font-size:13px;color:var(--gray-light)}
@@ -112,12 +112,12 @@
 .podval-co__select-card:not(.is-selected):not(.is-disabled):hover .podval-co__select-title{color:var(--white)}
 .podval-co__radio-card{display:block;cursor:pointer;padding:16px 20px;background:var(--gray);border:1px solid var(--border);border-radius:6px;transition:border-color 0.2s,background 0.2s}
 .podval-co__radio-card:hover{border-color:rgba(255,255,255,0.2)}
-.podval-co__radio-card.is-selected{border-color:var(--accent);background:rgba(255,106,0,0.04)}
+.podval-co__radio-card.is-selected{border-color:var(--accent-legacy);background:rgba(255,106,0,0.04)}
 .podval-co__radio-card input[type="radio"]{display:none}
 .podval-co__radio-content{display:flex;align-items:center;gap:14px}
 .podval-co__radio-dot{flex-shrink:0;width:20px;height:20px;border-radius:50%;border:2px solid var(--border);position:relative;transition:border-color 0.2s}
-.podval-co__radio-card.is-selected .podval-co__radio-dot{border-color:var(--accent)}
-.podval-co__radio-card.is-selected .podval-co__radio-dot::after{content:"";position:absolute;top:3px;left:3px;width:10px;height:10px;border-radius:50%;background:var(--accent)}
+.podval-co__radio-card.is-selected .podval-co__radio-dot{border-color:var(--accent-legacy)}
+.podval-co__radio-card.is-selected .podval-co__radio-dot::after{content:"";position:absolute;top:3px;left:3px;width:10px;height:10px;border-radius:50%;background:var(--accent-legacy)}
 .podval-co__radio-title{font-family:var(--font-text);font-size:15px;color:var(--white);font-weight:500}
 .podval-co__radio-desc{font-family:var(--font-text);font-size:12px;color:var(--gray-light);margin-top:2px}
 .podval-co__payment-card.is-disabled{opacity:0.35;pointer-events:none}
@@ -136,14 +136,14 @@
 .podval-co__summary-shipping{display:flex;justify-content:space-between;font-size:14px;color:var(--gray-light);margin-bottom:8px}
 .podval-co__summary-total{font-size:18px;font-weight:600;color:var(--white);margin-bottom:24px}
 .podval-co__summary-total span:last-child{font-family:var(--font-body)}
-.podval-co__submit-btn{display:block;width:100%;padding:16px;background:var(--accent);color:var(--black);font-family:var(--font-body);font-size:13px;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;text-align:center;border:none;border-radius:4px;cursor:pointer;transition:opacity 0.2s}
+.podval-co__submit-btn{display:block;width:100%;padding:16px;background:var(--accent-legacy);color:var(--black);font-family:var(--font-body);font-size:13px;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;text-align:center;border:none;border-radius:4px;cursor:pointer;transition:opacity 0.2s}
 .podval-co__submit-btn:hover{opacity:0.9}
 .podval-co__submit-btn:disabled{opacity:0.5;cursor:not-allowed}
 .podval-co__agreement{font-family:var(--font-text);font-size:11px;color:var(--gray-light);text-align:center;margin-top:14px;line-height:1.5}
 .podval-co__agreement a{color:var(--white);text-decoration:underline}
 .podval-co__collapsible{margin-bottom:16px}
 .podval-co__collapsible-toggle{display:flex;align-items:center;gap:8px;background:none;border:none;padding:10px 0;cursor:pointer;font-family:var(--font-text);font-size:13px;color:var(--gray-light);width:100%;text-align:left;transition:color 0.15s}
-.podval-co__collapsible-toggle:hover{color:var(--accent)}
+.podval-co__collapsible-toggle:hover{color:var(--accent-legacy)}
 .podval-co__collapsible-chevron{margin-left:auto;transition:transform 0.25s;flex-shrink:0}
 .podval-co__collapsible.is-open .podval-co__collapsible-chevron{transform:rotate(180deg)}
 .podval-co__collapsible-body{max-height:0;overflow:hidden;transition:max-height 0.3s ease}
@@ -162,7 +162,7 @@
 .podval-co__empty .podval-co__submit-btn{max-width:300px;margin:0 auto;display:inline-block;text-decoration:none}
 .podval-checkout .woocommerce-error,.podval-checkout .woocommerce-message{margin-bottom:24px}
 .podval-co__upload-zone{border:2px dashed var(--border);border-radius:8px;padding:28px 24px;text-align:center;cursor:pointer;transition:border-color 0.2s,background 0.2s;position:relative}
-.podval-co__upload-zone:hover,.podval-co__upload-zone.is-dragover{border-color:var(--accent);background:rgba(255,106,0,0.03)}
+.podval-co__upload-zone:hover,.podval-co__upload-zone.is-dragover{border-color:var(--accent-legacy);background:rgba(255,106,0,0.03)}
 .podval-co__upload-icon{width:32px;height:32px;color:var(--gray-light);margin-bottom:10px;display:inline-block}
 .podval-co__upload-text{display:block;font-family:var(--font-text);font-size:14px;color:var(--white);margin-bottom:4px}
 .podval-co__upload-formats{display:block;font-family:var(--font-text);font-size:11px;color:var(--gray-light)}
@@ -175,7 +175,7 @@
 .podval-co__file-name{font-family:var(--font-text);font-size:13px;color:var(--white);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;display:block}
 .podval-co__file-size{font-family:var(--font-text);font-size:11px;color:var(--gray-light)}
 .podval-co__file-status{font-family:var(--font-text);font-size:11px;margin-left:auto;flex-shrink:0}
-.podval-co__file-status.is-uploading{color:var(--accent)}
+.podval-co__file-status.is-uploading{color:var(--accent-legacy)}
 .podval-co__file-status.is-done{color:#4ade80}
 .podval-co__file-status.is-error{color:var(--red)}
 .podval-co__file-remove{background:none;border:none;cursor:pointer;padding:4px;flex-shrink:0;color:var(--gray-light);transition:color 0.2s}
@@ -183,11 +183,11 @@
 .podval-co__file-remove svg{width:16px;height:16px}
 .podval-thankyou{max-width:800px;margin:0 auto;padding:60px 24px 80px}
 .podval-ty__header{text-align:center;margin-bottom:48px}
-.podval-ty__icon{width:72px;height:72px;margin:0 auto 20px;color:var(--accent)}
+.podval-ty__icon{width:72px;height:72px;margin:0 auto 20px;color:var(--accent-legacy)}
 .podval-ty__icon svg{width:100%;height:100%}
 .podval-ty__title{font-family:var(--font-display);font-size:clamp(28px,5vw,40px);text-transform:uppercase;letter-spacing:0.04em;color:var(--white);margin-bottom:12px}
 .podval-ty__subtitle{font-family:var(--font-text);font-size:16px;color:var(--gray-light);line-height:1.5;max-width:480px;margin:0 auto 16px}
-.podval-ty__order-num{font-family:var(--font-body);font-size:13px;letter-spacing:0.12em;text-transform:uppercase;color:var(--accent)}
+.podval-ty__order-num{font-family:var(--font-body);font-size:13px;letter-spacing:0.12em;text-transform:uppercase;color:var(--accent-legacy)}
 .podval-ty__details{background:var(--gray);border:1px solid var(--border);border-radius:10px;padding:32px;margin-bottom:40px}
 .podval-ty__section{margin-bottom:28px}
 .podval-ty__section-title{font-family:var(--font-body);font-size:12px;font-weight:600;letter-spacing:0.15em;text-transform:uppercase;color:var(--gray-light);margin-bottom:16px}
@@ -205,24 +205,24 @@
 .podval-ty__info-block{}
 .podval-ty__info-label{font-family:var(--font-body);font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:var(--gray-light);margin-bottom:6px}
 .podval-ty__info-value{font-family:var(--font-text);font-size:15px;color:var(--white)}
-.podval-ty__info-total{font-family:var(--font-body);font-size:20px;font-weight:700;color:var(--accent)}
+.podval-ty__info-total{font-family:var(--font-body);font-size:20px;font-weight:700;color:var(--accent-legacy)}
 .podval-ty__info-sub{font-family:var(--font-text);font-size:13px;color:var(--gray-light);margin-top:4px}
 .podval-ty__actions{display:flex;justify-content:center;gap:16px;flex-wrap:wrap}
-.podval-ty__btn-primary{display:inline-flex;align-items:center;padding:16px 40px;background:var(--accent);color:var(--black);border:none;border-radius:4px;font-family:var(--font-body);font-size:13px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;text-decoration:none;transition:opacity 0.2s;cursor:pointer}
+.podval-ty__btn-primary{display:inline-flex;align-items:center;padding:16px 40px;background:var(--accent-legacy);color:var(--black);border:none;border-radius:4px;font-family:var(--font-body);font-size:13px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;text-decoration:none;transition:opacity 0.2s;cursor:pointer}
 .podval-ty__btn-primary:hover{opacity:0.9}
 .podval-ty__btn-outline{display:inline-flex;align-items:center;padding:16px 40px;background:transparent;border:2px solid var(--border);border-radius:4px;color:var(--white);font-family:var(--font-body);font-size:13px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;text-decoration:none;transition:border-color 0.2s,color 0.2s;cursor:pointer}
-.podval-ty__btn-outline:hover{border-color:var(--accent);color:var(--accent)}
+.podval-ty__btn-outline:hover{border-color:var(--accent-legacy);color:var(--accent-legacy)}
 .podval-co__select-card--soon{opacity:0.45;pointer-events:none;cursor:default}
-.podval-co__soon-badge{flex-shrink:0;padding:3px 10px;background:rgba(255,106,0,0.15);color:var(--accent);font-family:var(--font-body);font-size:10px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;border-radius:20px;white-space:nowrap}
+.podval-co__soon-badge{flex-shrink:0;padding:3px 10px;background:rgba(255,106,0,0.15);color:var(--accent-legacy);font-family:var(--font-body);font-size:10px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;border-radius:20px;white-space:nowrap}
 .podval-co__field-error{display:none;margin-top:6px;font-family:var(--font-text);font-size:12px;color:var(--red);line-height:1.4}
 .podval-co__field-error.is-visible{display:block}
 .podval-co__input.is-invalid{border-color:var(--red)}
 .podval-co__spinner-overlay{position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(10,10,10,0.85);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:20px;z-index:99999}
-.podval-co__spinner{width:48px;height:48px;border:3px solid var(--border);border-top-color:var(--accent);border-radius:50%;animation:podval-spin 0.7s linear infinite}
+.podval-co__spinner{width:48px;height:48px;border:3px solid var(--border);border-top-color:var(--accent-legacy);border-radius:50%;animation:podval-spin 0.7s linear infinite}
 .podval-co__spinner-text{font-family:var(--font-body);font-size:13px;letter-spacing:0.12em;text-transform:uppercase;color:var(--gray-light)}
 .podval-pay{max-width:520px;margin:0 auto;padding:60px 24px 80px;text-align:center}
 .podval-pay__header{margin-bottom:36px}
-.podval-pay__icon{width:64px;height:64px;margin:0 auto 20px;color:var(--accent)}
+.podval-pay__icon{width:64px;height:64px;margin:0 auto 20px;color:var(--accent-legacy)}
 .podval-pay__icon svg{width:100%;height:100%}
 .podval-pay__icon--done{color:#4ade80}
 .podval-pay__title{font-family:var(--font-display);font-size:clamp(24px,4vw,36px);text-transform:uppercase;letter-spacing:0.04em;color:var(--white);margin-bottom:8px}
@@ -234,14 +234,14 @@
 .podval-pay__item-price{font-family:var(--font-text);font-size:14px;color:var(--white);white-space:nowrap;flex-shrink:0}
 .podval-pay__divider{height:1px;background:var(--border);margin:18px 0}
 .podval-pay__total{display:flex;justify-content:space-between;font-family:var(--font-text);font-size:14px;color:var(--gray-light)}
-.podval-pay__total-amount{font-family:var(--font-body);font-size:22px;font-weight:700;color:var(--accent)}
-.podval-pay__btn{display:flex;align-items:center;justify-content:center;gap:10px;width:100%;padding:18px 24px;background:var(--accent);color:var(--black);border:none;border-radius:6px;font-family:var(--font-body);font-size:14px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;text-decoration:none;cursor:pointer;transition:opacity 0.2s}
+.podval-pay__total-amount{font-family:var(--font-body);font-size:22px;font-weight:700;color:var(--accent-legacy)}
+.podval-pay__btn{display:flex;align-items:center;justify-content:center;gap:10px;width:100%;padding:18px 24px;background:var(--accent-legacy);color:var(--black);border:none;border-radius:6px;font-family:var(--font-body);font-size:14px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;text-decoration:none;cursor:pointer;transition:opacity 0.2s}
 .podval-pay__btn:hover{opacity:0.9}
 .podval-pay__btn svg{flex-shrink:0}
 .podval-pay__secure{display:flex;align-items:center;justify-content:center;gap:6px;margin-top:16px;font-family:var(--font-text);font-size:12px;color:var(--gray-light)}
 .podval-pay__secure svg{flex-shrink:0;opacity:0.6}
 .podval-pay__back{display:inline-block;margin-top:8px;font-family:var(--font-text);font-size:13px;color:var(--gray-light);text-decoration:none;transition:color 0.2s}
-.podval-pay__back:hover{color:var(--accent)}
+.podval-pay__back:hover{color:var(--accent-legacy)}
 .podval-cart__artwork-badge-row{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
 .podval-cart__artwork-badge{display:inline-flex;align-items:center;gap:5px;font-size:12px;font-weight:500;color:#4caf50;background:rgba(76,175,80,0.08);border:1px solid rgba(76,175,80,0.2);border-radius:6px;padding:4px 10px}
 .podval-cart__artwork-badge svg{flex-shrink:0}
@@ -287,7 +287,7 @@
 
   /* Аккордеоны секций (доставка, оплата) */
   .podval-co__section-toggle { cursor: pointer; }
-  .podval-co__section-preview { display: inline; margin-left: auto; font-weight: 400; font-size: 12px; color: var(--accent); letter-spacing: 0.03em; text-transform: none; }
+  .podval-co__section-preview { display: inline; margin-left: auto; font-weight: 400; font-size: 12px; color: var(--accent-legacy); letter-spacing: 0.03em; text-transform: none; }
   .podval-co__section-chevron { display: block; flex-shrink: 0; color: var(--gray-light); transition: transform 0.25s; }
   .podval-co__section--shipping .podval-co__section-body,
   .podval-co__section--payment .podval-co__section-body { max-height: 0; overflow: hidden; transition: max-height 0.3s ease; }
@@ -336,7 +336,7 @@
 
 /* Bundle item — лёгкий accent на контейнер */
 .podval-cart__item--bundle{
-  border-left:3px solid var(--accent);
+  border-left:3px solid var(--accent-legacy);
   padding-left:12px;
 }
 
@@ -347,14 +347,14 @@
 }
 .podval-cart__bundle-pct{
   display:inline-flex;align-items:center;
-  background:var(--accent);color:#0a0a0a;
+  background:var(--accent-legacy);color:#0a0a0a;
   font-family:var(--font-body);font-size:11px;font-weight:700;
   letter-spacing:0.06em;text-transform:uppercase;
   padding:3px 10px;
 }
 .podval-cart__bundle-save{
   display:inline-flex;align-items:center;
-  color:var(--accent);
+  color:var(--accent-legacy);
   font-family:var(--font-body);font-size:11px;font-weight:600;
   letter-spacing:0.06em;text-transform:uppercase;
   padding:3px 0;
@@ -377,7 +377,7 @@
 .podval-cart__bundle-comp-sum::-webkit-details-marker{display:none}
 .podval-cart__bundle-comp-sum::before{
   content:"▸";
-  color:var(--accent);
+  color:var(--accent-legacy);
   transition:transform .15s ease;
   font-size:10px;
   display:inline-block;
@@ -419,7 +419,7 @@
 .podval-cart__qty-bundle-label{
   font-family:var(--font-body);font-size:12px;font-weight:700;
   letter-spacing:0.10em;text-transform:uppercase;
-  color:var(--accent);
+  color:var(--accent-legacy);
 }
 
 /* ════════════════════════════════════════════════════════════════════
@@ -430,13 +430,13 @@
   margin:6px 0 8px;
   padding:8px 12px;
   background:rgba(255,106,0,0.05);
-  border-left:3px solid var(--accent);
+  border-left:3px solid var(--accent-legacy);
   font-family:var(--font-text);
   font-size:13px;
   line-height:1.5;
 }
 .bundle-order-composition__discount{
-  color:var(--accent);
+  color:var(--accent-legacy);
   font-family:var(--font-body);
   font-size:11px;
   font-weight:700;
@@ -473,14 +473,14 @@
 
 /* Bundle item на thank-you странице */
 .podval-ty__item--bundle .podval-ty__item-name{
-  color:var(--accent);
+  color:var(--accent-legacy);
 }
 .podval-ty__item--bundle .podval-ty__item-qty{
   background:rgba(255,106,0,0.10);
   border:1px solid rgba(255,106,0,0.3);
   padding:2px 10px;
   display:inline-block;
-  color:var(--accent);
+  color:var(--accent-legacy);
   font-weight:600;
   font-size:11px;
   letter-spacing:0.08em;
@@ -490,7 +490,7 @@
 /* «Собрать ещё один принт» — вторичное действие рядом с оформлением.
    Контурная кнопка, а не залитая: она не должна спорить с «Оформить заказ». */
 .podval-cart__more-btn{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;margin-top:10px;padding:12px;border:1px solid var(--border);border-radius:8px;background:none;font-family:var(--font-body);font-size:12px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:var(--gray-light);text-decoration:none;transition:border-color 0.15s,color 0.15s}
-.podval-cart__more-btn:hover{border-color:var(--accent);color:var(--accent)}
+.podval-cart__more-btn:hover{border-color:var(--accent-legacy);color:var(--accent-legacy)}
 .podval-cart__more-btn svg{flex-shrink:0;transition:transform 0.2s}
 .podval-cart__more-btn:hover svg{transform:translateX(3px)}
 

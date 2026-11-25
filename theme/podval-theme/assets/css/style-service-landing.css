@@ -15,8 +15,6 @@
    при шрифтах, приехавших через 1 с). optional: успел — Oswald, не успел —
    H1 остаётся в запасном шрифте без подмены, со следующей страницы — из кэша.
    Пути относительно этого файла: assets/css → assets/fonts. */
-@font-face{font-family:'Oswald-SL';font-style:normal;font-weight:700;font-display:optional;src:url('../fonts/oswald-cyrillic-700.woff2') format('woff2');unicode-range:U+0301,U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116}
-@font-face{font-family:'Oswald-SL';font-style:normal;font-weight:700;font-display:optional;src:url('../fonts/oswald-latin-700.woff2') format('woff2');unicode-range:U+0-FF,U+131,U+152-153,U+2BB-2BC,U+2C6,U+2DA,U+2DC,U+304,U+308,U+329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
 
 /* ── База ───────────────────────────────────────────────────────────── */
 .sl{background:var(--black);color:var(--white);font-family:var(--font-text);overflow-x:clip}
@@ -32,16 +30,16 @@
 .sl-h3{font-family:var(--font-display);font-size:22px;line-height:1.2;font-weight:700;text-transform:uppercase;letter-spacing:.03em;margin:40px 0 8px;color:var(--white)}
 .sl-h3:first-of-type{margin-top:0}
 .sl-lead{font-size:16px;line-height:1.6;color:var(--gray-light);margin:10px 0 0;max-width:720px}
-.sl-link{font-family:var(--font-body);font-size:13px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--accent);text-decoration:none;white-space:nowrap}
+.sl-link{font-family:var(--font-body);font-size:13px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--accent-legacy);text-decoration:none;white-space:nowrap}
 .sl-link:hover{text-decoration:underline}
 .sl-grid{display:grid;gap:20px}
 
 /* Кнопки */
 .sl-btn{display:inline-flex;align-items:center;justify-content:center;min-height:52px;padding:0 28px;border-radius:6px;font-family:var(--font-body);font-size:13px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;text-decoration:none;border:1px solid transparent;cursor:pointer;transition:background var(--transition),border-color var(--transition),color var(--transition);box-sizing:border-box;text-align:center;line-height:1.2}
-.sl-btn--primary{background:var(--accent);color:var(--black)}
+.sl-btn--primary{background:var(--accent-legacy);color:var(--black)}
 .sl-btn--primary:hover{background:#ff8a33}
 .sl-btn--ghost{background:transparent;color:var(--white);border-color:rgba(255,255,255,.28)}
-.sl-btn--ghost:hover{border-color:var(--accent);color:var(--accent)}
+.sl-btn--ghost:hover{border-color:var(--accent-legacy);color:var(--accent-legacy)}
 .sl-btn--block{width:100%}
 .sl-btn:disabled{opacity:.6;cursor:default}
 
@@ -57,13 +55,13 @@
 .sl-hero__grid{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,1fr);gap:56px;align-items:center}
 .sl-hero--noimg .sl-hero__grid{grid-template-columns:minmax(0,1fr)}
 .sl-hero--noimg .sl-hero__text{max-width:860px}
-.sl-hero__badge{display:inline-block;padding:6px 12px;border:1px solid rgba(255,106,0,.45);border-radius:999px;font-family:var(--font-body);font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);margin:0 0 20px}
+.sl-hero__badge{display:inline-block;padding:6px 12px;border:1px solid rgba(255,106,0,.45);border-radius:999px;font-family:var(--font-body);font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--accent-legacy);margin:0 0 20px}
 .sl-hero__title{font-family:'Oswald-SL','Oswald-fallback',sans-serif;font-size:64px;line-height:1.02;font-weight:700;text-transform:uppercase;letter-spacing:.01em;margin:0 0 20px;color:var(--white)}
 .sl-hero__sub{font-size:18px;line-height:1.6;color:#c9c8c3;margin:0 0 28px;max-width:560px}
 .sl-hero__facts{list-style:none;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin:0 0 32px;padding:0}
 .sl-hero__fact{padding:14px 16px;background:var(--gray);border:1px solid var(--border);border-radius:8px}
 .sl-hero__fact strong{display:block;font-family:var(--font-display);font-size:24px;line-height:1.15;font-weight:700;color:var(--white);white-space:nowrap}
-.sl-hero__fact:first-child strong{color:var(--accent)}
+.sl-hero__fact:first-child strong{color:var(--accent-legacy)}
 .sl-hero__fact>span{display:block;margin-top:4px;font-size:12px;line-height:1.35;color:var(--gray-light)}
 .sl-hero__cta{display:flex;flex-wrap:wrap;gap:12px}
 .sl-hero__media{position:relative;aspect-ratio:4/3;border-radius:12px;overflow:hidden;background:var(--gray-mid)}
@@ -104,13 +102,13 @@
 .sl-seg__opt input{position:absolute;opacity:0;width:1px;height:1px;margin:0;pointer-events:none}
 .sl-seg__opt>span{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;min-height:56px;padding:8px 10px;border:1px solid rgba(255,255,255,.14);border-radius:6px;font-size:14px;line-height:1.25;color:var(--white);text-align:center;box-sizing:border-box;transition:border-color var(--transition),background var(--transition)}
 .sl-seg__opt:hover>span{border-color:rgba(255,255,255,.35)}
-.sl-seg__opt input:checked+span{border-color:var(--accent);background:rgba(255,106,0,.1)}
-.sl-seg__opt input:focus-visible+span{outline:2px solid var(--accent);outline-offset:2px}
+.sl-seg__opt input:checked+span{border-color:var(--accent-legacy);background:rgba(255,106,0,.1)}
+.sl-seg__opt input:focus-visible+span{outline:2px solid var(--accent-legacy);outline-offset:2px}
 .sl-check{display:flex;align-items:center;gap:12px;min-height:44px;cursor:pointer;font-size:15px;color:var(--white)}
-.sl-check input{width:20px;height:20px;margin:0;accent-color:var(--accent);flex:none}
+.sl-check input{width:20px;height:20px;margin:0;accent-color:var(--accent-legacy);flex:none}
 .sl-check em{font-style:normal;color:var(--gray-light);margin-left:4px}
 /* Подпись цены под вариантом (podval_sl_opt_price / optPrice в JS) */
-.sl-seg__price{display:block;font-size:12px;line-height:1.2;color:var(--accent);white-space:nowrap}
+.sl-seg__price{display:block;font-size:12px;line-height:1.2;color:var(--accent-legacy);white-space:nowrap}
 .sl-seg__price--zero,.sl-seg__price--na{color:var(--gray-light)}
 /* Счётчики принтов на плёнке */
 .sl-counts{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
@@ -124,10 +122,10 @@
 .sl-calc__metres{color:var(--white)}
 .sl-qty{display:grid;grid-template-columns:48px minmax(0,140px) 48px;gap:6px}
 .sl-qty__btn{min-height:48px;border:1px solid rgba(255,255,255,.14);border-radius:6px;background:transparent;color:var(--white);font-size:22px;cursor:pointer}
-.sl-qty__btn:hover{border-color:var(--accent)}
+.sl-qty__btn:hover{border-color:var(--accent-legacy)}
 .sl-qty input{min-height:48px;width:100%;box-sizing:border-box;border:1px solid rgba(255,255,255,.14);border-radius:6px;background:var(--black);color:var(--white);font-family:var(--font-display);font-size:22px;text-align:center;-moz-appearance:textfield;appearance:textfield}
 .sl-qty input::-webkit-outer-spin-button,.sl-qty input::-webkit-inner-spin-button{-webkit-appearance:none;margin:0}
-.sl-qty input:focus{outline:none;border-color:var(--accent)}
+.sl-qty input:focus{outline:none;border-color:var(--accent-legacy)}
 .sl-qty__chips{display:flex;flex-wrap:wrap;gap:6px}
 .sl-chip{min-width:48px;min-height:36px;padding:0 12px;border:1px solid var(--border);border-radius:999px;background:transparent;color:var(--gray-light);font-size:13px;cursor:pointer}
 .sl-chip:hover{color:var(--white);border-color:rgba(255,255,255,.3)}
@@ -138,11 +136,11 @@
 .sl-calc__result{min-height:150px}
 .sl-calc__unit{font-family:var(--font-display);font-size:48px;line-height:1.05;font-weight:700;color:var(--white);white-space:nowrap}
 .sl-calc__unit small{font-size:20px;color:var(--gray-light);margin-left:4px}
-.sl-calc__prefix{color:var(--accent)}
+.sl-calc__prefix{color:var(--accent-legacy)}
 .sl-calc__line{margin-top:8px;font-size:15px;line-height:1.5;color:#c9c8c3}
 .sl-calc__total{color:var(--white);font-weight:600}
 .sl-calc__na{font-family:var(--font-display);font-size:30px;line-height:1.15;font-weight:700;text-transform:uppercase;color:var(--white);min-height:78px}
-.sl-calc__hint{margin:12px 0 0;min-height:42px;font-size:14px;line-height:1.5;color:var(--accent)}
+.sl-calc__hint{margin:12px 0 0;min-height:42px;font-size:14px;line-height:1.5;color:var(--accent-legacy)}
 .sl-nowrap,.sl-calc__hint [data-price-byn]{white-space:nowrap}
 .sl-calc__note{margin:0;font-size:12px;line-height:1.5;color:var(--gray-light)}
 
@@ -157,14 +155,14 @@
 .sl-table tbody th{font-weight:600;color:var(--white)}
 .sl-table tbody th small{display:block;font-weight:400;font-size:12px;color:var(--gray-light)}
 .sl-table tbody tr:last-child th,.sl-table tbody tr:last-child td{border-bottom:0}
-.sl-table__main{color:var(--accent);font-weight:700}
+.sl-table__main{color:var(--accent-legacy);font-weight:700}
 .sl-table__na{color:var(--gray-light);font-style:italic}
 /* Пояснения к тирам — под таблицей (в tfoot они растягивали колонку). */
 .sl-table-legend{list-style:none;display:flex;flex-wrap:wrap;gap:6px 24px;margin:10px 0 0;padding:0;font-size:13px;line-height:1.5;color:var(--gray-light)}
 .sl-table-legend li{position:relative;padding-left:14px}
-.sl-table-legend li::before{content:"";position:absolute;left:0;top:9px;width:6px;height:1px;background:var(--accent)}
+.sl-table-legend li::before{content:"";position:absolute;left:0;top:9px;width:6px;height:1px;background:var(--accent-legacy)}
 .sl-table-note{margin:10px 0 0;font-size:13px;color:var(--gray-light)}
-.sl-note{margin:28px 0 0;padding:18px 20px;border-left:3px solid var(--accent);background:var(--gray);font-size:15px;line-height:1.6;color:#c9c8c3}
+.sl-note{margin:28px 0 0;padding:18px 20px;border-left:3px solid var(--accent-legacy);background:var(--gray);font-size:15px;line-height:1.6;color:#c9c8c3}
 .sl-note p{margin:0 0 8px}
 .sl-note p:last-child{margin:0}
 
@@ -172,10 +170,10 @@
 .sl-grid--base{grid-template-columns:repeat(4,minmax(0,1fr))}
 .sl-base{display:flex;flex-direction:column;background:var(--gray);border:1px solid var(--border);border-radius:10px;overflow:hidden}
 a.sl-base{text-decoration:none;color:inherit;transition:border-color var(--transition),transform var(--transition)}
-a.sl-base:hover{border-color:var(--accent)}
+a.sl-base:hover{border-color:var(--accent-legacy)}
 a.sl-base:hover .sl-base__img{transform:scale(1.03)}
 .sl-base__img{transition:transform .3s ease}
-.sl-base__cta{margin-top:auto;padding-top:4px;font-family:var(--font-body);font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--accent)}
+.sl-base__cta{margin-top:auto;padding-top:4px;font-family:var(--font-body);font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--accent-legacy)}
 /* Кадр задаёт aspect-ratio, а картинка кладётся поверх абсолютом. Со статичным
    <img> высоту диктовали бы пропорции файла (height:100% в блоке с auto-высотой
    не резолвится), и aspect-ratio молча игнорировался: карточки в ряду выходили
@@ -186,7 +184,7 @@ a.sl-base:hover .sl-base__img{transform:scale(1.03)}
 .sl-base__ph{font-family:var(--font-display);font-size:72px;color:rgba(255,106,0,.18)}
 .sl-base__body{flex:1 1 auto;padding:16px 18px 20px;display:flex;flex-direction:column;gap:8px}
 .sl-base__title{font-family:var(--font-display);font-size:20px;font-weight:700;text-transform:uppercase;letter-spacing:.02em;margin:0;color:var(--white)}
-.sl-base__price{font-family:var(--font-display);font-size:20px;color:var(--accent)}
+.sl-base__price{font-family:var(--font-display);font-size:20px;color:var(--accent-legacy)}
 .sl-base__price small{font-family:var(--font-text);font-size:12px;color:var(--gray-light)}
 .sl-base__spec,.sl-base__note{margin:0;font-size:13px;line-height:1.5;color:var(--gray-light)}
 .sl-swatches{list-style:none;display:flex;gap:6px;margin:2px 0;padding:0}
@@ -209,14 +207,14 @@ a.sl-base:hover .sl-base__img{transform:scale(1.03)}
 /* ── 06 Шаги и требования ───────────────────────────────────────────── */
 .sl-steps{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:20px;counter-reset:none}
 .sl-step{padding:22px;border:1px solid var(--border);border-radius:10px;background:var(--gray)}
-.sl-step__num{display:block;font-family:var(--font-display);font-size:34px;font-weight:700;color:var(--accent);line-height:1;margin:0 0 14px}
+.sl-step__num{display:block;font-family:var(--font-display);font-size:34px;font-weight:700;color:var(--accent-legacy);line-height:1;margin:0 0 14px}
 .sl-step__title{font-family:var(--font-display);font-size:19px;font-weight:700;text-transform:uppercase;margin:0 0 8px;color:var(--white)}
 .sl-step__text{margin:0;font-size:14px;line-height:1.55;color:var(--gray-light)}
 .sl-reqs{margin:40px 0 0;padding:28px;border:1px dashed rgba(255,255,255,.18);border-radius:10px}
 .sl-reqs .sl-h3{margin:0 0 14px}
 .sl-reqs__list{margin:0;padding:0 0 0 18px;columns:2;column-gap:40px;font-size:15px;line-height:1.6;color:#c9c8c3}
 .sl-reqs__list li{break-inside:avoid;margin:0 0 6px}
-.sl-reqs__free{margin:16px 0 0;font-size:14px;color:var(--accent)}
+.sl-reqs__free{margin:16px 0 0;font-size:14px;color:var(--accent-legacy)}
 
 /* ── 07 Галерея ─────────────────────────────────────────────────────── */
 .sl-gallery{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
@@ -253,12 +251,12 @@ a.sl-base:hover .sl-base__img{transform:scale(1.03)}
 .sl-faq__item{border-bottom:1px solid var(--border)}
 .sl-faq__q{display:flex;align-items:center;justify-content:space-between;gap:16px;min-height:60px;padding:14px 0;cursor:pointer;list-style:none;font-size:17px;font-weight:600;line-height:1.4;color:var(--white)}
 .sl-faq__q::-webkit-details-marker{display:none}
-.sl-faq__q::after{content:"+";flex:none;font-size:26px;font-weight:400;color:var(--accent);transition:transform var(--transition)}
+.sl-faq__q::after{content:"+";flex:none;font-size:26px;font-weight:400;color:var(--accent-legacy);transition:transform var(--transition)}
 .sl-faq__item[open] .sl-faq__q::after{transform:rotate(45deg)}
 .sl-faq__a{padding:0 0 20px;font-size:15px;line-height:1.65;color:#c9c8c3}
 .sl-faq__a p{margin:0 0 10px}
 .sl-faq__a p:last-child{margin:0}
-.sl-faq__a a{color:var(--accent)}
+.sl-faq__a a{color:var(--accent-legacy)}
 
 /* ── 11 SEO-текст ───────────────────────────────────────────────────── */
 .sl-prose{font-size:16px;line-height:1.75;color:#c9c8c3}
@@ -268,7 +266,7 @@ a.sl-base:hover .sl-base__img{transform:scale(1.03)}
 .sl-prose p{margin:0 0 16px}
 .sl-prose ul,.sl-prose ol{margin:0 0 16px;padding-left:22px}
 .sl-prose li{margin:0 0 6px}
-.sl-prose a{color:var(--accent)}
+.sl-prose a{color:var(--accent-legacy)}
 
 /* ── 12 Форма ─────────────────────────────────────────────────────────
    Геометрия формы продублирована из style-core.css: сама форма живёт на
@@ -299,7 +297,7 @@ a.sl-base:hover .sl-base__img{transform:scale(1.03)}
 .sl-form .podval-svc-form__row{min-width:0}
 .sl-hp{position:absolute;left:-10000px;top:auto;width:1px;height:1px;overflow:hidden}
 .sl-form__error{padding:14px 16px;border:1px solid rgba(255,43,43,.5);border-radius:6px;background:rgba(255,43,43,.08);font-size:14px;line-height:1.5;color:#ffb3b3}
-.sl-form__error a{color:var(--accent);font-weight:600}
+.sl-form__error a{color:var(--accent-legacy);font-weight:600}
 
 /* ── 13 Похожие ─────────────────────────────────────────────────────── */
 .sl-related{grid-template-columns:repeat(3,minmax(0,1fr))}
@@ -320,7 +318,7 @@ a.sl-base:hover .sl-base__img{transform:scale(1.03)}
 /* ── Sticky-бар (мобиль) ────────────────────────────────────────────── */
 .sl-sticky{display:none;position:fixed;left:0;right:0;bottom:0;z-index:950;align-items:center;justify-content:space-between;gap:12px;padding:10px 16px calc(10px + env(safe-area-inset-bottom,0px));background:rgba(10,10,10,.97);border-top:1px solid var(--border);box-sizing:border-box}
 .sl-sticky__price{font-family:var(--font-display);font-size:20px;font-weight:700;color:var(--white);white-space:nowrap}
-.sl-sticky__btn{display:inline-flex;align-items:center;justify-content:center;min-height:44px;padding:0 22px;border-radius:6px;background:var(--accent);color:var(--black);font-family:var(--font-body);font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;text-decoration:none}
+.sl-sticky__btn{display:inline-flex;align-items:center;justify-content:center;min-height:44px;padding:0 22px;border-radius:6px;background:var(--accent-legacy);color:var(--black);font-family:var(--font-body);font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;text-decoration:none}
 
 /* ── [hidden] для классов со своим display ──────────────────────────── */
 .sl-calc__product[hidden],.sl-calc__panel[hidden],.sl-calc__price[hidden],.sl-calc__na[hidden],.sl-calc__meta[hidden],.sl-field--qty[hidden],.sl-form__error[hidden],.sl-lightbox__cap[hidden]{display:none}

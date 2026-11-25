@@ -1,0 +1,201 @@
+/* Подвальный Принт — слой сайта поверх дизайн-системы (assets/css/pp/).
+   Здесь: шрифты, сетка страницы, шапка и подвал на сайте, главная,
+   и мост для старой вёрстки внутренних страниц (переменные и шрифты). */
+
+/* ---------- Шрифты: свои woff2, переменные по насыщенности ---------- */
+@font-face { font-family: "Onest"; font-style: normal; font-weight: 400 900; font-display: swap; src: url("../fonts/onest-cyrillic.woff2") format("woff2"); unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116; }
+@font-face { font-family: "Onest"; font-style: normal; font-weight: 400 900; font-display: swap; src: url("../fonts/onest-latin.woff2") format("woff2"); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+@font-face { font-family: "Golos Text"; font-style: normal; font-weight: 400 700; font-display: swap; src: url("../fonts/golos-text-cyrillic.woff2") format("woff2"); unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116; }
+@font-face { font-family: "Golos Text"; font-style: normal; font-weight: 400 700; font-display: swap; src: url("../fonts/golos-text-latin.woff2") format("woff2"); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+@font-face { font-family: "Bitter"; font-style: normal; font-weight: 600 900; font-display: swap; src: url("../fonts/bitter-cyrillic.woff2") format("woff2"); unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116; }
+@font-face { font-family: "Bitter"; font-style: normal; font-weight: 600 900; font-display: swap; src: url("../fonts/bitter-latin.woff2") format("woff2"); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+
+/* Старая вёрстка внутренних страниц называет шрифты по именам прежней темы.
+   Эти имена теперь указывают на шрифты системы: заголовочные — на Onest, текстовые — на Golos Text. */
+@font-face { font-family: "Oswald"; font-weight: 400 900; font-display: swap; src: url("../fonts/onest-cyrillic.woff2") format("woff2"); unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116; }
+@font-face { font-family: "Oswald"; font-weight: 400 900; font-display: swap; src: url("../fonts/onest-latin.woff2") format("woff2"); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+2000-206F, U+20AC, U+2122, U+2212, U+FEFF, U+FFFD; }
+@font-face { font-family: "Oswald-SL"; font-weight: 400 900; font-display: swap; src: url("../fonts/onest-cyrillic.woff2") format("woff2"); unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116; }
+@font-face { font-family: "Oswald-SL"; font-weight: 400 900; font-display: swap; src: url("../fonts/onest-latin.woff2") format("woff2"); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+2000-206F, U+20AC, U+2122, U+2212, U+FEFF, U+FFFD; }
+@font-face { font-family: "Unbounded"; font-weight: 400 900; font-display: swap; src: url("../fonts/onest-cyrillic.woff2") format("woff2"); unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116; }
+@font-face { font-family: "Unbounded"; font-weight: 400 900; font-display: swap; src: url("../fonts/onest-latin.woff2") format("woff2"); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+2000-206F, U+20AC, U+2122, U+2212, U+FEFF, U+FFFD; }
+@font-face { font-family: "Inter"; font-weight: 400 700; font-display: swap; src: url("../fonts/golos-text-cyrillic.woff2") format("woff2"); unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116; }
+@font-face { font-family: "Inter"; font-weight: 400 700; font-display: swap; src: url("../fonts/golos-text-latin.woff2") format("woff2"); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+2000-206F, U+20AC, U+2122, U+2212, U+FEFF, U+FFFD; }
+
+/* ---------- Мост для старой вёрстки ----------
+   Старые стили построены на тёмной палитре через переменные --black/--white/--gray….
+   Переназначаем их на токены светлой темы: фон становится белым, текст — чернилами.
+   Акцент старой вёрстки (оранжевый) становится чернилами: жёлтый в системе —
+   только заливкой и только для главного действия, а старые стили красят им и текст. */
+:root,
+[data-theme="light"] {
+	--black: var(--bg);
+	--white: var(--ink);
+	--gray: var(--surface);
+	--gray-mid: var(--surface-2);
+	--gray-light: var(--ink-2);
+	--gray-2: var(--surface-2);
+	--gray-4: var(--ink-2);
+	--border: var(--line);
+	--red: var(--danger);
+	--yellow: var(--accent);
+	--cd-dark: var(--bg);
+	--cd-gray: var(--surface);
+	--font-body: var(--font-display);
+	--font-heading: var(--font-display);
+	--transition: .12s ease;
+	--container: 1440px;
+}
+:root { --accent-legacy: var(--ink); }
+
+/* ---------- Каркас страницы ---------- */
+html { scroll-padding-top: calc(var(--size-header) + 8px); }
+body.podval-pp { margin: 0; background: var(--bg); color: var(--ink); font-family: var(--font-text); }
+.podval-pp .site-wrapper { min-height: 60vh; }
+.pp-wrap { box-sizing: border-box; width: 100%; max-width: 1440px; margin: 0 auto; padding: 0 clamp(16px, 5.5vw, 80px); }
+.pp-skip { position: absolute; left: 8px; top: -60px; z-index: 200; padding: 10px 14px; background: var(--ink); color: var(--on-ink); border-radius: var(--radius-sm); text-decoration: none; }
+.pp-skip:focus { top: 8px; }
+
+/* Компоненты системы внутри старой вёрстки: защищаемся от глобальных правил прежней темы. */
+.pp-header, .pp-footer, .pp-home, .pp-mnav-panel { font-family: var(--font-text); text-transform: none; letter-spacing: normal; }
+.pp-header *, .pp-footer *, .pp-home *, .pp-mnav-panel * { box-sizing: border-box; }
+.pp-header a, .pp-footer a, .pp-home a { text-transform: none; }
+.pp-home h1, .pp-home h2, .pp-home h3 { text-transform: none; }
+.pp-home .pp-h { font-family: var(--pp-head); }
+[data-theme="dark"] .pp-h { color: var(--ink); }
+
+/* ---------- Шапка ---------- */
+.pp-site-header { position: sticky; top: 0; z-index: var(--z-header); background: var(--bg); }
+.admin-bar .pp-site-header { top: 32px; }
+@media (max-width: 782px) { .admin-bar .pp-site-header { top: 0; } }
+.pp-site-header .pp-header { padding: 0 max(16px, calc((100% - 1280px) / 2)); }
+.pp-site-header .pp-logo { display: flex; align-items: center; color: var(--ink); flex: none; }
+.pp-site-header .pp-logo svg { height: 40px; width: auto; display: block; }
+.pp-site-header nav { flex: 1; min-width: 0; }
+.pp-nav > li { position: relative; }
+.pp-nav .pp-dropdown { left: 0; top: calc(100% + 8px); z-index: 5; }
+.pp-nav .pp-dropdown[hidden] { display: none; }
+.pp-nav button[aria-expanded="true"] .pp-icon { transform: rotate(180deg); }
+.pp-header__tools .pp-header__phone { white-space: nowrap; }
+.pp-header__burger { display: none; }
+.pp-cart .pp-badge--count.is-empty { display: none; }
+
+.pp-mnav-panel { display: none; border-bottom: 1.5px solid var(--line); background: var(--bg); max-height: calc(100vh - var(--size-header-m)); overflow-y: auto; }
+.pp-mnav-panel.is-open { display: block; }
+.pp-mnav .pp-icon { flex: none; }
+
+@media (max-width: 1100px) {
+	.pp-header__tools .pp-header__phone { display: none; }
+}
+@media (max-width: 960px) {
+	.pp-site-header .pp-header { height: var(--size-header-m); gap: 8px; padding: 0 8px 0 16px; }
+	.pp-site-header .pp-logo svg { height: 30px; }
+	.pp-site-header nav.pp-header__nav { display: none; }
+	.pp-header__tools { margin-left: auto; }
+	.pp-header__burger { display: inline-flex; }
+	.pp-cart .pp-cart__label { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+	.pp-cart { width: var(--size-control-m); padding: 0; justify-content: center; }
+	html { scroll-padding-top: calc(var(--size-header-m) + 8px); }
+}
+@media (min-width: 961px) { .pp-mnav-panel { display: none !important; } }
+
+/* ---------- Подвал ---------- */
+.pp-site-footer { margin-top: 0; }
+.pp-site-footer .pp-footer { padding-left: max(16px, calc((100% - 1280px) / 2)); padding-right: max(16px, calc((100% - 1280px) / 2)); }
+.pp-footer__brand { display: flex; flex-direction: column; gap: 12px; }
+.pp-footer__brand .pp-logo { color: var(--ink); display: flex; }
+.pp-footer__brand .pp-logo svg { height: 48px; width: auto; }
+.pp-footer__brand p { margin: 0; max-width: 300px; }
+.pp-footer__legal span { max-width: 100%; }
+@media (max-width: 760px) {
+	.pp-site-footer .pp-footer { padding-top: 32px; padding-bottom: 88px; }
+	.pp-footer__grid { grid-template-columns: 1fr 1fr !important; gap: 24px !important; }
+	.pp-footer__brand { grid-column: 1 / -1; }
+}
+
+/* Баннер cookie в стиле системы */
+.podval-pp .podval-cookie { background: var(--ink); color: var(--on-ink); font-family: var(--font-text); }
+.podval-pp .podval-cookie a { color: var(--on-ink); }
+
+/* ---------- Главная ---------- */
+.pp-home section { box-sizing: border-box; }
+.pp-sec { padding-top: 96px; padding-bottom: 96px; }
+.pp-sec--surface { background: var(--surface); padding: 96px 0; }
+.pp-sec__head { display: flex; justify-content: space-between; align-items: end; gap: 24px; flex-wrap: wrap; }
+.pp-sec__title { display: flex; flex-direction: column; gap: 12px; }
+.pp-stack { display: flex; flex-direction: column; }
+.pp-gap-12 { gap: 12px; } .pp-gap-16 { gap: 16px; } .pp-gap-20 { gap: 20px; } .pp-gap-32 { gap: 32px; } .pp-gap-40 { gap: 40px; }
+
+.pp-hero { display: flex; flex-wrap: wrap; gap: 48px; align-items: center; padding-top: 72px; padding-bottom: 80px; }
+.pp-hero__text { flex: 7 1 520px; min-width: 0; display: flex; flex-direction: column; gap: 28px; }
+.pp-hero__kicker { display: flex; gap: 12px; align-items: center; flex-wrap: wrap; }
+.pp-hero__title { max-width: 760px; }
+.pp-hero__lead { max-width: 600px; }
+.pp-actions { display: flex; gap: 12px; flex-wrap: wrap; }
+.pp-facts { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; margin: 8px 0 0; padding-top: 24px; border-top: 1.5px solid var(--line); max-width: 600px; }
+.pp-facts dd { margin: 6px 0 0; font: 800 22px/1 var(--font-display); font-variant-numeric: tabular-nums; }
+.pp-hero__media { flex: 5 1 380px; min-width: 0; display: grid; grid-template-columns: auto 1fr; gap: 12px; }
+.pp-hero__figure { position: relative; margin: 0; aspect-ratio: 4 / 5; border-radius: var(--radius-md); display: grid; place-items: center; overflow: hidden; }
+.pp-hero__figure > svg { width: 86%; height: auto; }
+.pp-hero__figure > img { width: 100%; height: 100%; object-fit: cover; }
+.pp-hero__figure .pp-printsize { position: absolute; top: 16px; right: 16px; background: var(--bg); }
+
+.pp-cards { display: grid; gap: 24px; }
+.pp-cards--3 { grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); }
+.pp-cards--4 { grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); }
+.pp-card__media > svg { width: 74%; height: auto; }
+.pp-card__media > img { width: 100%; height: 100%; object-fit: cover; }
+.pp-card--garment .pp-card__media { aspect-ratio: 5 / 4; }
+.pp-card--garment .pp-card__body { padding: 24px; gap: 12px; }
+.pp-card--garment .pp-card__title { font-size: 24px; }
+.pp-card__colors { display: flex; gap: 10px; align-items: center; }
+.pp-soon { display: flex; flex-direction: column; justify-content: space-between; gap: 24px; padding: 28px; border: 2px dashed var(--line-strong); border-radius: var(--radius-md); }
+.pp-soon > svg { width: 100%; height: auto; color: var(--line-strong); }
+
+.pp-steps { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 24px; }
+.pp-steps li { display: flex; flex-direction: column; gap: 12px; padding-top: 20px; border-top: 3px solid var(--ink); }
+.pp-steps__n { display: flex; justify-content: space-between; align-items: center; }
+.pp-steps__n span { font: 850 64px/1 var(--font-display); letter-spacing: -0.04em; }
+
+.pp-split { display: flex; flex-wrap: wrap; gap: 48px; }
+.pp-split__aside { flex: 1 1 320px; display: flex; flex-direction: column; gap: 16px; }
+.pp-split__main { flex: 2 1 560px; min-width: 0; }
+.pp-table-wrap { overflow-x: auto; }
+
+.pp-dark-teaser .pp-grain { background: var(--bg); padding: 80px 0 88px; }
+.pp-dark-teaser__grid { display: flex; flex-wrap: wrap; gap: 56px; align-items: start; }
+.pp-dark-teaser__text { flex: 1 1 420px; min-width: 0; display: flex; flex-direction: column; gap: 22px; padding-top: 8px; }
+.pp-dark-teaser__cards { flex: 1.4 1 520px; min-width: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 32px; }
+.pp-route-line { display: flex; gap: 14px; align-items: center; max-width: 420px; }
+.pp-route-line .pp-route { flex: 1; }
+
+.pp-where dl { margin: 0; display: grid; gap: 16px; }
+.pp-where dd { margin: 4px 0 0; font-weight: 600; }
+.pp-map { flex: 2 1 560px; min-height: 380px; border-radius: var(--radius-md); position: relative; display: grid; place-items: center; overflow: hidden; }
+.pp-map > svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+.pp-map iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+.pp-map__btn { position: relative; display: grid; justify-items: center; gap: 8px; background: none; border: 0; cursor: pointer; color: var(--ink); font: inherit; }
+.pp-map__pin { width: 48px; height: 48px; border-radius: 50%; background: var(--ink); color: var(--on-ink); display: grid; place-items: center; }
+.pp-map__btn .pp-label { background: var(--bg); padding: 6px 10px; border-radius: var(--radius-xs); }
+
+@media (max-width: 600px) {
+	.pp-sec { padding-top: 64px; padding-bottom: 64px; }
+	.pp-sec--surface { padding: 64px 0; }
+	.pp-hero { padding-top: 40px; padding-bottom: 48px; gap: 32px; }
+	.pp-hero__media { display: none; }
+	.pp-facts { gap: 12px; }
+	.pp-facts dd { font-size: 18px; }
+	.pp-dark-teaser__cards { grid-template-columns: 1fr; }
+	.pp-steps__n span { font-size: 48px; }
+	.pp-map { min-height: 260px; }
+}
+
+/* ---------- Простая страница (page.php, index.php) ---------- */
+.pp-page { padding-top: 56px; padding-bottom: 96px; }
+.pp-page__head { display: flex; flex-direction: column; gap: 12px; margin-bottom: 32px; }
+.pp-prose { max-width: 760px; font-size: 17px; line-height: 1.6; }
+.pp-prose h2 { font: 800 32px/1.1 var(--font-display); letter-spacing: -0.02em; margin: 48px 0 16px; }
+.pp-prose h3 { font: 700 22px/1.2 var(--font-display); margin: 32px 0 12px; }
+.pp-prose a { color: var(--ink); text-decoration-thickness: 1.5px; text-underline-offset: 3px; }
+.pp-prose img { max-width: 100%; height: auto; }
+.pp-crumbs { margin-bottom: 24px; }
+.pp-footer .pp-footer__title { margin: 0 0 12px; font: 600 12px/1.2 var(--font-text); letter-spacing: .08em; text-transform: uppercase; color: var(--ink-2); }
